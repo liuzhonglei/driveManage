@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS `wp_student_question` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+`weixin_question`  varchar(255) NOT NULL  COMMENT '提问人微信号',
+`answer`  varchar(255) NOT NULL  COMMENT '回复',
+`question`  varchar(255) NOT NULL  COMMENT '问题',
+`person_question`  varchar(255) NOT NULL  COMMENT '提问人',
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+INSERT INTO `wp_model` (`name`,`title`,`extend`,`relation`,`need_pk`,`field_sort`,`field_group`,`attribute_list`,`template_list`,`template_add`,`template_edit`,`list_grid`,`list_row`,`search_key`,`search_list`,`create_time`,`update_time`,`status`,`engine_type`) VALUES ('student_question','学员提问','0','','1','{"1":["weixin_question","answer","question","person_question"]}','1:基础','','','','','person_question:提问人\r\nquesion:问题\r\nid:操作:[EDIT]|回复','10','person_question','','1431514258','1431594891','1','MyISAM');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('weixin_question','提问人微信号','varchar(255) NOT NULL','string','','','1','','0','1','1','1431514347','1431514347','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('answer','回复','varchar(255) NOT NULL','string','','','1','','0','0','1','1431514412','1431514412','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('question','问题','varchar(255) NOT NULL','string','','','1','','0','0','1','1431514427','1431514427','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('person_question','提问人','varchar(255) NOT NULL','string','','','1','','0','1','1','1431514358','1431514312','','3','','regex','','3','function');
+UPDATE `wp_attribute` SET model_id= (SELECT MAX(id) FROM `wp_model`) WHERE model_id=0;

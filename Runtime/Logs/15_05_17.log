@@ -1,0 +1,1012 @@
+[ 2015-05-17T22:03:33+08:00 ] ::1 /index.php?s=/addon/Exam/Exam/preview/id/10.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001382s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000324s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000272s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000348s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.001808s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `name` = 'Exam' ) LIMIT 1   [ RunTime:0.000378s ]
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+SQL: SHOW COLUMNS FROM `wp_tongji` [ RunTime:0.001913s ]
+SQL: SELECT * FROM `wp_tongji` WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) LIMIT 1   [ RunTime:0.000345s ]
+SQL: UPDATE `wp_tongji` SET `content`='a:8:{s:6:\"School\";i:58;s:7:\"Student\";i:155;s:7:\"Teacher\";i:150;s:4:\"Card\";i:1;s:10:\"UserCenter\";i:11;s:10:\"CustomMenu\";i:2;s:4:\"Exam\";i:5;s:4:\"Test\";i:1;}' WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) [ RunTime:0.000308s ]
+NOTIC: [2048] Declaration of Addons\Exam\Controller\ExamController::show() should be compatible with Think\Controller::show($content, $charset = '', $contentType = '', $prefix = '') /Applications/MAMP/htdocs/Addons/Exam/Controller/ExamController.class.php 第 155 行.
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:-0.048033s ]
+SQL: SELECT `public_name` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000328s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000402s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000247s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000295s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000307s ]
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+
+[ 2015-05-17T22:03:33+08:00 ] ::1 /index.php?s=/addon/Exam/Exam/show/exam_id/10.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001457s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000470s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000412s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000491s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.002164s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `name` = 'Exam' ) LIMIT 1   [ RunTime:0.000272s ]
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+SQL: SHOW COLUMNS FROM `wp_tongji` [ RunTime:0.001370s ]
+SQL: SELECT * FROM `wp_tongji` WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) LIMIT 1   [ RunTime:0.000311s ]
+SQL: UPDATE `wp_tongji` SET `content`='a:8:{s:6:\"School\";i:58;s:7:\"Student\";i:155;s:7:\"Teacher\";i:150;s:4:\"Card\";i:1;s:10:\"UserCenter\";i:11;s:10:\"CustomMenu\";i:2;s:4:\"Exam\";i:6;s:4:\"Test\";i:1;}' WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) [ RunTime:0.000372s ]
+NOTIC: [2048] Declaration of Addons\Exam\Controller\ExamController::show() should be compatible with Think\Controller::show($content, $charset = '', $contentType = '', $prefix = '') /Applications/MAMP/htdocs/Addons/Exam/Controller/ExamController.class.php 第 155 行.
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:-0.035454s ]
+SQL: SELECT `public_name` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000238s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000328s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000241s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000323s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000435s ]
+SQL: SHOW COLUMNS FROM `wp_exam` [ RunTime:0.001591s ]
+SQL: SELECT * FROM `wp_exam` WHERE ( `id` = 10 ) AND ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000502s ]
+SQL: SHOW COLUMNS FROM `wp_exam_answer` [ RunTime:0.002618s ]
+SQL: SELECT sum(score) as total FROM `wp_exam_answer` WHERE ( `uid` = 1 ) AND ( `exam_id` = 10 ) LIMIT 1   [ RunTime:0.000388s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000076s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000145s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000354s ]
+NOTIC: [8] Use of undefined constant id - assumed 'id' /Applications/MAMP/htdocs/Runtime/Cache/Home/7e216b31feee22848af9241ee97c34a3.php 第 58 行.
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+INFO: Run Behavior\ParseTemplate [ RunTime:0.015630s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.015805s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000035s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000146s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000053s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000107s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000235s ]
+
+[ 2015-05-17T22:04:00+08:00 ] ::1 /index.php?s=/addon/Exam/Exam/profile/exam_id/10.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001567s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000810s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.002379s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000553s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.002663s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `name` = 'Exam' ) LIMIT 1   [ RunTime:0.000379s ]
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+SQL: SHOW COLUMNS FROM `wp_tongji` [ RunTime:0.001994s ]
+SQL: SELECT * FROM `wp_tongji` WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) LIMIT 1   [ RunTime:0.000395s ]
+SQL: UPDATE `wp_tongji` SET `content`='a:8:{s:6:\"School\";i:58;s:7:\"Student\";i:155;s:7:\"Teacher\";i:150;s:4:\"Card\";i:1;s:10:\"UserCenter\";i:11;s:10:\"CustomMenu\";i:2;s:4:\"Exam\";i:7;s:4:\"Test\";i:1;}' WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) [ RunTime:0.000844s ]
+NOTIC: [2048] Declaration of Addons\Exam\Controller\ExamController::show() should be compatible with Think\Controller::show($content, $charset = '', $contentType = '', $prefix = '') /Applications/MAMP/htdocs/Addons/Exam/Controller/ExamController.class.php 第 155 行.
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:-0.060230s ]
+SQL: SELECT `public_name` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000530s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000391s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000510s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000575s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.001027s ]
+SQL: SHOW COLUMNS FROM `wp_follow` [ RunTime:0.003316s ]
+SQL: SELECT * FROM `wp_follow` WHERE ( `id` = 1 ) LIMIT 1   [ RunTime:0.000468s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000175s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000152s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000367s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.030213s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.030403s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000034s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000148s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000053s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000096s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000209s ]
+
+[ 2015-05-17T22:04:39+08:00 ] ::1 /index.php?s=/addon/Exam/Exam/profile/exam_id/10.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001671s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000360s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000270s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000296s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.001603s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `name` = 'Exam' ) LIMIT 1   [ RunTime:0.000273s ]
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+SQL: SHOW COLUMNS FROM `wp_tongji` [ RunTime:0.001806s ]
+SQL: SELECT * FROM `wp_tongji` WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) LIMIT 1   [ RunTime:0.000328s ]
+SQL: UPDATE `wp_tongji` SET `content`='a:8:{s:6:\"School\";i:58;s:7:\"Student\";i:155;s:7:\"Teacher\";i:150;s:4:\"Card\";i:1;s:10:\"UserCenter\";i:11;s:10:\"CustomMenu\";i:2;s:4:\"Exam\";i:8;s:4:\"Test\";i:1;}' WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) [ RunTime:0.000365s ]
+NOTIC: [2048] Declaration of Addons\Exam\Controller\ExamController::show() should be compatible with Think\Controller::show($content, $charset = '', $contentType = '', $prefix = '') /Applications/MAMP/htdocs/Addons/Exam/Controller/ExamController.class.php 第 155 行.
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:-0.039039s ]
+SQL: SELECT `public_name` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000351s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000625s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000375s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000410s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000354s ]
+SQL: SHOW COLUMNS FROM `wp_follow` [ RunTime:0.001373s ]
+SQL: SELECT * FROM `wp_follow` WHERE ( `id` = 1 ) LIMIT 1   [ RunTime:0.000342s ]
+SQL: UPDATE `wp_follow` SET `nickname`='1111',`mobile`='1111' WHERE ( `id` = 1 ) [ RunTime:0.000249s ]
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+
+[ 2015-05-17T22:04:39+08:00 ] ::1 /index.php?s=/addon/Exam/Exam/exam/exam_id/10.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001586s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000343s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000265s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000322s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.001899s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `name` = 'Exam' ) LIMIT 1   [ RunTime:0.000343s ]
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+SQL: SHOW COLUMNS FROM `wp_tongji` [ RunTime:0.001281s ]
+SQL: SELECT * FROM `wp_tongji` WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) LIMIT 1   [ RunTime:0.000394s ]
+SQL: UPDATE `wp_tongji` SET `content`='a:8:{s:6:\"School\";i:58;s:7:\"Student\";i:155;s:7:\"Teacher\";i:150;s:4:\"Card\";i:1;s:10:\"UserCenter\";i:11;s:10:\"CustomMenu\";i:2;s:4:\"Exam\";i:9;s:4:\"Test\";i:1;}' WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) [ RunTime:0.000280s ]
+NOTIC: [2048] Declaration of Addons\Exam\Controller\ExamController::show() should be compatible with Think\Controller::show($content, $charset = '', $contentType = '', $prefix = '') /Applications/MAMP/htdocs/Addons/Exam/Controller/ExamController.class.php 第 155 行.
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:-0.037598s ]
+SQL: SELECT `public_name` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000266s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000334s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000363s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000483s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000381s ]
+SQL: SHOW COLUMNS FROM `wp_exam` [ RunTime:0.002131s ]
+SQL: SELECT * FROM `wp_exam` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000358s ]
+SQL: SHOW COLUMNS FROM `wp_exam_question` [ RunTime:0.001713s ]
+SQL: SELECT * FROM `wp_exam_question` WHERE ( `exam_id` = 10 ) AND ( `token` = 'sdfas' ) ORDER BY sort asc, id asc  [ RunTime:0.000300s ]
+NOTIC: [2] Invalid argument supplied for foreach() /Applications/MAMP/htdocs/Addons/Exam/Controller/ExamController.class.php 第 76 行.
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000060s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000248s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000547s ]
+NOTIC: [8] Undefined variable: data /Applications/MAMP/htdocs/Runtime/Cache/Home/263447733dd7e712279f8f7afc0a0755.php 第 52 行.
+INFO: Run Behavior\ParseTemplate [ RunTime:0.026293s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.026451s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000040s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000183s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000062s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000110s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000242s ]
+
+[ 2015-05-17T22:04:55+08:00 ] ::1 /index.php?s=/addon/UserCenter/UserCenter/lists.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002220s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000424s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000561s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.001235s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.002006s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `name` = 'UserCenter' ) LIMIT 1   [ RunTime:0.000491s ]
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+SQL: SHOW COLUMNS FROM `wp_tongji` [ RunTime:0.002907s ]
+SQL: SELECT * FROM `wp_tongji` WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) LIMIT 1   [ RunTime:0.000840s ]
+SQL: UPDATE `wp_tongji` SET `content`='a:8:{s:6:\"School\";i:58;s:7:\"Student\";i:155;s:7:\"Teacher\";i:150;s:4:\"Card\";i:1;s:10:\"UserCenter\";i:12;s:10:\"CustomMenu\";i:2;s:4:\"Exam\";i:9;s:4:\"Test\";i:1;}' WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) [ RunTime:0.001047s ]
+NOTIC: [2048] Declaration of Addons\UserCenter\Controller\UserCenterController::lists() should be compatible with Home\Controller\AddonsController::lists($model = NULL, $page = 0) /Applications/MAMP/htdocs/Addons/UserCenter/Controller/UserCenterController.class.php 第 114 行.
+NOTIC: [2048] Declaration of Addons\UserCenter\Controller\UserCenterController::edit() should be compatible with Home\Controller\AddonsController::edit($model = NULL, $id = 0) /Applications/MAMP/htdocs/Addons/UserCenter/Controller/UserCenterController.class.php 第 114 行.
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:-0.059042s ]
+SQL: SELECT `public_name` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000427s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000471s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000318s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000407s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000408s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002117s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `name` = 'follow' ) LIMIT 1   [ RunTime:0.000443s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.002695s ]
+SQL: SELECT `name` FROM `wp_attribute` WHERE ( model_id=89 )  [ RunTime:0.000764s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 89 ) LIMIT 1   [ RunTime:0.000547s ]
+SQL: SHOW COLUMNS FROM `wp_follow` [ RunTime:0.001771s ]
+SQL: SELECT `id`,`openid`,`nickname`,`sex`,`subscribe_time` FROM `wp_follow` WHERE ( `token` = 'sdfas' ) ORDER BY id desc LIMIT 0,10   [ RunTime:0.000253s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `wp_follow` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000216s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000076s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000245s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000392s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.002632s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `status` = 1 ) AND ( `type` = 1 )  [ RunTime:0.000410s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000266s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000258s ]
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+SQL: SHOW COLUMNS FROM `wp_addon_category` [ RunTime:0.002209s ]
+SQL: SELECT * FROM `wp_addon_category` ORDER BY sort asc, id desc  [ RunTime:0.000366s ]
+NOTIC: [8] Undefined index: home_memberpublic /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 105 行.
+NOTIC: [8] Undefined index: home_index_main /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 106 行.
+NOTIC: [8] Undefined index: home_creditconfig_lists /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 107 行.
+NOTIC: [8] Undefined index: home_keyword /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 108 行.
+NOTIC: [8] Undefined index: home_cascade /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 109 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Student /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Teacher /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: School /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Chat /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Wecome /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: CustomMenu /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Card /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Leaflets /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: CustomReply /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Tongji /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Vote /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Suggestions /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Survey /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Coupon /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Scratch /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Exam /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Test /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: YouaskService /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Robot /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Extensions /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: WeiSite /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Forms /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Undefined index: Diy /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Undefined index: HelloWorld /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Use of undefined constant model - assumed 'model' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 161 行.
+NOTIC: [8] Undefined variable: search_url /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 161 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+INFO: [ pageFooter ] --START--
+SQL: SELECT `addon_config` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000342s ]
+SQL: SELECT `config` FROM `wp_addons` WHERE ( `name` = 'BaiduStatistics' ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.000585s ]
+INFO: Run BaiduStatistics [ RunTime:0.003928s ]
+INFO: [ pageFooter ] --END-- [ RunTime:0.004066s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.091051s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.091201s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000038s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000189s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000070s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000149s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000431s ]
+
+[ 2015-05-17T22:05:01+08:00 ] ::1 /index.php?s=/addon/Exam/Exam/lists.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001775s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000407s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000304s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000281s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.000936s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `name` = 'Exam' ) LIMIT 1   [ RunTime:0.000256s ]
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+SQL: SHOW COLUMNS FROM `wp_tongji` [ RunTime:0.001193s ]
+SQL: SELECT * FROM `wp_tongji` WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) LIMIT 1   [ RunTime:0.000716s ]
+SQL: UPDATE `wp_tongji` SET `content`='a:8:{s:6:\"School\";i:58;s:7:\"Student\";i:155;s:7:\"Teacher\";i:150;s:4:\"Card\";i:1;s:10:\"UserCenter\";i:12;s:10:\"CustomMenu\";i:2;s:4:\"Exam\";i:10;s:4:\"Test\";i:1;}' WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) [ RunTime:0.000843s ]
+NOTIC: [2048] Declaration of Addons\Exam\Controller\ExamController::show() should be compatible with Think\Controller::show($content, $charset = '', $contentType = '', $prefix = '') /Applications/MAMP/htdocs/Addons/Exam/Controller/ExamController.class.php 第 155 行.
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:-0.046556s ]
+SQL: SELECT `public_name` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000355s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000418s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000369s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000496s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000593s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001834s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `name` = 'Exam' ) LIMIT 1   [ RunTime:0.000290s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.002114s ]
+SQL: SELECT `name` FROM `wp_attribute` WHERE ( model_id=76 )  [ RunTime:0.000660s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 76 ) LIMIT 1   [ RunTime:0.000295s ]
+SQL: SHOW COLUMNS FROM `wp_exam` [ RunTime:0.001692s ]
+SQL: SELECT `id`,`keyword`,`keyword_type`,`title`,`start_time`,`end_time` FROM `wp_exam` WHERE ( `token` = 'sdfas' ) ORDER BY id desc LIMIT 0,10   [ RunTime:0.000366s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `wp_exam` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000230s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000112s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000290s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000468s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.001967s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `status` = 1 ) AND ( `type` = 1 )  [ RunTime:0.000334s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000252s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000264s ]
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+SQL: SHOW COLUMNS FROM `wp_addon_category` [ RunTime:0.001116s ]
+SQL: SELECT * FROM `wp_addon_category` ORDER BY sort asc, id desc  [ RunTime:0.000302s ]
+NOTIC: [8] Undefined index: home_memberpublic /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 105 行.
+NOTIC: [8] Undefined index: home_index_main /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 106 行.
+NOTIC: [8] Undefined index: home_creditconfig_lists /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 107 行.
+NOTIC: [8] Undefined index: home_keyword /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 108 行.
+NOTIC: [8] Undefined index: home_cascade /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 109 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Student /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Teacher /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: School /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Chat /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Wecome /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: UserCenter /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: CustomMenu /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Card /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Leaflets /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: CustomReply /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Tongji /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Vote /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Suggestions /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Survey /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Coupon /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Scratch /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Test /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: YouaskService /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Robot /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Extensions /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: WeiSite /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Forms /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Undefined index: Diy /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Undefined index: HelloWorld /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Undefined variable: add_url /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 150 行.
+NOTIC: [8] Undefined variable: del_url /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 151 行.
+NOTIC: [8] Use of undefined constant model - assumed 'model' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 161 行.
+NOTIC: [8] Undefined variable: search_url /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 161 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+SQL: SELECT * FROM `wp_attribute` WHERE (  (`extra` !="")  ) AND ( `model_id` = 76 )  [ RunTime:0.000785s ]
+INFO: [ pageFooter ] --START--
+SQL: SELECT `addon_config` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000320s ]
+SQL: SELECT `config` FROM `wp_addons` WHERE ( `name` = 'BaiduStatistics' ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.000326s ]
+INFO: Run BaiduStatistics [ RunTime:0.002744s ]
+INFO: [ pageFooter ] --END-- [ RunTime:0.002965s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.089972s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.090125s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000034s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000151s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000086s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000146s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000335s ]
+
+[ 2015-05-17T22:05:01+08:00 ] ::1 /index.php?s=/addon/Exam/Exam/lists.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.003881s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.003019s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.001884s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.001767s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.002314s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `name` = 'Exam' ) LIMIT 1   [ RunTime:0.000363s ]
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+SQL: SHOW COLUMNS FROM `wp_tongji` [ RunTime:0.003820s ]
+SQL: SELECT * FROM `wp_tongji` WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) LIMIT 1   [ RunTime:0.000384s ]
+SQL: UPDATE `wp_tongji` SET `content`='a:8:{s:6:\"School\";i:58;s:7:\"Student\";i:155;s:7:\"Teacher\";i:150;s:4:\"Card\";i:1;s:10:\"UserCenter\";i:12;s:10:\"CustomMenu\";i:2;s:4:\"Exam\";i:11;s:4:\"Test\";i:1;}' WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) [ RunTime:0.000632s ]
+NOTIC: [2048] Declaration of Addons\Exam\Controller\ExamController::show() should be compatible with Think\Controller::show($content, $charset = '', $contentType = '', $prefix = '') /Applications/MAMP/htdocs/Addons/Exam/Controller/ExamController.class.php 第 155 行.
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:-0.061432s ]
+SQL: SELECT `public_name` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000412s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000463s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000373s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000493s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000462s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002037s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `name` = 'Exam' ) LIMIT 1   [ RunTime:0.000369s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.001524s ]
+SQL: SELECT `name` FROM `wp_attribute` WHERE ( model_id=76 )  [ RunTime:0.000528s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 76 ) LIMIT 1   [ RunTime:0.000391s ]
+SQL: SHOW COLUMNS FROM `wp_exam` [ RunTime:0.001655s ]
+SQL: SELECT `id`,`keyword`,`keyword_type`,`title`,`start_time`,`end_time` FROM `wp_exam` WHERE ( `token` = 'sdfas' ) ORDER BY id desc LIMIT 0,10   [ RunTime:0.000511s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `wp_exam` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000295s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000067s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000278s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000501s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.002240s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `status` = 1 ) AND ( `type` = 1 )  [ RunTime:0.000478s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000778s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000609s ]
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+SQL: SHOW COLUMNS FROM `wp_addon_category` [ RunTime:0.002997s ]
+SQL: SELECT * FROM `wp_addon_category` ORDER BY sort asc, id desc  [ RunTime:0.001502s ]
+NOTIC: [8] Undefined index: home_memberpublic /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 105 行.
+NOTIC: [8] Undefined index: home_index_main /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 106 行.
+NOTIC: [8] Undefined index: home_creditconfig_lists /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 107 行.
+NOTIC: [8] Undefined index: home_keyword /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 108 行.
+NOTIC: [8] Undefined index: home_cascade /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 109 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Student /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Teacher /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: School /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Chat /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Wecome /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: UserCenter /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: CustomMenu /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Card /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Leaflets /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: CustomReply /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Tongji /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Vote /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Suggestions /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Survey /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Coupon /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Scratch /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Test /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: YouaskService /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Robot /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Extensions /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: WeiSite /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Forms /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Undefined index: Diy /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Undefined index: HelloWorld /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Undefined variable: add_url /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 150 行.
+NOTIC: [8] Undefined variable: del_url /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 151 行.
+NOTIC: [8] Use of undefined constant model - assumed 'model' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 161 行.
+NOTIC: [8] Undefined variable: search_url /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 161 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+SQL: SELECT * FROM `wp_attribute` WHERE (  (`extra` !="")  ) AND ( `model_id` = 76 )  [ RunTime:0.000896s ]
+INFO: [ pageFooter ] --START--
+SQL: SELECT `addon_config` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000417s ]
+SQL: SELECT `config` FROM `wp_addons` WHERE ( `name` = 'BaiduStatistics' ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.000407s ]
+INFO: Run BaiduStatistics [ RunTime:0.004126s ]
+INFO: [ pageFooter ] --END-- [ RunTime:0.004372s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.133381s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.133568s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000052s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000230s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000096s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000160s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000348s ]
+
+[ 2015-05-17T22:05:04+08:00 ] ::1 /index.php?s=/addon/Extensions/Extensions/lists.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001910s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000301s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000291s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000311s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.001851s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `name` = 'Extensions' ) LIMIT 1   [ RunTime:0.000295s ]
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+SQL: SHOW COLUMNS FROM `wp_tongji` [ RunTime:0.002472s ]
+SQL: SELECT * FROM `wp_tongji` WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) LIMIT 1   [ RunTime:0.000364s ]
+NOTIC: [8] Undefined index: Extensions /Applications/MAMP/htdocs/Application/Home/Common/function.php 第 91 行.
+SQL: UPDATE `wp_tongji` SET `content`='a:9:{s:6:\"School\";i:58;s:7:\"Student\";i:155;s:7:\"Teacher\";i:150;s:4:\"Card\";i:1;s:10:\"UserCenter\";i:12;s:10:\"CustomMenu\";i:2;s:4:\"Exam\";i:11;s:4:\"Test\";i:1;s:10:\"Extensions\";i:1;}' WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) [ RunTime:0.000430s ]
+NOTIC: [2048] Declaration of Addons\Extensions\Controller\ExtensionsController::del() should be compatible with Home\Controller\AddonsController::del($model = NULL, $ids = NULL) /Applications/MAMP/htdocs/Addons/Extensions/Controller/ExtensionsController.class.php 第 60 行.
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:-0.038400s ]
+SQL: SELECT `public_name` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000381s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000306s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000297s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000438s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000381s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001758s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `name` = 'Extensions' ) LIMIT 1   [ RunTime:0.000283s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.001731s ]
+SQL: SELECT `name` FROM `wp_attribute` WHERE ( model_id=22 )  [ RunTime:0.000449s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 22 ) LIMIT 1   [ RunTime:0.000260s ]
+SQL: SHOW COLUMNS FROM `wp_extensions` [ RunTime:0.001096s ]
+SQL: SELECT `keyword`,`keyword_filter`,`output_format`,`api_url`,`api_token`,`cTime`,`id` FROM `wp_extensions` WHERE ( `token` = 'sdfas' ) ORDER BY id desc LIMIT 0,10   [ RunTime:0.000543s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `wp_extensions` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000670s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000062s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000238s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000386s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.001809s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `status` = 1 ) AND ( `type` = 1 )  [ RunTime:0.000357s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000273s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000251s ]
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+SQL: SHOW COLUMNS FROM `wp_addon_category` [ RunTime:0.001871s ]
+SQL: SELECT * FROM `wp_addon_category` ORDER BY sort asc, id desc  [ RunTime:0.000313s ]
+NOTIC: [8] Undefined index: home_memberpublic /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 105 行.
+NOTIC: [8] Undefined index: home_index_main /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 106 行.
+NOTIC: [8] Undefined index: home_creditconfig_lists /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 107 行.
+NOTIC: [8] Undefined index: home_keyword /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 108 行.
+NOTIC: [8] Undefined index: home_cascade /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 109 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Student /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Teacher /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: School /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Chat /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Wecome /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: UserCenter /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: CustomMenu /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Card /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Leaflets /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: CustomReply /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Tongji /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Vote /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Suggestions /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Survey /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Coupon /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Scratch /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Exam /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Test /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: YouaskService /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Robot /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: WeiSite /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Forms /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Undefined index: Diy /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Undefined index: HelloWorld /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Undefined variable: add_url /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 150 行.
+NOTIC: [8] Undefined variable: del_url /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 151 行.
+NOTIC: [8] Use of undefined constant model - assumed 'model' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 161 行.
+NOTIC: [8] Undefined variable: search_url /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 161 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+INFO: [ pageFooter ] --START--
+SQL: SELECT `addon_config` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000367s ]
+SQL: SELECT `config` FROM `wp_addons` WHERE ( `name` = 'BaiduStatistics' ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.000240s ]
+INFO: Run BaiduStatistics [ RunTime:0.002544s ]
+INFO: [ pageFooter ] --END-- [ RunTime:0.002677s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.081078s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.081216s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000055s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000289s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000117s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000136s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000303s ]
+
+[ 2015-05-17T22:05:07+08:00 ] ::1 /index.php?s=/addon/Diy/Diy/lists.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001243s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000333s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000577s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.001975s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.001544s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `name` = 'Diy' ) LIMIT 1   [ RunTime:0.000294s ]
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+SQL: SHOW COLUMNS FROM `wp_tongji` [ RunTime:0.001372s ]
+SQL: SELECT * FROM `wp_tongji` WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) LIMIT 1   [ RunTime:0.000293s ]
+NOTIC: [8] Undefined index: Diy /Applications/MAMP/htdocs/Application/Home/Common/function.php 第 91 行.
+SQL: UPDATE `wp_tongji` SET `content`='a:10:{s:6:\"School\";i:58;s:7:\"Student\";i:155;s:7:\"Teacher\";i:150;s:4:\"Card\";i:1;s:10:\"UserCenter\";i:12;s:10:\"CustomMenu\";i:2;s:4:\"Exam\";i:11;s:4:\"Test\";i:1;s:10:\"Extensions\";i:1;s:3:\"Diy\";i:1;}' WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150517 ) [ RunTime:0.000295s ]
+NOTIC: [2048] Declaration of Addons\Diy\Controller\DiyController::lists() should be compatible with Home\Controller\AddonsController::lists($model = NULL, $page = 0) /Applications/MAMP/htdocs/Addons/Diy/Controller/DiyController.class.php 第 214 行.
+NOTIC: [2048] Declaration of Addons\Diy\Controller\DiyController::show() should be compatible with Think\Controller::show($content, $charset = '', $contentType = '', $prefix = '') /Applications/MAMP/htdocs/Addons/Diy/Controller/DiyController.class.php 第 214 行.
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:-0.042978s ]
+SQL: SELECT `public_name` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000262s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000326s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000228s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000424s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000479s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001574s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `name` = 'Diy' ) LIMIT 1   [ RunTime:0.000357s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.001386s ]
+SQL: SELECT `name` FROM `wp_attribute` WHERE ( model_id=153 )  [ RunTime:0.000509s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 153 ) LIMIT 1   [ RunTime:0.000508s ]
+SQL: SHOW COLUMNS FROM `wp_diy` [ RunTime:0.002390s ]
+SQL: SELECT `keyword`,`title`,`is_close`,`need_login`,`view_count`,`id`,`token` FROM `wp_diy` WHERE ( `token` = 'sdfas' ) AND ( `module` = 'Diy' ) ORDER BY id desc LIMIT 0,10   [ RunTime:0.000660s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `wp_diy` WHERE ( `token` = 'sdfas' ) AND ( `module` = 'Diy' ) LIMIT 1   [ RunTime:0.000291s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000066s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000261s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000411s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.002304s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `status` = 1 ) AND ( `type` = 1 )  [ RunTime:0.000396s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000389s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000350s ]
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+SQL: SHOW COLUMNS FROM `wp_addon_category` [ RunTime:0.001380s ]
+SQL: SELECT * FROM `wp_addon_category` ORDER BY sort asc, id desc  [ RunTime:0.000307s ]
+NOTIC: [8] Undefined index: home_memberpublic /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 105 行.
+NOTIC: [8] Undefined index: home_index_main /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 106 行.
+NOTIC: [8] Undefined index: home_creditconfig_lists /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 107 行.
+NOTIC: [8] Undefined index: home_keyword /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 108 行.
+NOTIC: [8] Undefined index: home_cascade /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 109 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Student /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Teacher /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: School /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Chat /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Wecome /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: UserCenter /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: CustomMenu /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Card /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Leaflets /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: CustomReply /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Tongji /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Vote /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Suggestions /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Survey /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Coupon /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Scratch /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Exam /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Test /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: YouaskService /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Robot /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Extensions /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: WeiSite /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Undefined index: Forms /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Undefined index: HelloWorld /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 125 行.
+NOTIC: [8] Undefined variable: add_url /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 150 行.
+NOTIC: [8] Undefined variable: del_url /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 151 行.
+NOTIC: [8] Use of undefined constant model - assumed 'model' /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 161 行.
+NOTIC: [8] Undefined variable: search_url /Applications/MAMP/htdocs/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php 第 161 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+INFO: [ pageFooter ] --START--
+SQL: SELECT `addon_config` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000330s ]
+SQL: SELECT `config` FROM `wp_addons` WHERE ( `name` = 'BaiduStatistics' ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.000256s ]
+INFO: Run BaiduStatistics [ RunTime:0.002719s ]
+INFO: [ pageFooter ] --END-- [ RunTime:0.002853s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.090990s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.091171s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000077s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000226s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000088s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000193s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000398s ]
+

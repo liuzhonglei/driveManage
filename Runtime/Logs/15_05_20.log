@@ -1,0 +1,1453 @@
+[ 2015-05-20T07:41:31+08:00 ] ::1 /index.php?s=/Admin/index/index.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001976s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000725s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001997s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000964s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002016s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000859s ]
+SQL: SHOW COLUMNS FROM `wp_menu` [ RunTime:0.001715s ]
+SQL: SELECT `hide` FROM `wp_menu` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.000268s ]
+SQL: SELECT `url` FROM `wp_menu` WHERE ( pid=0 AND hide=0 ) ORDER BY sort ASC LIMIT 1   [ RunTime:0.000384s ]
+
+[ 2015-05-20T07:41:31+08:00 ] ::1 /index.php?s=/Admin/Config/group.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001892s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000443s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002315s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000386s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.001586s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000460s ]
+SQL: SHOW COLUMNS FROM `wp_config` [ RunTime:0.001932s ]
+SQL: SELECT `id`,`name`,`title`,`extra`,`value`,`remark`,`type` FROM `wp_config` WHERE ( `status` = 1 ) AND ( `group` = 1 ) ORDER BY sort  [ RunTime:0.000656s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000247s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000310s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000661s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.068157s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.068552s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000089s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000394s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000237s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000439s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000956s ]
+
+[ 2015-05-20T07:41:32+08:00 ] ::1 /index.php?s=/Admin/update/getRemoteVersion.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000292s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000971s ]
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:0.000171s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `wp_menu` [ RunTime:0.003527s ]
+SQL: SELECT * FROM `wp_menu` WHERE ( `pid` = 0 ) AND ( `hide` = 0 ) AND ( `is_dev` = 0 ) ORDER BY sort asc  [ RunTime:0.000921s ]
+SQL: SELECT `id` FROM `wp_menu` WHERE ( url like '%Update/getRemoteVersion%' ) LIMIT 1   [ RunTime:0.002064s ]
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.003135s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000622s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.005279s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000638s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002700s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000751s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000385s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000869s ]
+
+[ 2015-05-20T07:41:35+08:00 ] ::1 /index.php?s=/Admin/Model/index.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002153s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000422s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001924s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000498s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002558s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000414s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001553s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `wp_model` WHERE ( `status` > -1 ) LIMIT 1   [ RunTime:0.001856s ]
+SQL: SELECT `id`,`name`,`title`,`extend`,`relation`,`need_pk`,`field_sort`,`field_group`,`attribute_list`,`template_list`,`template_add`,`template_edit`,`list_grid`,`list_row`,`search_key`,`search_list`,`create_time`,`update_time`,`status`,`engine_type` FROM `wp_model` WHERE ( `status` > -1 ) ORDER BY `name` asc LIMIT 0,20   [ RunTime:0.000545s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000151s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000493s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000995s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.175209s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.175545s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000087s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000382s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000208s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000234s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000542s ]
+
+[ 2015-05-20T07:41:37+08:00 ] ::1 /index.php?s=/Admin/Model/index/p/2.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.004155s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000464s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.004073s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000501s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.004220s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000615s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.003891s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `wp_model` WHERE ( `status` > -1 ) LIMIT 1   [ RunTime:0.000537s ]
+SQL: SELECT `id`,`name`,`title`,`extend`,`relation`,`need_pk`,`field_sort`,`field_group`,`attribute_list`,`template_list`,`template_add`,`template_edit`,`list_grid`,`list_row`,`search_key`,`search_list`,`create_time`,`update_time`,`status`,`engine_type` FROM `wp_model` WHERE ( `status` > -1 ) ORDER BY `name` asc LIMIT 20,20   [ RunTime:0.000834s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000324s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000570s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001391s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.173579s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.174064s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000089s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000399s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000219s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000540s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001121s ]
+
+[ 2015-05-20T07:41:48+08:00 ] ::1 /index.php?s=/Admin/Public/login.html
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 135 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002704s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000540s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000289s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000470s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001137s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.023794s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.024513s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000214s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000881s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000353s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000462s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001322s ]
+
+[ 2015-05-20T07:41:53+08:00 ] ::1 /index.php?s=/Admin/Public/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000354s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001086s ]
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:0.000128s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 135 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001582s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000319s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `wp_ucenter_member` [ RunTime:0.002451s ]
+SQL: SELECT * FROM `wp_ucenter_member` WHERE ( `username` = 'wuhanchu' ) LIMIT 1   [ RunTime:0.001205s ]
+SQL: UPDATE `wp_ucenter_member` SET `last_login_time`=1432078913,`last_login_ip`=0 WHERE ( `id` = 1 ) [ RunTime:0.004382s ]
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002355s ]
+SQL: SELECT `uid`,`nickname`,`sex`,`birthday`,`qq`,`score`,`login`,`reg_ip`,`reg_time`,`last_login_ip`,`last_login_time`,`status`,`public_count`,`extra_field` FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000372s ]
+SQL: SHOW COLUMNS FROM `wp_action` [ RunTime:0.001205s ]
+SQL: SELECT * FROM `wp_action` WHERE ( `name` = 'admin_login' ) LIMIT 1   [ RunTime:0.001241s ]
+SQL: SHOW COLUMNS FROM `wp_follow` [ RunTime:0.001511s ]
+SQL: SELECT * FROM `wp_follow` WHERE ( `id` = 1 ) LIMIT 1   [ RunTime:0.000304s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000310s ]
+SQL: SHOW COLUMNS FROM `wp_action_log` [ RunTime:0.001952s ]
+SQL: INSERT INTO `wp_action_log` (`action_id`,`user_id`,`action_ip`,`model`,`record_id`,`create_time`,`remark`) VALUES (12,1,0,'member',1,1432078913,'wuhanchu在2015-05-20 07:41登录了后台') [ RunTime:0.004142s ]
+SQL: UPDATE `wp_member` SET `login`=`login`+1,`last_login_time`=1432078913,`last_login_ip`=0 WHERE ( `uid` = 1 ) [ RunTime:0.004202s ]
+
+[ 2015-05-20T07:41:53+08:00 ] ::1 /index.php?s=/Admin/Index/index.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002510s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000587s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.003742s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000597s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002301s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000622s ]
+SQL: SHOW COLUMNS FROM `wp_menu` [ RunTime:0.002783s ]
+SQL: SELECT `hide` FROM `wp_menu` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.000346s ]
+SQL: SELECT `url` FROM `wp_menu` WHERE ( pid=0 AND hide=0 ) ORDER BY sort ASC LIMIT 1   [ RunTime:0.000494s ]
+
+[ 2015-05-20T07:41:54+08:00 ] ::1 /index.php?s=/Admin/Config/group.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001604s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000434s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002257s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000651s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.001685s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000505s ]
+SQL: SHOW COLUMNS FROM `wp_config` [ RunTime:0.001159s ]
+SQL: SELECT `id`,`name`,`title`,`extra`,`value`,`remark`,`type` FROM `wp_config` WHERE ( `status` = 1 ) AND ( `group` = 1 ) ORDER BY sort  [ RunTime:0.000410s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000218s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000418s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000843s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.080937s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.081379s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000089s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000435s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000259s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000722s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001761s ]
+
+[ 2015-05-20T07:41:54+08:00 ] ::1 /index.php?s=/Admin/update/getRemoteVersion.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000532s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001581s ]
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:0.000270s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `wp_menu` [ RunTime:0.001845s ]
+SQL: SELECT * FROM `wp_menu` WHERE ( `pid` = 0 ) AND ( `hide` = 0 ) AND ( `is_dev` = 0 ) ORDER BY sort asc  [ RunTime:0.000782s ]
+SQL: SELECT `id` FROM `wp_menu` WHERE ( url like '%Update/getRemoteVersion%' ) LIMIT 1   [ RunTime:0.000623s ]
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002205s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000619s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.004303s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.001184s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002060s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000597s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000248s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000591s ]
+
+[ 2015-05-20T07:41:57+08:00 ] ::1 /index.php?s=/Admin/Model/index.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.003083s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000417s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001552s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000361s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.001714s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000377s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001284s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `wp_model` WHERE ( `status` > -1 ) LIMIT 1   [ RunTime:0.000997s ]
+SQL: SELECT `id`,`name`,`title`,`extend`,`relation`,`need_pk`,`field_sort`,`field_group`,`attribute_list`,`template_list`,`template_add`,`template_edit`,`list_grid`,`list_row`,`search_key`,`search_list`,`create_time`,`update_time`,`status`,`engine_type` FROM `wp_model` WHERE ( `status` > -1 ) ORDER BY `name` asc LIMIT 0,20   [ RunTime:0.000574s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000188s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000283s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000618s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.150459s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.150835s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000088s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000387s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000202s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000351s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000972s ]
+
+[ 2015-05-20T07:42:07+08:00 ] ::1 /index.php?s=/Admin/Model/index/p/2.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001590s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000350s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001808s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000354s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002264s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000409s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001688s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `wp_model` WHERE ( `status` > -1 ) LIMIT 1   [ RunTime:0.000327s ]
+SQL: SELECT `id`,`name`,`title`,`extend`,`relation`,`need_pk`,`field_sort`,`field_group`,`attribute_list`,`template_list`,`template_add`,`template_edit`,`list_grid`,`list_row`,`search_key`,`search_list`,`create_time`,`update_time`,`status`,`engine_type` FROM `wp_model` WHERE ( `status` > -1 ) ORDER BY `name` asc LIMIT 20,20   [ RunTime:0.000552s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000152s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000275s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000603s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.137640s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.138028s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000115s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000526s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000203s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000293s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000716s ]
+
+[ 2015-05-20T07:42:07+08:00 ] ::1 /index.php?s=/Admin/Model/index/p/2.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001701s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000337s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001866s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000370s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002065s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000420s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001982s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `wp_model` WHERE ( `status` > -1 ) LIMIT 1   [ RunTime:0.000378s ]
+SQL: SELECT `id`,`name`,`title`,`extend`,`relation`,`need_pk`,`field_sort`,`field_group`,`attribute_list`,`template_list`,`template_add`,`template_edit`,`list_grid`,`list_row`,`search_key`,`search_list`,`create_time`,`update_time`,`status`,`engine_type` FROM `wp_model` WHERE ( `status` > -1 ) ORDER BY `name` asc LIMIT 20,20   [ RunTime:0.000604s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000166s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000284s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000623s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.143555s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.143905s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000091s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000402s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000205s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000372s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000977s ]
+
+[ 2015-05-20T07:42:14+08:00 ] ::1 /index.php?s=/Admin/model/edit/id/187.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002400s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000357s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001372s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000403s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.001296s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.001436s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001745s ]
+SQL: SELECT `id`,`name`,`title`,`extend`,`relation`,`need_pk`,`field_sort`,`field_group`,`attribute_list`,`template_list`,`template_add`,`template_edit`,`list_grid`,`list_row`,`search_key`,`search_list`,`create_time`,`update_time`,`status`,`engine_type` FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000389s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.001505s ]
+SQL: SELECT `id`,`name`,`title`,`is_show` FROM `wp_attribute` WHERE ( `model_id` = 187 )  [ RunTime:0.002155s ]
+NOTIC: [8] Undefined index: lean_flow /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 101 行.
+NOTIC: [8] Undefined index: lean_flow /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 102 行.
+NOTIC: [8] Undefined index: lean_flow /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 103 行.
+NOTIC: [8] Undefined index: lean_flow /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 104 行.
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000173s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000304s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000640s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.062437s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.062799s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000092s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000398s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000188s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000517s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000927s ]
+
+[ 2015-05-20T07:42:27+08:00 ] ::1 /index.php?s=/Admin/model/export/type/0/id/187.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001213s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000414s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002591s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000469s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.001619s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000550s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002484s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000460s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.002151s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 187 )  [ RunTime:0.000727s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001806s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000465s ]
+SQL: SHOW COLUMNS FROM `wp_school` [ RunTime:0.002714s ]
+SQL: SELECT * FROM `wp_school`  [ RunTime:0.000562s ]
+NOTIC: [8] Undefined variable: sql /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 226 行.
+
+[ 2015-05-20T07:42:32+08:00 ] ::1 /index.php?s=/Admin/model/export/type/0/id/187.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.003247s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000516s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002492s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000578s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002586s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.001208s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002089s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.001196s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.003317s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 187 )  [ RunTime:0.001161s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002020s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000329s ]
+SQL: SHOW COLUMNS FROM `wp_school` [ RunTime:0.001497s ]
+SQL: SELECT * FROM `wp_school`  [ RunTime:0.000692s ]
+NOTIC: [8] Undefined variable: sql /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 226 行.
+
+[ 2015-05-20T07:42:33+08:00 ] ::1 /index.php?s=/Admin/model/export/type/1/id/187.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001628s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000647s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001413s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000329s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002741s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000486s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002599s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.001107s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.002492s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 187 )  [ RunTime:0.000555s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001970s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000381s ]
+SQL: SHOW COLUMNS FROM `wp_school` [ RunTime:0.003597s ]
+SQL: SELECT * FROM `wp_school`  [ RunTime:0.000375s ]
+
+[ 2015-05-20T07:42:35+08:00 ] ::1 /index.php?s=/Admin/model/export/type/0/id/188.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.005168s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000551s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002857s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000456s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002894s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000649s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002287s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 188 ) LIMIT 1   [ RunTime:0.000416s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.002579s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 188 )  [ RunTime:0.000878s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.004133s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 188 ) LIMIT 1   [ RunTime:0.000388s ]
+SQL: SHOW COLUMNS FROM `wp_school_place` [ RunTime:0.003724s ]
+SQL: SELECT * FROM `wp_school_place`  [ RunTime:0.001640s ]
+NOTIC: [8] Undefined variable: sql /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 226 行.
+
+[ 2015-05-20T07:42:36+08:00 ] ::1 /index.php?s=/Admin/model/export/type/1/id/188.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002888s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000445s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002179s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.001601s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.003918s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000724s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001732s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 188 ) LIMIT 1   [ RunTime:0.001233s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.002596s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 188 )  [ RunTime:0.000896s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002903s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 188 ) LIMIT 1   [ RunTime:0.001207s ]
+SQL: SHOW COLUMNS FROM `wp_school_place` [ RunTime:0.002652s ]
+SQL: SELECT * FROM `wp_school_place`  [ RunTime:0.000394s ]
+
+[ 2015-05-20T07:42:36+08:00 ] ::1 /index.php?s=/Admin/model/export/type/0/id/182.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.003236s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000768s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002701s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000653s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002354s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.001442s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002488s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 182 ) LIMIT 1   [ RunTime:0.000424s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.004635s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 182 )  [ RunTime:0.001305s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002845s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 182 ) LIMIT 1   [ RunTime:0.000429s ]
+SQL: SHOW COLUMNS FROM `wp_school_privilege` [ RunTime:0.003143s ]
+SQL: SELECT * FROM `wp_school_privilege`  [ RunTime:0.000991s ]
+NOTIC: [8] Undefined variable: sql /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 226 行.
+
+[ 2015-05-20T07:42:36+08:00 ] ::1 /index.php?s=/Admin/model/export/type/1/id/182.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002214s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.001362s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002488s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000412s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002171s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000691s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001269s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 182 ) LIMIT 1   [ RunTime:0.000388s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.001865s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 182 )  [ RunTime:0.000691s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002453s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 182 ) LIMIT 1   [ RunTime:0.000356s ]
+SQL: SHOW COLUMNS FROM `wp_school_privilege` [ RunTime:0.001522s ]
+SQL: SELECT * FROM `wp_school_privilege`  [ RunTime:0.000316s ]
+
+[ 2015-05-20T07:42:38+08:00 ] ::1 /index.php?s=/Admin/Model/index/p/3.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.003584s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000416s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002198s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000407s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002431s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000502s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002914s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `wp_model` WHERE ( `status` > -1 ) LIMIT 1   [ RunTime:0.000416s ]
+SQL: SELECT `id`,`name`,`title`,`extend`,`relation`,`need_pk`,`field_sort`,`field_group`,`attribute_list`,`template_list`,`template_add`,`template_edit`,`list_grid`,`list_row`,`search_key`,`search_list`,`create_time`,`update_time`,`status`,`engine_type` FROM `wp_model` WHERE ( `status` > -1 ) ORDER BY `name` asc LIMIT 40,20   [ RunTime:0.000693s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000204s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000397s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000854s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.160320s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.160673s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000093s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000430s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000245s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000400s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000933s ]
+
+[ 2015-05-20T07:42:41+08:00 ] ::1 /index.php?s=/Admin/model/export/type/0/id/160.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.009945s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000446s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.017514s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000458s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002877s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000411s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001897s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 160 ) LIMIT 1   [ RunTime:0.000433s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.001252s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 160 )  [ RunTime:0.000574s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002513s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 160 ) LIMIT 1   [ RunTime:0.000501s ]
+SQL: SHOW COLUMNS FROM `wp_student` [ RunTime:0.002119s ]
+SQL: SELECT * FROM `wp_student`  [ RunTime:0.001152s ]
+NOTIC: [8] Undefined variable: sql /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 226 行.
+
+[ 2015-05-20T07:42:41+08:00 ] ::1 /index.php?s=/Admin/model/export/type/1/id/160.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001608s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000638s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.003390s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000656s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002837s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.001073s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.003884s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 160 ) LIMIT 1   [ RunTime:0.000545s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.001690s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 160 )  [ RunTime:0.000929s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002590s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 160 ) LIMIT 1   [ RunTime:0.000477s ]
+SQL: SHOW COLUMNS FROM `wp_student` [ RunTime:0.002302s ]
+SQL: SELECT * FROM `wp_student`  [ RunTime:0.000366s ]
+
+[ 2015-05-20T07:43:04+08:00 ] ::1 /index.php?s=/Admin/Model/index/p/2.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001262s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000383s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.000970s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000456s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002251s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000434s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001383s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `wp_model` WHERE ( `status` > -1 ) LIMIT 1   [ RunTime:0.000416s ]
+SQL: SELECT `id`,`name`,`title`,`extend`,`relation`,`need_pk`,`field_sort`,`field_group`,`attribute_list`,`template_list`,`template_add`,`template_edit`,`list_grid`,`list_row`,`search_key`,`search_list`,`create_time`,`update_time`,`status`,`engine_type` FROM `wp_model` WHERE ( `status` > -1 ) ORDER BY `name` asc LIMIT 20,20   [ RunTime:0.000572s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000153s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000296s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000696s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.150379s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.150762s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000087s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000389s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000322s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000411s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001194s ]
+
+[ 2015-05-20T07:43:14+08:00 ] ::1 /index.php?s=/Admin/model/export/type/1/id/187.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001648s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000319s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001783s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000792s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002857s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000528s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002168s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000384s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.001623s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 187 )  [ RunTime:0.001284s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002439s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000362s ]
+SQL: SHOW COLUMNS FROM `wp_school` [ RunTime:0.001331s ]
+SQL: SELECT * FROM `wp_school`  [ RunTime:0.000268s ]
+
+[ 2015-05-20T07:43:15+08:00 ] ::1 /index.php?s=/Admin/model/export/type/0/id/187.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001729s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000643s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002181s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.001001s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002371s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000447s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002718s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000462s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.003329s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 187 )  [ RunTime:0.000711s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002228s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000364s ]
+SQL: SHOW COLUMNS FROM `wp_school` [ RunTime:0.002976s ]
+SQL: SELECT * FROM `wp_school`  [ RunTime:0.000464s ]
+NOTIC: [8] Undefined variable: sql /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 226 行.
+
+[ 2015-05-20T08:39:01+08:00 ] ::1 /index.php?s=/Admin/model/export/type/1/id/187.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002773s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000580s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002680s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000848s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.001684s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000533s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002131s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000332s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.002070s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 187 )  [ RunTime:0.000668s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002073s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000448s ]
+SQL: SHOW COLUMNS FROM `wp_school` [ RunTime:0.002838s ]
+SQL: SELECT * FROM `wp_school`  [ RunTime:0.000443s ]
+
+[ 2015-05-20T08:39:04+08:00 ] ::1 /index.php?s=/Admin/model/export/type/1/id/187.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001573s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000535s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001876s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000364s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.001508s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000424s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002172s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000323s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.003440s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 187 )  [ RunTime:0.000587s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001994s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000335s ]
+SQL: SHOW COLUMNS FROM `wp_school` [ RunTime:0.001235s ]
+SQL: SELECT * FROM `wp_school`  [ RunTime:0.000250s ]
+
+[ 2015-05-20T08:39:09+08:00 ] ::1 /index.php?s=/Admin/model/export/type/1/id/187.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001233s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000373s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002164s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000354s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.001602s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000501s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.003336s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000762s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.003052s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 187 )  [ RunTime:0.000800s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001602s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000688s ]
+SQL: SHOW COLUMNS FROM `wp_school` [ RunTime:0.001647s ]
+SQL: SELECT * FROM `wp_school`  [ RunTime:0.000307s ]
+
+[ 2015-05-20T08:39:17+08:00 ] ::1 /index.php?s=/Admin/model/export/type/0/id/187.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001877s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000376s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001801s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000506s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.001491s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000503s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.004324s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000528s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.003381s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 187 )  [ RunTime:0.000731s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001956s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000366s ]
+SQL: SHOW COLUMNS FROM `wp_school` [ RunTime:0.001179s ]
+SQL: SELECT * FROM `wp_school`  [ RunTime:0.000278s ]
+NOTIC: [8] Undefined variable: sql /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 226 行.
+
+[ 2015-05-20T08:40:58+08:00 ] ::1 /index.php?s=/Admin/model/export/type/1/id/187.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002038s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000374s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001466s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000730s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.003133s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000723s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001936s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000446s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.002717s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 187 )  [ RunTime:0.000654s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001710s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 187 ) LIMIT 1   [ RunTime:0.000460s ]
+SQL: SHOW COLUMNS FROM `wp_school` [ RunTime:0.002790s ]
+SQL: SELECT * FROM `wp_school`  [ RunTime:0.000317s ]
+
+[ 2015-05-20T08:41:10+08:00 ] ::1 /index.php?s=/Admin/model/export/type/0/id/188.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002244s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000472s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001534s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000562s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.001926s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000498s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001889s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 188 ) LIMIT 1   [ RunTime:0.000748s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.001544s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 188 )  [ RunTime:0.000611s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001398s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 188 ) LIMIT 1   [ RunTime:0.000397s ]
+SQL: SHOW COLUMNS FROM `wp_school_place` [ RunTime:0.002779s ]
+SQL: SELECT * FROM `wp_school_place`  [ RunTime:0.000402s ]
+NOTIC: [8] Undefined variable: sql /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 226 行.
+
+[ 2015-05-20T08:41:11+08:00 ] ::1 /index.php?s=/Admin/model/export/type/1/id/188.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002274s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000417s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001638s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000366s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002592s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000501s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002050s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 188 ) LIMIT 1   [ RunTime:0.000534s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.002929s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 188 )  [ RunTime:0.000580s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.004291s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 188 ) LIMIT 1   [ RunTime:0.000411s ]
+SQL: SHOW COLUMNS FROM `wp_school_place` [ RunTime:0.001277s ]
+SQL: SELECT * FROM `wp_school_place`  [ RunTime:0.000298s ]
+
+[ 2015-05-20T08:41:52+08:00 ] ::1 /index.php?s=/Admin/model/export/type/1/id/83.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002456s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000430s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002538s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.001157s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.001877s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000629s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002078s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 83 ) LIMIT 1   [ RunTime:0.000535s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.001963s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 83 )  [ RunTime:0.001117s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001647s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 83 ) LIMIT 1   [ RunTime:0.000502s ]
+SQL: SHOW COLUMNS FROM `wp_shop_product` [ RunTime:0.003080s ]
+SQL: SELECT * FROM `wp_shop_product`  [ RunTime:0.000354s ]
+
+[ 2015-05-20T08:41:53+08:00 ] ::1 /index.php?s=/Admin/model/export/type/0/id/83.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.005173s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000582s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002816s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000704s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.004588s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000672s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.003789s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 83 ) LIMIT 1   [ RunTime:0.000828s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.002681s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 83 )  [ RunTime:0.000988s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.003603s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 83 ) LIMIT 1   [ RunTime:0.000621s ]
+SQL: SHOW COLUMNS FROM `wp_shop_product` [ RunTime:0.003070s ]
+SQL: SELECT * FROM `wp_shop_product`  [ RunTime:0.000567s ]
+NOTIC: [8] Undefined variable: sql /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 226 行.
+NOTIC: [2] Invalid argument supplied for foreach() /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 229 行.
+
+[ 2015-05-20T08:42:22+08:00 ] ::1 /index.php?s=/Admin/model/export/type/0/id/160.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002743s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000434s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001281s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000701s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.001110s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000397s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001954s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 160 ) LIMIT 1   [ RunTime:0.000438s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.001336s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 160 )  [ RunTime:0.000543s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001991s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 160 ) LIMIT 1   [ RunTime:0.000359s ]
+SQL: SHOW COLUMNS FROM `wp_student` [ RunTime:0.001998s ]
+SQL: SELECT * FROM `wp_student`  [ RunTime:0.000373s ]
+NOTIC: [8] Undefined variable: sql /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 226 行.
+
+[ 2015-05-20T08:42:22+08:00 ] ::1 /index.php?s=/Admin/model/export/type/1/id/160.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002411s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000362s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001240s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000325s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.001411s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000429s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001731s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 160 ) LIMIT 1   [ RunTime:0.000415s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.001481s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 160 )  [ RunTime:0.000626s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001994s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 160 ) LIMIT 1   [ RunTime:0.000352s ]
+SQL: SHOW COLUMNS FROM `wp_student` [ RunTime:0.002392s ]
+SQL: SELECT * FROM `wp_student`  [ RunTime:0.000369s ]
+
+[ 2015-05-20T08:42:52+08:00 ] ::1 /index.php?s=/Admin/model/export/type/1/id/179.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002062s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000411s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001524s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000600s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.001397s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000355s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001333s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 179 ) LIMIT 1   [ RunTime:0.000345s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.001551s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 179 )  [ RunTime:0.000561s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001880s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 179 ) LIMIT 1   [ RunTime:0.000370s ]
+SQL: SHOW COLUMNS FROM `wp_student_apprise` [ RunTime:0.001412s ]
+SQL: SELECT * FROM `wp_student_apprise`  [ RunTime:0.000499s ]
+
+[ 2015-05-20T08:42:53+08:00 ] ::1 /index.php?s=/Admin/model/export/type/0/id/179.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002980s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000666s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.004199s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000586s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.001438s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000473s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002738s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 179 ) LIMIT 1   [ RunTime:0.000522s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.003790s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 179 )  [ RunTime:0.001115s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.004874s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 179 ) LIMIT 1   [ RunTime:0.000549s ]
+SQL: SHOW COLUMNS FROM `wp_student_apprise` [ RunTime:0.001712s ]
+SQL: SELECT * FROM `wp_student_apprise`  [ RunTime:0.000319s ]
+NOTIC: [8] Undefined variable: sql /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 226 行.
+
+[ 2015-05-20T08:43:10+08:00 ] ::1 /index.php?s=/Admin/model/export/type/0/id/184.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002016s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000365s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001694s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000367s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002669s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000559s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002035s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 184 ) LIMIT 1   [ RunTime:0.000409s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.001073s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 184 )  [ RunTime:0.000653s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001801s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 184 ) LIMIT 1   [ RunTime:0.000561s ]
+SQL: SHOW COLUMNS FROM `wp_student_event` [ RunTime:0.001967s ]
+SQL: SELECT * FROM `wp_student_event`  [ RunTime:0.000261s ]
+NOTIC: [8] Undefined variable: create_table /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 219 行.
+NOTIC: [8] Undefined variable: key /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 224 行.
+NOTIC: [8] Undefined variable: sql /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 226 行.
+NOTIC: [2] Invalid argument supplied for foreach() /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 229 行.
+
+[ 2015-05-20T08:43:11+08:00 ] ::1 /index.php?s=/Admin/model/export/type/1/id/184.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002297s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000453s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001949s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000605s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002888s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000385s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002286s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 184 ) LIMIT 1   [ RunTime:0.000344s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.001996s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 184 )  [ RunTime:0.000526s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001439s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 184 ) LIMIT 1   [ RunTime:0.000556s ]
+SQL: SHOW COLUMNS FROM `wp_student_event` [ RunTime:0.003015s ]
+SQL: SELECT * FROM `wp_student_event`  [ RunTime:0.000366s ]
+
+[ 2015-05-20T08:43:34+08:00 ] ::1 /index.php?s=/Admin/model/export/type/0/id/177.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002559s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000357s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002552s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000635s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.001942s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000804s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.003063s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 177 ) LIMIT 1   [ RunTime:0.000522s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.002268s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 177 )  [ RunTime:0.000625s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001709s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 177 ) LIMIT 1   [ RunTime:0.000317s ]
+SQL: SHOW COLUMNS FROM `wp_student_question` [ RunTime:0.001898s ]
+SQL: SELECT * FROM `wp_student_question`  [ RunTime:0.000567s ]
+NOTIC: [8] Undefined variable: sql /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 226 行.
+
+[ 2015-05-20T08:43:35+08:00 ] ::1 /index.php?s=/Admin/model/export/type/1/id/177.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002422s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000393s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002592s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000565s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.003271s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000552s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002446s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 177 ) LIMIT 1   [ RunTime:0.000522s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.003558s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 177 )  [ RunTime:0.000793s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002495s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 177 ) LIMIT 1   [ RunTime:0.000396s ]
+SQL: SHOW COLUMNS FROM `wp_student_question` [ RunTime:0.002043s ]
+SQL: SELECT * FROM `wp_student_question`  [ RunTime:0.000283s ]
+
+[ 2015-05-20T08:43:52+08:00 ] ::1 /index.php?s=/Admin/model/export/type/0/id/176.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002057s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000375s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001379s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000786s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.001541s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000662s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002267s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 176 ) LIMIT 1   [ RunTime:0.000492s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.001846s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 176 )  [ RunTime:0.000685s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002128s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 176 ) LIMIT 1   [ RunTime:0.000590s ]
+SQL: SHOW COLUMNS FROM `wp_teacher` [ RunTime:0.003255s ]
+SQL: SELECT * FROM `wp_teacher`  [ RunTime:0.000640s ]
+NOTIC: [8] Undefined variable: sql /Applications/MAMP/htdocs/Application/Admin/Controller/ModelController.class.php 第 226 行.
+
+[ 2015-05-20T08:43:53+08:00 ] ::1 /index.php?s=/Admin/model/export/type/1/id/176.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.001964s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000383s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001143s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000404s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002327s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000411s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002054s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 176 ) LIMIT 1   [ RunTime:0.000404s ]
+SQL: SHOW COLUMNS FROM `wp_attribute` [ RunTime:0.002059s ]
+SQL: SELECT * FROM `wp_attribute` WHERE ( `model_id` = 176 )  [ RunTime:0.000724s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.001298s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `id` = 176 ) LIMIT 1   [ RunTime:0.000343s ]
+SQL: SHOW COLUMNS FROM `wp_teacher` [ RunTime:0.002846s ]
+SQL: SELECT * FROM `wp_teacher`  [ RunTime:0.000373s ]
+
+[ 2015-05-20T09:16:14+08:00 ] ::1 /index.php?s=/Admin/Model/index/p/3.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002127s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000430s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001872s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000855s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002539s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000519s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.003321s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `wp_model` WHERE ( `status` > -1 ) LIMIT 1   [ RunTime:0.000483s ]
+SQL: SELECT `id`,`name`,`title`,`extend`,`relation`,`need_pk`,`field_sort`,`field_group`,`attribute_list`,`template_list`,`template_add`,`template_edit`,`list_grid`,`list_row`,`search_key`,`search_list`,`create_time`,`update_time`,`status`,`engine_type` FROM `wp_model` WHERE ( `status` > -1 ) ORDER BY `name` asc LIMIT 40,20   [ RunTime:0.001008s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000155s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000505s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001116s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.168217s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.168925s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000113s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000519s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000198s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000240s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000558s ]
+
+[ 2015-05-20T09:16:23+08:00 ] ::1 /index.php?s=/addon/School/School/show/id/6.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.003000s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000482s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000517s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000446s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.002245s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `name` = 'School' ) LIMIT 1   [ RunTime:0.001284s ]
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+SQL: SHOW COLUMNS FROM `wp_tongji` [ RunTime:0.003437s ]
+SQL: SELECT * FROM `wp_tongji` WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150520 ) LIMIT 1   [ RunTime:0.000859s ]
+SQL: INSERT INTO `wp_tongji` (`token`,`day`,`content`,`month`) VALUES ('sdfas',20150520,'a:1:{s:6:\"School\";i:1;}',201505) [ RunTime:0.006291s ]
+NOTIC: [2048] Declaration of Addons\School\Controller\BaseController::lists() should be compatible with Home\Controller\AddonsController::lists($model = NULL, $page = 0) /Applications/MAMP/htdocs/Addons/School/Controller/BaseController.class.php 第 63 行.
+NOTIC: [2048] Declaration of Addons\School\Controller\BaseController::edit() should be compatible with Home\Controller\AddonsController::edit($model = NULL, $id = 0) /Applications/MAMP/htdocs/Addons/School/Controller/BaseController.class.php 第 63 行.
+NOTIC: [2048] Declaration of Addons\School\Controller\BaseController::add() should be compatible with Home\Controller\AddonsController::add($model = NULL) /Applications/MAMP/htdocs/Addons/School/Controller/BaseController.class.php 第 63 行.
+NOTIC: [2048] Declaration of Addons\School\Controller\BaseController::del() should be compatible with Home\Controller\AddonsController::del($model = NULL, $ids = NULL) /Applications/MAMP/htdocs/Addons/School/Controller/BaseController.class.php 第 63 行.
+NOTIC: [2048] Declaration of Addons\School\Controller\SchoolController::show() should be compatible with Think\Controller::show($content, $charset = '', $contentType = '', $prefix = '') /Applications/MAMP/htdocs/Addons/School/Controller/SchoolController.class.php 第 6 行.
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:-0.086080s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002844s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `name` = 'school' ) LIMIT 1   [ RunTime:0.000500s ]
+SQL: SELECT `public_name` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000513s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000329s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000306s ]
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.001015s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000621s ]
+SQL: SHOW COLUMNS FROM `wp_school` [ RunTime:0.003798s ]
+SQL: SELECT * FROM `wp_school` WHERE ( `public_id` = 'sdfas' ) LIMIT 1   [ RunTime:0.000443s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000373s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000352s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000817s ]
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+INFO: Run Behavior\ParseTemplate [ RunTime:0.034488s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.035044s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000099s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000404s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000142s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000235s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000571s ]
+
+[ 2015-05-20T09:16:32+08:00 ] ::1 /index.php?s=/addon/School/School/top.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002415s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000402s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000371s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000601s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.002511s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `name` = 'School' ) LIMIT 1   [ RunTime:0.000487s ]
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+SQL: SHOW COLUMNS FROM `wp_tongji` [ RunTime:0.002173s ]
+SQL: SELECT * FROM `wp_tongji` WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150520 ) LIMIT 1   [ RunTime:0.000397s ]
+SQL: UPDATE `wp_tongji` SET `content`='a:1:{s:6:\"School\";i:2;}' WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150520 ) [ RunTime:0.000584s ]
+NOTIC: [2048] Declaration of Addons\School\Controller\BaseController::lists() should be compatible with Home\Controller\AddonsController::lists($model = NULL, $page = 0) /Applications/MAMP/htdocs/Addons/School/Controller/BaseController.class.php 第 63 行.
+NOTIC: [2048] Declaration of Addons\School\Controller\BaseController::edit() should be compatible with Home\Controller\AddonsController::edit($model = NULL, $id = 0) /Applications/MAMP/htdocs/Addons/School/Controller/BaseController.class.php 第 63 行.
+NOTIC: [2048] Declaration of Addons\School\Controller\BaseController::add() should be compatible with Home\Controller\AddonsController::add($model = NULL) /Applications/MAMP/htdocs/Addons/School/Controller/BaseController.class.php 第 63 行.
+NOTIC: [2048] Declaration of Addons\School\Controller\BaseController::del() should be compatible with Home\Controller\AddonsController::del($model = NULL, $ids = NULL) /Applications/MAMP/htdocs/Addons/School/Controller/BaseController.class.php 第 63 行.
+NOTIC: [2048] Declaration of Addons\School\Controller\SchoolController::show() should be compatible with Think\Controller::show($content, $charset = '', $contentType = '', $prefix = '') /Applications/MAMP/htdocs/Addons/School/Controller/SchoolController.class.php 第 6 行.
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:-0.073795s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.002043s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `name` = 'school' ) LIMIT 1   [ RunTime:0.000414s ]
+SQL: SELECT `public_name` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000263s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000335s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000236s ]
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000379s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000294s ]
+SQL: SHOW COLUMNS FROM `wp_teacher` [ RunTime:0.001995s ]
+SQL: select @x:=ifnull(@x,0)+1 as rank, t.* from wp_teacher_rank_all t [ RunTime:0.003020s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000171s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000235s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000664s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.026879s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.027425s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000225s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000682s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000189s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000253s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000603s ]
+
+[ 2015-05-20T09:17:53+08:00 ] ::1 /index.php?s=/addon/School/School/top.html
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002354s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000354s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000328s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000371s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.002607s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `name` = 'School' ) LIMIT 1   [ RunTime:0.000746s ]
+NOTIC: [8] Undefined index: query /Applications/MAMP/htdocs/ThinkPHP/Common/functions.php 第 787 行.
+SQL: SHOW COLUMNS FROM `wp_tongji` [ RunTime:0.002288s ]
+SQL: SELECT * FROM `wp_tongji` WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150520 ) LIMIT 1   [ RunTime:0.000348s ]
+SQL: UPDATE `wp_tongji` SET `content`='a:1:{s:6:\"School\";i:3;}' WHERE ( `token` = 'sdfas' ) AND ( `day` = 20150520 ) [ RunTime:0.000564s ]
+NOTIC: [2048] Declaration of Addons\School\Controller\BaseController::lists() should be compatible with Home\Controller\AddonsController::lists($model = NULL, $page = 0) /Applications/MAMP/htdocs/Addons/School/Controller/BaseController.class.php 第 63 行.
+NOTIC: [2048] Declaration of Addons\School\Controller\BaseController::edit() should be compatible with Home\Controller\AddonsController::edit($model = NULL, $id = 0) /Applications/MAMP/htdocs/Addons/School/Controller/BaseController.class.php 第 63 行.
+NOTIC: [2048] Declaration of Addons\School\Controller\BaseController::add() should be compatible with Home\Controller\AddonsController::add($model = NULL) /Applications/MAMP/htdocs/Addons/School/Controller/BaseController.class.php 第 63 行.
+NOTIC: [2048] Declaration of Addons\School\Controller\BaseController::del() should be compatible with Home\Controller\AddonsController::del($model = NULL, $ids = NULL) /Applications/MAMP/htdocs/Addons/School/Controller/BaseController.class.php 第 63 行.
+NOTIC: [2048] Declaration of Addons\School\Controller\SchoolController::show() should be compatible with Think\Controller::show($content, $charset = '', $contentType = '', $prefix = '') /Applications/MAMP/htdocs/Addons/School/Controller/SchoolController.class.php 第 6 行.
+INFO: [ action_begin ] --START--
+INFO: [ action_begin ] --END-- [ RunTime:-0.061943s ]
+SQL: SHOW COLUMNS FROM `wp_model` [ RunTime:0.003333s ]
+SQL: SELECT * FROM `wp_model` WHERE ( `name` = 'school' ) LIMIT 1   [ RunTime:0.000461s ]
+SQL: SELECT `public_name` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000280s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000432s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000267s ]
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000408s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000558s ]
+SQL: SHOW COLUMNS FROM `wp_teacher` [ RunTime:0.002339s ]
+SQL: select @x:=ifnull(@x,0)+1 as rank, t.* from wp_teacher_rank_all t [ RunTime:0.001971s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000200s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000450s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001324s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.026360s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.026725s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000094s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000447s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000250s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000272s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000657s ]
+
+[ 2015-05-20T10:00:55+08:00 ] ::1 /index.php?XDEBUG_SESSION_START=10093
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.004314s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000595s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.003107s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.001440s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.004120s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000888s ]
+
+[ 2015-05-20T10:00:55+08:00 ] ::1 /index.php?s=/home/index/main.html
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.010974s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000585s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.001908s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000562s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002252s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000623s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.002262s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `type` = 1 ) ORDER BY id DESC LIMIT 0,15   [ RunTime:0.000540s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.002488s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000570s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000510s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `wp_addons` WHERE ( `type` = 1 ) LIMIT 1   [ RunTime:0.000360s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000161s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000489s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000948s ]
+NOTIC: [8] Undefined index: _addons /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 98 行.
+NOTIC: [8] Undefined index: _controller /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 98 行.
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.001644s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `status` = 1 ) AND ( `type` = 1 )  [ RunTime:0.000418s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000303s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000312s ]
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+SQL: SHOW COLUMNS FROM `wp_addon_category` [ RunTime:0.002438s ]
+SQL: SELECT * FROM `wp_addon_category` ORDER BY sort asc, id desc  [ RunTime:0.000511s ]
+NOTIC: [8] Undefined index: home_memberpublic /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 105 行.
+NOTIC: [8] Undefined index: home_creditconfig_lists /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 107 行.
+NOTIC: [8] Undefined index: home_keyword /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 108 行.
+NOTIC: [8] Undefined index: home_cascade /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 109 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Student /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Teacher /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: School /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Chat /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Wecome /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: UserCenter /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: CustomMenu /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Card /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Leaflets /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: CustomReply /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Tongji /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Vote /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Suggestions /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Survey /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Coupon /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Scratch /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Exam /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Test /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: YouaskService /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Robot /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Extensions /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: WeiSite /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Forms /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 125 行.
+NOTIC: [8] Undefined index: Diy /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 125 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 125 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 125 行.
+NOTIC: [8] Undefined index: HelloWorld /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 125 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 125 行.
+NOTIC: [8] Undefined variable: model /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 153 行.
+NOTIC: [8] Undefined variable: model /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 155 行.
+INFO: [ pageFooter ] --START--
+SQL: SELECT `addon_config` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000351s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.002009s ]
+SQL: SELECT `config` FROM `wp_addons` WHERE ( `name` = 'ReturnTop' ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.000306s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000271s ]
+INFO: [ template_filter ] --END-- [ RunTime:-0.101721s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.007193s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.007743s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000089s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000397s ]
+INFO: Run ReturnTop [ RunTime:0.016811s ]
+SQL: SELECT `addon_config` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000380s ]
+SQL: SELECT `config` FROM `wp_addons` WHERE ( `name` = 'BaiduStatistics' ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.000255s ]
+INFO: Run BaiduStatistics [ RunTime:0.004167s ]
+INFO: [ pageFooter ] --END-- [ RunTime:0.021477s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.013368s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.007743s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000087s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.005380s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000229s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000283s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000755s ]
+
+[ 2015-05-20T10:46:31+08:00 ] ::1 /index.php?XDEBUG_SESSION_START=19361
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.004949s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000618s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002184s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000943s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002651s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000751s ]
+
+[ 2015-05-20T10:46:31+08:00 ] ::1 /index.php?s=/home/index/main.html
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `wp_member` [ RunTime:0.002199s ]
+SQL: SELECT * FROM `wp_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000544s ]
+NOTIC: [8] Undefined index: uid /Applications/MAMP/htdocs/ThinkPHP/Library/Think/Controller.class.php 第 140 行.
+SQL: SHOW COLUMNS FROM `wp_member_public_link` [ RunTime:0.002312s ]
+SQL: SELECT * FROM `wp_member_public_link` WHERE ( uid=1 ) ORDER BY is_use desc  [ RunTime:0.000626s ]
+SQL: SHOW COLUMNS FROM `wp_member_public` [ RunTime:0.002121s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `id` IN ('109','108','110') ) ORDER BY FIND_IN_SET(id,"109,108,110")  [ RunTime:0.000645s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.002831s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `type` = 1 ) ORDER BY id DESC LIMIT 0,15   [ RunTime:0.000494s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.001971s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000399s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000368s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `wp_addons` WHERE ( `type` = 1 ) LIMIT 1   [ RunTime:0.000553s ]
+INFO: [ view_begin ] --START--
+INFO: [ view_begin ] --END-- [ RunTime:0.000312s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000371s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000798s ]
+NOTIC: [8] Undefined index: _addons /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 98 行.
+NOTIC: [8] Undefined index: _controller /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 98 行.
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.002706s ]
+SQL: SELECT * FROM `wp_addons` WHERE ( `status` = 1 ) AND ( `type` = 1 )  [ RunTime:0.000452s ]
+SQL: SELECT * FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000404s ]
+SQL: SELECT `addon_status` FROM `wp_member_public_link` WHERE ( `uid` = 1 ) AND ( `mp_id` = 109 ) LIMIT 1   [ RunTime:0.000303s ]
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+NOTIC: [8] Undefined variable: addons /Applications/MAMP/htdocs/Application/Common/Common/function.php 第 465 行.
+SQL: SHOW COLUMNS FROM `wp_addon_category` [ RunTime:0.004410s ]
+SQL: SELECT * FROM `wp_addon_category` ORDER BY sort asc, id desc  [ RunTime:0.000842s ]
+NOTIC: [8] Undefined index: home_memberpublic /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 105 行.
+NOTIC: [8] Undefined index: home_creditconfig_lists /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 107 行.
+NOTIC: [8] Undefined index: home_keyword /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 108 行.
+NOTIC: [8] Undefined index: home_cascade /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 109 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Student /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Teacher /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: School /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Chat /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Wecome /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: UserCenter /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: CustomMenu /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Card /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Leaflets /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: CustomReply /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Tongji /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Vote /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Suggestions /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Survey /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Coupon /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Scratch /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Exam /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Test /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: YouaskService /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Robot /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Extensions /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: WeiSite /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Undefined index: Forms /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 116 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 125 行.
+NOTIC: [8] Undefined index: Diy /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 125 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 125 行.
+NOTIC: [8] Use of undefined constant name - assumed 'name' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 125 行.
+NOTIC: [8] Undefined index: HelloWorld /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 125 行.
+NOTIC: [8] Use of undefined constant addons_url - assumed 'addons_url' /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 125 行.
+NOTIC: [8] Undefined variable: model /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 153 行.
+NOTIC: [8] Undefined variable: model /Applications/MAMP/htdocs/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php 第 155 行.
+INFO: [ pageFooter ] --START--
+SQL: SELECT `addon_config` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000357s ]
+SQL: SHOW COLUMNS FROM `wp_addons` [ RunTime:0.002442s ]
+SQL: SELECT `config` FROM `wp_addons` WHERE ( `name` = 'ReturnTop' ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.000350s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000277s ]
+INFO: [ template_filter ] --END-- [ RunTime:-0.153809s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.007111s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.007493s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000105s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000474s ]
+INFO: Run ReturnTop [ RunTime:0.017454s ]
+SQL: SELECT `addon_config` FROM `wp_member_public` WHERE ( `token` = 'sdfas' ) LIMIT 1   [ RunTime:0.000530s ]
+SQL: SELECT `config` FROM `wp_addons` WHERE ( `name` = 'BaiduStatistics' ) AND ( `status` = 1 ) LIMIT 1   [ RunTime:0.000466s ]
+INFO: Run BaiduStatistics [ RunTime:0.004945s ]
+INFO: [ pageFooter ] --END-- [ RunTime:0.022953s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.013936s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.007493s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000086s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.006291s ]
+INFO: [ view_end ] --START--
+INFO: [ view_end ] --END-- [ RunTime:0.000252s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000298s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001127s ]
+
