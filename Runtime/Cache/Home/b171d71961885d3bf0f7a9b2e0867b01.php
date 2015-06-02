@@ -44,7 +44,7 @@ var  ROOT = "";
       <?php if(!C('SYSTEM_CLOSE_ADMIN')) { ?><a class="btn" href="<?php echo U('admin/index/index');?>" target="_blank">后台管理</a> <?php } ?>
 </div>
 <section class="login_box">
-	<form class="login-form" action="/index.php?s=/home/user/login.html" method="post">
+	<form class="login-form" action="/index.php?s=/Home/User/login.html" method="post">
     	<a href="<?php echo SITE_URL;?>">
         <?php if(!C('SYSTEM_LOGO')) { ?>
        		<div class="logo_icon"></div>
@@ -113,13 +113,7 @@ var  ROOT = "";
     <!-- 底部
     ================================================== -->
 <footer class="footer">
-      <div class="container">
-          <p>
-          	<a href="<?php echo U('Home/Index/about');?>" target="_blank">关于我们</a>  |  
-            <a href="<?php echo U('home/index/help');?>" target="_blank">使用说明</a>   |   
-            本系统由<a href="http://www.weiphp.cn" target="_blank">weiphp</a>强力驱动
-            </p>
-      </div>
+
 </footer>
 
 <script type="text/javascript">

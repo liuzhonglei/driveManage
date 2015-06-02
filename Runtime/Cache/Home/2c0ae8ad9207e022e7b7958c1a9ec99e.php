@@ -46,7 +46,7 @@ var  ROOT = "";
 ================================================== -->
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
-       <!--<a class="brand" title="<?php echo C('WEB_SITE_TITLE');?>" href="<?php echo U('index/index');?>"><img height="45" src="<?php if(C('SYSTEM_LOGO')) { echo C('SYSTEM_LOGO'); }else{ ?>/Public/Home/images/top_logo.png?v=<?php echo SITE_VERSION;?> <?php } ?>" title="<?php echo C('WEB_SITE_TITLE');?>"/></a>-->
+       <a class="brand" title="<?php echo C('WEB_SITE_TITLE');?>" href="<?php echo U('index/index');?>"><img height="60" src="<?php if(C('SYSTEM_LOGO')) { echo C('SYSTEM_LOGO'); }else{ ?>/Public/Home/images/top_logo.png?v=<?php echo SITE_VERSION;?> <?php } ?>" title="<?php echo C('WEB_SITE_TITLE');?>"/></a>
 
             <!---->
             <div class="top_nav">
@@ -131,9 +131,9 @@ var  ROOT = "";
   </div>
 <div class="main_body">
 	
-  <div class="span9 page_message">
-    <section id="contents">
-        <ul class="tab-nav nav">
+    <div class="span9 page_message">
+        <section id="contents">
+            <ul class="tab-nav nav">
   <?php if(is_array($nav)): $i = 0; $__LIST__ = $nav;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="<?php echo ($vo["class"]); ?>"><a href="<?php echo ($vo["url"]); ?>"><?php echo ($vo["title"]); ?><span class="arrow fa fa-sort-up"></span></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
 </ul>
 <?php if(!empty($sub_nav)): ?><div class="sub-tab-nav">
@@ -144,53 +144,56 @@ var  ROOT = "";
       </ul>
 </div><?php endif; ?>
 <?php if(!empty($normal_tips)): ?><p class="normal_tips"><b class="fa fa-info-circle"></b> <?php echo ($normal_tips); ?></p><?php endif; ?>
+            <?php if($add_button || $del_button || $search_button || !empty($top_more_button)): ?><div class="table-bar">
+                    <div class="fl">
+                        <?php if(empty($model["extend"])): ?><div class="tools">
+                                <?php if($add_button): $add_url || $add_url = U('add?model='.$model['id'], $get_param); ?><a class="btn" href="<?php echo ($add_url); ?>">新 增</a><?php endif; ?>
+                                <?php if($del_button): $del_url || $del_url = U('del?model='.$model['id'], $get_param); ?><button class="btn ajax-post confirm" target-form="ids" url="<?php echo ($del_url); ?>">删 除</button><?php endif; ?>
+                                <?php if(is_array($top_more_button)): $i = 0; $__LIST__ = $top_more_button;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i; if($vo[is_buttion]): ?><button class="btn <?php echo ($vo["class"]); ?>" target-form="ids" url="<?php echo ($vo["url"]); ?>"><?php echo ($vo["title"]); ?></button>
+                                        <?php else: ?>
+                                        <a class="btn" href="<?php echo ($vo["url"]); ?>"><?php echo ($vo["title"]); ?></a><?php endif; ?>
+                                    &nbsp;<?php endforeach; endif; else: echo "" ;endif; ?>
+                                <a class="btn" href="<?php echo ADDON_PUBLIC_PATH;?>/demon.xls">下载模板</a>
+                                <!--<form method="post" action="<?php echo U('upload?model='.$model['id']);?>" enctype="multipart/form-data">-->
+                                <input type="file"   name="file_stu" />
+                                <input class="btn"  type="submit"  value="导入" />
+                                <!--</form>-->
+                            </div><?php endif; ?>
+                    </div>
+                    <!-- 高级搜索 -->
+                    <?php if($search_button): ?><div class="search-form fr cf">
+                            <div class="sleft">
+                                <?php $get_param[model]=$model['name']; $search_url || $search_url = addons_url($_REQUEST ['_addons'].'://'.$_REQUEST ['_controller'].'/lists', $get_param); ?>
+                                <?php empty($search_key) && $search_key=$model['search_key'];empty($search_key) && $search_key='title'; ?>
+                                <input type="text" name="<?php echo ($search_key); ?>" class="search-input" value="<?php echo I($search_key);?>" placeholder="<?php echo ($placeholder); ?>">
+                                <a class="sch-btn" href="javascript:;" id="search" url="<?php echo U('lists','model='.$model['name'],false);?>"><i class="btn-search"></i></a> </div>
+                        </div><?php endif; ?>
+                </div><?php endif; ?>
+            <!-- 数据列表 -->
+            <div class="data-table">
+                <div class="table-striped">
+                    <table cellspacing="1">
+                        <!-- 表头 -->
+                        <thead>
+                        <tr>
+                            <?php if($check_all): ?><th class="row-selected row-selected"> <input type="checkbox" id="checkAll" class="check-all regular-checkbox"><label for="checkAll"></label></th><?php endif; ?>
+                            <?php if(is_array($list_grids)): $i = 0; $__LIST__ = $list_grids;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$field): $mod = ($i % 2 );++$i;?><th <?php if(!empty($field["width"])): ?>width="<?php echo ($field["width"]); ?>%"<?php endif; ?> ><?php echo ($field["title"]); ?></th><?php endforeach; endif; else: echo "" ;endif; ?>
+                        </tr>
+                        </thead>
 
-      <div class="table-bar">
-        <div class="fl">
-          <?php if(empty($model["extend"])): ?><div class="tools"> <a class="btn" href="<?php echo addons_url($_REQUEST ['_addons'].'://'.$_REQUEST ['_controller'].'/add');?>">新 增</a>
-              <button class="btn ajax-post confirm" target-form="ids" url="<?php echo U('del?model='.$model['id']);?>">删 除</button>
-                <a class="btn" href="<?php echo ADDON_PUBLIC_PATH;?>/demon.xls">下载模板</a>
-                <!--<form method="post" action="<?php echo U('upload?model='.$model['id']);?>" enctype="multipart/form-data">-->
-                    <input type="file"   name="file_stu" />
-                    <input class="btn"  type="submit"  value="导入" />
-                <!--</form>-->
-            </div><?php endif; ?>
-        </div>
-        <!-- 高级搜索 -->
-        <div class="search-form fr cf">
-          <div class="sleft">
-          <?php empty($search_key) && $search_key=$model['search_key'];empty($search_key) && $search_key='title'; ?>
-            <input type="text" name="<?php echo ($search_key); ?>" class="search-input" value="<?php echo I($search_key);?>" placeholder="请输入关键字">
-            <a class="sch-btn" href="javascript:;" id="search" url="<?php echo U('lists','model='.$model['name'],false);?>"><i class="btn-search"></i></a> </div>
-        </div>
-      </div>
-      
-      <!-- 数据列表 -->
-      <div class="data-table">
-        <div class="table-striped">
-          <table cellpadding="0" cellspacing="1">
-            <!-- 表头 -->
-            <thead>
-              <tr>
-                <th class="row-selected row-selected"> <input class="check-all" type="checkbox">
-                </th>
-                <?php if(is_array($list_grids)): $i = 0; $__LIST__ = $list_grids;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$field): $mod = ($i % 2 );++$i;?><th><?php echo ($field["title"]); ?></th><?php endforeach; endif; else: echo "" ;endif; ?>
-              </tr>
-            </thead>
-            
-            <!-- 列表 -->
-            <tbody>
-              <?php if(is_array($list_data)): $i = 0; $__LIST__ = $list_data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$data): $mod = ($i % 2 );++$i;?><tr>
-                  <td><input class="ids" type="checkbox" value="<?php echo ($data['id']); ?>" name="ids[]"></td>
-                  <?php if(is_array($list_grids)): $i = 0; $__LIST__ = $list_grids;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$grid): $mod = ($i % 2 );++$i;?><td><?php echo get_list_field($data,$grid,$model);?></td><?php endforeach; endif; else: echo "" ;endif; ?>
-                </tr><?php endforeach; endif; else: echo "" ;endif; ?>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="page"> <?php echo ((isset($_page) && ($_page !== ""))?($_page):''); ?> </div>
-    </section>
-  </div>
+                        <!-- 列表 -->
+                        <tbody>
+                        <?php if(is_array($list_data)): $i = 0; $__LIST__ = $list_data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$data): $mod = ($i % 2 );++$i;?><tr>
+                                <?php if($check_all): ?><td><input class="ids regular-checkbox" type="checkbox" value="<?php echo ($data['id']); ?>" name="ids[]" id="check_<?php echo ($data['id']); ?>"><label for="check_<?php echo ($data['id']); ?>"></label></td><?php endif; ?>
+                                <?php if(is_array($list_grids)): $i = 0; $__LIST__ = $list_grids;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$grid): $mod = ($i % 2 );++$i;?><td><?php echo get_list_field($data,$grid,$model);?></td><?php endforeach; endif; else: echo "" ;endif; ?>
+                            </tr><?php endforeach; endif; else: echo "" ;endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="page"> <?php echo ((isset($_page) && ($_page !== ""))?($_page):''); ?> </div>
+        </section>
+    </div>
 
 </div>
 </div>
@@ -201,13 +204,7 @@ var  ROOT = "";
     <!-- 底部
     ================================================== -->
 <footer class="footer">
-      <div class="container">
-          <p>
-          	<a href="<?php echo U('Home/Index/about');?>" target="_blank">关于我们</a>  |  
-            <a href="<?php echo U('home/index/help');?>" target="_blank">使用说明</a>   |   
-            本系统由<a href="http://www.weiphp.cn" target="_blank">weiphp</a>强力驱动
-            </p>
-      </div>
+
 </footer>
 
 <script type="text/javascript">
@@ -222,7 +219,6 @@ var  ROOT = "";
 	}
 })();
 </script>
-
 
     <script type="text/javascript">
         $(function(){
@@ -248,7 +244,7 @@ var  ROOT = "";
             });
 
         })
-    </script>pt>
+    </script>
  <!-- 用于加载js代码 -->
 <!-- 页面footer钩子，一般用于加载插件JS文件和JS代码 -->
 <?php echo hook('pageFooter', 'widget');?>

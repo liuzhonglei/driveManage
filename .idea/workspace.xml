@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7ebbc95d-e22a-4368-9f6f-704477bf91eb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Addons/School/View/default/School/master_info.html" afterPath="$PROJECT_DIR$/Addons/School/View/default/School/master_info.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+    <list default="true" id="7ebbc95d-e22a-4368-9f6f-704477bf91eb" name="Default" comment="修改响应的样式，以及对应的代码提交。">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Runtime/Cache/Home/0eb3050d759497bc8b3235783f30f98a.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/0eb3050d759497bc8b3235783f30f98a.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Runtime/Cache/Home/10edaaea6a2fe4b1ed342b9164bceeea.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/10edaaea6a2fe4b1ed342b9164bceeea.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Runtime/Cache/Home/2c0ae8ad9207e022e7b7958c1a9ec99e.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/2c0ae8ad9207e022e7b7958c1a9ec99e.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/387e1e11b9e3bfcbf3ff3caee77639d6.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/413161ce60857f3111b8e40283dda29e.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Runtime/Cache/Home/609f7fbc9cbc5503f5b5b0c55d828d60.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/609f7fbc9cbc5503f5b5b0c55d828d60.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Runtime/Cache/Home/625a3e06b983c50d8180c25da2d2f145.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/625a3e06b983c50d8180c25da2d2f145.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Runtime/Cache/Home/643b862dff7839d1123b9189bed8531b.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/643b862dff7839d1123b9189bed8531b.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Runtime/Cache/Home/801d4111efd17045e5dad9f74bfbd0d7.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/801d4111efd17045e5dad9f74bfbd0d7.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Runtime/Cache/Home/836c61e80fca90a8467ce40a6c17754f.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/836c61e80fca90a8467ce40a6c17754f.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Runtime/Cache/Home/88e292ced2b6fe30fad1ca7b56c01227.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/88e292ced2b6fe30fad1ca7b56c01227.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Runtime/Temp/95a1fe934b68ebfee8468bf0bc4f0000.php" afterPath="$PROJECT_DIR$/Runtime/Temp/95a1fe934b68ebfee8468bf0bc4f0000.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Runtime/Cache/Home/b171d71961885d3bf0f7a9b2e0867b01.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/b171d71961885d3bf0f7a9b2e0867b01.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Runtime/Cache/Home/c6ed4f7cb2a240346e3d1d8e0feb2a50.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/c6ed4f7cb2a240346e3d1d8e0feb2a50.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Runtime/Cache/Home/dd9652edf3ac87da8f78c1e26ac38cc8.php" afterPath="$PROJECT_DIR$/Runtime/Cache/Home/dd9652edf3ac87da8f78c1e26ac38cc8.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="htdocs.iws" />
@@ -41,21 +54,73 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="master_info.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Addons/School/View/default/School/master_info.html">
+      <file leaf-file-name="SchoolController.class.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Addons/School/Controller/SchoolController.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.0387812" vertical-offset="165" max-vertical-offset="1335">
-              <caret line="36" column="6" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="5115">
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+              <folding>
+                <marker date="1433212709000" expanded="true" signature="1384:1526" placeholder="select t1.*,..wp_school_photo..." />
+                <marker date="1433212709000" expanded="true" signature="2322:2387" placeholder="select @x:=i..wp_teacher_rank_all..." />
+                <marker date="1433212709000" expanded="true" signature="2695:2760" placeholder="select @x:=i..wp_teacher_rank_all..." />
+                <marker date="1433212709000" expanded="true" signature="4023:4143" placeholder="select t1.*,..wp_school_place..." />
+                <marker date="1433212709000" expanded="true" signature="4922:5174" placeholder="select t.*, ..wp_student_question..." />
+                <marker date="1433212709000" expanded="true" signature="7522:7584" placeholder="select * fro..wp_school_course..." />
+                <marker date="1433212709000" expanded="true" signature="8535:8592" placeholder="select * fro..wp_school_course..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="install_view.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Addons/School/Sql/install_view.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="523" max-vertical-offset="1065">
+              <caret line="59" column="20" selection-start-line="59" selection-start-column="19" selection-end-line="59" selection-end-column="20" />
+              <folding>
+                <marker date="1433233430000" expanded="true" signature="676:977" placeholder="create view wp_teacher_rank..." />
+                <marker date="1433233430000" expanded="true" signature="980:1267" placeholder="create view wp_teacher_rank_all..." />
+                <marker date="1433233430000" expanded="true" signature="1597:1752" placeholder="create view wp_teacher_all..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PublicGroupController.class.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Application/Admin/Controller/PublicGroupController.class.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="4380">
+              <caret line="78" column="60" selection-start-line="78" selection-start-column="60" selection-end-line="78" selection-end-column="60" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="master_reg.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Addons/School/View/default/School/master_reg.html">
+      <file leaf-file-name="UserCenterController.class.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Addons/UserCenter/Controller/UserCenterController.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="1155">
-              <caret line="16" column="48" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="48" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="1875">
+              <caret line="7" column="26" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="owl.theme.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Addons/School/View/default/Public/css/owl.theme.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.2534351" vertical-offset="389" max-vertical-offset="1065">
+              <caret line="37" column="26" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="function.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Application/Admin/Common/function.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3885">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -69,33 +134,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Addons/School/Controller/PlaceController.class.php" />
-        <option value="$PROJECT_DIR$/Addons/WeiSite/Controller/WeiSiteController.class.php" />
-        <option value="$PROJECT_DIR$/Addons/Student/View/default/Public/lists.css" />
-        <option value="$PROJECT_DIR$/Application/Home/View/default/Index/_footer.html" />
-        <option value="$PROJECT_DIR$/Addons/Exam/Controller/ExamController.class.php" />
-        <option value="$PROJECT_DIR$/Addons/School/View/default/School/detail.html" />
-        <option value="$PROJECT_DIR$/Addons/School/View/default/School/privilege.html" />
-        <option value="$PROJECT_DIR$/Addons/School/Sql/install_school.sql" />
-        <option value="$PROJECT_DIR$/Addons/School/Sql/uninstall_school.sql" />
-        <option value="$PROJECT_DIR$/Addons/School/SchoolAddon.class.php" />
-        <option value="$PROJECT_DIR$/Addons/UserCenter/Controller/UserCenterController.class.php" />
-        <option value="$PROJECT_DIR$/Application/Admin/Controller/PublicGroupController.class.php" />
-        <option value="$PROJECT_DIR$/Application/Common/Common/function.php" />
-        <option value="$PROJECT_DIR$/Addons/School/View/default/School/top.html" />
-        <option value="$PROJECT_DIR$/Addons/School/View/default/School/navigation.html" />
-        <option value="$PROJECT_DIR$/Addons/School/View/default/Public/css/car.css" />
-        <option value="$PROJECT_DIR$/Application/Home/View/default/Addons/edit.html" />
-        <option value="$PROJECT_DIR$/Addons/School/Controller/InfoController.class.php" />
-        <option value="$PROJECT_DIR$/Addons/Student/View/default/Student/lists.html" />
-        <option value="$PROJECT_DIR$/Addons/Student/View/default/Student/add.html" />
-        <option value="$PROJECT_DIR$/Addons/School/View/default/School/edit.html" />
-        <option value="$PROJECT_DIR$/Addons/Student/View/default/Student/photos.html" />
         <option value="$PROJECT_DIR$/Addons/School/View/default/School/photos.html" />
         <option value="$PROJECT_DIR$/Addons/School/View/default/School/map.html" />
         <option value="$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php" />
-        <option value="$PROJECT_DIR$/Addons/Teacher/Controller/WeixinController.class.php" />
-        <option value="$PROJECT_DIR$/Addons/Student/Controller/WeixinController.class.php" />
         <option value="$PROJECT_DIR$/Public/static/ueditor/index.html" />
         <option value="$PROJECT_DIR$/Addons/School/View/default/Privilege/detail.html" />
         <option value="$PROJECT_DIR$/Addons/School/View/default/School/index.html" />
@@ -103,23 +144,47 @@
         <option value="$PROJECT_DIR$/Addons/School/View/default/School/master_school.html" />
         <option value="$PROJECT_DIR$/Addons/School/View/default/School/company.html" />
         <option value="$PROJECT_DIR$/Runtime/Cache/Home/0eb3050d759497bc8b3235783f30f98a.php" />
-        <option value="$PROJECT_DIR$/Addons/School/View/default/School/master_reg.html" />
-        <option value="$PROJECT_DIR$/Addons/School/View/default/School/regGuide.html" />
-        <option value="$PROJECT_DIR$/Addons/School/View/default/School/master.html" />
         <option value="$PROJECT_DIR$/Addons/School/View/default/School/ask.html" />
-        <option value="$PROJECT_DIR$/Addons/School/View/default/School/masterList.html" />
         <option value="$PROJECT_DIR$/Addons/School/Controller/PrivilegeController.class.php" />
         <option value="$PROJECT_DIR$/Addons/Student/Controller/AppraiseController.class.php" />
-        <option value="$PROJECT_DIR$/Addons/Student/Controller/QuestionController.class.php" />
-        <option value="$PROJECT_DIR$/Addons/Student/Controller/StudentBaseController.class.php" />
-        <option value="$PROJECT_DIR$/Addons/Student/Controller/StudentController.class.php" />
-        <option value="$PROJECT_DIR$/Addons/Teacher/Controller/TeacherController.class.php" />
         <option value="$PROJECT_DIR$/Application/Home/Controller/IndexController.class.php" />
-        <option value="$PROJECT_DIR$/Addons/School/Controller/BaseController.class.php" />
-        <option value="$PROJECT_DIR$/Addons/School/Controller/SchoolController.class.php" />
         <option value="$PROJECT_DIR$/Addons/School/Controller/CourseController.class.php" />
         <option value="$PROJECT_DIR$/Addons/School/Controller/PhotoController.class.php" />
+        <option value="$PROJECT_DIR$/Addons/Student/Controller/StudentBaseController.class.php" />
+        <option value="$PROJECT_DIR$/Addons/School/View/default/School/master_reg.html" />
+        <option value="$PROJECT_DIR$/Addons/School/SchoolAddon.class.php" />
+        <option value="$PROJECT_DIR$/Addons/AliPlay/Play/danbao/lib/alipay_core.function.php" />
+        <option value="$PROJECT_DIR$/Addons/School/View/default/School/masterList.html" />
+        <option value="$PROJECT_DIR$/Addons/Student/Model/StudentModel.class.php" />
+        <option value="$PROJECT_DIR$/Addons/Student/Controller/QuestionController.class.php" />
+        <option value="$PROJECT_DIR$/Addons/Public/lists.html" />
+        <option value="$PROJECT_DIR$/Addons/School/View/default/School/master.html" />
+        <option value="$PROJECT_DIR$/Addons/UserCenter/Controller/UserCenterController.class.php" />
+        <option value="$PROJECT_DIR$/Addons/Student/Controller/WeixinController.class.php" />
+        <option value="$PROJECT_DIR$/Addons/School/Controller/BaseController.class.php" />
+        <option value="$PROJECT_DIR$/Addons/Teacher/View/default/public/css/car.css" />
+        <option value="$PROJECT_DIR$/Addons/School/Sql/install.sql" />
+        <option value="$PROJECT_DIR$/Addons/School/Sql/uninstall.sql" />
+        <option value="$PROJECT_DIR$/Addons/School/Sql/uninstall_view.sql" />
         <option value="$PROJECT_DIR$/Addons/School/View/default/School/master_info.html" />
+        <option value="$PROJECT_DIR$/Application/Home/Controller/CategoryController.class.php" />
+        <option value="$PROJECT_DIR$/Addons/School/View/default/School/regGuide.html" />
+        <option value="$PROJECT_DIR$/Addons/School/Controller/SchoolController.class.php" />
+        <option value="$PROJECT_DIR$/Addons/Student/View/default/Student/lists.html" />
+        <option value="$PROJECT_DIR$/Application/Home/View/default/Addons/lists.html" />
+        <option value="$PROJECT_DIR$/Addons/Teacher/Controller/WeixinController.class.php" />
+        <option value="$PROJECT_DIR$/Addons/Teacher/Controller/TeacherController.class.php" />
+        <option value="$PROJECT_DIR$/Addons/Student/Controller/StudentController.class.php" />
+        <option value="$PROJECT_DIR$/Addons/Wecome/config_files/default_color.css" />
+        <option value="$PROJECT_DIR$/Public/Home/css/default_color.css" />
+        <option value="$PROJECT_DIR$/Application/Home/View/default/Index/_footer.html" />
+        <option value="$PROJECT_DIR$/Addons/Third/View/default/Extension/add.html" />
+        <option value="$PROJECT_DIR$/Application/Home/View/default/Public/footer.html" />
+        <option value="$PROJECT_DIR$/Public/Home/css/module.css" />
+        <option value="$PROJECT_DIR$/Public/Home/css/weiphp.css" />
+        <option value="$PROJECT_DIR$/Application/Home/View/default/Public/header.html" />
+        <option value="$PROJECT_DIR$/Addons/School/Sql/install_view.sql" />
+        <option value="$PROJECT_DIR$/Application/Admin/Controller/PublicGroupController.class.php" />
       </list>
     </option>
   </component>
@@ -138,7 +203,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1280" />
-    <option name="height" value="727" />
+    <option name="height" value="773" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -215,6 +280,20 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="htdocs">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -289,144 +368,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="htdocs">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="htdocs">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Addons">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="htdocs">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Addons">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="School">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="htdocs">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Addons">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="School">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="View/default">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="School">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="htdocs">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Addons">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="School">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="View/default">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="htdocs">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Addons">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="School">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Sql">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="htdocs">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Addons">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="School">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Controller">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -443,16 +384,17 @@
     <property name="FullScreen" value="false" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="SearchEverywhereHistoryKey" value="{&#9;FILE&#9;file:///Applications/MAMP/htdocs/Addons/YouaskService/View/default/YouaskService/Chat/default/style/js/jquery.js" />
-    <property name="LayoutCode.rearrangeEntriesHTML" value="false" />
+    <property name="LayoutCode.rearrangeEntriesHTML" value="true" />
     <property name="com.intellij.ide.scratch.ScratchpadManager" value="PHP" />
+    <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Addons/School/Controller" />
-      <recent name="$PROJECT_DIR$/Addons/School/View/default/School" />
-      <recent name="$PROJECT_DIR$/Addons/School/View/default/Public/css" />
+      <recent name="$PROJECT_DIR$/Public/Home/images" />
+      <recent name="$PROJECT_DIR$/Application/Home/View/default/Addons" />
       <recent name="$PROJECT_DIR$/Addons/School/View/default/Public/img" />
-      <recent name="$PROJECT_DIR$/Addons/School/View/default/Photo" />
+      <recent name="$PROJECT_DIR$/Addons/School/View/default/Public/" />
+      <recent name="$PROJECT_DIR$/Addons/School/View/default/Public" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Addons/School/View/default/School" />
@@ -473,27 +415,24 @@
     <configuration default="true" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" server_name="default" start_url="/index.php">
       <method />
     </configuration>
-    <configuration default="true" type="PhpHttpRequestRunConfigurationType" factoryName="PHP HTTP Request" server_name="default" url="/script_url">
-      <method />
-    </configuration>
     <configuration default="true" type="PhpRemoteDebugRunConfigurationType" factoryName="PHP Remote Debug">
       <method />
     </configuration>
+    <configuration default="true" type="PhpHttpRequestRunConfigurationType" factoryName="PHP HTTP Request" server_name="default" url="/script_url">
+      <method />
+    </configuration>
     <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
     <configuration default="true" type="NodeWebKit" factoryName="Node-webkit">
       <option name="name" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
-      <method />
-    </configuration>
     <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
       <BehatRunner />
-      <method />
-    </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
@@ -503,6 +442,9 @@
       <arguments />
       <pass-parent-envs>true</pass-parent-envs>
       <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
     <configuration default="false" name="test" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" server_name="default" start_url="/index.php">
@@ -530,6 +472,19 @@
       <option name="number" value="Default" />
       <updated>1431325125967</updated>
     </task>
+    <task id="LOCAL-00001" summary="upload">
+      <created>1433120349328</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1433120349328</updated>
+    </task>
+    <task id="LOCAL-00002" summary="修改响应的样式，以及对应的代码提交。">
+      <created>1433237525492</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1433237525492</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -553,29 +508,30 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="727" extended-state="6" />
+    <frame x="0" y="23" width="1280" height="773" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32913387" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32913387" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32913387" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32913387" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32913387" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32913387" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34814218" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3952756" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32913387" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32913387" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23990306" sideWeight="0.4992126" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23667206" sideWeight="0.5007874" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3952756" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32913387" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3952756" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32913387" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3952756" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296875" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296875" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -593,6 +549,9 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="upload" />
+    <MESSAGE value="修改响应的样式，以及对应的代码提交。" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改响应的样式，以及对应的代码提交。" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -603,396 +562,353 @@
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/Addons/UserCenter/Controller/UserCenterController.class.php</url>
-          <line>13</line>
-          <option name="timeStamp" value="185" />
+          <url>file://$PROJECT_DIR$/Addons/School/Controller/SchoolController.class.php</url>
+          <line>112</line>
+          <option name="timeStamp" value="214" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/Addons/School/Controller/SchoolController.class.php</url>
-          <line>28</line>
-          <option name="timeStamp" value="206" />
+          <line>190</line>
+          <option name="timeStamp" value="216" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/Addons/Student/Controller/WeixinController.class.php</url>
+          <line>51</line>
+          <option name="timeStamp" value="242" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/Addons/Teacher/Controller/TeacherController.class.php</url>
+          <line>54</line>
+          <option name="timeStamp" value="243" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php</url>
+          <line>679</line>
+          <option name="timeStamp" value="258" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="207" />
+      <option name="time" value="265" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Addons/Student/View/default/Student/edit.html">
+    <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.958333" vertical-offset="16" max-vertical-offset="3870">
-          <caret line="17" column="17" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="17" />
+        <state vertical-scroll-proportion="-4.4166665" vertical-offset="9959" max-vertical-offset="13530">
+          <caret line="679" column="0" selection-start-line="679" selection-start-column="0" selection-end-line="679" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/View/default/Public/css/car.css">
+    <entry file="file://$PROJECT_DIR$/Addons/School/Controller/BaseController.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33275864" vertical-offset="9137" max-vertical-offset="19005">
-          <caret line="622" column="10" selection-start-line="622" selection-start-column="1" selection-end-line="622" selection-end-column="10" />
+        <state vertical-scroll-proportion="80.583336" vertical-offset="3029" max-vertical-offset="3870">
+          <caret line="73" column="22" selection-start-line="73" selection-start-column="22" selection-end-line="73" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/View/default/School/company.html">
+    <entry file="file://$PROJECT_DIR$/Addons/Student/Controller/StudentBaseController.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47368422" vertical-offset="210" max-vertical-offset="1170">
-          <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
+        <state vertical-scroll-proportion="-5.0" vertical-offset="0" max-vertical-offset="1230">
+          <caret line="13" column="43" selection-start-line="13" selection-start-column="43" selection-end-line="13" selection-end-column="43" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/Card/Controller/CardController.class.php">
+    <entry file="file://$PROJECT_DIR$/Application/Admin/View/Qiniu/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3130194" vertical-offset="97" max-vertical-offset="2235">
-          <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.10526316" vertical-offset="0" max-vertical-offset="6810">
+          <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/View/default/School/navigation.html">
+    <entry file="file://$PROJECT_DIR$/Addons/Wecome/config_files/default_color.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.125" vertical-offset="600" max-vertical-offset="1260">
-          <caret line="45" column="44" selection-start-line="45" selection-start-column="15" selection-end-line="45" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.785832" vertical-offset="4518" max-vertical-offset="7050">
+          <caret line="333" column="34" selection-start-line="333" selection-start-column="34" selection-end-line="333" selection-end-column="34" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Runtime/Cache/Home/0eb3050d759497bc8b3235783f30f98a.php">
+    <entry file="file://$PROJECT_DIR$/Addons/Student/Controller/StudentController.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43767312" vertical-offset="607" max-vertical-offset="1380">
-          <caret line="51" column="74" selection-start-line="51" selection-start-column="66" selection-end-line="51" selection-end-column="74" />
+        <state vertical-scroll-proportion="-13.041667" vertical-offset="2747" max-vertical-offset="3435">
+          <caret line="204" column="17" selection-start-line="204" selection-start-column="17" selection-end-line="204" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/Controller/InfoController.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2572899" vertical-offset="0" max-vertical-offset="583">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ThinkPHP/Common/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.4166665" vertical-offset="7604" max-vertical-offset="22230">
-          <caret line="522" column="0" selection-start-line="522" selection-start-column="0" selection-end-line="522" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ThinkPHP/ThinkPHP.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.1666665" vertical-offset="1337" max-vertical-offset="1920">
-          <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Model.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.2916666" vertical-offset="1259" max-vertical-offset="24885">
-          <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/Leaflets/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="594">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/Leaflets/View/default/Leaflets/show.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1005">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/Leaflets/View/default/Leaflets/config.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3585">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/Leaflets/View/default/Public/leaflets.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="594">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/Leaflets/View/default/Public/bg.png">
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/icon_setting.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/Leaflets/Model/WeixinAddonModel.class.php">
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/icon32_loading_light.gif">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/ico1_hover.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/help_more.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/help04.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/help02.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/template.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/one_think.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/search.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/smile.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/weiphp_logo.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/sort_list.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/step.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/weixin.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/write_icon.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/login_bg.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/css/default_color.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="690">
+        <state vertical-scroll-proportion="0.29764065" vertical-offset="3196" max-vertical-offset="4140">
+          <caret line="224" column="29" selection-start-line="224" selection-start-column="23" selection-end-line="224" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/css/base.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5430">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/Leaflets/Controller/LeafletsController.class.php">
+    <entry file="file://$PROJECT_DIR$/Public/Home/css/module.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47368422" vertical-offset="360" max-vertical-offset="1035">
-          <caret line="42" column="22" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="22" />
+        <state vertical-scroll-proportion="3.4285715" vertical-offset="816" max-vertical-offset="19050">
+          <caret line="184" column="27" selection-start-line="184" selection-start-column="27" selection-end-line="184" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/UserCenter/Model/UserCenterModel.class.php">
+    <entry file="file://$PROJECT_DIR$/Addons/Third/View/default/Extension/add.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27719298" vertical-offset="1777" max-vertical-offset="2655">
+          <caret line="129" column="58" selection-start-line="129" selection-start-column="58" selection-end-line="129" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/Addons/attachment/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="607">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/UserCenter/Controller/UserCenterController.class.php">
+    <entry file="file://$PROJECT_DIR$/Application/Home/View/default/Public/footer.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.017152658" vertical-offset="190" max-vertical-offset="1785">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.10291595" vertical-offset="0" max-vertical-offset="583">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/View/default/School/index.html">
+    <entry file="file://$PROJECT_DIR$/Application/Home/View/default/Index/_footer.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.36842105" vertical-offset="615" max-vertical-offset="2415">
-          <caret line="27" column="24" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.025728988" vertical-offset="0" max-vertical-offset="583">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/View/default/School/ask.html">
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/new.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/nav.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/logo_80.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/logo_text.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/new.gif">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/no_cover.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/one_thinktit.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/pwd_icon.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/slide_arrow_up.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/onethink.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/logo.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Home/images/release_topic.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Home/View/default/Public/header.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31754386" vertical-offset="1019" max-vertical-offset="2085">
-          <caret line="80" column="66" selection-start-line="80" selection-start-column="66" selection-end-line="80" selection-end-column="66" />
+        <state vertical-scroll-proportion="0.2762431" vertical-offset="0" max-vertical-offset="1035">
+          <caret line="10" column="0" selection-start-line="9" selection-start-column="6" selection-end-line="10" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/Leaflets/Model/LeafletsModel.class.php">
+    <entry file="file://$PROJECT_DIR$/Public/Home/css/weiphp.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28301886" vertical-offset="0" max-vertical-offset="583">
-          <caret line="11" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/SchoolAddon.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33447686" vertical-offset="0" max-vertical-offset="930">
-          <caret line="13" column="25" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Runtime/Cache/Admin/4bc4913b407324fb4d494724d5710d65.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33240998" vertical-offset="2625" max-vertical-offset="5610">
-          <caret line="183" column="117" selection-start-line="183" selection-start-column="117" selection-end-line="183" selection-end-column="117" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Home/Controller/AddonsController.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.75" vertical-offset="36" max-vertical-offset="4125">
-          <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/View/default/School/master.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6397942" vertical-offset="1277" max-vertical-offset="1860">
-          <caret line="110" column="23" selection-start-line="110" selection-start-column="23" selection-end-line="110" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Home/View/default/Addons/lists.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="6.1764708" vertical-offset="390" max-vertical-offset="1500">
-          <caret line="5" column="58" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.019608" vertical-offset="9704" max-vertical-offset="13530">
-          <caret line="672" column="27" selection-start-line="672" selection-start-column="27" selection-end-line="672" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Common/Common/function.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-137.66667" vertical-offset="7964" max-vertical-offset="34650">
-          <caret line="1005" column="19" selection-start-line="1005" selection-start-column="14" selection-end-line="1005" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/Cascade/CascadeAddon.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.9473684" vertical-offset="1110" max-vertical-offset="2265">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Home/View/default/Addons/edit.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="31.25" vertical-offset="750" max-vertical-offset="3795">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/Student/Controller/StudentBaseController.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21269296" vertical-offset="686" max-vertical-offset="1590">
-          <caret line="59" column="16" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/Student/Controller/StudentController.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6315789" vertical-offset="3030" max-vertical-offset="3600">
-          <caret line="226" column="15" selection-start-line="226" selection-start-column="15" selection-end-line="226" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Home/Controller/MemberPublicController.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.84210527" vertical-offset="0" max-vertical-offset="5295">
-          <caret line="38" column="30" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Home/Controller/IndexController.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36842105" vertical-offset="255" max-vertical-offset="2700">
-          <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/Teacher/Controller/TeacherController.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21269296" vertical-offset="1586" max-vertical-offset="2640">
-          <caret line="114" column="16" selection-start-line="114" selection-start-column="16" selection-end-line="114" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/Student/Controller/QuestionController.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48542023" vertical-offset="122" max-vertical-offset="705">
-          <caret line="27" column="20" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/Student/Controller/AppraiseController.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3567753" vertical-offset="47" max-vertical-offset="630">
-          <caret line="17" column="16" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/Controller/PrivilegeController.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2264151" vertical-offset="168" max-vertical-offset="885">
-          <caret line="25" column="16" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/Controller/BaseController.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.38936535" vertical-offset="1397" max-vertical-offset="1980">
-          <caret line="78" column="7" selection-start-line="51" selection-start-column="2" selection-end-line="78" selection-end-column="7" />
-          <folding>
-            <element signature="e#6#87#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/Controller/CourseController.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23156089" vertical-offset="0" max-vertical-offset="583">
-          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/Controller/PhotoController.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48885077" vertical-offset="0" max-vertical-offset="900">
-          <caret line="19" column="32" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
-          <folding />
+        <state vertical-scroll-proportion="0.21548821" vertical-offset="22" max-vertical-offset="2190">
+          <caret line="10" column="35" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Addons/School/Controller/SchoolController.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.6842103" vertical-offset="4755" max-vertical-offset="5325">
-          <caret line="63" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="5115">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding>
-            <marker date="1433081296000" expanded="true" signature="-1:-1" placeholder="select t1.*,..wp_school_photo..." />
-            <marker date="1433081296000" expanded="true" signature="-1:-1" placeholder="select @x:=i..wp_teacher_rank_all..." />
-            <marker date="1433081296000" expanded="true" signature="-1:-1" placeholder="select @x:=i..wp_teacher_rank_all..." />
-            <marker date="1433081296000" expanded="true" signature="-1:-1" placeholder="select t1.*,..wp_school_place..." />
-            <marker date="1433081296000" expanded="true" signature="-1:-1" placeholder="select t.*, ..wp_student_question..." />
-            <marker date="1433081296000" expanded="true" signature="-1:-1" placeholder="select * fro..wp_school_course..." />
-            <marker date="1433081296000" expanded="true" signature="-1:-1" placeholder="select * fro..wp_school_course..." />
+            <marker date="1433212709000" expanded="true" signature="1384:1526" placeholder="select t1.*,..wp_school_photo..." />
+            <marker date="1433212709000" expanded="true" signature="2322:2387" placeholder="select @x:=i..wp_teacher_rank_all..." />
+            <marker date="1433212709000" expanded="true" signature="2695:2760" placeholder="select @x:=i..wp_teacher_rank_all..." />
+            <marker date="1433212709000" expanded="true" signature="4023:4143" placeholder="select t1.*,..wp_school_place..." />
+            <marker date="1433212709000" expanded="true" signature="4922:5174" placeholder="select t.*, ..wp_student_question..." />
+            <marker date="1433212709000" expanded="true" signature="7522:7584" placeholder="select * fro..wp_school_course..." />
+            <marker date="1433212709000" expanded="true" signature="8535:8592" placeholder="select * fro..wp_school_course..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/View/default/School/master_reserve.html">
+    <entry file="file://$PROJECT_DIR$/Public/favicon.ico">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Addons/School/Sql/install_view.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="165">
+        <state vertical-scroll-proportion="0.0" vertical-offset="523" max-vertical-offset="1065">
+          <caret line="59" column="20" selection-start-line="59" selection-start-column="19" selection-end-line="59" selection-end-column="20" />
+          <folding>
+            <marker date="1433233430000" expanded="true" signature="676:977" placeholder="create view wp_teacher_rank..." />
+            <marker date="1433233430000" expanded="true" signature="980:1267" placeholder="create view wp_teacher_rank_all..." />
+            <marker date="1433233430000" expanded="true" signature="1597:1752" placeholder="create view wp_teacher_all..." />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Admin/View/AuthManager/public_count.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Admin/Common/function.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3885">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/View/default/School/master_school.html">
+    <entry file="file://$PROJECT_DIR$/Application/Admin/Controller/PublicGroupController.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="4380">
+          <caret line="78" column="60" selection-start-line="78" selection-start-column="60" selection-end-line="78" selection-end-column="60" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/View/default/School/masterList.html">
+    <entry file="file://$PROJECT_DIR$/Addons/UserCenter/Controller/UserCenterController.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.125" vertical-offset="330" max-vertical-offset="3120">
-          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="1875">
+          <caret line="7" column="26" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/View/default/School/regGuide.html">
+    <entry file="file://$PROJECT_DIR$/Addons/School/View/default/Public/css/owl.theme.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="6.875" vertical-offset="165" max-vertical-offset="4710">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/View/default/School/master_reg.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="1155">
-          <caret line="16" column="48" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38961038" vertical-offset="0" max-vertical-offset="15060">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Runtime/Logs/15_06_01.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38961038" vertical-offset="0" max-vertical-offset="11655">
-          <caret line="10" column="38" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Addons/School/View/default/School/master_info.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0387812" vertical-offset="165" max-vertical-offset="1335">
-          <caret line="36" column="6" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.2534351" vertical-offset="389" max-vertical-offset="1065">
+          <caret line="37" column="26" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="26" />
           <folding />
         </state>
       </provider>

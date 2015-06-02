@@ -40,8 +40,10 @@ $(function(){
 	
 	/*点击弹出中的课程*/
 	$("#allType li").click(function(){
-		$("#courseShow").text($(this).text()); 
-		$("#courseSel").popup("close");
+        $("#allType li").find("img").attr("src","<?php echo ADDON_PUBLIC_PATH;?>/img/radio.png");
+        $(this).find("img").attr("src","<?php echo ADDON_PUBLIC_PATH;?>/img/radioed.png");
+        $("#courseShow").text($(this).text());
+        $("#courseSel").popup("close");
 	})
 	
 })
@@ -55,7 +57,7 @@ $(function(){
     <div class="c_popupList">
         <ul id="allType">
 
-            <?php if(is_array($course_data)): $i = 0; $__LIST__ = $course_data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li><?php echo ($vo["name"]); ?> <span><?php echo ($vo["sign_charge"]); ?>元</span></li><?php endforeach; endif; else: echo "" ;endif; ?>
+            <?php if(is_array($course_data)): $i = 0; $__LIST__ = $course_data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li><img src="<?php echo ADDON_PUBLIC_PATH;?>/img/radio.png"><?php echo ($vo["name"]); ?> <span><?php echo ($vo["sign_charge"]); ?>元</span></li><?php endforeach; endif; else: echo "" ;endif; ?>
             <!--<li>C2培训课 <span>6000元</span></li>-->
             <!--<li>B2培训课 <span>8000元</span></li>-->
         </ul>
@@ -70,6 +72,7 @@ $(function(){
         <!--头部信息-->
         <div class="masterBg"><img src="<?php echo ADDON_PUBLIC_PATH;?>/img/master_bg.png"></div>
         <div class="masterInfo">
+            <input type="hidden" id = "teacher_id" value="<?php echo ($teacher_data["id"]); ?>">
         	<div class="Photo"><img src="<?php echo get_cover_url($teacher_data['photo']);?>"></div>
         	<div class="name"><?php echo ($teacher_data["name"]); ?> <span><?php echo ($teacher_data["level_name"]); ?></span></div>
             <div class="school"><?php echo ($school_data["name"]); ?>驾校</div>

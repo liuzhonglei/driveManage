@@ -46,7 +46,7 @@ var  ROOT = "";
 ================================================== -->
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
-       <!--<a class="brand" title="<?php echo C('WEB_SITE_TITLE');?>" href="<?php echo U('index/index');?>"><img height="45" src="<?php if(C('SYSTEM_LOGO')) { echo C('SYSTEM_LOGO'); }else{ ?>/Public/Home/images/top_logo.png?v=<?php echo SITE_VERSION;?> <?php } ?>" title="<?php echo C('WEB_SITE_TITLE');?>"/></a>-->
+       <!--<a class="brand" title="<?php echo C('WEB_SITE_TITLE');?>" href="<?php echo U('index/index');?>"><img height="60" src="<?php if(C('SYSTEM_LOGO')) { echo C('SYSTEM_LOGO'); }else{ ?>/Public/Home/images/top_logo.png?v=<?php echo SITE_VERSION;?> <?php } ?>" title="<?php echo C('WEB_SITE_TITLE');?>"/></a>-->
 
             <!---->
             <div class="top_nav">
@@ -152,7 +152,7 @@ var  ROOT = "";
                 <?php if(is_array($top_more_button)): $i = 0; $__LIST__ = $top_more_button;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i; if($vo[is_buttion]): ?><button class="btn <?php echo ($vo["class"]); ?>" target-form="ids" url="<?php echo ($vo["url"]); ?>"><?php echo ($vo["title"]); ?></button>
                 <?php else: ?>
                 <a class="btn" href="<?php echo ($vo["url"]); ?>"><?php echo ($vo["title"]); ?></a><?php endif; ?>
-                &nbsp;<?php endforeach; endif; else: echo "" ;endif; ?>            
+                &nbsp;<?php endforeach; endif; else: echo "" ;endif; ?>
 			</div><?php endif; ?>
         </div>
         <!-- 高级搜索 -->
@@ -161,7 +161,7 @@ var  ROOT = "";
             <?php $get_param[model]=$model['name']; $search_url || $search_url = addons_url($_REQUEST ['_addons'].'://'.$_REQUEST ['_controller'].'/lists', $get_param); ?>
             <?php empty($search_key) && $search_key=$model['search_key'];empty($search_key) && $search_key='title'; ?>
             <input type="text" name="<?php echo ($search_key); ?>" class="search-input" value="<?php echo I($search_key);?>" placeholder="<?php echo ($placeholder); ?>">
-            <a class="sch-btn" href="javascript:;" id="search" url="<?php echo ($search_url); ?>"><i class="btn-search"></i></a> </div>
+            <a class="sch-btn" href="javascript:;" id="search" url="<?php echo U('lists','model='.$model['name'],false);?>"><i class="btn-search"></i></a> </div>
         </div><?php endif; ?>
       </div><?php endif; ?>
       <!-- 数据列表 -->
@@ -199,13 +199,7 @@ var  ROOT = "";
     <!-- 底部
     ================================================== -->
 <footer class="footer">
-      <div class="container">
-          <p>
-          	<a href="<?php echo U('Home/Index/about');?>" target="_blank">关于我们</a>  |  
-            <a href="<?php echo U('home/index/help');?>" target="_blank">使用说明</a>   |   
-            本系统由<a href="http://www.weiphp.cn" target="_blank">weiphp</a>强力驱动
-            </p>
-      </div>
+
 </footer>
 
 <script type="text/javascript">

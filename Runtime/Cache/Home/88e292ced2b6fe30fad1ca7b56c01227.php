@@ -32,64 +32,72 @@ $(function(){
 		if($("#courseMenu").parent().css("visibility")=="hidden"){ //如果菜单隐藏
 			$("#courseMenu").popup("open", {transition:"slidedown",positionTo:"#anchorCourse"});
 			$("#levelMenu").popup("close", {transition:"slidedown",positionTo:"#anchorLevel"});
+//            if($("#level").hasClass("curr")){ //展开收起状态样式
+//                $(".c_sort li").removeClass("curr");
+//            }else{
+//                $(this).addClass("curr");
+//            }
 		}else{
-			$("#courseMenu").popup("close", {transition:"slidedown",positionTo:"#anchorCourse"});
+            $("#courseMenu").popup("close", {transition:"slidedown",positionTo:"#anchorCourse"});
+            $(this).removeClass("curr");
 		}
-			
+
 	})
+
 	$("#allCourse li").click(function(){
-		$("#seledCourse").text($(this).text()); 
+		$("#seledCourse").text($(this).text());
 		$("#courseMenu").popup("close");
 
         document.getElementById('course_type').value = $(this).val();
         refresh();
 	})
-	
+
 	/*锦旗最多*/
 	$("#level").click(function(){
 		if($("#levelMenu").parent().css("visibility")=="hidden"){ //如果菜单隐藏
 			$("#levelMenu").popup("open", {transition:"slidedown",positionTo:"#anchorLevel"});
 			$("#courseMenu").popup("close", {transition:"slidedown",positionTo:"#anchorCourse"});
-		}else{
-			$("#levelMenu").popup("close", {transition:"slidedown",positionTo:"#anchorLevel"});
-		}
-
-
-			
+//            if($("#course").hasClass("curr"))else{
+//                $(this).addClass("curr");
+//            }
+        }else{
+            $("#levelMenu").popup("close", {transition:"slidedown",positionTo:"#anchorLevel"});
+            $(this).removeClass("curr");//收起
+        }
 	})
-	$("#allLevel li").click(function(){
-		$("#seledLevel").text($(this).text()); 
-		$("#levelMenu").popup("close");
+    $("#allLevel li").click(function(){
+        $("#seledLevel").text($(this).text());
+        $("#levelMenu").popup("close");
         document.getElementById('level_type').value = $(this).val();
         refresh();
-	})
+    })
 	
 	/*默认*/
 	$("#default").click(function(){
 		if($("#levelMenu").parent().css("visibility")=="visible"){ //如果菜单隐藏
 			$("#levelMenu").popup("close", {transition:"slidedown",positionTo:"#anchorLevel"});
 		}
-		
+
 		if($("#courseMenu").parent().css("visibility")=="visible"){ //如果菜单隐藏
 			$("#courseMenu").popup("close", {transition:"slidedown",positionTo:"#anchorLevel"});
 		}
 
         document.getElementById('course_type').value = null;
         document.getElementById('level_type').value = null;
-
+        $(".c_sort li").removeClass("curr");//收起
         refresh();
 	})
-	
+
 	/*点击搜索框*/
 	$("#searchTxt").click(function(){
 		if($("#levelMenu").parent().css("visibility")=="visible"){ //如果菜单隐藏
 			$("#levelMenu").popup("close", {transition:"slidedown",positionTo:"#anchorLevel"});
 		}
-		
+
 		if($("#courseMenu").parent().css("visibility")=="visible"){ //如果菜单隐藏
 			$("#courseMenu").popup("close", {transition:"slidedown",positionTo:"#anchorLevel"});
 		}
-      
+        $(".c_sort li").removeClass("curr");//收起
 	})
 
     $("#searchBtn").click(function(){

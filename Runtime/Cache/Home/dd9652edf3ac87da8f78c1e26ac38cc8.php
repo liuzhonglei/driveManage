@@ -69,32 +69,32 @@ var  ROOT = "";
             <p>官方QQ群:&nbsp;8322255</p>
 		</div>
     </div>
-    <!--<div class="footer">-->
-    	<!--<div class="wrap foot_wrap">-->
-        	<!--<div class="foot_div">-->
-            	<!--<h6>关于我们</h6>-->
-                <!--<a href="<?php echo U('about');?>">关于我们</a><br/>-->
-                <!--<a href="<?php echo U('about');?>">联系方式</a><br/>-->
-				<!--&lt;!&ndash;<a href="#">友情链接</a><br/>&ndash;&gt;-->
-  				<!--<a href="<?php echo U('license');?>">授权协议</a>-->
+<div class="footer">
+    <div class="wrap foot_wrap">
+        <div class="foot_div">
+            <h6>关于我们</h6>
+            <a href="<?php echo U('about');?>">关于我们</a><br/>
+            <a href="<?php echo U('about');?>">联系方式</a><br/>
+            <!--<a href="#">友情链接</a><br/>-->
+            <a href="<?php echo U('license');?>">授权协议</a>
 
-            <!--</div>-->
-        	<!--<div class="foot_div">-->
-            	<!--<h6>帮助</h6>-->
-                <!--<a href="http://bbs.weiphp.cn" target="_blank">官方论坛</a><br/>-->
-                <!--&lt;!&ndash;<a href="javasctipt:;" target="_blank">官方微博</a><br/>&ndash;&gt;-->
-                <!--<a href="javascript:;">官方QQ交流群：8322255</a>-->
+        </div>
+        <div class="foot_div">
+            <h6>帮助</h6>
+            <a href="http://bbs.weiphp.cn" target="_blank">官方论坛</a><br/>
+            <!--<a href="javasctipt:;" target="_blank">官方微博</a><br/>-->
+            <a href="javascript:;">官方QQ交流群：8322255</a>
 
-            <!--</div>-->
-            <!--<div class="getqrcode">-->
-            	<!--<img src="/Public/Home/images/getqrcode.jpg"/>-->
-                <!--<p>微信扫码左侧二维码<br/>并加关注WeiPHP官方微信公众号<br/>体验WeiPHP的最新功能</p>-->
-            <!--</div>-->
-            <!--<div class="foot_logo"></div>-->
-        <!--</div>-->
-        <!--<p class="copyright"><?php echo C('COPYRIGHT');?> <?php echo C('WEB_SITE_ICP');?></p>-->
-    <!--</div>-->
-<!--&lt;!&ndash; 页面footer钩子，一般用于加载插件JS文件和JS代码 &ndash;&gt;-->
-<!--<?php echo hook('pageFooter', 'widget');?>    -->
+        </div>
+        <div class="getqrcode">
+            <img src="/Public/Home/images/getqrcode.jpg"/>
+            <p>微信扫码左侧二维码<br/>并加关注WeiPHP官方微信公众号<br/>体验WeiPHP的最新功能</p>
+        </div>
+        <div class="foot_logo"></div>
+    </div>
+    <p class="copyright"><?php echo C('COPYRIGHT');?> <?php echo C('WEB_SITE_ICP');?></p>
+</div>
+<!-- 页面footer钩子，一般用于加载插件JS文件和JS代码 -->
+<?php echo hook('pageFooter', 'widget');?>
 </body>
 </html>

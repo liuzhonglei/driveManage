@@ -46,7 +46,7 @@ var  ROOT = "";
 ================================================== -->
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
-       <!--<a class="brand" title="<?php echo C('WEB_SITE_TITLE');?>" href="<?php echo U('index/index');?>"><img height="45" src="<?php if(C('SYSTEM_LOGO')) { echo C('SYSTEM_LOGO'); }else{ ?>/Public/Home/images/top_logo.png?v=<?php echo SITE_VERSION;?> <?php } ?>" title="<?php echo C('WEB_SITE_TITLE');?>"/></a>-->
+       <!--<a class="brand" title="<?php echo C('WEB_SITE_TITLE');?>" href="<?php echo U('index/index');?>"><img height="60" src="<?php if(C('SYSTEM_LOGO')) { echo C('SYSTEM_LOGO'); }else{ ?>/Public/Home/images/top_logo.png?v=<?php echo SITE_VERSION;?> <?php } ?>" title="<?php echo C('WEB_SITE_TITLE');?>"/></a>-->
 
             <!---->
             <div class="top_nav">
@@ -249,13 +249,7 @@ var  ROOT = "";
     <!-- 底部
     ================================================== -->
 <footer class="footer">
-      <div class="container">
-          <p>
-          	<a href="<?php echo U('Home/Index/about');?>" target="_blank">关于我们</a>  |  
-            <a href="<?php echo U('home/index/help');?>" target="_blank">使用说明</a>   |   
-            本系统由<a href="http://www.weiphp.cn" target="_blank">weiphp</a>强力驱动
-            </p>
-      </div>
+
 </footer>
 
 <script type="text/javascript">
