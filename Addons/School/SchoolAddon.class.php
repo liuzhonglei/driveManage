@@ -24,7 +24,7 @@ class schoolAddon extends Addon
 
     public function install()
     {
-        $install_file = array('./Addons/School/Sql/install.sql');
+        $install_file = array('./Addons/School/Sql/install.sql','./Addons/School/Sql/install_view.sql');
 
        foreach($install_file as $file){
            if (file_exists($file)) {
@@ -37,7 +37,7 @@ class schoolAddon extends Addon
 
     public function uninstall()
     {
-        $uninstall_file = array('./Addons/School/Sql/uninstall.sql');
+        $uninstall_file = array('./Addons/School/Sql/uninstall.sql','./Addons/School/Sql/uninstall_view.sql');
 
         foreach($uninstall_file as $file){
             if (file_exists($file)) {

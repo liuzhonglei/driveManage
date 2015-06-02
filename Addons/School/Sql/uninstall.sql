@@ -32,6 +32,3 @@ DELETE FROM `wp_attribute` WHERE model_id = (SELECT id FROM wp_model WHERE `name
 DELETE FROM `wp_model` WHERE `name`='teacher' ORDER BY id DESC LIMIT 1;
 DROP TABLE IF EXISTS `wp_teacher`;
 
-
-drop view wp_teacher_rank;
-drop view wp_teacher_rank_all;

@@ -251,23 +251,3 @@ INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_s
 INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('open_id','微信ID','varchar(100) NOT NULL','string','','','0','','0','0','1','1431681752','1431681752','','3','','regex','','3','function');
 UPDATE `wp_attribute` SET model_id= (SELECT MAX(id) FROM `wp_model`) WHERE model_id=0;
 
-
-
-create view wp_teacher_rank as
-select `wp_student`.`id_in_teacher` AS `id_in_teacher`,count(if((`wp_student`.`status` > 0),1,NULL)) AS `suc_count`,concat(left((ifnull((count(if((`wp_student`.`status` > 0),1,NULL)) / count(`wp_student`.`id`)),0) * 100),5),'%') AS `suc_rate` from `wp_student` group by `wp_student`.`id_in_teacher`;
-
-create view wp_teacher_rank_all as
-SELECT
-	`T1`.`id` AS `id`,
-	`T1`.`name` AS `name`,
-	ifnull(T3.suc_count, 0) AS `suc_count`,
-	ifnull(T3.suc_rate, '0%') AS `suc_rate`
-FROM
-	(
-		`wp_teacher` `T1`
-		LEFT JOIN `wp_teacher_rank` `T3` ON (
-			(`T1`.`id` = `T3`.`id_in_teacher`)
-		)
-	)
-ORDER BY
-	ifnull(`T3`.`suc_count`, 0) desc;

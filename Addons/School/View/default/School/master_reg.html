@@ -3,14 +3,14 @@
 <div class="x_item subItem">
     <ul>
         <a href="#courseSel" data-rel="popup" data-transition="pop" >
-            <li id="courseShow">{$name} &nbsp;&nbsp;&nbsp;{$sign_charge}元</li></a>
+            <li id="courseShow" value="{$id}">{$name} &nbsp;&nbsp;&nbsp;{$sign_charge}元</li></a>
     </ul>
 </div>
 <div class="x_blank"></div>
 <div class="c_formFull subItem">
-    <input type="text" data-role="none" id="#re_name" value="请输入您的姓名">
-    <input type="text" data-role="none" id="#re_phone" value="请输入电话号码">
-    <input type="text" data-role="none" id="#re_mark" value="备注">
+    <input type="text" data-role="none" id="re_name" value="请输入您的姓名">
+    <input type="text" data-role="none" id="re_phone" value="请输入电话号码">
+    <input type="text" data-role="none" id="re_remark" value="备注">
 </div>
 <div class="c_remark">报名说明：报名成功后,驾校会在第一时间联系您与您确认,请耐心等候。如急需报名可拨打我们的预约电话联系我们。</div>
 <div class="c_warn_bk" >
@@ -47,6 +47,8 @@ $(function(){
 
 
 function info_submit() {
+    var teacher_id = $("#teacher_id").val();
+    var course_id = $("#courseShow").val();
     var name = $("#re_name").val();
     var phone = $("#re_phone").val();
     var remark = $("#re_remark").val();
@@ -54,7 +56,7 @@ function info_submit() {
         type: "post",
         url: "{:U('register')}",
         dataType: 'json',
-        data: 'name=' + name + '&phone=' + phone + '&remark=' + remark,
+        data: 'id_in_teacher='+teacher_id+'&course_id='+course_id+'&name=' + name + '&phone=' + phone + '&remark=' + remark,
         success: function (data) {
             if(data.status == 0 ){
                 document.getElementById("c_warn").style.display = "";

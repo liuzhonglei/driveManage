@@ -16,8 +16,14 @@ class UserCenterController extends AddonsController {
 		$this->assign ( 'check_all', false );
 		
 		$model = $this->getModel ( 'follow' );
-		
-		parent::common_lists ( $model );
+
+        $list_data = $this->_get_model_list ( $model );
+        foreach ( $list_data ['list_data'] as &$vo ) {
+            $vo ['headimgurl'] = '<img src="' . get_cover_url ( $vo ['headimgurl'] ) . '" width="50px" >';
+        }
+        $this->assign ( $list_data );
+
+        $this->display ();
 	}
 	// 用户绑定
 	public function edit() {

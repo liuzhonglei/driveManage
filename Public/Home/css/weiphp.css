@@ -2,14 +2,14 @@
  * weiphp公用css
  */
 /* 登录 */
-#login_body{ background:url(../images/login_bg.jpg) no-repeat center top}
+#login_body{ background-color: #217BAE;}
 #login_body footer{ display:none}
 .login_box,.reg_box{ width:400px; margin:50px auto; color:#666; padding:30px 100px;}
 .login_box{ margin-top:100px;}
 .login_box a{ color:#fff; font-size:15px;}
-.login_box a:hover{ color:#1dbd03}
-.logo_icon{ width:60px; height:60px; margin:0 auto; background:url(../images/logo_80.png) center center no-repeat;}
-.logo_text{ height:30px; margin:20px 0 10px; background:url(../images/logo_text.png) center top no-repeat; position:relative}
+.login_box a:hover{ color:#1377ad}
+.logo_icon{ width:128px; height:128px; margin:0 auto; background:url(../images/logo_drive.png) center center no-repeat;}
+/*.logo_text{ height:30px; margin:20px 0 10px; background:url(../images/logo_text.png) center top no-repeat; position:relative}*/
 .logo_text .beta{ position:absolute; height:24px; width:76px; right:45px; top:0; background:url(../images/beta2.0.png) no-repeat; display:none}
 .form_title{text-align:center; color:#ccc; font-size:16px; display:none}
 .login_box .form_body{ margin-top:30px;}
@@ -34,7 +34,7 @@
 /* login end */
 
 /* 头部 */
-.navbar{ height:50px; width:100%; background:url(../images/login_bg.jpg) no-repeat; position:fixed; top:0; border-bottom:2px solid #222; z-index:10000;}
+.navbar{ height:50px; width:100%;background-color: #136595; position:fixed; top:0; border-bottom:2px solid #136595; z-index:10000;}
 .brand{ padding:5px 10px; display:block; float:left;}
 .top_nav{ float:right; padding:0 10px 0 130px;}
 .top_nav a{ color:#fff;}
@@ -66,10 +66,10 @@ background-clip: none;}
 .top_nav .dropdown-menu > li > a{ color:#fff}
 
 /* 侧栏 */
-.sidebar{ position:fixed; top:50px; left:0; bottom:0; width:180px; background:url(../images/login_bg.jpg) no-repeat; overflow-y:auto; overflow-x:hidden; padding-bottom:30px;}
-.sidebar li a{ display:block;color:#ddd; height:40px; border-bottom:1px solid #161e38; border-top:1px solid #000; line-height:40px; padding:0 10px;}
-.sidebar li a:hover{ color:#6b6a89;}
-.sidebar li.active a{ color:#1bb801; background:#fff; font-weight:bold}
+.sidebar{ position:fixed; top:50px; left:0; bottom:0; width:180px; background-color: #217BAE; no-repeat; overflow-y:auto; overflow-x:hidden; padding-bottom:30px;}
+.sidebar li a{ display:block;color:#ddd; height:40px; border-bottom:1px solid #217bae; border-top:1px solid rgb(33, 123, 174); line-height:40px; padding:0 10px;}
+.sidebar li a:hover{ color: #999999;}
+.sidebar li.active a{ color: #1377ad; background:#fff; font-weight:bold}
 .sidebar .fa{ font-size:15px; padding-right:10px;}
 .sidebar .arrow{ color:#ddd; font-size:10px; padding-left:10px;}
 .sidebar li .sidenav_sub a{ padding-left:35px;}
@@ -100,8 +100,8 @@ background-clip: none;}
 .form-item-div{ width:320px; margin:20px auto;}
 .form-item-div input{ width:300px;}
 /* 顶部提示 */
-.top-alert-tips{position:fixed; top:0; left:50%; margin-left:-300px; width:600px; z-index:10099; background:#1dbd03; border-bottom-left-radius:10px;border-bottom-right-radius:10px; color:#fff; height:50px; line-height:50px; white-space:nowrap; padding:0 20px;}
-.alert-success{background:#1dbd03;}
+.top-alert-tips{position:fixed; top:0; left:50%; margin-left:-300px; width:600px; z-index:10099; background:#1377ad; border-bottom-left-radius:10px;border-bottom-right-radius:10px; color:#fff; height:50px; line-height:50px; white-space:nowrap; padding:0 20px;}
+.alert-success{background:#1377ad;}
 .alert-error{background:#fb1d0f;}
 .top-alert-tips .close{ position:absolute; top:10px; right:0px; width:30px; height:30px; line-height:30px; color:#fff; font-size:22px;}
 /* 底部footer */
@@ -132,7 +132,7 @@ font-size: 20px;}
 .setting_step{ height:44px; border:1px solid #eee; margin:30px 20px;}
 .setting_step .step{ background:#ffffff url(../images/step.png) no-repeat right 0; float:left; text-align:center; line-height:44px; color:#666; width:160px; height:44px;}
 .app_setting .step{ width:145px;}
-.setting_step .step_cur_1{ background:#44b549 url(../images/step.png) no-repeat right -88px; float:left; color:#fff}
+.setting_step .step_cur_1{ background: #1377ad url(../images/step.png) no-repeat right -88px; float:left; color:#fff}
 .setting_step .step_cur{ background:#fff url(../images/step.png) no-repeat right -44px; float:left;color:#666}
 
 .help_content{ margin:20px; background:#eee; padding:15px;}

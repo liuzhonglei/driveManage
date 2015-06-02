@@ -37,30 +37,6 @@ class StudentBaseController  extends BaseController{
         $this->assign ( 'nav', $nav );
     }
 
-    // 通用插件的增加模型
-    public function lists() {
-        $_POST['token'] = get_token();
-        parent::common_lists($this->model);
-    }
-
-    // 通用插件的增加模型
-    public function add() {
-        $_POST['token'] = get_token();
-        parent::common_add ( $this->model );
-    }
-
-    // 通用插件的编辑模型
-    public function edit() {
-        $_POST['token'] = get_token();
-        parent::common_edit ( $this->model );
-    }
-
-    // 通用插件的删除模型
-    public function del() {
-        $_POST['token'] = get_token();
-        parent::common_del ( $this->model );
-    }
-
     // 替换教师id为姓名
     public function replaceTeacerId($list_data, $field){
         // teacher data

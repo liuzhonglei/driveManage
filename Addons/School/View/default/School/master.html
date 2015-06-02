@@ -40,8 +40,10 @@ $(function(){
 	
 	/*点击弹出中的课程*/
 	$("#allType li").click(function(){
-		$("#courseShow").text($(this).text()); 
-		$("#courseSel").popup("close");
+        $("#allType li").find("img").attr("src","{:ADDON_PUBLIC_PATH}/img/radio.png");
+        $(this).find("img").attr("src","{:ADDON_PUBLIC_PATH}/img/radioed.png");
+        $("#courseShow").text($(this).text());
+        $("#courseSel").popup("close");
 	})
 	
 })
@@ -56,7 +58,7 @@ $(function(){
         <ul id="allType">
 
             <volist name = "course_data" id="vo">
-                <li>{$vo.name} <span>{$vo.sign_charge}元</span></li>
+                <li><img src="{:ADDON_PUBLIC_PATH}/img/radio.png">{$vo.name} <span>{$vo.sign_charge}元</span></li>
             </volist>
             <!--<li>C2培训课 <span>6000元</span></li>-->
             <!--<li>B2培训课 <span>8000元</span></li>-->
@@ -72,6 +74,7 @@ $(function(){
         <!--头部信息-->
         <div class="masterBg"><img src="{:ADDON_PUBLIC_PATH}/img/master_bg.png"></div>
         <div class="masterInfo">
+            <input type="hidden" id = "teacher_id" value="{$teacher_data.id}">
         	<div class="Photo"><img src="{:get_cover_url($teacher_data['photo'])}"></div>
         	<div class="name">{$teacher_data.name} <span>{$teacher_data.level_name}</span></div>
             <div class="school">{$school_data.name}驾校</div>

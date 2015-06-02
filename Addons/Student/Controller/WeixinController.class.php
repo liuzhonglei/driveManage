@@ -33,6 +33,9 @@ class WeixinController extends StudentBaseController{
         $list_data['list_grids'][sizeof($list_data['list_grids'])-1]['href'] = $opera_ref;
 
         //$list_data[]
+        foreach ( $list_data ['list_data'] as &$vo ) {
+            $vo ['headimgurl'] = '<img src="' . get_cover_url ( $vo ['headimgurl'] ) . '" width="50px" >';
+        }
         $this->assign ( $list_data );
 
     	 //设置显示控件
@@ -47,7 +50,7 @@ class WeixinController extends StudentBaseController{
     function binding(){
         $url = addons_url('Student://student/lists');
         $Model = M('student');
-        $data['open_id'] = $_REQUEST['openid'];
+        $data['openid'] = $_REQUEST['openid'];
         $Model->where('id='.$_REQUEST['student_id'])->save($data);
         redirect($url);
     }

@@ -14,22 +14,21 @@ class QuestionController extends StudentBaseController{
         $_POST['token'] =  get_token();
         $_POST['time'] =  date('Y-m-d H:i:s');
         parent::add();
-
     }
 
     // 通用插件的列表模型
     public function lists() {
         // 使用提示
-
-        $map ['token'] = get_token ();
-        session ( 'common_condition', $map );
-
-        // condition
-        $condition['token'] = get_token ();
+//
+//        $map ['token'] = get_token ();
+//        session ( 'common_condition', $map );
+//
+//        // condition
+//        $condition['token'] = get_token ();
 
         // get the data
         $list_data = $this->_get_model_list($this->model);
-        $list_data = $this->replaceWeixin($list_data, 'open_id');
+//        $list_data = $this->replaceWeixin($list_data, 'openid');
         $this->assign($list_data);
 
         //设置显示控件

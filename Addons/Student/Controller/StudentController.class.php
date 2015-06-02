@@ -3,6 +3,20 @@
 namespace Addons\Student\Controller;
 require_once('Excel/reader.php');
 
+/**
+ * 获取属性信息并缓存
+ *
+ * @param integer $id
+ *            属性ID
+ * @param string $field
+ *            要获取的字段名
+ * @return string 属性信息
+ */
+function get_model_attribute($model_id, $group = true)
+{
+
+}
+
 class StudentController extends StudentBaseController
 {
     function _initialize()
@@ -24,32 +38,12 @@ class StudentController extends StudentBaseController
     // 通用插件的列表模型
     public function lists($id_teacher = null)
     {
-        $where_str = '';
-        foreach($_REQUEST as $name=>$vlaue) {
-            if (strpos($name, ',')) {
-                $names = explode(',', $name);
-                $values = explode(' ', $vlaue);
-                foreach ($names as $field) {
-                    foreach ($values as $fieldValue) {
-                        $where_str = $where_str . 'or ' . $field . ' like "%' . $fieldValue . '%"';
-                    }
-                }
-            }
-        }
-
-        // 使用提示
-        $map ['token'] = get_token();
-        session('common_condition', $map);
-
-        // condition
-        $_POST['token'] = get_token();
+        // tips
+        $normal_tips = '一般情况下请不要删除数据，会影响对应的与评价等相关数据。';
+        $this->assign ( 'normal_tips', $normal_tips );
 
         // get data
         $list_data = $this->_get_model_list($this->model);
-
-        // teacher data
-        $list_data = $this->replaceTeacerId($list_data, 'id_teacher');
-        $list_data = $this->replaceWeixin($list_data, 'open_id');
 
         // configure data
         $this->assign($list_data);
@@ -164,53 +158,6 @@ class StudentController extends StudentBaseController
         }
     }
 
-
-    // 通用插件的编辑模型
-    public function edit()
-    {
-        $model = $this->model;
-        $id = I('id');
-
-        if (IS_POST) {
-            $Model = new  \Addons\Student\Model\StudentModel();
-
-            $Model->checkWeixin($_POST['open_id']);
-            // 获取模型的字段信息
-            $Model = $this->checkAttr($Model, $model ['id']);
-            if ($Model->validate()->create() && $Model->save()) {
-                $this->success('保存' . $model ['title'] . '成功！', U('lists?model=' . $model ['name']));
-            } else {
-                $this->error($Model->getError());
-            }
-        } else {
-            $fields = get_model_attribute($model ['id']);
-
-            $extra = $this->getTeaData();
-            if (!empty ($extra)) {
-                foreach ($fields [1] as &$vo) {
-                    if ($vo ['name'] == 'id_teacher' || $vo ['name'] == 'id_in_teacher') {
-                        $vo ['extra'] .= "\r\n" . $extra;
-                    }
-                }
-            }
-
-            // 获取数据
-            $data = M(get_table_name($model ['id']))->find($id);
-            $data || $this->error('数据不存在！');
-
-            $token = get_token();
-            if (isset ($data ['token']) && $token != $data ['token'] && defined('ADDON_PUBLIC_PATH')) {
-                $this->error('非法访问！');
-            }
-
-            $this->assign('fields', $fields);
-            $this->assign('data', $data);
-            $this->meta_title = '编辑' . $model ['title'];
-
-            $this->display('edit');
-        }
-    }
-
     // binding the weixin code
     function binding()
     {
@@ -219,15 +166,57 @@ class StudentController extends StudentBaseController
         redirect($url);
     }
 
-    // 获取所属分类
-    function getTeaData()
-    {
-        $extra = '';
-        $map ['status'] = 1;
-        $map ['token'] = get_token();
-        $list = M('teacher')->where($map)->select();
+    // unbingding the weixin code
+    function unbinding(){
+        // change the data
+        $Model = M('student');
+        $data['openid'] = null;
+        $Model->where('id='.$_REQUEST['student_id'])->save($data);
+
+        // show
+        $url = addons_url('Student://student/lists');
+        redirect($url);
+    }
+
+    /**
+     * 模板变量赋值
+     *
+     * @access protected
+     * @param mixed $name
+     *        	要显示的模板变量
+     * @param mixed $value
+     *        	变量的值
+     * @return Action
+     */
+    protected function assign($name, $value = '') {
+        // set the teahcer data
+        if($name == 'fields'){
+            $teacherData = $this->getData('teacher',array('status'=>1, 'token'=>get_token()));
+            $courseData =  $this->getData('school_course',array('token'=>get_token()));
+
+           for( $i =1; $i <= sizeof($value); $i++){
+                foreach ($value [$i] as &$vo) {
+                    if ($vo ['name'] == 'id_teacher' || $vo ['name'] == 'id_in_teacher') {
+                        $vo ['extra'] .= "\r\n" . $teacherData;
+                    }
+                    if ($vo ['name'] == 'course_id') {
+                        $vo ['extra'] .= "\r\n" . $courseData;
+                    }
+                }
+            }
+        }
+
+        // return
+        return parent::assign( $name, $value );
+    }
+
+    function getData($modleName,$map){
+        $extra = ':' . "\r\n";
+        $list = M($modleName)->where($map)->select();
+
         foreach ($list as $v) {
             $extra .= $v ['id'] . ':' . $v ['name'] . "\r\n";
+
         }
         return $extra;
     }

@@ -25,16 +25,12 @@ class SchoolController extends BaseController
     // 通用插件的列表模型
     public function lists()
     {
-        // check
-//        $map ['token'] = get_token();
-//        session('common_condition', $map);
 
-        // condition
-//        $_POST['token'] = get_token();
+        // data
         $select_data = parent::_get_model_list($this->model);
         $this->assign($select_data);
 
-        //设置显示控件
+        // plugin
         $this->assign('del_button', '0');
         $this->assign('search_button', '0');
         $this->assign('check_all', '0');
@@ -44,24 +40,6 @@ class SchoolController extends BaseController
         // display
         $this->display("lists");
     }
-//
-//    // 设置图集的子标签
-//    private function photo_nav()
-//    {
-//        // 子导航
-//        $action = strtolower(_ACTION);
-//        $res ['title'] = '信息';
-//        $res ['url'] = addons_url('School://school/lists');
-//        $res ['class'] = $action == 'lists' ? 'cur' : '';
-//        $nav [] = $res;
-//
-//        $res ['title'] = '首页幻灯片';
-//        $res ['url'] = addons_url('School://school/photos');
-//        $res ['class'] = $action == 'photos' ? 'cur' : '';
-//        $nav [] = $res;
-//        $this->assign('sub_nav', $nav);
-//    }
-
 
     // 首页幻灯片
     function photos()
@@ -134,6 +112,11 @@ class SchoolController extends BaseController
             $_POST['status'] = '-1';
             $_POST['intro_source'] = '0';
             $_POST['time_sign'] =  date('Y-m-d H:i:s');
+            if(empty($_POST['id_in_teacher'])){
+                $_POST['intro_source'] = '0';
+            }else{
+                $_POST['intro_source'] = '1';
+            }
             parent::common_add($this->getModel('student'));
         } else {
             // 报名须知
@@ -187,7 +170,7 @@ class SchoolController extends BaseController
     {
         $token = get_token();
         $_POST['token'] = get_token();
-        $select_data = M('student_question')->query('select t.*, from_unixtime(t.time) str_time,t1.nickname, t1.headimgurl, t2.path   from wp_student_question t left join wp_follow t1 on t.open_id = t1.openid left join wp_picture t2 on t1.headimgurl = t2.id  where t.token="' . $token . '" order by id desc');
+        $select_data = M('student_question')->query('select t.*, from_unixtime(t.time) str_time,t1.nickname, t1.headimgurl, t2.path   from wp_student_question t left join wp_follow t1 on t.openid = t1.openid left join wp_picture t2 on t1.headimgurl = t2.id  where t.token="' . $token . '" order by id desc');
 
         $this->assign('list', $select_data);
 
@@ -269,6 +252,8 @@ str;
             case '3': $teacher_data['level_name'] = '三级教师';break;
             default: $teacher_data['level_name'] ='';
         }
+        //$teacher_data['level_name'] = get_name_by_status($teacher_data['level_name'],'level',$this->getModel('teacher')['id']);
+
         $this->assign('teacher_data',$teacher_data);
         $this->assign('school_data',$this->getCompanyInfo());
 
@@ -295,6 +280,7 @@ str;
 
             $teacher_data['course_names'] = $course_names;
         }
+        $teacher_data['area_name'] = get_name_by_status($teacher_data['area'],'area',$this->getModel('teacher')['id']);
         $this->assign('teacher_data',$teacher_data);
 
         // course

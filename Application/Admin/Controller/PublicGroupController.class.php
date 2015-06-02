@@ -77,7 +77,7 @@ class PublicGroupController extends AdminController {
 		} else {
 			
 			$fields = get_model_attribute ( $model ['id'] );
-			$this->_deal_addon (  $fields [1]['addon_status'] );
+			$this->_deal_addon (  $fields [1][1] );
 			
 			$this->assign ( 'fields', $fields );
 			$this->meta_title = '新增' . $model ['title'];
@@ -109,15 +109,14 @@ class PublicGroupController extends AdminController {
 			}
 		} else {
 			$fields = get_model_attribute ( $model ['id'] );
-			$this->_deal_addon ( $fields [1]['addon_status'] );
+			$this->_deal_addon ( $fields [1][1] );
 			
 			// 获取数据
 			$data = M ( get_table_name ( $model ['id'] ) )->find ( $id );
 			$data || $this->error ( '数据不存在！' );
 			
 			$data ['addon_status'] = explode ( ',', $data ['addon_status'] );
-			//$data ['addon_status'] = array_diff ( $fields [1] [1] ['value'], $data ['addon_status'] );
-            $data ['addon_status'] = array_diff ( $fields [1] ['addon_status'] ['value'], $data ['addon_status'] );
+			$data ['addon_status'] = array_diff ( $fields [1] [1] ['value'], $data ['addon_status'] );
 			$this->assign ( 'fields', $fields );
 			$this->assign ( 'data', $data );
 			$this->meta_title = '编辑' . $model ['title'];
