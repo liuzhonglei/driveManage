@@ -67,5 +67,33 @@ class FollowModel extends Model {
 		$_followInfo [$id] = $this->find ( $id );
 		return $_followInfo [$id];
 	}
+
+    function update_follow($openid) {
+        $data ['token'] = get_token ();
+        $data ['openid'] = $openid;
+        $winfo = getWeixinUserInfo ($openid,$data ['token']); //获取用户所有信息
+        $info = $this->where ( $data )->find ();
+        //$info = M ( 'ucenter_member' )->where ( $info )->find ()
+        if ($info ) {  // 如果数据库已经有该用户信息 则更新用户资料
+            $save ['subscribe_time'] = $winfo ['subscribe_time'];
+            $save ['nickname'] = $winfo ['nickname'];
+            $save ['sex'] = $winfo ['sex'];
+            $save ['city'] = $winfo ['city'];
+            $save ['province'] = $winfo ['province'];
+            $save ['country'] = $winfo ['country'];
+            $save ['headimgurl'] = $winfo ['headimgurl'];
+            $res = $this->where ( $data )->save ( $save );
+        } else {
+            $data ['subscribe_time'] = time ();
+            $uid = $this->get_uid_by_ucenter ( $data ['openid'], $data ['token'] );
+            if ($uid > 0) {
+                $data ['id'] = $uid;
+                $res = $this->add ( $data );
+            }
+
+            $info = $data;
+        }
+        return $info;
+    }
 }
 ?>

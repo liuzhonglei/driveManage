@@ -49,6 +49,20 @@ class WeixinController extends StudentBaseController{
 
     function binding(){
         $url = addons_url('Student://student/lists');
+
+        // teahcer
+        $teacher_data =  M('teacher')->where('openid="'.$_REQUEST['openid'].'"')->find();
+        if(!empty($teacher_data)){
+            $this->error('已有教练['.$teacher_data['name'].']绑定此帐号!');
+        }
+
+        // studnt
+        $student_data =  M('student')->where('openid="'.$_REQUEST['openid'].'" and id<>"'.$_REQUEST['student_id'].'"')->find();
+        if(!empty($student_data)){
+            $this->error('已有学员['.$student_data['name'].']绑定此帐号!');
+        }
+
+        // change
         $Model = M('student');
         $data['openid'] = $_REQUEST['openid'];
         $Model->where('id='.$_REQUEST['student_id'])->save($data);

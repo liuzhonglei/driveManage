@@ -1503,6 +1503,32 @@ function get_token_appinfo($token = '') {
 	$info = M ( 'member_public' )->where ( $map )->find ();
 	return $info;
 }
+
+
+//处理头像
+function get_name_by_touxiang($val) {
+    if(!empty($val)){
+        return('<img height="48px" src="'.$val.'" />');
+    }else{
+        return('<img height="48px" src="'.ADDON_PUBLIC_PATH.'/face.png" />');
+    }
+}
+
+// 拉取10000个用户列表,通过openid获取微信用户基本信息,此功能只有认证的服务号才能用
+function getWeixinUserAllInfo($token) {
+    $access_token = get_access_token ( $token );
+    if (empty ( $access_token )) {
+        return false;
+    }
+
+    $param ['access_token'] = $access_token;
+
+    $url = 'https://api.weixin.qq.com/cgi-bin/user/get?'. http_build_query ( $param );
+    $content = file_get_contents ( $url );
+    $content = json_decode ( $content, true );
+    return $content;
+}
+
 // 判断公众号的类型：是订阅号还是服务号
 function get_token_type($token = '') {
 	$info = get_token_appinfo ( $token );

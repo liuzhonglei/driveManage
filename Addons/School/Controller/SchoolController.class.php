@@ -111,10 +111,10 @@ class SchoolController extends BaseController
             $_POST['token'] = get_token();
             $_POST['status'] = '-1';
             $_POST['intro_source'] = '0';
-            $_POST['time_sign'] =  date('Y-m-d H:i:s');
-            if(empty($_POST['id_in_teacher'])){
+            $_POST['time_sign'] = date('Y-m-d H:i:s');
+            if (empty($_POST['id_in_teacher'])) {
                 $_POST['intro_source'] = '0';
-            }else{
+            } else {
                 $_POST['intro_source'] = '1';
             }
             parent::common_add($this->getModel('student'));
@@ -170,7 +170,7 @@ class SchoolController extends BaseController
     {
         $token = get_token();
         $_POST['token'] = get_token();
-        $select_data = M('student_question')->query('select t.*, from_unixtime(t.time) str_time,t1.nickname, t1.headimgurl, t2.path   from wp_student_question t left join wp_follow t1 on t.openid = t1.openid left join wp_picture t2 on t1.headimgurl = t2.id  where t.token="' . $token . '" order by id desc');
+        $select_data = M('student_question')->query('select t.*, from_unixtime(t.time) str_time,t1.nickname, t1.headimgurl, t2.path   from wp_student_question t left join wp_follow t1 on t.openid = t1.openid left join wp_picture t2 on t1.headimgurl = t2.id order by id desc');
 
         $this->assign('list', $select_data);
 
@@ -182,7 +182,6 @@ class SchoolController extends BaseController
     {
         $this->display(T('Addons://School@School/masterList'));
     }
-
 
 
     function getTeacherData()
@@ -230,63 +229,72 @@ str;
 
         $select_data = M('teacher')->query($sql);
         // add url
-        foreach($select_data as &$vo){
-            $vo[info_url] = U('getTeacherInfo','teacher_id='.$vo[id]);
+        foreach ($select_data as &$vo) {
+            $vo[info_url] = U('getTeacherInfo', 'teacher_id=' . $vo[id]);
         }
 
         // return
         $this->ajaxReturn($select_data, 'JSON');
     }
 
-    function getTeacherInfo(){
+    function getTeacherInfo()
+    {
         $teacher_id = $_REQUEST['teacher_id'];
 
-        $code_url = U('/home/Index/leaflets','token='.get_token());
-        $this->assign('code_url',$code_url);
+        $code_url = U('/home/Index/leaflets', 'token=' . get_token());
+        $this->assign('code_url', $code_url);
 
         // set the data
-        $teacher_data = M('teacher')->where('id='.$teacher_id)->find();
-        switch($teacher_data['level']){
-            case '1': $teacher_data['level_name'] = '一级教师';break;
-            case '2': $teacher_data['level_name'] = '二级教师';break;
-            case '3': $teacher_data['level_name'] = '三级教师';break;
-            default: $teacher_data['level_name'] ='';
+        $teacher_data = M('teacher')->where('id=' . $teacher_id)->find();
+        switch ($teacher_data['level']) {
+            case '1':
+                $teacher_data['level_name'] = '一级教师';
+                break;
+            case '2':
+                $teacher_data['level_name'] = '二级教师';
+                break;
+            case '3':
+                $teacher_data['level_name'] = '三级教师';
+                break;
+            default:
+                $teacher_data['level_name'] = '';
         }
         //$teacher_data['level_name'] = get_name_by_status($teacher_data['level_name'],'level',$this->getModel('teacher')['id']);
 
-        $this->assign('teacher_data',$teacher_data);
-        $this->assign('school_data',$this->getCompanyInfo());
+        $this->assign('teacher_data', $teacher_data);
+        $this->assign('school_data', $this->getCompanyInfo());
 
         // course
-        $sql = 'select * from wp_school_course where token = "'.get_token().'"';
+        $sql = 'select * from wp_school_course where token = "' . get_token() . '"';
         $course_data = M('school_course')->query($sql);
-        $this->assign('course_data',$course_data);
+        $this->assign('course_data', $course_data);
 
         // display
         $this->display(T('Addons://School@School/master'));
     }
 
-    function getTeacherMainInfo(){
+    function getTeacherMainInfo()
+    {
         $teacher_id = $_REQUEST['teacher_id'];
         $token = get_token();
         // teacher
-        $teacher_data = M('teacher')->where('id="'.$teacher_id.'" and token="'.get_token().'"')->find();
-        if($teacher_data['subject']){
-            $course_names='';
-            $courses =  explode(',',$teacher_data['subject']);
-            foreach($courses as $vo){
-                $course_names = $course_names.' 科目'.$vo;
+        $teacher_data = M('teacher')->where('id="' . $teacher_id . '" and token="' . get_token() . '"')->find();
+        if ($teacher_data['subject']) {
+            $course_names = '';
+            $courses = explode(',', $teacher_data['subject']);
+            foreach ($courses as $vo) {
+                $course_names = $course_names . ' 科目' . $vo;
             }
 
             $teacher_data['course_names'] = $course_names;
         }
-        $teacher_data['area_name'] = get_name_by_status($teacher_data['area'],'area',$this->getModel('teacher')['id']);
-        $this->assign('teacher_data',$teacher_data);
+        $teacher_data['area_name'] = get_name_by_status($teacher_data['area'], 'area', $this->getModel('teacher')['id']);
+        $this->assign('teacher_data', $teacher_data);
 
         // course
-        $sql = 'select * from wp_school_course where token = "'.$token.'"';
+        $sql = 'select * from wp_school_course where token = "' . $token . '"';
         $course_data = M('school_course')->query($sql);
-        $this->assign('course_data',$course_data);
+        $this->assign('course_data', $course_data);
 
         // apprise
         $sql = <<<str
@@ -302,34 +310,78 @@ ORDER BY
 str;
 
         $apprise_data = M('student_apprise')->query($sql);
-      //  where('id_teacher='.$teacher_id)->select();
-        $this->assign('apprise_data',$apprise_data);
-       // sizeof($apprise_data);
+        //  where('id_teacher='.$teacher_id)->select();
+        $this->assign('apprise_data', $apprise_data);
+        // sizeof($apprise_data);
 
         // display
         $this->display(T('Addons://School@School/master_info'));
 
     }
 
-    function  getTeacherSchool(){
+    function  getTeacherSchool()
+    {
         $this->assign($this->getCompanyInfo());
         $data = M('school_info')->where('token = "' . get_token() . '" and type = 2')->find();
         $this->assign($data);
         $this->display(T('Addons://School@School/master_school'));
     }
 
-    function  getTeacherReg(){
-        if(empty($_REQUEST['id'])){
-            $course_data = M('school_course')->where('token = "'.get_token().'"')->find();
+    function  getTeacherReg()
+    {
+        if (empty($_REQUEST['id'])) {
+            $course_data = M('school_course')->where('token = "' . get_token() . '"')->find();
             $this->assign($course_data);
-        }else{
+        } else {
             $this->assign($_REQUEST);
         }
         $this->display(T('Addons://School@School/master_reg'));
     }
 
-    function  getTeacherReserve(){
+    function  getTeacherReserve()
+    {
         $this->display(T('Addons://School@School/master_reserve'));
     }
 
+
+    function getMyInfo()
+    {
+        if (IS_POST) {
+            $name = $_REQUEST['name'];
+            $card_id = $_REQUEST['card_id'];
+            $map = array('name' => $name, 'card_id' => $card_id);
+            $myinfo = M('student')->where($map)->find();
+            if (!empty($myinfo)) {
+                $myinfo['openid'] = get_openid();
+                M('student')->save($myinfo);
+                $this->success ();
+            }
+            $myinfo = M('teacher')->where($map)->find();
+            if (!empty($myinfo)) {
+                $myinfo['openid'] = get_openid();
+                M('teacher')->save($myinfo);
+                $this->success ();
+            }else{
+                $this->error('查找不到对应注册人员!');
+            }
+        } else {
+
+            $myinfo = M('student')->where('openid=' . get_openid())->find();
+            if (!empty($myinfo)) {
+                $this->assign('myinfo', $myinfo);
+                $this->assign('photo_path', get_cover_url($myinfo['photo']));
+                $this->display(T('Addons://School@School/my'));
+            }
+
+            $myinfo = M('student')->where('openid=' . get_openid())->find();
+            if (!empty($myinfo)) {
+                $this->assign('myinfo', $myinfo);
+                $this->assign('photo_path', get_cover_url($myinfo['photo']));
+                $this->display(T('Addons://School@School/my'));
+            }
+
+            $this->display(T('Addons://School@School/bind'));
+        }
+
+    }
 }

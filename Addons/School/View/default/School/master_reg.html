@@ -14,7 +14,8 @@
 </div>
 <div class="c_remark">报名说明：报名成功后,驾校会在第一时间联系您与您确认,请耐心等候。如急需报名可拨打我们的预约电话联系我们。</div>
 <div class="c_warn_bk" >
-  <div class="c_warn" id="c_warn" style="display:none"><span class="icon_warn"></span><label>异常消息提示</label></div>
+    <div class="c_warn" id="c_warn" style="display:none"><span ></span><label>请输入正确的电话号码！</label></div>
+    <div class="c_warn" id="c_success"  style="display:none"><span class="icon_success"></span><label>提交成功，我们会尽快和您联系！</label></div>
 </div>
 <div class="x_btn_bk" >
     <a href="#" class="ui-btn ui-corner-all x_btn x_btn_curr" onclick = "info_submit()">提交</a>
@@ -62,7 +63,8 @@ function info_submit() {
                 document.getElementById("c_warn").style.display = "";
                 document.getElementById("c_warn_label").innerHTML = data.info;
             }else{
-                alert("报名成功");
+                document.getElementById("c_success").style.display = "";
+                document.getElementById("c_success").getElementsByTagName('label') .innerHTML = "报名成功";
             }
         },
         failed: function(){

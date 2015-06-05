@@ -13,7 +13,7 @@ class WeixinAddonModel extends WeixinModel {
 	}
 	// 关注时的操作
 	function subscribe($dataArr) {
-		$info = D ( 'Common/Follow' )->init_follow ( $dataArr ['FromUserName'] );
+		$info = D ( 'Common/Follow' )->update_follow ( $dataArr ['FromUserName'] );
 		
 		// 增加积分
 		session ( 'mid', $info ['id'] );
@@ -21,6 +21,7 @@ class WeixinAddonModel extends WeixinModel {
 	}
 	// 取消关注公众号事件
 	public function unsubscribe() {
+        D ( 'Common/Follow' )->where('openid="'.get_openid().'"')->delete();
 		// 增加积分
 		add_credit ( 'unsubscribe' );
 	}

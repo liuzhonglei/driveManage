@@ -72,7 +72,7 @@ $(function(){
     </div><!--//header -->
     <div class="x_content">
         <!--头部信息-->
-        <div class="masterBg"><img src="{:ADDON_PUBLIC_PATH}/img/master_bg.png"></div>
+        <div class="masterBg"><img src="{:get_cover_url($teacher_data['background'])}"></div>
         <div class="masterInfo">
             <input type="hidden" id = "teacher_id" value="{$teacher_data.id}">
         	<div class="Photo"><img src="{:get_cover_url($teacher_data['photo'])}"></div>

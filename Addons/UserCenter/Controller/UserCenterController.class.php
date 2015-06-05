@@ -14,16 +14,30 @@ class UserCenterController extends AddonsController {
 		$this->assign ( 'add_button', false );
 		$this->assign ( 'del_button', false );
 		$this->assign ( 'check_all', false );
-		
+		//拉取粉丝
+		$url = addons_url ( 'UserCenter://UserCenter/Alllistsinfo');
+		$this->assign ( 'addlisturl', $url );
+		//获取粉丝总数
+		$token = get_token ();
+		$content = getWeixinUserAllInfo ($token);
+		$this->assign ( 'total', $content['total'] );
 		$model = $this->getModel ( 'follow' );
-
-        $list_data = $this->_get_model_list ( $model );
-        foreach ( $list_data ['list_data'] as &$vo ) {
-            $vo ['headimgurl'] = '<img src="' . get_cover_url ( $vo ['headimgurl'] ) . '" width="50px" >';
-        }
-        $this->assign ( $list_data );
-
-        $this->display ();
+		parent::common_lists ( $model );
+	}
+	//拉取用户列表并获得基本信息
+	public function Alllistsinfo() {
+		$token = get_token ();
+		$content = getWeixinUserAllInfo ($token);
+		$openids = $content['data']['openid'];
+		if (is_array ( $openids )) {
+			foreach ($openids as $openid) {
+				$info = D ( 'Common/Follow' )->update_follow ($openid);
+			}
+		$url = addons_url ( 'UserCenter://UserCenter/lists');
+		$this->success ( '总共拉取了'.$content['count'].'个粉丝！',$url); 
+		}else{
+			$this->error('订阅号无拉取粉丝接口');
+		}
 	}
 	// 用户绑定
 	public function edit() {
