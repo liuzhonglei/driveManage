@@ -49,6 +49,11 @@ class BaseController extends AddonsController
         $nav [] = $res;
 
         $this->assign('nav', $nav);
+
+        // set if
+        if(i('model') == 'teacher'){
+            $this->assign('nav', null);
+        }
     }
 
 
@@ -250,4 +255,7 @@ class BaseController extends AddonsController
 
         return $map;
     }
+
+
+
 }

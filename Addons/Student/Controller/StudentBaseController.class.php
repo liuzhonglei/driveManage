@@ -34,6 +34,11 @@ class StudentBaseController  extends BaseController{
         $res ['class'] = $controller == 'appraise' ? 'current' : '';
         $nav [] = $res;
 
+        $res ['title'] = '考试通知';
+        $res ['url'] = addons_url ( 'Student://Notification/lists' );
+        $res ['class'] = $controller == 'notification' ? 'current' : '';
+        $nav [] = $res;
+
         $this->assign ( 'nav', $nav );
     }
 

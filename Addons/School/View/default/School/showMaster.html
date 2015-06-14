@@ -1,0 +1,69 @@
+<!DOCTYPE html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon-precomposed" href="{:SCHOOL_PUBLIC_PATH}/img/screen_icon.png">
+<title>我的教练</title>
+<link rel="stylesheet" href="{:SCHOOL_PUBLIC_PATH}/css/jquery.mobile-1.4.4.css" />
+<link rel="stylesheet" href="{:SCHOOL_PUBLIC_PATH}/css/car.css">
+<script src="{:SCHOOL_PUBLIC_PATH}/js/jquery-1.11.1.min.js"></script>
+<script>
+$(function(){
+	/*$(".bindBtn2").click(function(){//绑定动画
+		$(this).addClass("bindMove").text("已绑定").prev(".btn01").addClass("commentShow").parent().find(".bindMed").addClass("bindedShow");
+	})*/
+	
+	/*点击预约弹出层*/
+	$("#reserveBtn").click(function(){
+		$('#reservePop').popup('open');
+		setTimeout(closepopup, 1200);
+	})
+	function closepopup() {
+			$('#reservePop').popup('close');
+	}
+}); 
+</script>
+<script src="{:SCHOOL_PUBLIC_PATH}/js/jquery.mobile-1.4.4.min.js"></script>
+</head>
+<body class="x_flowAuto">
+<div id="pageFollow" data-role="page" data-theme="none">
+<div id="reservePop" class="ui-content reservePop" data-role="popup" data-theme="a" >
+	暂未开通，尽请期待!
+</div>
+   <div data-role="header" data-theme="none"  class="x_header"  data-position="fixed"  data-tap-toggle="false">
+        <a href="#"  data-role="none" data-rel="back" class="x_btn_back" data-ajax="false"></a>
+        <a href="{:U('searachBindTeacher')}"  data-ajax="false"  data-role="none"  class="ui-btn-right x_btn_text" ><span>绑定</span></a>
+        <h1>我的教练</h1>
+    </div><!--//header -->
+    <div class="x_content">
+    	<!--没记录提示-->
+        <div class="c_msg" style="display:none">
+        	您还没绑定教练，请点击右上角“绑定”！
+        </div>
+        <!--//没记录提示-->
+        <!--已绑定的教练-->
+        <div class="c_masterList">
+            <volist  name="teacherList" id="vo">
+            <div class="row01 noLink">
+                <div class="pic01"><img src="{$vo.headimgurl}"></div>
+                <div class="info01">
+                    <div class="name2">{$vo.name}<span class="bindMed">已绑定</span></div>
+                    <div class="signal">{$vo.intro}</div>
+                </div>
+                <div class="btn01">
+                	<div class="btnMar">
+                	<a href="{:U('commentTeacher',null,false)}/teacher_id/{$vo.id}/student_id/{$student.id}" data-role="none" data-ajax="false" class="c_btn">评价</a>
+                    </div>
+                	<a href="#" id="reserveBtn"  data-role="none" class="c_btn_o">预约</a>
+                </div>
+            </div>
+            </volist>
+        </div>
+        <!--//已绑定的教练-->
+	</div><!-- /content -->
+</div> <!--//Page-->
+</body>
+</html>

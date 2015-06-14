@@ -3,22 +3,13 @@
 namespace Addons\Student\Controller;
 require_once('Excel/reader.php');
 
-/**
- * 获取属性信息并缓存
- *
- * @param integer $id
- *            属性ID
- * @param string $field
- *            要获取的字段名
- * @return string 属性信息
- */
-function get_model_attribute($model_id, $group = true)
-{
-
-}
+define ( 'SCHOOL_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Public' );
 
 class StudentController extends StudentBaseController
 {
+    /**
+     * init
+     */
     function _initialize()
     {
         $this->model = $this->getModel('student');
@@ -35,7 +26,10 @@ class StudentController extends StudentBaseController
         $this->assign('sub_nav', $nav);
     }
 
-    // 通用插件的列表模型
+    /**
+     * show the liests
+     * @param null $id_teacher
+     */
     public function lists($id_teacher = null)
     {
         // tips
@@ -52,7 +46,9 @@ class StudentController extends StudentBaseController
         $this->display("lists");
     }
 
-    // 上传
+    /**
+     * upload the excel
+     */
     public function upload()
     {
         if (!empty ($_FILES ['file_stu'] ['name'])) {
@@ -79,49 +75,6 @@ class StudentController extends StudentBaseController
 
             // Set output Encoding.
             $excleReader->setOutputEncoding('GBK');
-            //$data->setUTFEncoder('mb');
-            //  $data->setUTFEncoder('GBK');
-            /***
-             * if you want you can change 'iconv' to mb_convert_encoding:
-             * $data->setUTFEncoder('mb');
-             *
-             **/
-
-            /***
-             * By default rows & cols indeces start with 1
-             * For change initial index use:
-             * $data->setRowColOffset(0);
-             *
-             **/
-
-
-            /***
-             *  Some function for formatting output.
-             * $data->setDefaultFormat('%.2f');
-             * setDefaultFormat - set format for columns with unknown formatting
-             *
-             * $data->setColumnFormat(4, '%.3f');
-             * setColumnFormat - set format for column (apply only to number fields)
-             *
-             **/
-
-            $excleReader->read($savePath . $file_name);
-
-            /*
-
-
-             $data->sheets[0]['numRows'] - count rows
-             $data->sheets[0]['numCols'] - count columns
-             $data->sheets[0]['cells'][$i][$j] - data from $i-row $j-column
-
-             $data->sheets[0]['cellsInfo'][$i][$j] - extended info about cell
-
-                $data->sheets[0]['cellsInfo'][$i][$j]['type'] = "date" | "number" | "unknown"
-                    if 'type' == "unknown" - use 'raw' value, because  cell contain value with format '0.00';
-                $data->sheets[0]['cellsInfo'][$i][$j]['raw'] = value if cell without format
-                $data->sheets[0]['cellsInfo'][$i][$j]['colspan']
-                $data->sheets[0]['cellsInfo'][$i][$j]['rowspan']
-            */
 
             error_reporting(E_ALL ^ E_NOTICE);
             $Model = D(parse_name(get_table_name($this->model['id']), 1));
@@ -196,7 +149,7 @@ class StudentController extends StudentBaseController
 
            for( $i =1; $i <= sizeof($value); $i++){
                 foreach ($value [$i] as &$vo) {
-                    if ($vo ['name'] == 'id_teacher' || $vo ['name'] == 'id_in_teacher') {
+                    if ($vo ['name'] == 'id_teacher' || $vo ['name'] == 'id_teacher_k2' || $vo ['name'] == 'id_teacher_k3') {
                         $vo ['extra'] .= "\r\n" . $teacherData;
                     }
                     if ($vo ['name'] == 'course_id') {
@@ -210,14 +163,150 @@ class StudentController extends StudentBaseController
         return parent::assign( $name, $value );
     }
 
-    function getData($modleName,$map){
+    /**
+     * get the model value
+     * @param $modelName
+     * @param $map
+     * @return string id:value
+     */
+    function getData($modelName,$map){
         $extra = ':' . "\r\n";
-        $list = M($modleName)->where($map)->select();
+        $list = M($modelName)->where($map)->select();
 
         foreach ($list as $v) {
             $extra .= $v ['id'] . ':' . $v ['name'] . "\r\n";
-
         }
+
+        // return
         return $extra;
+    }
+
+    /**
+     * show my teacher page
+     */
+    function myTeacher()
+    {
+        // param
+        $openid = get_openid();
+        $token = get_token();
+
+        // get the student data
+        $student = M('student')->where('openid= "' . $openid . '" and token = "' . $token . '"')->find();
+        $teacherList = array();
+        if (!empty($student)) {
+            $ids = '';
+            !$student['id_teacher_k2'] || $ids .= '"' . $student['id_teacher_k2'] . '"';
+            !$student['id_teacher_k3'] || $ids .= ',"' . $student['id_teacher_k3'] . '"';
+            $sql = 'select t.*, t1.headimgurl from wp_teacher t left join wp_follow t1 on t.openid = t1.openid and t.token = t1.token where t.token = "' . $token . '" and t.id in (' . $ids . ')';
+            $teacherList = M('teacher')->query($sql);
+        }
+        $this->assign('teacherList', $teacherList);
+        $this->assign('student', $student);
+
+
+        // show
+        $this->display(T('Addons://School@School/showMaster'));
+    }
+
+    /**
+     * show comment teacher page
+     */
+    function commentTeacher()
+    {
+        // param
+        $token = get_token();
+        $Model = M('student_apprise');
+
+        $teacher_id = i('teacher_id',0,'intval');
+        $student_id = i('student_id',0,'intval');
+
+        if (IS_POST) {
+            $level = i('value',0,'intval');
+            $apprise = i('comment');
+
+            $time = time();
+
+            $data = $Model->where(array('teacher_id'=>$teacher_id,'student_id'=>$student_id,'token'=>$token))->find();
+            $result = true;
+            if(!empty($data) && $data['level'] == $level && $data['apprise'] == $apprise){
+                $result = true;
+            } else if($data){
+                $data['level'] = $level;
+                $data['apprise'] = $apprise;
+                $result = $Model->save($data);
+            }else{
+                $data = array('teacher_id'=>$teacher_id,'student_id'=>$student_id,'level'=>$level,'apprise'=>$apprise,'time'=>$time);
+                $result = $Model->add($data);
+            }
+
+            if($result){
+                $return = array('status'=>'0');
+            }else{
+                $return = array('status'=>'-1','error'=>$Model->getDbError());
+            }
+            $this->ajaxReturn($return);
+        }else{
+            $this->assign($_GET);
+            $teacher_id = i('teacher_id');
+            $sql = 'select t.*, t1.headimgurl from wp_teacher t left join wp_follow t1 on t.openid = t1.openid and t.token = t1.token where t.token = "' . $token . '" and t.id = "' . $teacher_id . '"';
+            $teacher =  M('teacher')->query($sql)[0];
+            $this->assign('teacher',$teacher);
+
+            $data = $Model->where(array('teacher_id'=>$teacher_id,'student_id'=>$student_id,'token'=>$token))->find();
+            $this->assign('data',$data);
+
+            // show
+            $this->display(T('Addons://School@School/comment'));
+        }
+    }
+
+    /**
+     * show the binding search teacher page
+     */
+    function searachBindTeacher(){
+        // param
+
+        $token = get_token();
+
+        if(IS_POST){
+            $name = i('name');
+            $sql = 'select t.*, t1.headimgurl from wp_teacher t left join wp_follow t1 on t.openid = t1.openid and t.token = t1.token where t.token = "' . $token . '" and t.name like "%' . $name . '%"';
+            $teacherList = M('teacher')->query($sql);
+            $this->ajaxReturn($teacherList);
+        }else{
+            $this->display(T('Addons://School@School/bindMaster'));
+        }
+    }
+
+    /**
+     * student binding the teacher
+     */
+    function bindTeacher(){
+        // param
+        $teacherId = i('teacherId');
+        $openid = get_openid();
+        $token = get_token();
+        $Model = M('student');
+
+        // get student
+        $student = M('student')->where('openid="'.$openid.'" and token = "'.$token.'"')->find();
+
+        // check
+        $student || $this->ajaxReturn(array('status'=>'-1','error'=>'微信没有绑定学员！'));
+        if(!empty($student['id_teacher_k2']) && !empty($student['id_teacher_k3'])){
+            $this->ajaxReturn(array('status'=>'-1','error'=>'学员已经绑定所有教练，需要修改请于驾校联系！'));
+        }
+
+        // modify and save
+        if(empty($student['id_teacher_k2'])){
+            $student['id_teacher_k2'] = $teacherId;
+        }else if(empty($student['id_teacher_k3'])){
+            $student['id_teacher_k3'] = $teacherId;
+        }
+        $Model->save($student);
+
+        // return
+        $this->ajaxReturn(array('status'=>'0'));
+
     }
 }

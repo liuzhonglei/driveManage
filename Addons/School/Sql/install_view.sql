@@ -1,18 +1,21 @@
 create view wp_student_all as
 SELECT
 	t.*,
-	t1.name teacher_name,
+	t1.name teacher_k2_name,
 	t2.name in_teacher_name,
 	t3.name course_name,
 	t4.nickname weixin_name,
-	t5.name status_name
+	t5.name status_name,
+  t6.name teacher_k3_name
+
 FROM
 	wp_student t
-LEFT JOIN wp_teacher t1 ON t.id_teacher = t1.id
+LEFT JOIN wp_teacher t1 ON t.id_teacher_k2 = t1.id
 LEFT JOIN wp_teacher t2 ON t.id_in_teacher = t2.id
 LEFT JOIN wp_school_course t3 ON t.course_id = t3.id
-left join wp_follow t4 on t.openid = t4.openid
-left join wp_school_dict t5 on t5.dic_type='student_status' and t.status = t5.value;
+left join wp_follow t4 on t.openid = t4.openid  and t.token = t4.token
+left join wp_school_dict t5 on t5.dic_type='student_status' and t.status = t5.value
+LEFT JOIN wp_teacher t6 ON t.id_teacher_k3 = t6.id;
 
 
 create view wp_student_apprise_all as
@@ -62,5 +65,5 @@ SELECT
 	t.*,t1.nickname  weixin_name
 FROM
 	wp_teacher t
-LEFT JOIN wp_follow t1 ON t.openid = t1.openid
+LEFT JOIN wp_follow t1 ON t.openid = t1.openid  and  t.token = t1.token
 AND t.token = t1.token;;

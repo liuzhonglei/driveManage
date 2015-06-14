@@ -50,8 +50,9 @@ class PrivilegeController extends BaseController{
 
     // 详情
     function mainPri() {
+        $map ['token'] = get_token ();
         $Model = M ( $this->model['name']);
-        $info = $Model->find();
+        $info = $Model->where($map)->find();
         $this->assign ( 'info', $info );
         $this->display ( 'detail' );
     }

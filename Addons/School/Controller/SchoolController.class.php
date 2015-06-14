@@ -4,6 +4,8 @@ namespace Addons\School\Controller;
 
 use Home\Controller\AddonsController;
 
+
+
 class SchoolController extends BaseController
 {
     function _initialize()
@@ -25,7 +27,6 @@ class SchoolController extends BaseController
     // 通用插件的列表模型
     public function lists()
     {
-
         // data
         $select_data = parent::_get_model_list($this->model);
         $this->assign($select_data);
@@ -46,19 +47,21 @@ class SchoolController extends BaseController
     {
         $param = array('type' => '0', 'object_id' => $_REQUEST['object_id']);
         $url = addons_url('School://photo/lists', $param);
-
         redirect($url);
     }
 
 
     function show()
     {
+
         // gete compnay info
+        $token =  get_token($_REQUEST['token']);
+        get_openid($_REQUEST['openid']);
         $info = $this->getCompanyInfo();
         $this->assign($info);
 
         // get img
-        $select_data = M('school_photo')->query('select t1.*, t2.path from wp_school_photo t1 left join wp_picture t2 on t1.photo = t2.id where t1.token="' . get_token() . '" order by t1.sort');
+        $select_data = M('school_photo')->query('select t1.*, t2.path from wp_school_photo t1 left join wp_picture t2 on t1.photo = t2.id where t1.type="0" and t1.object_id = '.$info['id'].' and  t1.token="' . $token . '" order by t1.sort');
         $this->assign('imgs', $select_data);
 
         // display
@@ -81,7 +84,6 @@ class SchoolController extends BaseController
         $info = $Model->where($map)->find();
         return $info;
     }
-
 
     function top()
     {
@@ -170,7 +172,7 @@ class SchoolController extends BaseController
     {
         $token = get_token();
         $_POST['token'] = get_token();
-        $select_data = M('student_question')->query('select t.*, from_unixtime(t.time) str_time,t1.nickname, t1.headimgurl, t2.path   from wp_student_question t left join wp_follow t1 on t.openid = t1.openid left join wp_picture t2 on t1.headimgurl = t2.id order by id desc');
+        $select_data = M('student_question')->query('select t.*, from_unixtime(t.time) str_time,t1.nickname, t1.headimgurl, t2.path   from wp_student_question t left join wp_follow t1 on t.openid = t1.openid left join wp_picture t2 on t1.headimgurl = t2.id where t.token ="'.$token.'" order by id desc');
 
         $this->assign('list', $select_data);
 
@@ -214,6 +216,8 @@ LEFT JOIN (
 where 1=1
 
 str;
+
+        $sql = $sql . 'and token ="'.get_token().'" ';
         if (!empty($_POST['course_type']) && $_POST['course_type'] != '0') {
             $sql = $sql . 'and subject like "%' . $_POST['course_type'] . '%"';
         }
@@ -237,6 +241,9 @@ str;
         $this->ajaxReturn($select_data, 'JSON');
     }
 
+    /**
+     * get the teacher main info
+     */
     function getTeacherInfo()
     {
         $teacher_id = $_REQUEST['teacher_id'];
@@ -244,7 +251,7 @@ str;
         $code_url = U('/home/Index/leaflets', 'token=' . get_token());
         $this->assign('code_url', $code_url);
 
-        // set the data
+        // teacher data
         $teacher_data = M('teacher')->where('id=' . $teacher_id)->find();
         switch ($teacher_data['level']) {
             case '1':
@@ -259,10 +266,14 @@ str;
             default:
                 $teacher_data['level_name'] = '';
         }
-        //$teacher_data['level_name'] = get_name_by_status($teacher_data['level_name'],'level',$this->getModel('teacher')['id']);
-
         $this->assign('teacher_data', $teacher_data);
+
+        // school data
         $this->assign('school_data', $this->getCompanyInfo());
+
+        // photo data
+        $imgs = M('school_photo')->query('select t1.*, t2.path from wp_school_photo t1 left join wp_picture t2 on t1.photo = t2.id where  t1.type="1" and t1.object_id = '.$teacher_id.' and t1.token="' . get_token() . '" order by t1.sort');
+        $this->assign('imgs', $imgs);
 
         // course
         $sql = 'select * from wp_school_course where token = "' . get_token() . '"';
@@ -296,24 +307,6 @@ str;
         $course_data = M('school_course')->query($sql);
         $this->assign('course_data', $course_data);
 
-        // apprise
-        $sql = <<<str
-SELECT
-	t1.*, FROM_UNIXTIME(t1.time) format_time,
-	CONCAT(left(t2. NAME,1), "**") show_name
-FROM
-	wp_student_apprise t1
-LEFT JOIN wp_student t2 ON t1.id_student = t2.id
-where t1.id_teacher = '$teacher_id' and t1.token = '$token'
-ORDER BY
-	t1.id
-str;
-
-        $apprise_data = M('student_apprise')->query($sql);
-        //  where('id_teacher='.$teacher_id)->select();
-        $this->assign('apprise_data', $apprise_data);
-        // sizeof($apprise_data);
-
         // display
         $this->display(T('Addons://School@School/master_info'));
 
@@ -338,11 +331,19 @@ str;
         $this->display(T('Addons://School@School/master_reg'));
     }
 
+    function getTeacherApprise(){
+        $token = get_token();
+        $number = $_REQUEST['load_number'];
+        $teacher_id =  $_REQUEST['teacher_id'];
+        $sql = 'select t.*,FROM_UNIXTIME(t.time) format_time, t1.name show_name ,t2.headimgurl headimgurl from wp_student_apprise t left join  wp_student t1 on t.id_student = t1.id left join wp_follow  t2 on t1.openid = t2.openid where t.token = "' . $token . '" and t.id_teacher = '.$teacher_id.' limit '.$number;
+        $apprise_data = M('student_apprise')->query($sql);
+        $this->ajaxReturn($apprise_data, 'JSON');
+    }
+
     function  getTeacherReserve()
     {
         $this->display(T('Addons://School@School/master_reserve'));
     }
-
 
     function getMyInfo()
     {
@@ -366,22 +367,23 @@ str;
             }
         } else {
 
-            $myinfo = M('student')->where('openid=' . get_openid())->find();
+            $sql = 'select t.*, t2.headimgurl headimgurl from wp_student t left join wp_follow  t2 on t.openid = t2.openid where t.openid= "' . get_openid() . '" and t.token = "' . get_token() . '"';
+            $myinfo = M('student')->query($sql)[0];
             if (!empty($myinfo)) {
                 $this->assign('myinfo', $myinfo);
-                $this->assign('photo_path', get_cover_url($myinfo['photo']));
                 $this->display(T('Addons://School@School/my'));
             }
-
-            $myinfo = M('student')->where('openid=' . get_openid())->find();
+            $sql = 'select t.*, t2.headimgurl headimgurl from wp_teacher t left join wp_follow  t2 on t.openid = t2.openid where t.openid= "' . get_openid() . '" and t.token = "' .  get_token() . '"';
+            $myinfo = M('teacher')->query($sql)[0];
             if (!empty($myinfo)) {
                 $this->assign('myinfo', $myinfo);
-                $this->assign('photo_path', get_cover_url($myinfo['photo']));
-                $this->display(T('Addons://School@School/my'));
+                //$this->assign('photo_path', get_cover_url($myinfo['photo']));
+                $this->display(T('Addons://School@School/myMaster'));
             }
-
+            if(empty($myinfo)){
             $this->display(T('Addons://School@School/bind'));
+            }
         }
-
     }
+
 }

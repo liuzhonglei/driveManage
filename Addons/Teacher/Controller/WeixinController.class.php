@@ -35,9 +35,6 @@ class WeixinController extends BaseController{
         $list_data['list_grids'][sizeof($list_data['list_grids'])-1]['href'] = $opera_ref;
 
         //$list_data[]
-        foreach ( $list_data ['list_data'] as &$vo ) {
-            $vo ['headimgurl'] = '<img src="' . get_cover_url ( $vo ['headimgurl'] ) . '" width="50px" >';
-        }
         $this->assign ( $list_data );
 
         //设置显示控件
@@ -54,13 +51,13 @@ class WeixinController extends BaseController{
         $url = addons_url('Teacher://teacher/lists');
 
         // teahcer
-        $teacher_data =  M('teacher')->where('openid="'.$_REQUEST['openid'].'"'.'" and id<>"'.$_REQUEST['teacher_id'].'"')->find();
+        $teacher_data =  M('teacher')->where('token="'.get_token().'" and  openid="'.$_REQUEST['openid'].'"'.'" and id<>"'.$_REQUEST['teacher_id'].'"')->find();
         if(!empty($teacher_data)){
             $this->error('已有教练['.$teacher_data['name'].']绑定此帐号!');
         }
 
         // studnt
-        $student_data =  M('student')->where('openid="'.$_REQUEST['openid'].'"')->find();
+        $student_data =  M('student')->where('token="'.get_token().'" and openid="'.$_REQUEST['openid'].'"')->find();
         if(!empty($student_data)){
             $this->error('已有学员['.$student_data['name'].']绑定此帐号!');
         }

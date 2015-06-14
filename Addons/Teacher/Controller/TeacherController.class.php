@@ -16,9 +16,7 @@ class TeacherController extends BaseController{
         $res ['class'] = 'current';
         $nav [] = $res;
 
-
         $this->assign ( 'nav', $nav );
-
     }
 
     // 通用插件的列表模型
@@ -70,105 +68,12 @@ class TeacherController extends BaseController{
     }
 
 
-    //
-//    public function score() {
-//        // condition
-//        $_POST['token'] = get_token ();
-//
-//        // 取得数据模型
-//        $list_data = $this->_get_model_list ( $this->getModel('student_apprise') );
-//
-//        // teacher data
-//        $list_data =  $this->replaceTeacerId($list_data,'id_teacher');
-//        $list_data =  $this->replaceStudentId($list_data,'id_student');
-//
-//        // configure data
-//        $this->assign ( $list_data );
-//        // 显示
-//        $this->display ( "lists" );
-//    }
-
-//    public function stu() {
-//        // condition
-//        $_POST['token'] = get_token ();
-//
-//        // 取得数据模型
-//        $list_data = $this->_get_model_list ( $this->getModel('student') );
-//
-//        // teacher data
-//        $list_data =  $this->replaceTeacerId($list_data,'id_teacher');
-//        $list_data =  $this->replaceStudentId($list_data,'id_student');
-//
-//        // configure data
-//        $this->assign ( $list_data );
-//        // 显示
-//        $this->display ( "lists" );
-//    }
-
-
-    //
-//    public function replaceWeixin($list_data, $field){
-//        // teacher data
-//        $list = M ( 'follow' )->field ( 'openid,nickname' )->select ();
-//        foreach ( $list as $vo ) {
-//            $tea [$vo ['openid']] = $vo ['nickname'];
-//        }
-//        foreach ($list_data ['list_data'] as &$vo ) {
-//            $vo [$field] = $tea [$vo [$field]];
-//        }
-//
-//        return $list_data;
-//    }
-
-//
-//
-//    // 通用插件的增加模型
-//    public function add() {
-//        $_POST['token'] = get_token();
-//        parent::common_add ( $this->model );
-//    }
-//
-//    // 通用插件的编辑模型
-//    public function edit() {
-//        $_POST['token'] = get_token();
-//        parent::common_edit ( $this->model );
-//    }
-//
-//    // 通用插件的删除模型
-//    public function del() {
-//        $_POST['token'] = get_token();
-//        parent::common_del ( $this->model );
-//    }
-//
-//    // 替换教师id为姓名
-//    public function replaceTeacerId($list_data, $field){
-//        // teacher data
-//        $list = M ( 'teacher' )->field ( 'id,name' )->select ();
-//        foreach ( $list as $vo ) {
-//            $tea [$vo ['id']] = $vo ['name'];
-//        }
-//        foreach ($list_data ['list_data'] as &$vo ) {
-//            $vo [$field] = intval ( $vo [$field] );
-//            $vo [$field] = $tea [$vo [$field]];
-//        }
-//
-//        return $list_data;
-//    }
-//
-//    // 替换教师id为姓名
-//    public function replaceStudentId($list_data, $field){
-//        // teacher data
-//        $list = M ( 'student' )->field ( 'id,name' )->select ();
-//        foreach ( $list as $vo ) {
-//            $tea [$vo ['id']] = $vo ['name'];
-//        }
-//        foreach ($list_data ['list_data'] as &$vo ) {
-//            $vo [$field] = intval ( $vo [$field] );
-//            $vo [$field] = $tea [$vo [$field]];
-//        }
-//
-//        return $list_data;
-//    }
-//
+    //  lantern-slide
+    function photos()
+    {
+        $param = array('type' => '1', 'object_id' => $_REQUEST['object_id'],'model' => 'teacher' );
+        $url = addons_url('Teacher://teacherPhoto/lists', $param);
+        redirect($url);
+    }
 
 }

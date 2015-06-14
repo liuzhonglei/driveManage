@@ -139,7 +139,8 @@ class IndexController extends HomeController {
 		$nav [] = $res;
 		
 		$this->assign ( 'nav', $nav );
-		$this->display ();
+        redirect ( addons_url('School://School/lists') );
+      //  $this->display();
 	}
 	function setStatus() {
 		$addon = I ( 'addon' );

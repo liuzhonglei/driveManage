@@ -23,7 +23,13 @@
         <!--个人信息-->
         <div class="my_top" id="userpic" style="background:url({:ADDON_PUBLIC_PATH}/img/my_bg.png) no-repeat;">
             <div class="tit01">
-                <div class="pic01"><img src="{$photo_path}"></div>
+                <div class="pic01">
+                    <if condition="$myinfo.headimgurl eq ''">
+                             <img src="{:ADDON_PUBLIC_PATH}/img/userPic.png">
+                        <else />
+                            <img src="{$myinfo.headimgurl}">
+                    </if>
+                </div>
                 <div class="info01">{$myinfo.name}<label>{$myinfo.phone}</label></div>
             </div>
         </div>
@@ -34,14 +40,14 @@
                 <li class="ui-block-a">
                     <div class="c_iconTxt">
                         <div class="pic01"><img src="{:ADDON_PUBLIC_PATH}/img/icon_clock.png"></div>
-                        <div class="info01"><span>学车预约</span><label>剩8名</label></div>
+                        <div class="info01"><span>学车预约</span></div>
                         <div class="c_dot" style="top:19px; left:105px;"></div>
                     </div>
                 </li>
                 <li class="ui-block-b">
                     <div class="c_iconTxt">
                         <div class="pic01"><img src="{:ADDON_PUBLIC_PATH}/img/icon_message.png"></div>
-                        <div class="info01"><span>考试通知</span><label>12条</label></div>
+                        <div class="info01"><span>考试通知</span></div>
                     </div>
                 </li>
             </ul>
@@ -50,7 +56,7 @@
         <div class="x_blank2"></div>
         <div class="x_item2">
             <ul>
-                <li><img src="{:ADDON_PUBLIC_PATH}/img/icon_comment.png"><span>教练评价</span><label class="tips01">评价有奖哦!</label></li>
+                <a href="{:addons_url('Student://Student/myTeacher')}" data-transition="slide" data-ajax="false"> <li><img src="{:ADDON_PUBLIC_PATH}/img/icon_comment.png"><span>我的教练</span><label class="tips01">评价有奖哦!<img src="{:ADDON_PUBLIC_PATH}/img/icon_gift.png"></label></li></a>
                 <a href="{:addons_url('School://Privilege/mainPri')}" data-transition="slide" data-ajax="false"><li><img src="{:ADDON_PUBLIC_PATH}/img/icon_coupon.png">  <span>我的优惠券</span></li></a>
                 <li><img src="{:ADDON_PUBLIC_PATH}/img/icon_flag.png"><span>赠送锦旗</span><label class="tips01">学会感恩!</label></li>
                 <li><img src="{:ADDON_PUBLIC_PATH}/img/icon_assistant.png"><span>找陪练</span></li>
