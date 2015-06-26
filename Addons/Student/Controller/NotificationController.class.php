@@ -6,7 +6,7 @@ use Addons\Abcinfosend\Api\Wechat;
 require_once ONETHINK_ADDON_PATH.'/Third/Controller/simple_html_dom.php';
 
 class NotificationController extends StudentBaseController{
-    const TIPS = '考试通知正常流程为：未发送->已发成功->学员读取。<br>由于"学员读取"有延时，请重复点击"同步"来同步通知结果，一般有2-3秒延时。<br>发送失败，请重新选择并点击"通知"。由于某些原因状态无法成功通知,请电话通知。';
+    const TIPS = '考试通知正常流程为：未发送->已发成功->学员已通知。<br>由于"学员读取"有延时，请重复点击"同步"来同步通知结果，一般有2-3秒延时。<br>发送失败，请重新选择并点击"通知"。由于某些原因状态无法成功通知,请电话通知。';
 
     function _initialize() {
         $this->model = $this->getModel ( 'student_notification' );
@@ -14,38 +14,70 @@ class NotificationController extends StudentBaseController{
 
         // 子导航
         $action = strtolower(_ACTION);
+        $controller = strtolower ( _CONTROLLER );
         $res ['title'] = '通知';
         $res ['url'] = addons_url('Student://Notification/lists');
-        $res ['class'] = ($action=='lists' || $action=='sync' || $action== 'notifcation')? 'cur':'';
+        if($controller=='notification' && ($action=='lists' || $action=='sync' || $action== 'notifcation'|| $action=='noticonfirm')){
+            $res ['class'] = 'cur';
+        }else{
+            $res ['class'] = '';
+        }
         $nav [] = $res;
 
-        // 子导航
+        $action = strtolower(_ACTION);
+        $res ['title'] = '帐号配置';
+        $res ['url'] = addons_url('Student://NotificationAccount/lists');
+        $res ['class'] = ($action=='lists' || $action=='sync' || $action== 'notifcation')? 'cur':'';
+        if($controller=='notificationAccount'){
+            $res ['class'] = 'cur';
+        }else{
+            $res ['class'] = '';
+        }
+        $nav [] = $res;
+
         $action = strtolower(_ACTION);
         $res ['title'] = '配置';
         $res ['url'] = addons_url('Student://Notification/config');
         $res ['class'] = ($action=='config')? 'cur':'';
         $nav [] = $res;
 
+
         // assign
         $this->assign('sub_nav', $nav);
     }
 
     public function lists(){
+        //$_GET['sync_course'] = geChkkey();
+
         // tips
         $this->assign ( 'normal_tips', self::TIPS );
         $this->assign('sync_date',date('Y-m-d'));
+        $this->assign('accounts',M('school_noti_account')->select()) ;
         parent::lists();
     }
+
+    /**
+     * get the current chkkey
+     */
+    private function geChkkey(){
+        $sycn_account = $_GET['sync_account'];
+        $accountInfo = M('school_noti_account')->where('id="'.$sycn_account.'" and token="'.get_token().'"')->find();
+        return $accountInfo['chkkey'];
+    }
+
 
 
     public function sync(){
         $sync_date = i('sync_date');
-        $sync_course = i('sync_course');
         $db_config = D ( 'Common/AddonConfig' )->get ( _ADDONS );
+        $sync_course = i('sync_course');
+        $sync_account = i('sync_account');
         $exam_address = $db_config['notification_address_km'.$sync_course];
+        $_GET['sync_course'] = $sync_course;
+        $_GET['exam_address'] = $exam_address;
 
         // get the data
-        $this->syncExamNotification($sync_date,$sync_course);
+        $this->syncExamNotification($sync_date,$sync_course,$sync_account);
 
         // return the data
         $list_data = $this->_get_model_list($this->model,null,'noti_result');
@@ -57,7 +89,9 @@ class NotificationController extends StudentBaseController{
 
         $this->assign('search_button','0');
         $this->assign('sync_date',$sync_date);
+        $this->assign('accounts',M('school_noti_account')->select()) ;
         $this->assign('sync_course',$sync_course);
+        $this->assign('sync_account',$sync_account);
         $this->assign('exam_address',$exam_address);
 
         // display
@@ -69,8 +103,6 @@ class NotificationController extends StudentBaseController{
      * notifaction the user eaxm
      */
     public function notifcation(){
-//        $sync_date = i('sync_date');
-//        $sync_course = i('sync_course');
         $exam_time = i('exam_time');
         $exam_address = i('exam_address');
         $token = get_token();
@@ -158,6 +190,38 @@ class NotificationController extends StudentBaseController{
         $this->assign('del_button','0');
         $this->assign ( 'normal_tips', self::TIPS );
         $this->assign('search_button','0');
+        $this->assign('accounts',M('school_noti_account')->select()) ;
+        $this->assign($_GET);
+
+        // display
+        $this->display ('lists');
+    }
+
+    /**
+     * confirm the notification
+     */
+    public function notiConfirm(){
+        // param
+        $token = get_token();
+        $id = i('id');
+        $Notification = M($this->model['name']);
+
+        $noti_data =  $Notification->where('token = "'.$token.'" and id='.$id)->find();
+        if($noti_data['noti_result'] != '2'){
+            $noti_data['noti_result'] = '2';
+            $noti_data['remark'] = '管理员已人工进行通知。';
+            $Notification->data($noti_data)->save();
+        }
+
+        $list_data = $this->_get_model_list($this->model,null,'noti_result');
+        $this->assign($list_data);
+
+        //设置显示控件
+        $this->assign('add_button','0');
+        $this->assign('del_button','0');
+        $this->assign ( 'normal_tips', self::TIPS );
+        $this->assign('search_button','0');
+        $this->assign('accounts',M('school_noti_account')->select()) ;
         $this->assign($_GET);
 
         // display
@@ -166,7 +230,7 @@ class NotificationController extends StudentBaseController{
 
 
     // get the exam notification info form html
-   private function syncExamNotification($sync_date=null, $km=null){
+   private function syncExamNotification($sync_date=null, $km=null, $sync_account=null){
 
        require_once ONETHINK_ADDON_PATH.'/Third/Controller/simple_html_dom.php';
 
@@ -180,11 +244,13 @@ class NotificationController extends StudentBaseController{
            $this->error('请填写同步科目');
        }
 
-       $db_config = D ( 'Common/AddonConfig' )->get ( _ADDONS );
+      // $db_config = D ( 'Common/AddonConfig' )->get ( _ADDONS );
 
-       $chkkey = $db_config['notification_chkkey'];
-       $rand = $db_config['notification_rand'];
-       $pxdid = $db_config['notification_pxdid'];
+      $accountInfo = M('school_noti_account')->where('id="'.$sync_account.'" and token="'.$token.'"')->find();
+
+       $chkkey = $accountInfo['chkkey'];
+       $rand = $accountInfo['rand'];
+       $pxdid = $accountInfo['pxdid'];
        if(empty($rand)){
            $this->error('请到配置界面配置考试通知rand');
        }
@@ -222,6 +288,7 @@ class NotificationController extends StudentBaseController{
                     $data['date'] = $exam_date;
                     $data['result'] = $result;
                     $data['token'] = $token;
+                    $data['chkkey'] = $chkkey;
                     $data['noti_result'] = '0';
                     $addData[] = $data;
                }

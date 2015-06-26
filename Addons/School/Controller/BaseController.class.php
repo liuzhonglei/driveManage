@@ -14,7 +14,7 @@ use Home\Controller\AddonsController;
 class BaseController extends AddonsController
 {
 
-    static  $tableNames = array('student','student_question','teacher');
+    static  $tableNames = array('student','student_question','teacher','student_notification');
 
     function _initialize()
     {
@@ -55,7 +55,6 @@ class BaseController extends AddonsController
             $this->assign('nav', null);
         }
     }
-
 
 
     // 通用插件的增加模型

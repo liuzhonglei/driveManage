@@ -67,3 +67,7 @@ FROM
 	wp_teacher t
 LEFT JOIN wp_follow t1 ON t.openid = t1.openid  and  t.token = t1.token
 AND t.token = t1.token;;
+
+create view wp_student_notification_all
+as
+select t.*,t1.phone from wp_student_notification t left join wp_student t1 on t.token = t1.token and t.name = t1.name and t.card_id = t1.card_id;

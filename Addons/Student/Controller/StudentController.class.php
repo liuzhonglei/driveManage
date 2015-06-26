@@ -5,6 +5,8 @@ require_once('Excel/reader.php');
 
 define ( 'SCHOOL_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Public' );
 
+
+
 class StudentController extends StudentBaseController
 {
     /**
@@ -51,6 +53,10 @@ class StudentController extends StudentBaseController
      */
     public function upload()
     {
+        // param
+         $token = get_token();
+
+
         if (!empty ($_FILES ['file_stu'] ['name'])) {
             $tmp_file = $_FILES ['file_stu'] ['tmp_name'];
             $file_types = explode(".", $_FILES ['file_stu'] ['name']);
@@ -70,12 +76,11 @@ class StudentController extends StudentBaseController
             }
 
             // ExcelFile($filename, $encoding);
-            $excleReader = new Spreadsheet_Excel_Reader();
-
+            $excleReader = new \Spreadsheet_Excel_Reader();
 
             // Set output Encoding.
             $excleReader->setOutputEncoding('GBK');
-
+            $excleReader->read($savePath.$file_name);
             error_reporting(E_ALL ^ E_NOTICE);
             $Model = D(parse_name(get_table_name($this->model['id']), 1));
             // 取得字段
@@ -87,28 +92,108 @@ class StudentController extends StudentBaseController
                 }
             }
 
+            // get the field map
+            $fieldMap = $this->getFieldMap();
+
             // 批量插入
             for ($i = 3; $i <= $excleReader->sheets[0]['numRows']; $i++) {
                 $modelData = array();
+                $modelData['token'] = $token;
                 for ($j = 1; $j <= $excleReader->sheets[0]['numCols']; $j++) {
                     $value = iconv('gbk', 'utf-8', $excleReader->sheets[0]['cells'][$i][$j]);
                     if (!empty($fields[$j])) {
-                        $modelData[$fields[$j]] = $value;
+                        $modelData[$fields[$j]] = $this->convertField($fieldMap,$fields[$j],$value);
                     }
                 }
-                $modelData['token'] = get_token();
 
-                // 获取模型的字段信息
-                if ($Model->create($modelData) && $id = $Model->add($modelData)) {
-                    $this->_saveKeyword($this->model, $id);
+                $exist_student = $Model->where('card_id="'.$modelData['card_id'].'"')->find();
+                if(empty($exist_student)){
+                    $Model->add($modelData);
+                }else{
+                    $modelData['id'] = $exist_student[id];
+                    $Model->save($modelData);
+                }
 
-                    $this->success('添加' . $this->model ['title'] . '成功！', U('lists?model=' . $this->model ['name'], $this->get_param));
-                } else {
+                if(!empty($Model->getError())){
                     $this->error($Model->getError());
+                }else{
+                    $this->success('添加' . $this->model ['title'] . '成功！', U('lists?model=' . $this->model ['name'], $this->get_param));
+                }
+
+            }
+        }
+    }
+
+    /**
+     *
+     * convert the file value
+     * @param $map
+     * @param $field_name
+     * @param $field_value
+     */
+    private function convertField($map, $field_name, $field_value)
+    {
+        // convert the value
+        if (empty($map) || empty($field_name)) {
+            return $field_value;
+        }
+
+        // change the date
+        if (in_array($field_name, array('time_sign', 'time_begin'))) {
+            $field_value = (intval($field_value)-70*365-19)*86400-8*3600;
+        }
+
+        // change the teacher
+        if (in_array($field_name, array('id_teacher_k2', 'id_teacher_k3','id_in_teacher'))) {
+            $teacher = M('teacher')->where("name=\"" . $field_value . "\"")->find();
+            if (empty($teacher)) {
+                $field_value = null;
+            } else {
+                $field_value = $teacher['id'];
+            }
+        }
+
+        // change the course
+        if(in_array($field_name,array('course_id'))){
+            $course = M('school_course')->where("name=\"" . $field_value . "\"")->find();
+            if (empty($course)) {
+                $field_value = null;
+            } else {
+                $field_value = $course['id'];
+            }
+        }
+
+        // convert the value
+        $convertValue = $map[$field_name][$field_value];
+        if ($convertValue != "0" && empty($convertValue)) {
+            return $field_value;
+        } else {
+            return $convertValue;
+        }
+    }
+
+    /**
+     * create the student conf map
+     */
+    private function getFieldMap()
+    {
+        $field_maps = array();
+        $fields = M('attribute')->query('select t.* from wp_attribute t left join wp_model t1 on t.model_id = t1.id where t1.name ="student"  and t.extra != "";');
+        foreach ($fields as $field) {
+            // field_map
+            $field_map = array();
+            $maps = explode("\r\n", $field['extra']);
+            foreach ($maps as $map) {
+                $value_key = explode(":", $map);
+                if(!empty($value_key[1])){
+                    $field_map[$value_key[1]] = $value_key[0];
                 }
             }
-
+            //add
+            $field_maps[$field['name']] = $field_map;
         }
+
+        return $field_maps;
     }
 
     // binding the weixin code
@@ -149,7 +234,7 @@ class StudentController extends StudentBaseController
 
            for( $i =1; $i <= sizeof($value); $i++){
                 foreach ($value [$i] as &$vo) {
-                    if ($vo ['name'] == 'id_teacher' || $vo ['name'] == 'id_teacher_k2' || $vo ['name'] == 'id_teacher_k3') {
+                    if (in_array($vo ['name'],array('id_teacher' , 'id_teacher_k2','id_teacher_k3','id_in_teacher'))) {
                         $vo ['extra'] .= "\r\n" . $teacherData;
                     }
                     if ($vo ['name'] == 'course_id') {

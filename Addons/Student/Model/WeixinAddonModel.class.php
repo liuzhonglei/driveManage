@@ -44,7 +44,7 @@ class WeixinAddonModel extends WeixinModel{
         $Model =  M('student_notification');
         $result = explode(':',$data['Status']);
         $info = $Model->where('msgid="'.$data['MsgID'].'"')->find();
-        if($result[0] == 'success'){
+        if($result[0] == 'success' && $info['noti_result'] != '2'){
             $info['noti_result'] = '2';
             $info['remark'] = '学员已接收通知。';
         }else{

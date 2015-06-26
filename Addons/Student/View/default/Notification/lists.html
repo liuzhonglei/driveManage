@@ -8,7 +8,7 @@
           <div class="fl">
               <empty name="model.extend">
                   <div class="tools">
-                      <label>同步时间:</label>
+                      <label>查询时间:</label>
                       <input type="datetime" id="sync_date" name="{$field.name}" class="text date" value="{$sync_date}" placeholder="请选择时间" />
                       <label> 科目:</label>
                       <select id="sync_course">
@@ -25,14 +25,21 @@
                           科目4
                           </option>
                       </select>
-
+                      <label> 帐号:</label>
+                      <select id="sync_account">
+                      <volist name="accounts" id="account">
+                          <option <eq name="sync_account" value="$account.id">selected</eq>  value="{$account.id}">
+                          {$account.name}
+                          </option>
+                      </volist>
+                      </select>
                   </div>
               </empty>
           </div>
 
         <div class="search-form fr cf">
           <div class="sleft">
-              <a id="sync_btn" class="btn" href="#">同 步</a>
+              <a id="sync_btn" class="btn" href="#">查 询</a>
           </div>
         </div>
 
@@ -156,11 +163,9 @@
                 }
             });
 
-
-
             $("#sync_btn").click(function () {
                 var url = "{:U('sync','',false)}";
-                url += '/sync_date/' + $("#sync_date").val()+"/sync_course/"+$("#sync_course").val();
+                url += '/sync_date/' + $("#sync_date").val()+"/sync_course/"+$("#sync_course").val()+"/exam_address/"+$("#exam_address").val()+"/exam_time/ "+$("#exam_time").val()+"/sync_account/"+$("#sync_account").val();
                 window.location.href = url;
             });
 
@@ -171,7 +176,7 @@
                 });
                 var idstr=id_array.join(',');//将数组元素连接起来以构建一个字符串
                 var url = "{:U('notifcation','',false)}";
-                url += '/sync_date/' + $("#sync_date").val()+"/sync_course/"+$("#sync_course").val()+"/exam_address/"+$("#exam_address").val()+"/exam_time/"+$("#exam_time").val()+"/ids/"+idstr;
+                url += '/sync_date/' + $("#sync_date").val()+"/sync_course/"+$("#sync_course").val()+"/exam_address/"+$("#exam_address").val()+"/exam_time/"+$("#exam_time").val()+"/sync_account/"+$("#sync_account").val()+"/ids/"+idstr;
                 window.location.href = url;
             });
         })

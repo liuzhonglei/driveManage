@@ -8,6 +8,7 @@
                     <div class="fl">
                         <empty name="model.extend">
                             <div class="tools">
+                                <form method="post" action="{:U('upload?model='.$model['id'])}" enctype="multipart/form-data">
                                 <if condition="$add_button"><php> $add_url || $add_url = U('add?model='.$model['id'], $get_param);</php><a class="btn" href="{$add_url}">新 增</a></if>
                                 <if condition="$del_button"><php> $del_url || $del_url = U('del?model='.$model['id'], $get_param);</php><button class="btn ajax-post confirm" target-form="ids" url="{$del_url}">删 除</button></if>
                                 <volist name="top_more_button" id="vo">
@@ -19,10 +20,10 @@
                                     &nbsp;
                                 </volist>
                                 <a class="btn" href="{:ADDON_PUBLIC_PATH}/demon.xls">下载模板</a>
-                                <!--<form method="post" action="{:U('upload?model='.$model['id'])}" enctype="multipart/form-data">-->
+
                                 <input type="file"   name="file_stu" />
                                 <input class="btn"  type="submit"  value="导入" />
-                                <!--</form>-->
+                                </form>
                             </div>
                         </empty>
                     </div>

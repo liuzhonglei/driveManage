@@ -211,6 +211,8 @@
   </div>
 </block>
 <block name="script">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
   <link href="__STATIC__/datetimepicker/css/datetimepicker.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
   <php>if(C('COLOR_STYLE')=='blue_color') echo '
     <link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
@@ -247,6 +249,26 @@ $(function(){    $('.time').datetimepicker({
 	});
 
 	$('.toggle-data').bind("click",function(){ change_event(this) });
+
+    $.ajax({ //一个Ajax过程
+        type: "get",
+        url: "{:addons_url('Teacher://Teacher/getTeachers')}",
+        dataType: "json",
+        success: function (data) {
+            var selectData = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
+            $('select[name=id_teacher_k2]').select2({
+                data: data
+            });
+            $('select[name=id_teacher_k3]').select2({
+                data: data
+            });
+            $('select[name=id_in_teacher]').select2({
+                data: data
+            });
+        },
+        failed: function () {
+        }
+    })
 });
 </script>
 </block>

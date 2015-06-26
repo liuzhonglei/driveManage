@@ -389,21 +389,12 @@
         });
 
 
-
-
-
         function info_submit() {
-
             var name = $("#re_name").val();
-
             var phone = $("#re_phone").val();
-
             var remark = $("#re_remark").val();
-
             $.ajax({ //一个Ajax过程
-
                 type: "post",
-
                 url: "{:U('register')}",
 
                 dataType: 'json',
@@ -412,28 +403,21 @@
 
                 success: function (data) {
 
-                    if(data.status == 0 ){
+                    if (data.status == 0) {
                         document.getElementById("c_warn").style.display = "";
                         document.getElementById("c_warn_label").innerHTML = data.info;
-                    }else{
-
+                    } else {
                         alert("报名成功");
+                        document.getElementById("c_warn").style.display = "display:none";
+                        document.getElementById("c_warn_label").innerHTML = "";
                     }
-
                 },
-
-                failed: function(){
-
+                failed: function () {
                     alert("报名出错！");
-
                 }
-
             })
-
-        };
-
-
-
+        }
+        ;
 
 
     </script>

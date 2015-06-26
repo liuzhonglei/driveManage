@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
     <link rel="apple-touch-icon-precomposed" href="img/screen_icon.png">
-    <title>car</title>
+    <title>教练信息</title>
     <link rel="stylesheet" href="{:ADDON_PUBLIC_PATH}/css/jquery.mobile-1.4.4.css"/>
     <link rel="stylesheet" href="{:ADDON_PUBLIC_PATH}/css/swiper.min.css"/>
     <link rel="stylesheet" href="{:ADDON_PUBLIC_PATH}/css/car.css"/>
@@ -98,7 +98,7 @@
             <input type="hidden" id = "teacher_id" value="{$teacher_data.id}">
         	<div class="Photo"><img src="{:get_cover_url($teacher_data['photo'])}"></div>
         	<div class="name">{$teacher_data.name} <span>{$teacher_data.level_name}</span></div>
-            <div class="school">{$school_data.name}驾校</div>
+            <div class="school">{$school_data.name}</div>
             <div class="cardList">
             	<ul>
                 	<li><img src="{:ADDON_PUBLIC_PATH}/img/card_id.png">身份认证</li>

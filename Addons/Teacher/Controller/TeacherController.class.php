@@ -67,7 +67,6 @@ class TeacherController extends BaseController{
         redirect($url);
     }
 
-
     //  lantern-slide
     function photos()
     {
@@ -76,4 +75,8 @@ class TeacherController extends BaseController{
         redirect($url);
     }
 
+    function getTeachers(){
+        $list = M ( 'teacher' )->query('select id, name text from wp_teacher t where t.token="'.get_token().'"' );
+        $this->ajaxReturn($list);
+    }
 }
