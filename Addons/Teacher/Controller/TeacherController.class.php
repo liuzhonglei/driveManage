@@ -75,7 +75,18 @@ class TeacherController extends BaseController{
         redirect($url);
     }
 
+    /**
+     * get the school teacher data
+     */
     function getTeachers(){
+        $list = M ( 'teacher' )->query('select id, name text from wp_teacher t where t.token="'.get_token().'"' );
+        $this->ajaxReturn($list);
+    }
+
+    /**
+     * get the all teacher data
+     */
+    function getAllTeachers(){
         $list = M ( 'teacher' )->query('select id, name text from wp_teacher t where t.token="'.get_token().'"' );
         $this->ajaxReturn($list);
     }
