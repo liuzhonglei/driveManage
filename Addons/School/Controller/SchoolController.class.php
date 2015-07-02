@@ -247,7 +247,7 @@ str;
     function getTeacherInfo()
     {
         $teacher_id = $_REQUEST['teacher_id'];
-
+        $token = $this->setTeacherToken($teacher_id);
         $code_url = U('/home/Index/leaflets', 'token=' . get_token());
         $this->assign('code_url', $code_url);
 
@@ -255,13 +255,13 @@ str;
         $teacher_data = M('teacher')->where('id=' . $teacher_id)->find();
         switch ($teacher_data['level']) {
             case '1':
-                $teacher_data['level_name'] = '一级教师';
+                $teacher_data['level_name'] = '一级教练 ';
                 break;
             case '2':
-                $teacher_data['level_name'] = '二级教师';
+                $teacher_data['level_name'] = '二级教练 ';
                 break;
             case '3':
-                $teacher_data['level_name'] = '三级教师';
+                $teacher_data['level_name'] = '三级教练 ';
                 break;
             default:
                 $teacher_data['level_name'] = '';
@@ -269,14 +269,22 @@ str;
         $this->assign('teacher_data', $teacher_data);
 
         // school data
-        $this->assign('school_data', $this->getCompanyInfo());
+        $schoolData = $this->getCompanyInfo();
+        $this->assign('school_data', $schoolData);
+
+        // phone
+        if(!empty($teacher_data['phone'])){
+            $this->assign('phone', $teacher_data['phone']);
+        }else{
+            $this->assign('phone', $schoolData['phone']);
+        }
 
         // photo data
-        $imgs = M('school_photo')->query('select t1.*, t2.path from wp_school_photo t1 left join wp_picture t2 on t1.photo = t2.id where  t1.type="1" and t1.object_id = '.$teacher_id.' and t1.token="' . get_token() . '" order by t1.sort');
+        $imgs = M('school_photo')->query('select t1.*, t2.path from wp_school_photo t1 left join wp_picture t2 on t1.photo = t2.id where  t1.type="1" and t1.object_id = '.$teacher_id.' and t1.token="' . $token. '" order by t1.sort');
         $this->assign('imgs', $imgs);
 
         // course
-        $sql = 'select * from wp_school_course where token = "' . get_token() . '"';
+        $sql = 'select * from wp_school_course where token = "' .$token. '"';
         $course_data = M('school_course')->query($sql);
         $this->assign('course_data', $course_data);
 
@@ -289,7 +297,7 @@ str;
         $teacher_id = $_REQUEST['teacher_id'];
         $token = get_token();
         // teacher
-        $teacher_data = M('teacher')->where('id="' . $teacher_id . '" and token="' . get_token() . '"')->find();
+        $teacher_data = M('teacher')->where('id="' . $teacher_id . '" and token="' . $token . '"')->find();
         if ($teacher_data['subject']) {
             $course_names = '';
             $courses = explode(',', $teacher_data['subject']);
@@ -340,6 +348,18 @@ str;
         $this->ajaxReturn($apprise_data, 'JSON');
     }
 
+    /**
+     * set the teacher token
+     * @param $teacherId
+     */
+    private  function  setTeacherToken($teacherId){
+        $info = M('teacher')->where('id='.$teacherId)->find();
+        get_token($info['token']);
+        $_REQUEST['token'] = $info['token'];
+        return  $info['token'];
+    }
+
+
     function  getTeacherReserve()
     {
         $this->display(T('Addons://School@School/master_reserve'));
@@ -386,4 +406,44 @@ str;
         }
     }
 
+
+    /**
+     * show the teahcer map navigator
+     */
+    function teacher_navigator(){
+        // show
+        $this->display ( T ( 'Addons://School@School/master_navigator' ) );
+    }
+
+
+    /**
+     * get the all teacher data
+     */
+    function getAllTeachers(){
+        $sql = <<<str
+select t.*,t1.name school_name, t2.path ,t4.apprise_level from wp_teacher t left join wp_school t1 on t.token = t1.token
+LEFT JOIN wp_picture t2 ON t.photo = t2.id
+LEFT JOIN (
+	SELECT
+		id_teacher,
+		count(id) apprise_num,
+		TRUNCATE (sum(LEVEL) / count(id), 0) apprise_level
+	FROM
+		wp_student_apprise t3
+	GROUP BY
+		t3.id_teacher
+) t4 ON t4.id_teacher = t.id
+where 1=1
+
+str;
+
+        $select_data = M('teacher')->query($sql);
+
+        // add url
+        foreach ($select_data as &$vo) {
+            $vo[info_url] = U('getTeacherInfo', 'teacher_id=' . $vo[id]);
+        }
+
+        $this->ajaxReturn($select_data);
+    }
 }

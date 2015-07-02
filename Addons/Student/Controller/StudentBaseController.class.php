@@ -36,7 +36,7 @@ class StudentBaseController  extends BaseController{
 
         $res ['title'] = '考试通知';
         $res ['url'] = addons_url ( 'Student://Notification/lists' );
-        $res ['class'] = $controller == 'notification' ? 'current' : '';
+        $res ['class'] = ($controller == 'notification' || $controller == 'notificationaccount') ? 'current' : '';
         $nav [] = $res;
 
         $this->assign ( 'nav', $nav );

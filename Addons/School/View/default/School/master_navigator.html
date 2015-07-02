@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <style type="text/css">
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        #allmap {
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+    <title>查找教练</title>
+
+    <link rel="stylesheet" href="{:ADDON_PUBLIC_PATH}/css/jquery.mobile-1.4.4.css"/>
+    <link rel="stylesheet" href="{:ADDON_PUBLIC_PATH}/css/car.css">
+
+    <script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=TF9uZIGSSLdT4yNQQXjvi5N5&v=1.0"></script>
+    <script src="{:ADDON_PUBLIC_PATH}/js/jquery-1.11.1.min.js"></script>
+    <style>
+        /*百度map弹出层样式*/
+        .c_mapPop{
+            opacity:0.9;
+        }
+        .c_mapPop .tit01{
+            overflow:hidden;
+            background: url({:ADDON_PUBLIC_PATH}/img/icon_more.png) no-repeat 97% center;
+            background-size: 24px 24px;
+        }
+        .c_mapPop .tit01 .pic01{
+            float:left;
+            width:66px;
+            height:66px;
+        }
+        .c_mapPop .tit01 .pic01 img{
+            width:60px;
+            height:60px;
+            border:3px solid #fff;
+            border-radius: 60px;
+            -webkit-border-radius: 60px;
+        }
+        .c_mapPop .tit01 .info01{
+            margin-left:70px;
+            padding:1px 0 0;
+            color:#999;
+        }
+        .c_mapPop .tit01 .info01 .name01{
+            display:block;
+            font-size:1.2em;
+        }
+        .c_mapPop .tit01 .info01 .comp01{
+            display:block;
+            font-size:.8em;
+            color:#999;
+            padding:2px 0 1px;
+        }
+        .c_mapPop .tit01 .info01 .star01{
+            overflow:hidden;
+            width:110px;
+        }
+
+        .c_mapPop .tit01 .info01 span,
+        .c_mapPop .tit01 .info01 label{
+            float:left;
+            font-size:.6em;
+            color:#999;
+        }
+        .c_mapPop .tit01 .info01 span{
+            padding:0 0 0 5px;
+
+        }
+        .c_mapPop .tit01 .info01 .star01 img{
+            height:11px;
+        }
+    </style>
+</head>
+<body>
+<div id="allmap"></div>
+<!--<p>点击标注点，可查看由文本，图片构成的复杂型信息窗口</p>-->
+</body>
+</html>
+<script type="text/javascript">
+
+
+    // 百度地图API功能
+
+    var opts = {
+        width: 250,     // 信息窗口宽度
+        height: 80,     // 信息窗口高度
+        title: "信息窗口", // 信息窗口标题
+        enableMessage: true//设置允许信息窗发送短息
+    };
+
+        $.ajax({ //一个Ajax过程
+            type: "post",
+            url: "{:U('getAllTeachers')}",
+            dataType: 'json',
+            data: "",
+            success: function (data) {
+
+                map = new BMap.Map("allmap");
+                map.centerAndZoom(new BMap.Point(118.161763,24.484078), 15);
+                map.addControl(new BMap.ZoomControl()); //添加地图缩放控件
+                map.addControl(new BMap.ScaleControl()); // 添加比例尺控件
+                for (var i = 0; i < data.length; i++) {
+                    // position
+                    if (data[i].position == null) {
+                        continue;
+                    }
+                    var position = data[i].position.split(",");
+                    if (position.length < 2) {
+                        continue;
+                    }
+
+                    // start html
+                    var star_html = "";
+                    if (data[i].apprise_level) {
+                        var level = parseInt(data[i].apprise_level);
+                        for (var j = 0; j < level; j++) {
+                            star_html = star_html + '<img src="{:ADDON_PUBLIC_PATH}/img/star.png">';
+                        }
+                    }
+
+                    var myIcon = new BMap.Icon("{:ADDON_PUBLIC_PATH}/img/icon_map_teacher.png", new BMap.Size(27,38));
+
+                    // 百度地图API功能
+                    var sContent =
+                            '<a href="' + data[i].info_url + '" data-role="none" data-ajax="false">' +
+                            '<div class="c_mapPop">' +
+                            '<div class="tit01">' +
+                            (data[i].path ? '<div class="pic01"><img src="' + data[i].path + '"></div>' : '') +
+                            '<div class="info01">' +
+                            '<div class="name01">' + data[i].name + '</div>' +
+                            '<div class="comp01">' + data[i].school_name + '</div>' +
+                            '<div class="star01">' + star_html + '</div>' +
+//                            '<div class="num">锦旗数：5</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+
+                    var marker = new BMap.Marker(new BMap.Point(position[0], position[1]),{icon:myIcon});  // 创建标注
+                    var content = sContent;
+                    map.addOverlay(marker);               // 将标注添加到地图中
+
+                    addClickHandler(content, marker);
+                }
+
+                function addClickHandler(content, marker) {
+                    marker.addEventListener("click", function (e) {
+                                openInfo(content, e);
+                            }
+                    );
+                }
+
+                function openInfo(content, e) {
+                    var p = e.target;
+                    var point = new BMap.Point(p.point.lng, p.point.lat+0.0015);
+                    var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
+                    map.openInfoWindow(infoWindow, point); //开启信息窗口
+                }
+            }
+        })
+//    }
+
+
+</script>

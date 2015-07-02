@@ -5,13 +5,13 @@
       <include file="Addons/_nav" /> 
 
       <div class="table-bar">
-          <div class="fl">
+          <div class="fl"   style="width:90%">
               <empty name="model.extend">
                   <div class="tools">
-                      <label>查询时间:</label>
-                      <input type="datetime" id="sync_date" name="{$field.name}" class="text date" value="{$sync_date}" placeholder="请选择时间" />
-                      <label> 科目:</label>
-                      <select id="sync_course">
+                      <label  style="width:15%">查询时间:</label>
+                      <input style="width:15%" type="datetime" id="sync_date" name="{$field.name}" class="text date" value="{$sync_date}" placeholder="请选择时间" />
+                      <label style="width:15%"> 科目:</label>
+                      <select style="width:15%" id="sync_course">
                           <option <eq name="sync_course" value="1">selected</eq> value="1">
                           科目1
                           </option>
@@ -25,19 +25,21 @@
                           科目4
                           </option>
                       </select>
-                      <label> 帐号:</label>
-                      <select id="sync_account">
+                      <label style="width:15%"> 帐号:</label>
+                      <select id="sync_account" style="width:15%">
                       <volist name="accounts" id="account">
                           <option <eq name="sync_account" value="$account.id">selected</eq>  value="{$account.id}">
                           {$account.name}
                           </option>
                       </volist>
                       </select>
+                      <label style="width:5%">人数:</label>
+                      <label style="width:5%">{$noti_num}</label>
                   </div>
               </empty>
           </div>
 
-        <div class="search-form fr cf">
+        <div  class="search-form fr cf"    style="width:10%">
           <div class="sleft">
               <a id="sync_btn" class="btn" href="#">查 询</a>
           </div>
@@ -46,18 +48,18 @@
 
       </div>
         <div class="table-bar">
-            <div class="fl">
+            <div class="fl"    style="width:90%">
                 <empty name="model.extend">
                     <div class="tools">
-                        <label>考试地点:</label>
-                        <input type="text" id="exam_address" class="text input"   value="{$exam_address}" placeholder="请填写地点" />
-                        <label>考试时间:</label>
-                        <input type="text" id="exam_time" class="text input"  value="{$exam_time}"  placeholder="请填写时间" />
+                        <label  style="width:15%">考试地点:</label>
+                        <input  style="width:15%" type="text" id="exam_address" class="text input"   value="{$exam_address}" placeholder="请填写地点" />
+                        <label  style="width:15%" >考试时间:</label>
+                        <input  style="width:15%" type="text" id="exam_time" class="text input"  value="{$exam_time}"  placeholder="请填写时间" />
                     </div>
                 </empty>
             </div>
 
-            <div class="search-form fr cf">
+            <div    class="search-form fr cf"    style="width:10%">
                 <div class="sleft">
                     <a id="notify_btn" class="btn" href="#">通 知</a>
                 </div>

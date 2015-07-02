@@ -253,13 +253,13 @@ str;
         $teacher_data = M('teacher')->where('id=' . $teacher_id)->find();
         switch ($teacher_data['level']) {
             case '1':
-                $teacher_data['level_name'] = '一级教师';
+                $teacher_data['level_name'] = '一级教练';
                 break;
             case '2':
-                $teacher_data['level_name'] = '二级教师';
+                $teacher_data['level_name'] = '二级教练';
                 break;
             case '3':
-                $teacher_data['level_name'] = '三级教师';
+                $teacher_data['level_name'] = '三级教练';
                 break;
             default:
                 $teacher_data['level_name'] = '';

@@ -207,11 +207,11 @@ class BaseController extends AddonsController
     public function _search_map($model, $fields) {
         $map='';
 
+        $where_str = " token = \"".get_token()."\" and ";
         foreach($_REQUEST as $name=>$vlaue) {
             if (strpos($name, ',') && !empty($vlaue)) {
                 $map = parent::_search_map($model,$fields);
 
-                $where_str = " 1 = 1 and ";
                 unset($map['token']);
                 unset($map[$name]);
                 // converth map

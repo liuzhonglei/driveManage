@@ -10,7 +10,7 @@ class QuestionController extends StudentBaseController{
         parent::_initialize ();
     }
     public function add(){
-        $_POST['open_id'] =  get_openid();
+        $_POST['openid'] =  get_openid();
         $_POST['token'] =  get_token();
         $_POST['time'] =  date('Y-m-d H:i:s');
         parent::add();

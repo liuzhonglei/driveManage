@@ -3,8 +3,14 @@
 namespace Addons\Teacher\Controller;
 use Addons\School\Controller\BaseController;
 
-
+/**
+ * Class TeacherController the teacher controller
+ * @package Addons\Teacher\Controllere
+ */
 class TeacherController extends BaseController{
+    /**
+     * init
+     */
     function _initialize() {
         $this->model = $this->getModel ( 'teacher' );
         parent::_initialize();
@@ -19,7 +25,10 @@ class TeacherController extends BaseController{
         $this->assign ( 'nav', $nav );
     }
 
-    // 通用插件的列表模型
+    /**
+     *  通用插件的列表模型
+     * @param null $id_teacher
+     */
     public function lists($id_teacher = null)
     {
         // tips
@@ -36,26 +45,17 @@ class TeacherController extends BaseController{
         $this->display("lists");
     }
 
-
-    // show the teacher rank (front)
-    function show() {
-        // data
-        $list = M('teacher')->query('select @x:=ifnull(@x,0)+1 as rank, t.* from wp_teacher_rank_all t where token="'.get_token().'"');
-        $this->assign('list',$list);
-
-        // show
-        $this->display ( T ( 'Addons://Teacher@Teacher/top' ) );
-    }
-
-
-    // binding the weixin code
+    /**
+     * binding the weixin code
+     */
     function binding(){
         $param = array('teacher_id' => $_REQUEST['teacher_id']);
         $url = addons_url('Teacher://weixin/lists', $param);
         redirect($url);
     }
-
-    // unbing the weixin code
+    /**
+     * unbing the weixin code
+     */
     function unbinding(){
         // change the data
         $Model = M('teacher');
@@ -67,7 +67,9 @@ class TeacherController extends BaseController{
         redirect($url);
     }
 
-    //  lantern-slide
+    /**
+     * edit the photos
+     */
     function photos()
     {
         $param = array('type' => '1', 'object_id' => $_REQUEST['object_id'],'model' => 'teacher' );
@@ -75,19 +77,29 @@ class TeacherController extends BaseController{
         redirect($url);
     }
 
+
+    /**
+     * show the teacher rank (front)
+     */
+    function show() {
+        // data
+        $list = M('teacher')->query('select @x:=ifnull(@x,0)+1 as rank, t.* from wp_teacher_rank_all t where token="'.get_token().'"');
+        $this->assign('list',$list);
+
+        // show
+        $this->display ( T ( 'Addons://Teacher@Teacher/top' ) );
+    }
+
+
+
     /**
      * get the school teacher data
      */
     function getTeachers(){
-        $list = M ( 'teacher' )->query('select id, name text from wp_teacher t where t.token="'.get_token().'"' );
+        $list = M ( 'teacher' )->query('select id, name text from wp_teacher t where t.token="'.get_token().'" and status="1"' );
         $this->ajaxReturn($list);
     }
 
-    /**
-     * get the all teacher data
-     */
-    function getAllTeachers(){
-        $list = M ( 'teacher' )->query('select id, name text from wp_teacher t where t.token="'.get_token().'"' );
-        $this->ajaxReturn($list);
-    }
+
+
 }

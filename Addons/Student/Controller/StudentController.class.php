@@ -114,13 +114,15 @@ class StudentController extends StudentBaseController
                     $Model->save($modelData);
                 }
 
-                if(!empty($Model->getError())){
-                    $this->error($Model->getError());
-                }else{
-                    $this->success('添加' . $this->model ['title'] . '成功！', U('lists?model=' . $this->model ['name'], $this->get_param));
-                }
+
 
             }
+        }
+
+        if(!empty($Model->getError())){
+            $this->error($Model->getError());
+        }else{
+            $this->success('添加' . $this->model ['title'] . '成功！', U('lists?model=' . $this->model ['name'], $this->get_param));
         }
     }
 
@@ -140,7 +142,9 @@ class StudentController extends StudentBaseController
 
         // change the date
         if (in_array($field_name, array('time_sign', 'time_begin'))) {
-            $field_value = (intval($field_value)-70*365-19)*86400-8*3600;
+            if(!empty($field_value)){
+              $field_value = (intval($field_value)-70*365-19)*86400-8*3600;
+            }
         }
 
         // change the teacher

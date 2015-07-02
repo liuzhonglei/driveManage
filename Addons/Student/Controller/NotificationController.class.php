@@ -46,13 +46,16 @@ class NotificationController extends StudentBaseController{
         $this->assign('sub_nav', $nav);
     }
 
+    /**
+     * show the list
+     */
     public function lists(){
-        //$_GET['sync_course'] = geChkkey();
+        $_GET['chkkey'] = $this->geChkkey();
 
         // tips
         $this->assign ( 'normal_tips', self::TIPS );
         $this->assign('sync_date',date('Y-m-d'));
-        $this->assign('accounts',M('school_noti_account')->select()) ;
+        $this->assign('accounts',M('school_noti_account')->where('token="'.get_token().'"')->select()) ;
         parent::lists();
     }
 
@@ -61,18 +64,22 @@ class NotificationController extends StudentBaseController{
      */
     private function geChkkey(){
         $sycn_account = $_GET['sync_account'];
-        $accountInfo = M('school_noti_account')->where('id="'.$sycn_account.'" and token="'.get_token().'"')->find();
+        $accountInfo = M('school_noti_account')->where('id='.$sycn_account.' and token="'.get_token().'"')->find();
         return $accountInfo['chkkey'];
     }
 
 
 
     public function sync(){
+
         $sync_date = i('sync_date');
-        $db_config = D ( 'Common/AddonConfig' )->get ( _ADDONS );
         $sync_course = i('sync_course');
         $sync_account = i('sync_account');
+
+        $db_config = D ( 'Common/AddonConfig' )->get ( _ADDONS );
         $exam_address = $db_config['notification_address_km'.$sync_course];
+
+        $_GET['chkkey'] = $this->geChkkey();
         $_GET['sync_course'] = $sync_course;
         $_GET['exam_address'] = $exam_address;
 
@@ -89,7 +96,8 @@ class NotificationController extends StudentBaseController{
 
         $this->assign('search_button','0');
         $this->assign('sync_date',$sync_date);
-        $this->assign('accounts',M('school_noti_account')->select()) ;
+        $this->assign('accounts',M('school_noti_account')->where('token="'.get_token().'"')->select()) ;
+        $this->assign('noti_num',sizeof($list_data['list_data'])) ;
         $this->assign('sync_course',$sync_course);
         $this->assign('sync_account',$sync_account);
         $this->assign('exam_address',$exam_address);
@@ -100,9 +108,43 @@ class NotificationController extends StudentBaseController{
     }
 
     /**
+     * confirm the notification
+     */
+    public function notiConfirm(){
+        // param
+        $token = get_token();
+        $id = i('id');
+        $Notification = M($this->model['name']);
+        $_GET['chkkey'] = $this->geChkkey();
+
+        $noti_data =  $Notification->where('token = "'.$token.'" and id='.$id)->find();
+        if($noti_data['noti_result'] != '2'){
+            $noti_data['noti_result'] = '2';
+            $noti_data['remark'] = '管理员已人工进行通知。';
+            $Notification->data($noti_data)->save();
+        }
+
+        $list_data = $this->_get_model_list($this->model,null,'noti_result');
+        $this->assign($list_data);
+
+        //设置显示控件
+        $this->assign('add_button','0');
+        $this->assign('del_button','0');
+        $this->assign ( 'normal_tips', self::TIPS );
+        $this->assign('search_button','0');
+        $this->assign('noti_num',sizeof($list_data['list_data'])) ;
+        $this->assign('accounts',M('school_noti_account')->select()) ;
+        $this->assign($_GET);
+
+        // display
+        $this->display ('lists');
+    }
+
+    /**
      * notifaction the user eaxm
      */
     public function notifcation(){
+        $_GET['chkkey'] = $this->geChkkey();
         $exam_time = i('exam_time');
         $exam_address = i('exam_address');
         $token = get_token();
@@ -190,43 +232,14 @@ class NotificationController extends StudentBaseController{
         $this->assign('del_button','0');
         $this->assign ( 'normal_tips', self::TIPS );
         $this->assign('search_button','0');
-        $this->assign('accounts',M('school_noti_account')->select()) ;
+        $this->assign('accounts',M('school_noti_account')->where('token="'.get_token().'"')->select()) ;
         $this->assign($_GET);
 
         // display
         $this->display ('lists');
     }
 
-    /**
-     * confirm the notification
-     */
-    public function notiConfirm(){
-        // param
-        $token = get_token();
-        $id = i('id');
-        $Notification = M($this->model['name']);
 
-        $noti_data =  $Notification->where('token = "'.$token.'" and id='.$id)->find();
-        if($noti_data['noti_result'] != '2'){
-            $noti_data['noti_result'] = '2';
-            $noti_data['remark'] = '管理员已人工进行通知。';
-            $Notification->data($noti_data)->save();
-        }
-
-        $list_data = $this->_get_model_list($this->model,null,'noti_result');
-        $this->assign($list_data);
-
-        //设置显示控件
-        $this->assign('add_button','0');
-        $this->assign('del_button','0');
-        $this->assign ( 'normal_tips', self::TIPS );
-        $this->assign('search_button','0');
-        $this->assign('accounts',M('school_noti_account')->select()) ;
-        $this->assign($_GET);
-
-        // display
-        $this->display ('lists');
-    }
 
 
     // get the exam notification info form html
@@ -246,7 +259,7 @@ class NotificationController extends StudentBaseController{
 
       // $db_config = D ( 'Common/AddonConfig' )->get ( _ADDONS );
 
-      $accountInfo = M('school_noti_account')->where('id="'.$sync_account.'" and token="'.$token.'"')->find();
+      $accountInfo = M('school_noti_account')->where('id='.$sync_account.' and token="'.$token.'"')->find();
 
        $chkkey = $accountInfo['chkkey'];
        $rand = $accountInfo['rand'];
@@ -296,13 +309,12 @@ class NotificationController extends StudentBaseController{
        }
 
        $Notif->addAll($addData);
-
     }
 
 
     // add the search map
     public function _search_map($model, $fields) {
-        $map='sync_date = "'.i('sync_date').'" and sync_course= "'.i('sync_course').'" and token = "'.get_token().'"';
+        $map='sync_date = "'.i('sync_date').'" and sync_course= "'.i('sync_course').'" and chkkey= "'.i('chkkey').'"  and token = "'.get_token().'"';
         return $map;
     }
 }
