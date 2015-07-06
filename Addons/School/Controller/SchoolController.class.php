@@ -38,6 +38,7 @@ class SchoolController extends BaseController
         if (sizeof($select_data['list_data']) > 0) {
             $this->assign('add_button', '0');
         }
+
         // display
         $this->display("lists");
     }
@@ -113,7 +114,7 @@ class SchoolController extends BaseController
             $_POST['token'] = get_token();
             $_POST['status'] = '-1';
             $_POST['intro_source'] = '0';
-            $_POST['time_sign'] = date('Y-m-d H:i:s');
+            $_POST['time_sign'] = time();
             if (empty($_POST['id_in_teacher'])) {
                 $_POST['intro_source'] = '0';
             } else {
@@ -172,12 +173,22 @@ class SchoolController extends BaseController
     {
         $token = get_token();
         $_POST['token'] = get_token();
-        $select_data = M('student_question')->query('select t.*, from_unixtime(t.time) str_time,t1.nickname, t1.headimgurl, t2.path   from wp_student_question t left join wp_follow t1 on t.openid = t1.openid left join wp_picture t2 on t1.headimgurl = t2.id where t.token ="'.$token.'" order by id desc');
-
-        $this->assign('list', $select_data);
-
+        $number = i('load_number');
+        $sql = 'select t.*, from_unixtime(t.time) str_time,t1.nickname, t1.headimgurl, t2.path   from wp_student_question t left join wp_follow t1 on t.openid = t1.openid left join wp_picture t2 on t1.headimgurl = t2.id where t.token ="'.$token.'"  order by id desc ';
+        $select_data = M('student_question')->query($sql);
+        $this->assign('list',$select_data);
         // 取得数据
         $this->display(T('Addons://School@School/ask'));
+    }
+
+    function getAskData(){
+        $token = get_token();
+        $_POST['token'] = get_token();
+        $number = i('load_number');
+        $sql = 'select t.*, from_unixtime(t.time) str_time,t1.nickname, t1.headimgurl, t2.path   from wp_student_question t left join wp_follow t1 on t.openid = t1.openid left join wp_picture t2 on t1.headimgurl = t2.id where t.token ="'.$token.'"  order by id desc limit '.$number;
+        $select_data = M('student_question')->query($sql);
+
+        $this->ajaxReturn($select_data);
     }
 
     function getTeacher()
@@ -248,6 +259,7 @@ str;
     {
         $teacher_id = $_REQUEST['teacher_id'];
         $token = $this->setTeacherToken($teacher_id);
+        $openid = get_openid();
         $code_url = U('/home/Index/leaflets', 'token=' . get_token());
         $this->assign('code_url', $code_url);
 
@@ -281,6 +293,9 @@ str;
 
         // photo data
         $imgs = M('school_photo')->query('select t1.*, t2.path from wp_school_photo t1 left join wp_picture t2 on t1.photo = t2.id where  t1.type="1" and t1.object_id = '.$teacher_id.' and t1.token="' . $token. '" order by t1.sort');
+        if(sizeof($imgs) < 1){
+            $imgs[] = array('path' => ADDON_PUBLIC_PATH."/img/master_bg.png");
+        }
         $this->assign('imgs', $imgs);
 
         // course
@@ -420,6 +435,7 @@ str;
      * get the all teacher data
      */
     function getAllTeachers(){
+        // connect the sql
         $sql = <<<str
 select t.*,t1.name school_name, t2.path ,t4.apprise_level from wp_teacher t left join wp_school t1 on t.token = t1.token
 LEFT JOIN wp_picture t2 ON t.photo = t2.id
@@ -434,9 +450,7 @@ LEFT JOIN (
 		t3.id_teacher
 ) t4 ON t4.id_teacher = t.id
 where 1=1
-
 str;
-
         $select_data = M('teacher')->query($sql);
 
         // add url

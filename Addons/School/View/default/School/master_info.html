@@ -1,6 +1,6 @@
 <meta charset="utf-8" xmlns="http://www.w3.org/1999/html">
+<script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=TF9uZIGSSLdT4yNQQXjvi5N5&v=1.0"></script>
 <div class="c_box">
-
     <dl class="mainInfo">
         <dt>基本资料：</dt>
         <dd>{$teacher_data.intro}</dd>
@@ -35,6 +35,11 @@
         </table>
     </div>
 </div>
+<div id="map">
+    <div class="x_blank"></div>
+    <div class="c_box" id="allmap" style="height: 70px">
+    </div>
+</div>
 <div class="x_blank"></div>
 <div class="x_item subItem">
     <ul>
@@ -46,15 +51,6 @@
     <div class="tit01" id="apprise_num">学员评价</div>
     <div class="masterComment">
         <ul id = 'apprise_data'>
-
-                <!--<li>-->
-                    <!--<div class="tit01">-->
-                        <!--<neq name="vo.headimgurl" value=""><img src="{$vo.headimgurl}"></neq>{$vo.show_name}<span>{$vo.format_time}</span></div>-->
-                    <!--<div class="row01">-->
-                        <!--{$vo.apprise}-->
-                    <!--</div>-->
-                <!--</li>-->
-
         </ul>
         <input id="load_number" type="hidden" value="0">
         <a href="#" class="ui-btn ui-corner-all x_btn x_mini" id="load_more" onclick="load_more()">加载更多</a>
@@ -78,10 +74,13 @@
         });
         </volist >
 
-
         load_more();
+
+        // get the map location
+        loadLocation();
     })
 
+    // load more  apprise
     function load_more() {
         load_number = parseInt($("#load_number").val());
         load_number = load_number+3;
@@ -125,5 +124,45 @@
                 }
             }
         })
+    }
+
+    /**
+     * load teacher data
+     */
+    function loadLocation() {
+        var postion = "{$teacher_data.position}";
+        if (postion == "") {
+            $("#map").hide();
+        } else {
+            var location = postion.split(",");
+            // 百度地图API功能
+            var map = new BMap.Map("allmap");
+            var point = new BMap.Point(location[0], location[1]);
+            map.centerAndZoom(point, 15);
+            map.addControl(new BMap.ZoomControl());
+            var marker1 = new BMap.Marker(point);  // 创建标注
+            map.addOverlay(marker1);              // 将标注添加到地图中
+            map.addEventListener("click", function () {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            });
+        }
+    }
+
+    function showPosition(position)
+    {
+        var postion = "{$teacher_data.position}";
+        var location = postion.split(",");
+        var start = {
+            latlng:new BMap.Point(position.coords.longitude,position.coords.latitude)
+        }
+        var end = {
+            latlng:new BMap.Point(location[0],location[1])
+        }
+        var opts = {
+            mode:BMAP_MODE_DRIVING,
+            region:"厦门"
+        }
+        var ss = new BMap.RouteSearch();
+        ss.routeCall(start,end,opts);
     }
 </script>

@@ -19,14 +19,50 @@ class StudentController extends StudentBaseController
 
         // 子导航
         $action = strtolower(_ACTION);
+        $res ['title'] = '报名';
+        $res ['url'] = addons_url('Student://student/signList');
+        $res ['class'] = ($action=='signlist')? 'cur' : '';
+        $nav [] = $res;
+
         $res ['title'] = '信息';
         $res ['url'] = addons_url('Student://student/lists');
-        $res ['class'] = 'cur';
+        $res ['class'] = ($action=='lists')? 'cur' : '';
         $nav [] = $res;
 
         // assign
         $this->assign('sub_nav', $nav);
     }
+    /**
+     * show the sign student list
+     * @return [type] [description]
+     */
+    public function signList(){
+        // get data
+        $_REQUEST['status_name'] = '预约';
+        $list_data = $this->_get_model_list($this->model);
+
+        // configure data
+        $list_data['list_grids'][count($list_data['list_grids'])-1]['href'] = 'signConfirm&student_id=[id]|确认,signCancel&student_id=[id]|取消';
+        $this->assign($list_data);
+
+        // display
+        $this->display("lists");
+    }
+
+    public function signconfirm(){
+        $id = $_REQUEST['student_id'];
+        M('student')->where('id='.$id)->setField('status','0');
+        $url = addons_url('Student://student/signList');
+        redirect($url);
+    }
+
+    public function signCancel(){
+        $id = $_REQUEST['student_id'];
+        M('student')->where('id='.$id)->setField('status','-2');
+        $url = addons_url('Student://student/signList');
+        redirect($url);
+    }
+
 
     /**
      * show the liests
@@ -42,6 +78,7 @@ class StudentController extends StudentBaseController
         $list_data = $this->_get_model_list($this->model);
 
         // configure data
+        $this->assign('file_button',1);
         $this->assign($list_data);
 
         // display

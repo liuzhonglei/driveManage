@@ -23,7 +23,6 @@ class StudentBaseController  extends BaseController{
         $res ['class'] = ($controller == 'student' || $controller == 'weixin') ? 'current' : '';
         $nav [] = $res;
 
-
         $res ['title'] = '学员提问';
         $res ['url'] = addons_url ( 'Student://Question/lists' );
         $res ['class'] = $controller == 'question' ? 'current' : '';

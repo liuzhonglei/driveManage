@@ -14,6 +14,7 @@
     <script src="{:ADDON_PUBLIC_PATH}/js/jquery-1.11.1.min.js"></script>
     <script src="{:ADDON_PUBLIC_PATH}/js/jquery.mobile-1.4.4.min.js"></script>
     <script src="{:ADDON_PUBLIC_PATH}/js/swiper.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=TF9uZIGSSLdT4yNQQXjvi5N5&v=1.0"></script>
     <script>
         $(function () {
             $("#masterNav li").click(function () {
@@ -74,7 +75,7 @@
 <!--//开设课程-->
     <div data-role="header" data-theme="none"  class="x_header"  data-position="fixed"  data-tap-toggle="false">
         <a href="#"  data-role="none" data-rel="back" class="x_btn_back" data-transition="slide"></a>
-        <h1>我的学车教练，值得推荐！想学车请找他哦！</h1>
+        <h1>我的学车教练{$teacher_data.name}，值得推荐！想学车请找他哦！</h1>
     </div><!--//header -->
     <div class="x_content">
         <!--头部信息-->
@@ -82,13 +83,10 @@
             <!--幻灯片 swiper-->
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-
                     <volist name="imgs" id="vo">
                         <div class="swiper-slide"><img src="{$vo.path}"></div>
                     </volist>
-                    <div class="swiper-slide"><img src="{:ADDON_PUBLIC_PATH}/img/master_bg.png"></div>
-                    <!--<div class="swiper-slide"><img src="img/master_bg.png"></div>-->
-                    <!--<div class="swiper-slide"><img src="img/master_bg.png"></div>-->
+                  <!--   <div class="swiper-slide"><img src="{:ADDON_PUBLIC_PATH}/img/master_bg.png"></div> -->
                 </div>
                 <!-- Add Pagination -->
                 <div class="swiper-pagination"></div>

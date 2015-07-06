@@ -10,6 +10,11 @@ class WeixinController extends StudentBaseController{
         parent::_initialize ();
 
         // 子导航
+        $res ['title'] = '报名';
+        $res ['url'] = addons_url('Student://student/signList');
+        $res ['class'] =  '';
+        $nav [] = $res;
+
         $action = strtolower ( _ACTION );
         $res ['title'] = '信息';
         $res ['url'] = addons_url ( 'Student://student/lists' );

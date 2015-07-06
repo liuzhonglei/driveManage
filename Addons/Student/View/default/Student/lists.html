@@ -19,10 +19,13 @@
                                     </if>
                                     &nbsp;
                                 </volist>
+
+                                    <if condition="$file_button">
                                 <a class="btn" href="{:ADDON_PUBLIC_PATH}/demon.xls">下载模板</a>
 
                                 <input type="file"   name="file_stu" />
                                 <input class="btn"  type="submit"  value="导入" />
+                                    </if>
                                 </form>
                             </div>
                         </empty>

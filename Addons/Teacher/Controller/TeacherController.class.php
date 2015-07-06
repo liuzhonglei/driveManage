@@ -53,6 +53,7 @@ class TeacherController extends BaseController{
         $url = addons_url('Teacher://weixin/lists', $param);
         redirect($url);
     }
+    
     /**
      * unbing the weixin code
      */
@@ -77,7 +78,6 @@ class TeacherController extends BaseController{
         redirect($url);
     }
 
-
     /**
      * show the teacher rank (front)
      */
@@ -90,8 +90,6 @@ class TeacherController extends BaseController{
         $this->display ( T ( 'Addons://Teacher@Teacher/top' ) );
     }
 
-
-
     /**
      * get the school teacher data
      */
@@ -99,7 +97,4 @@ class TeacherController extends BaseController{
         $list = M ( 'teacher' )->query('select id, name text from wp_teacher t where t.token="'.get_token().'" and status="1"' );
         $this->ajaxReturn($list);
     }
-
-
-
 }
