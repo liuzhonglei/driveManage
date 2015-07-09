@@ -838,6 +838,11 @@ class Model {
         // 如果没有传值默认取POST数据
         if(empty($data)) {
             $data   =   I('post.');
+
+            // 修正  background_color 被修改成_color
+            if(!empty($_POST['info'])){
+                $data['info'] = $_POST['info'];
+            }
         }elseif(is_object($data)){
             $data   =   get_object_vars($data);
         }

@@ -50,11 +50,11 @@ class SchoolController extends WeixinController
         redirect($url);
     }
 
-
+    /**
+     * show the main view
+     */
     function show()
     {
-
-
         // gete compnay info
         $info = $this->getCompanyInfo();
         $this->assign($info);
