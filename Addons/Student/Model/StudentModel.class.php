@@ -7,6 +7,7 @@ use Think\Model;
  * Student模型
  */
 class StudentModel extends Model{
+    protected $tableName = 'student';
     protected $_validate = array(
         array('openid','checkWeixin','找不到微信号！',0,'function'),
     );

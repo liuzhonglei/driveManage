@@ -21,60 +21,63 @@
     <link rel="stylesheet" href="{:ADDON_PUBLIC_PATH}/css/jquery.mobile-1.4.4.css"/>
     <link rel="stylesheet" href="{:ADDON_PUBLIC_PATH}/css/car.css">
 
-    <script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=TF9uZIGSSLdT4yNQQXjvi5N5&v=1.0"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?ak=TF9uZIGSSLdT4yNQQXjvi5N5&v=2.0"></script>
     <script src="{:ADDON_PUBLIC_PATH}/js/jquery-1.11.1.min.js"></script>
     <style>
-        .c_mapPop{
-        }
-        .c_mapPop .tit01{
-            overflow:hidden;
-            background: url({:ADDON_PUBLIC_PATH}/img/icon_more.png) no-repeat 97% center;
-            background-size: 24px 24px;
-        }
-        .c_mapPop .tit01 .pic01{
-            float:left;
-            width:55px;
-            height:55px;
-        }
-        .c_mapPop .tit01 .pic01 img{
-            width:48px;
-            height:48px;
-            border-radius: 60px;
-            -webkit-border-radius: 60px;
-        }
-        .c_mapPop .tit01 .info01{
-            margin-left:55px;
-            color:#fff;
-        }
-        .c_mapPop .tit01 .info01 .name01{
-            display:block;
-            font-size:.9em;
-        }
-        .c_mapPop .tit01 .info01 .comp01{
-            display:block;
-            font-size:.6em;
-            color:#f5f5f5;
-        }
-        .c_mapPop .tit01 .info01 .star01{
-            overflow:hidden;
-            width:120px;
-        }
+      .c_mapPop{
+    background:#fff;    
+}
+.c_mapPop .tit01{
+    overflow:hidden;
+    background: url({:ADDON_PUBLIC_PATH}/img/icon_more.png) no-repeat 97% center;
+    background-size: 24px 24px;
+}
+.c_mapPop .tit01 .pic01{
+    float:left;
+    width:66px;
+    height:66px;
+}
+.c_mapPop .tit01 .pic01 img{
+    width:60px;
+    height:60px;
+    border:3px solid #fff;
+    border-radius: 60px;
+   -webkit-border-radius: 60px;
+}
+.c_mapPop .tit01 .info01{
+    margin-left:70px;
+    padding:1px 0 0;
+    color:#333;
+}
+.c_mapPop .tit01 .info01 .name01{
+    display:block;
+    font-size:1.2em;
+}
+.c_mapPop .tit01 .info01 .comp01{
+    display:block;
+    font-size:.8em;
+    color:#999;
+    padding:2px 0 1px;
+}
+.c_mapPop .tit01 .info01 .star01{
+    overflow:hidden;
+    width:110px;
+}
 
-        .c_mapPop .tit01 .info01 span,
-        .c_mapPop .tit01 .info01 label{
-            float:left;
-            font-size:.5em;
-            color:#f5f5f5;
-            background:#ccc;
-        }
-        .c_mapPop .tit01 .info01 span{
-            padding:0 0 0 5px;
+.c_mapPop .tit01 .info01 span,
+.c_mapPop .tit01 .info01 label{
+    float:left;
+    font-size:.6em;
+    color:#999;
+}
+.c_mapPop .tit01 .info01 span{
+    padding:0 0 0 5px;
+    
+}
+.c_mapPop .tit01 .info01 .star01 img{
+    height:11px;
+}
 
-        }
-        .c_mapPop .tit01 .info01 .star01 img{
-            height:11px;
-            vertical-align:middle;
-        }
     </style>
 </head>
 <body>
@@ -83,14 +86,10 @@
 </body>
 </html>
 <script type="text/javascript">
-
-
     // 百度地图API功能
-
     var opts = {
-        width: 100,     // 信息窗口宽度
+        width: 60,     // 信息窗口宽度
         height: 50,     // 信息窗口高度
-
         enableMessage: true//设置允许信息窗发送短息
     };
 
@@ -103,15 +102,21 @@
         data: "",
         success: function (data) {
             teacherData = data;
-            navigator.geolocation.getCurrentPosition(showPosition);
+            var geolocation = new BMap.Geolocation();
+            geolocation.getCurrentPosition(showPosition);
         }
     })
 
     function showPosition(position) {
         map = new BMap.Map("allmap");
-        map.centerAndZoom(new BMap.Point(position.coords.longitude, position.coords.latitude), 15);
-        map.addControl(new BMap.ZoomControl()); //添加地图缩放控件
-        map.addControl(new BMap.ScaleControl()); // 添加比例尺控件
+        map.centerAndZoom(new BMap.Point(position.point.lng, position.point.lat), 15);
+        // map.addControl(new BMap.ZoomControl()); //添加地图缩放控件
+        // map.addControl(new BMap.ScaleControl()); // 添加比例尺控件
+        // my postion maker
+        var marker = new BMap.Marker(new BMap.Point(position.point.lng, position.point.lat));  // 创建标注
+        map.addOverlay(marker);               // 将标注添加到地图中
+
+        // teacher marker
         for (var i = 0; i < teacherData.length; i++) {
             // position
             if (teacherData[i].position == null) {
@@ -152,23 +157,25 @@
             var content = sContent;
             map.addOverlay(marker);               // 将标注添加到地图中
 
+            //set the click method
             addClickHandler(content, marker);
+         }
+
+        function addClickHandler(content, marker) {
+            marker.addEventListener("click", function () {
+                        openInfo(content, this);
+                    }
+            );
+        }
+
+        function openInfo(content,e){
+                var infoWindow = new BMap.InfoWindow(content, {
+                    title  : "教练信息",      //标题
+                    width  : 0,             //宽度
+                    height : 0              //高度
+                });  // 创建信息窗口对象
+            e.openInfoWindow(infoWindow);//开启信息窗口
         }
     }
-
-    function addClickHandler(content, marker) {
-        marker.addEventListener("click", function (e) {
-                    openInfo(content, e);
-                }
-        );
-    }
-
-    function openInfo(content, e) {
-        var p = e.target;
-        var point = new BMap.Point(p.point.lng, p.point.lat + 0.0015);
-        var infoWindow = new BMap.InfoWindow(content, opts);  // 创建信息窗口对象
-        map.openInfoWindow(infoWindow, point); //开启信息窗口
-    }
-
 
 </script>

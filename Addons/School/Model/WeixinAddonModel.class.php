@@ -19,7 +19,7 @@ class WeixinAddonModel extends WeixinModel
         $param ['openid'] =$this->data['FromUserName'];
 
         // get the data
-        $map = array('token' => $param ['token']);
+         $map = array('token' => $param ['token'],'type'=>'0');
         $school = M('school')->where($map)->find();
         $photo = M('school_photo')->where($map)->find();
 

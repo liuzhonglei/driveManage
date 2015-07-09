@@ -8,7 +8,4 @@ use Think\Model;
  */
 class SchoolModel extends Model{
     protected $tableName = 'school';
-
-
-
 }
