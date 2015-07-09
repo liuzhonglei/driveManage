@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ebbc95d-e22a-4368-9f6f-704477bf91eb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Public/Admin/css/default_color.css" afterPath="$PROJECT_DIR$/Public/Admin/css/default_color.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="d0b6a2a3-b4a2-4827-8d5c-d10cdd77d1c3" name="New changelist" comment="New changelist" />
     <ignored path="htdocs.iws" />
@@ -78,11 +79,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WeixinController.class.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WeixinController.class.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Application/Home/Controller/WeixinController.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.0957792" vertical-offset="675" max-vertical-offset="3705">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="23.125" vertical-offset="1770" max-vertical-offset="3705">
+              <caret line="81" column="54" selection-start-line="81" selection-start-column="54" selection-end-line="81" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.06891271" vertical-offset="0" max-vertical-offset="653">
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -99,7 +110,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Addons/School/Unit/SchoolControlerTest.php" />
         <option value="$PROJECT_DIR$/tests/SchoolControlerTest.php" />
         <option value="$PROJECT_DIR$/Addons/Abcinfosend/Api/Wechat.class.php" />
         <option value="$PROJECT_DIR$/Addons/Teacher/Controller/WeixinController.class.php" />
@@ -150,6 +160,7 @@
         <option value="$PROJECT_DIR$/Addons/School/Controller/SchoolWeixinController.class.php" />
         <option value="$PROJECT_DIR$/Addons/QingQing/Controller/QingQingController.class.php" />
         <option value="$PROJECT_DIR$/Public/Admin/css/default_color.css" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -815,14 +826,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Application/Home/View/default/Public/body.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41629955" vertical-offset="516" max-vertical-offset="1320">
-          <caret line="47" column="62" selection-start-line="46" selection-start-column="21" selection-end-line="47" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Addons/Vote/Model/WeixinAddonModel.class.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.07272727" vertical-offset="73" max-vertical-offset="675">
@@ -1211,8 +1214,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/Home/Controller/WeixinController.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.0957792" vertical-offset="675" max-vertical-offset="3705">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="23.125" vertical-offset="1770" max-vertical-offset="3705">
+          <caret line="81" column="54" selection-start-line="81" selection-start-column="54" selection-end-line="81" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.06891271" vertical-offset="0" max-vertical-offset="653">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
