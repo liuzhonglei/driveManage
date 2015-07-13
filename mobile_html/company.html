@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon-precomposed" href="img/screen_icon.png">
+<title>car</title>
+<link rel="stylesheet" href="css/jquery.mobile-1.4.4.css" /> 
+<link rel="stylesheet" href="css/car.css"> 
+<script src="js/jquery-1.11.1.min.js"></script> 
+<script src="js/iscroll.js"></script>
+<script src="js/jquery.mobile-1.4.4.min.js"></script>
+</head>
+<body>
+<div id="pageComp" data-role="page" data-theme="none">
+    <div data-role="header" data-theme="none"  class="x_header"  data-position="fixed"  data-tap-toggle="false">
+        <a href="#"  data-role="none" data-rel="back" class="x_btn_back" data-transition="slide"></a>
+        <h1>走进东正</h1>
+    </div><!--//header -->
+    <div id="c_content" class="c_wrapper">
+        <div id="scroller">
+            <div class="c_article">
+                <p>厦门东正驾校是厦门市交委达标专业驾驶培训学校，厦门市十大文明驾校，目前拥有90多台捷达牌及威志牌教练车及90多名资深教练员。在岛内、集美和同安设有训练场和招生点，是目前厦门场地设施最大、最完善的驾校之一！同时我们深知维护学生的利益就是维护我们自己的利益！ 热线电话：0592-68312340</p>
+            	<p>&nbsp;</p>
+                <p><img src="img/jx01.jpg"></p>
+                <p>&nbsp;</p>
+            	<p><img src="img/jx02.jpg"></p>
+                <p>&nbsp;</p>
+            	<p><img src="img/jx03.jpg"></p>
+            </div>
+        </div>
+	</div><!-- /wrapper -->
+    <script>
+	$(function(){
+		var myScroll_car;
+		$("#pageComp").on("pageshow",function(){
+			if(myScroll_car==null){
+					setTimeout(function(){
+						myScroll_car = new IScroll('#c_content', {
+							tap:true,
+							click:false, 
+							preventDefaultException:{tagName:/.*/},//解除默认事件锁定，调用tab，click等事件,不支持swipeleft
+							scrollbars: true,
+							mouseWheel: true,
+							fadeScrollbars: true
+						});
+					},0)
+				}else{
+
+			 }
+		});
+	}); 
+    </script>
+</div> <!--//Page-->
+</body>
+</html>

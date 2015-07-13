@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon-precomposed" href="img/screen_icon.png">
+<title>car</title>
+<link rel="stylesheet" href="css/jquery.mobile-1.4.4.css" /> 
+<link rel="stylesheet" href="css/car.css"> 
+<script src="js/jquery-1.11.1.min.js"></script> 
+<script>
+/*滚动条*/    
+$(function(){
+	
+	/*报名表单*/
+	$(".c_formFull input").focus(function(){
+		  $(this).addClass("focus");
+		  if($(this).val() ==this.defaultValue){  
+		      if($(this).attr("id")=="psw"){
+				   	$("#pswShow").show();
+				  	$(this).attr("type","password");
+			  }
+			  $(this).val(""); 
+		  } 
+	}).blur(function(){
+		 if ($(this).val() == '') {
+			 $(this).removeClass("focus");
+			$(this).val(this.defaultValue);
+			if($(this).attr("id")=="psw"){
+				  	$(this).attr("type","text");
+					
+			  }
+		 }else{
+			 $(this).addClass("focus");
+			}
+	});
+	
+});
+</script>
+<script src="js/jquery.mobile-1.4.4.min.js"></script>
+</head>
+<body class="x_flowAuto">
+<div id="pageRegGuide" data-role="page" data-theme="none">
+    <div data-role="header" data-theme="none"  class="x_header"  data-position="fixed"  data-tap-toggle="false">
+        <a href="index.html"  data-role="none" data-rel="back" data-ajax="false" class="x_btn_back"></a>
+        <h1>在线报名</h1>
+    </div><!--//header -->
+    <div class="x_tabs c_fixed" id="c_tabs_guide" >
+        <ul>
+            <li class="active"><a href="#">报名须知</a></li>
+            <li><a href="#">学车流程</a></li>
+            <li><a href="#">在线报名</a></li>
+        </ul>
+        <div class="x_tabs_slide"><span id="slide"></span></div>
+    </div><!--//tabs -->
+    <div class="x_tab_content" style="">
+       <div class="conBk"   style="width:300%; position:relative; top:0; left:0;">
+          <div class="con" style="width:33.33%;">
+              <div id="xuzhi" style="overflow:hidden">
+                  <!--报名须知-->
+                  <div class="c_article">
+                        <p><b>报考C1驾驶证需要具备什么条件？</b></p>
+                        <p>&nbsp;</p>
+                        <p>符合《机动车驾驶证申领和使用规定》条件的中国公民、港澳同胞、外籍人士以及现役军人，未领有机动车驾驶证的，均可申请机动车驾驶证。</p>
+                        <p>A、年龄条件：申请小型汽车（C1牌）驾驶证为18至70周岁。</p>
+                        <p>B、申请小型汽车（C1牌）的身体条件：</p>
+                        <p>&nbsp;&nbsp;（a）身高：申请小型汽车（C1牌），身高1.5米以上；</p>
+                        <p>&nbsp;&nbsp;（b）视力：两眼裸视力或者矫正视力达到对数视力表4.9以上；</p>
+                        <p>&nbsp;&nbsp;（c）辨色力：无红绿色盲；</p>
+                        <p>&nbsp;&nbsp;（d）听力：两耳分别距音叉50厘米能辨别声源方向；</p>
+                        <p>&nbsp;&nbsp;（e）身体动力能力：四肢、躯干、颈部运动能力正常。</p>
+                        <p>&nbsp;</p>
+                        <p><b>报名资料</b></p>
+                        <p>&nbsp;</p>
+                        <p>报考C1驾驶证所需的材料有哪些？</p>
+                    　　<p>&nbsp;&nbsp;（a）一寸白底大头彩照6张；</p>
+                    　　<p>&nbsp;&nbsp;（b）身份证原件及复印件2份；</p>
+                    　　<p>&nbsp;&nbsp;（c）外地户口学员请准备好暂住证；</p>
+                    　　<p>&nbsp;&nbsp;（d）有摩托证的必须交摩托证复印件；</p>
+                    　　<p>&nbsp;&nbsp;（e）外地户口【有摩托车证】需办理福州市区的暂住证以及将摩托车证迁到福州；</p>
+                    　　<p>&nbsp;&nbsp;（f）军人提供军官证、退休证和团以上单位证明。</p>
+                        <p>&nbsp;</p>
+                        <p><b>培训流程</b></p>
+                        <p><img src="img/flow.jpg"></p>           	
+                        <p>&nbsp;</p>
+                        <p><b>报名方式</b></p>
+                        <p>&nbsp;</p>
+                        <p>要怎样报名？</p>
+                        <p>报名方式一: 我校报名点报名；</p>
+                        <p>报名方式二：网上报名（驾校工作人员会即时与您联系）；</p>
+                        <p>&nbsp;</p>
+                        <p><b>培训时间</b></p>
+                        <p>&nbsp;</p>
+                        <p>培训时间和培训方式</p>
+                        <p>驾校常年培训、随到随学、循环教学、包教包会；</p>
+                        <p>机动班：学员可约定时间培训</p>
+                        <p>&nbsp;</p>
+                    </div>
+              </div>
+          </div>
+          <div class="con" style="width: 33.33%;">
+              <div id="liuchen" style="overflow:hidden">	
+                  <!--学车流程-->
+                  <div class="c_article">
+                        <p><b>1.资料核对：</b></p><p>
+                        <p>核对个人信息。（如果有错，应尽快与驾校办公室联系修正），用户名和密码都是个人的18位身份证号码。</p>
+                        <p>&nbsp;</p>
+                        <p><b>2.科一预考：</b></p>
+                        <p>选择理论学习中的模拟考试，每个科目的预考不限次数，但预考必须连续5次95分以上才算合格，预考合格后我们会将教练的联系方式发送给您，即可联系教练，并且在科一正式考试之前要重做5次连续95分以上才可安排考试。</p>
+                        <p>&nbsp;</p>
+                        <p><b>3.核对材料：</b></p>
+                        <p>6张一寸白底彩色照片、身份证、体检单及体检发票各1份，外地户口的学员需要暂住证复印件一张，有摩托车证或者三轮车证的也要交上、如果有缺件请您尽快将所缺的材料不齐，以便我们整理资料。<p>
+                        <p>&nbsp;</p>
+                        <p><b>4.场地打卡时间：</b></p>
+                        <p>&nbsp;&nbsp;（1）福湾校区：周五至周天，上午签到时间（8：00-8：30）；下午签到时间（12:30-13:00）</p>
+                        <p>&nbsp;&nbsp;（2）大学城金桥花园校区：周一至周五，上午8:30之前</p>
+                        <p>&nbsp;&nbsp;（3）大学城闽江校区：周三、周五、周六、周日，签到时间（12:30-13:30）</p>
+                        <p>&nbsp;</p>
+                    </div>
+              </div>
+          </div>
+          <div class="con" style="width: 33.33%;">
+              <div id="baoming" style="overflow:hidden">
+                  <!--在线报名-->
+                  <div class="x_blank"></div>
+                  <div class="x_item_tit">预约方式</div>
+                  <div class="x_item">
+                        <ul>
+                            <a href="tel:0592-88477288"><li><img src="img/icon_phone.png"><span>预约电话：0592-88477288</span></li></a>
+                            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=800010000&amp;site=qq&amp;menu=yes"><li><img src="img/icon_qq2.png"><span>联系QQ：800010000</span></li></a>
+                            <li class="noLink"><img src="img/icon_user.png"><span>联系人：张世强</span></li>
+                        </ul>
+                  </div>
+                  <div class="x_blank"></div>
+                  <div class="x_item_tit">填写报名信息</div>
+                  <div class="c_formFull">
+                        <input type="text" data-role="none" value="请输入您的姓名">
+                        <input type="text" data-role="none" value="请输入电话号码">
+                        <input type="text" data-role="none" value="备注">
+                  </div>
+                  <div class="c_remark">报名说明：报名成功后,驾校会在第一时间联系您与您确认,请耐心等候。如急需报名可拨打我们的预约电话联系我们。</div>
+                  <div class="c_warn_bk" >
+                      <div class="c_warn" id="c_warn" style="display:none"><span class="icon_warn"></span><label>异常消息提示</label></div>
+                  </div>
+                  <div class="x_btn_bk" >
+                        <a href="#" class="ui-btn ui-corner-all x_btn x_btn_curr" id="">提交信息</a>
+                  </div>
+              </div>
+          </div>
+       </div>
+    </div><!--//tab_content -->
+	<script type="text/javascript">
+    $(function(){
+		/*如果在首页点击的是在线报名，则执下面六行*/
+		$("#slide").css("left","66.67%");
+		$(".conBk").css("left","-200%");
+/*		$("#xuzhi").css("height","1px");
+		$("#liuchen").css("height","1px");
+		$("#baoming").css("height","auto");
+*/		$(".x_tabs li").eq(0).removeClass("active").eq(2).addClass("active");
+		/*-----滑动-左-----*/
+		$(".x_tab_content").on( "swipeleft", function( event ) { 
+			 event.stopPropagation();  //阻止冒泡
+			 if(tabN==1){
+				$("#slide").animate({ left :'33.33%' }, 300); //滑动到n2
+			 }
+			 if(tabN==2){
+				$("#slide").animate({ left :'66.67%' }, 300); //滑动到n3
+			 }
+	
+			 if( !conObj.is(":animated") ){ 
+				 if( tabN == 3 ){ 
+						return false;
+					}else{
+						conObj.animate({ left : -(v_width * tabN)+'%' }, 300)
+						tabN++;
+				 }
+			 }
+			 $("#c_tabs_guide li").eq(tabN-1).addClass("active").siblings().removeClass("active");
+		});
+		
+		/*-----滑动-右-----*/
+		$(".x_tab_content").on( "swiperight", function( event ) {
+			alert(tabN);
+			 event.stopPropagation(); //阻止冒泡
+			 if(tabN==3){
+				$("#slide").animate({ left :'33.33%' }, 300); //滑动到n2
+			 }
+			 if(tabN==2){
+				$("#slide").animate({ left :'0%' }, 300); //滑动到n1
+				
+			 }
+			 if( !conObj.is(":animated") ){    
+				 if( tabN == 1 ){  
+						return false;
+					}else{
+						var numr=parseInt(tabN-2);
+						conObj.animate({ left : -(v_width * numr)+'%' }, 300)
+						tabN--;
+				 }
+			 }
+			 $("#c_tabs_guide li").eq(tabN-1).addClass("active").siblings().removeClass("active");
+	    }); 
+			 
+		/*-----选项卡-------*/
+		var tabN=3;
+		var v_width="100";
+		var conObj= $(".conBk");
+		$("#c_tabs_guide li").each(function(i){
+			$(this).click(function(){
+				if(i==0){
+					conObj.animate({ left : 0 },300);
+					$("#slide").animate({ left :'0%' }, 300); //滑动n1
+				}
+				if(i==1){
+					conObj.animate({ left : -(v_width * i)+'%' }, 300);
+					$("#slide").animate({ left :'33.33%' }, 300); //滑动到n2
+					
+				}
+				if(i==2){
+					conObj.animate({ left : -(v_width * i)+'%' }, 300);
+					$("#slide").animate({ left :'66.67%' }, 300); //滑动到n3
+				}
+				$(this).addClass("active").siblings().removeClass("active");
+				tabN=i+1;
+			})
+		})	 
+		
+    });
+    </script>
+</div> <!--//Page-->
+</body>
+</html>

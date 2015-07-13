@@ -1,0 +1,47 @@
+<meta charset="utf-8">
+
+<div class="x_item subItem">
+    <ul>
+        <a href="#courseSel" data-rel="popup" data-transition="pop" ><li id="courseShow">C1培训课 &nbsp;&nbsp;&nbsp;6300元</li></a>
+    </ul>
+</div>
+<div class="x_blank"></div>
+<div class="c_formFull subItem">
+    <input type="text" data-role="none" value="请输入您的姓名">
+    <input type="text" data-role="none" value="请输入电话号码">
+    <input type="text" data-role="none" value="备注">
+</div>
+<div class="c_remark">报名说明：报名成功后,驾校会在第一时间联系您与您确认,请耐心等候。如急需报名可拨打我们的预约电话联系我们。</div>
+<div class="c_warn_bk" >
+  <div class="c_warn" id="c_warn" style="display:none"><span ></span><label>请输入正确的电话号码！</label></div>
+  <div class="c_warn" id="c_success" ><span class="icon_success"></span><label>提交成功，我们会尽快和您联系！</label></div>
+</div>
+<div class="x_btn_bk" >
+    <a href="#" class="ui-btn ui-corner-all x_btn x_btn_curr">提交</a>
+</div>
+<script>
+$(function(){
+	/*报名表单*/
+	$(".c_formFull input").focus(function(){
+		  $(this).addClass("focus");
+		  if($(this).val() ==this.defaultValue){  
+		      if($(this).attr("id")=="psw"){
+				   	$("#pswShow").show();
+				  	$(this).attr("type","password");
+			  }
+			  $(this).val(""); 
+		  } 
+	}).blur(function(){
+		 if ($(this).val() == '') {
+			 $(this).removeClass("focus");
+			$(this).val(this.defaultValue);
+			if($(this).attr("id")=="psw"){
+				  	$(this).attr("type","text");
+					
+			  }
+		 }else{
+			 $(this).addClass("focus");
+			}
+	});
+})
+</script>

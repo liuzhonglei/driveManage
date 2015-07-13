@@ -1,0 +1,97 @@
+<!DOCTYPE html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon-precomposed" href="img/screen_icon.png">
+<title>test</title>
+<link rel="stylesheet" href="css/jquery.mobile-1.4.4.css" /> 
+<link rel="stylesheet" href="css/car.css"> 
+<script src="js/jquery-1.11.1.min.js"></script> 
+<script src="js/jquery.mobile-1.4.4.min.js"></script>
+<style>
+/*临时*/
+.testMap{background: url(img/icon_more.png) no-repeat 97% center;}
+
+/*百度map弹出层样式*/
+.c_mapPop{
+	background:#fff;	
+}
+.c_mapPop .tit01{
+	overflow:hidden;
+    background: url(img/icon_more.png) no-repeat 97% center;
+    background-size: 24px 24px;
+}
+.c_mapPop .tit01 .pic01{
+	float:left;
+	width:66px;
+	height:66px;
+}
+.c_mapPop .tit01 .pic01 img{
+	width:60px;
+	height:60px;
+	border:3px solid #eee;
+	border-radius: 60px;
+   -webkit-border-radius: 60px;
+}
+.c_mapPop .tit01 .info01{
+	margin-left:70px;
+	padding:1px 0 0;
+	color:#333;
+}
+.c_mapPop .tit01 .info01 .name01{
+	display:block;
+	font-size:1.2em;
+}
+.c_mapPop .tit01 .info01 .comp01{
+	display:block;
+	font-size:.8em;
+	color:#999;
+	padding:2px 0 1px;
+}
+.c_mapPop .tit01 .info01 .star01{
+	overflow:hidden;
+	width:110px;
+}
+
+.c_mapPop .tit01 .info01 span,
+.c_mapPop .tit01 .info01 label{
+	float:left;
+	font-size:.6em;
+	color:#999;
+}
+.c_mapPop .tit01 .info01 span{
+	padding:0 0 0 5px;
+	
+}
+.c_mapPop .tit01 .info01 .star01 img{
+	height:11px;
+}
+</style>
+<script>
+$(function(){
+	
+}); 
+</script>
+</head>
+<body class="x_flowAuto">
+<div id="pageMap" data-role="page" data-theme="none">
+<div class="testMap" style="position:absolute; width:170px; height:63px;">
+	<!--本系统样式-->
+	<div class="c_mapPop">
+        <div class="tit01">
+            <div class="pic01"><img src="img/photo.png"></div>
+            <div class="info01">
+            	<div class="name01">陈霆锋</div>
+            	<div class="comp01">世界这么大</div>
+            	<div class="star01"><label><img src="img/star.png"><img src="img/star.png"><img src="img/star.png"><img src="img/star.png"><img src="img/star.png"></label><span>100人</span></div>
+            </div>
+        </div>
+    </div>
+    <!--//本系统样式-->
+</div>   
+</div> <!--//Page-->
+</body>
+</html>

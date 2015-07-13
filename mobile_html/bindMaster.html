@@ -1,0 +1,66 @@
+  <!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon-precomposed" href="img/screen_icon.png">
+<title>car</title>
+<link rel="stylesheet" href="css/jquery.mobile-1.4.4.css" /> 
+<link rel="stylesheet" href="css/car.css"> 
+<script src="js/jquery-1.11.1.min.js"></script> 
+<script>
+$(function(){
+	/*搜索栏*/
+	$("#searchTxt").focus(function(){
+		  $(this).addClass("focus2");
+		  if($(this).val() ==this.defaultValue){  
+			  $(this).val(""); 
+		  } 
+	}).blur(function(){
+		 if ($(this).val() == '') {
+			 $(this).removeClass("focus2");
+			$(this).val(this.defaultValue);
+		 }else{
+			 $(this).addClass("focus2");
+			}
+	}); 
+	
+})
+</script>
+
+<script src="js/jquery.mobile-1.4.4.min.js"></script>
+</head>
+<body class="x_flowAuto">
+<div id="pageMasterList" data-role="page" data-theme="none">
+    <div data-role="header" data-theme="none"  class="x_header"  data-position="fixed"  data-tap-toggle="false" style="z-index:999999999">
+        <a href="index.html"  data-role="none" data-rel="back" class="x_btn_back" data-transition="slide"  data-ajax="false"></a>
+        <a href="#" data-role="none" data-ajax="false" class="ui-btn-right x_btn_search"></a>
+        <h1>
+        	<input class="searchTxt" id="searchTxt" type="text"  data-role="none" value="请输入您要绑定的教练名称" >
+        </h1>
+    </div><!--//header -->
+    <div class="c_content">
+    	<!--没记录提示-->
+        <div class="c_msg"   style="display:none">
+        	您还没绑定教练，请搜索！
+        </div>
+        <!--//没记录提示-->
+        <!--教练列表-->
+        <div class="c_masterList">
+            <div class="row01 noLink">
+                <div class="pic01"><img src="img/user02.png"></div>
+                <div class="info01">
+                    <div class="name2">王志新</div>
+                    <div class="signal">世界这么大，我想去看看</div>
+                </div>
+                <a  href="showMaster.html" data-ajax="false" data-role="none" class="ui-btn ui-corner-all x_btn x_btn_curr bindBtn2">绑定</a>
+            </div>
+        </div>    
+        <!--//教练列表-->
+	</div><!-- /wrapper -->
+</div> <!--//Page-->
+</body>
+</html>

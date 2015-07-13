@@ -1,0 +1,215 @@
+  <!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon-precomposed" href="img/screen_icon.png">
+<title>car</title>
+<link rel="stylesheet" href="css/jquery.mobile-1.4.4.css" /> 
+<link rel="stylesheet" href="css/car.css"> 
+<script src="js/jquery-1.11.1.min.js"></script> 
+<script>
+$(function(){
+	/*搜索栏*/
+	$("#searchTxt").focus(function(){
+		  $(this).addClass("focus");
+		  if($(this).val() ==this.defaultValue){  
+			  $(this).val(""); 
+		  } 
+	}).blur(function(){
+		 if ($(this).val() == '') {
+			 $(this).removeClass("focus");
+			$(this).val(this.defaultValue);
+		 }else{
+			 $(this).addClass("focus");
+			}
+	}); 
+	/*点击科目*/
+	$("#course").click(function(){
+		
+		if($("#courseMenu").parent().css("visibility")=="hidden"){ //如果菜单隐藏
+			$("#courseMenu").popup("open", {transition:"slidedown",positionTo:"#anchorCourse"});
+			$("#levelMenu").popup("close", {transition:"slidedown",positionTo:"#anchorLevel"});
+			if($("#level").hasClass("curr")){ //展开收起状态样式
+				$(".c_sort li").removeClass("curr");
+			}else{
+				$(this).addClass("curr");
+			}
+			
+		}else{
+			$("#courseMenu").popup("close", {transition:"slidedown",positionTo:"#anchorCourse"});
+			$(this).removeClass("curr");
+		}
+		
+			
+	})
+	$("#allCourse li").click(function(){
+		$("#seledCourse").text($(this).text()); 
+		$("#courseMenu").popup("close");
+		$(".c_sort li").removeClass("curr");//收起
+	})
+	
+	/*锦旗最多*/
+	$("#level").click(function(){
+		if($("#levelMenu").parent().css("visibility")=="hidden"){ //如果菜单隐藏
+			$("#levelMenu").popup("open", {transition:"slidedown",positionTo:"#anchorLevel"});
+			$("#courseMenu").popup("close", {transition:"slidedown",positionTo:"#anchorCourse"});
+			if($("#course").hasClass("curr")){//展开收起状态样式
+				$(".c_sort li").removeClass("curr");
+			}else{
+				$(this).addClass("curr");
+			}
+		}else{
+			$("#levelMenu").popup("close", {transition:"slidedown",positionTo:"#anchorLevel"});
+			$(this).removeClass("curr");//收起
+		}
+			
+	})
+	$("#allLevel li").click(function(){
+		$("#seledLevel").text($(this).text()); 
+		$("#levelMenu").popup("close");
+		$(".c_sort li").removeClass("curr");//收起
+	})
+	
+	/*默认*/
+	$("#default").click(function(){
+		if($("#levelMenu").parent().css("visibility")=="visible"){ //如果菜单隐藏
+			$("#levelMenu").popup("close", {transition:"slidedown",positionTo:"#anchorLevel"});
+		}
+		if($("#courseMenu").parent().css("visibility")=="visible"){ //如果菜单隐藏
+			$("#courseMenu").popup("close", {transition:"slidedown",positionTo:"#anchorLevel"});
+		}
+		$(".c_sort li").removeClass("curr");//收起
+	})
+	
+	/*点击搜索框*/
+	$("#searchTxt").click(function(){
+		if($("#levelMenu").parent().css("visibility")=="visible"){ //如果菜单隐藏
+			$("#levelMenu").popup("close", {transition:"slidedown",positionTo:"#anchorLevel"});
+		}
+		
+		if($("#courseMenu").parent().css("visibility")=="visible"){ //如果菜单隐藏
+			$("#courseMenu").popup("close", {transition:"slidedown",positionTo:"#anchorLevel"});
+		}
+		$(".c_sort li").removeClass("curr");//收起
+	})
+	
+	
+})
+</script>
+<script src="js/jquery.mobile-1.4.4.min.js"></script>
+</head>
+<body class="x_flowAuto">
+<div id="pageMasterList" data-role="page" data-theme="none">
+    <div data-role="header" data-theme="none"  class="x_header"  data-position="fixed"  data-tap-toggle="false" style="z-index:999999999">
+        <a href="index.html"  data-role="none" data-rel="back" class="x_btn_back" data-transition="slide"></a>
+        <a href="#" data-role="none" data-transition="slide" class="ui-btn-right x_btn_search"></a>
+        <h1>
+        	<input class="searchTxt" id="searchTxt" type="text"  data-role="none" value="输入教练名称搜索" >
+        </h1>
+    </div><!--//header -->
+    <!--排序-->
+    <div class="c_sort c_fixed">
+        <ul class="ui-grid-b">
+            <li class="ui-block-a" id="default">默认</li>
+            <li class="ui-block-b" id="course"><div><label id="seledCourse">所有科目</label><span></span></div></li>
+            <li class="ui-block-c" id="level"><div><label  id="seledLevel">锦旗最多</label><span></span></div></li>
+        </ul>
+    </div>
+    <!--//排序-->
+    <!--所有科目-->
+    <div id="courseMenu"  data-role="popup" data-tolerance="0,0,1,0" data-theme="a" data-shadow="false" data-overlay-theme="b" data-corners="false">
+        <div><img src="img/space100.png" width="100%"></div><!--用图片撑大宽度-->
+        <!--下拉菜单-->
+        <div class="c_sortMenu">
+        	<ul id="allCourse">
+            	<li>所有科目</li>
+            	<li>科目一</li>
+            	<li>科目二</li>
+            	<li>科目三</li>
+            	<li>科目四</li>
+            </ul>
+        </div>
+    </div>
+    <div id="levelMenu"  data-role="popup" data-tolerance="0,0,1,0" data-theme="a" data-shadow="false" data-overlay-theme="b" data-corners="false">
+        <div><img src="img/space100.png" width="100%"></div><!--用图片撑大宽度-->
+        <!--下拉菜单-->
+        <div class="c_sortMenu">
+        	<ul id="allLevel">
+            	<li>锦旗最多</li>
+            	<li>星级最多</li>
+            	<li>评论最多</li>
+            </ul>
+        </div>
+    </div>
+    <div id="anchorCourse" style="width:100%;height:0px; background:#ccc; overflow:hidden; position:fixed; top:178px; left:0;"></div>
+    <div id="anchorLevel" style="width:100%;height:0px; background:#ccc; overflow:hidden; position:fixed; top:138px; left:0;"></div>
+    <!--//所有科目-->
+    <div class="c_content">
+        <!--教练列表-->
+        <div class="c_masterList">
+        	<a href="master.html" data-role="none" data-ajax="false">
+            <div class="row01">
+                <div class="pic01"><img src="img/user01.png"></div>
+                <div class="info01">
+                    <div class="name">陈键锋</div>
+                    <div class="staring"><img src="img/star.png"><img src="img/star.png"><img src="img/star.png"><img src="img/star.png"></div>
+                    <div class="num">锦旗数：5&nbsp;&nbsp;&nbsp;&nbsp;评价数：139</div>
+                </div>
+                <div class="level"><img src="img/level01.png">一级教练</div>
+            </div>
+            </a>
+            <div class="row01">
+                <div class="pic01"><img src="img/user02.png"></div>
+                <div class="info01">
+                    <div class="name">王志新</div>
+                    <div class="staring"><img src="img/star.png"></div>
+                    <div class="num">锦旗数：5&nbsp;&nbsp;&nbsp;&nbsp;评价数：139</div>
+                </div>
+                <div class="level"><img src="img/level02.png">二级教练</div>
+            </div>
+            <div class="row01">
+                <div class="pic01"><img src="img/nonePic.png"></div>
+                <div class="info01">
+                    <div class="name">陈键锋</div>
+                    <div class="staring"><img src="img/star.png"></div>
+                    <div class="num">锦旗数：5&nbsp;&nbsp;&nbsp;&nbsp;评价数：139</div>
+                </div>
+                <div class="level"><img src="img/level01.png">一级教练</div>
+            </div>
+            <div class="row01">
+                <div class="pic01"><img src="img/user02.png"></div>
+                <div class="info01">
+                    <div class="name">王志新</div>
+                    <div class="staring"><img src="img/star.png"></div>
+                    <div class="num">锦旗数：5&nbsp;&nbsp;&nbsp;&nbsp;评价数：139</div>
+                </div>
+                <div class="level"><img src="img/level02.png">二级教练</div>
+            </div>
+            <div class="row01">
+                <div class="pic01"><img src="img/user01.png"></div>
+                <div class="info01">
+                    <div class="name">陈键锋</div>
+                    <div class="staring"><img src="img/star.png"></div>
+                    <div class="num">锦旗数：5&nbsp;&nbsp;&nbsp;&nbsp;评价数：139</div>
+                </div>
+                <div class="level"><img src="img/level01.png">一级教练</div>
+            </div>
+            <div class="row01">
+                <div class="pic01"><img src="img/user02.png"></div>
+                <div class="info01">
+                    <div class="name">王志新</div>
+                    <div class="staring"><img src="img/star.png"></div>
+                    <div class="num">锦旗数：5&nbsp;&nbsp;&nbsp;&nbsp;评价数：139</div>
+                </div>
+                <div class="level"><img src="img/level02.png">二级教练</div>
+            </div>
+        </div>
+        <!--//教练列表-->
+	</div><!-- /wrapper -->
+</div> <!--//Page-->
+</body>
+</html>

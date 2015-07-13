@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon-precomposed" href="img/screen_icon.png">
+<title>首页</title>
+<link rel="stylesheet" href="css/jquery.mobile-1.4.4.css" /> 
+<link rel="stylesheet" href="css/car.css"> 
+<script src="js/jquery-1.11.1.min.js"></script> 
+<script src="js/iscroll.js"></script>
+<script src="js/owl.carousel.js"></script>
+<script>
+//幻灯片自动播发激活
+function owlplay(){
+   $('.owl-carousel').trigger('play.owl',2000); 
+}
+/*滚动条*/    
+var myScroll;
+function loaded() {
+    /*幻灯片*/ 
+    $('.owl-carousel').owlCarousel({
+            items:1,
+            autoplayHoverPause:true,
+            responsive:{
+                0:{
+                    items:1,
+                    margin: 0
+                },
+                480:{
+                    items:2,
+                },
+                960:{
+                    items:3
+                }
+            }
+    });
+    setTimeout(owlplay, 2000);
+	
+    /*iscroll*/ 
+	myScroll = new IScroll('#wrapper', {
+        tap:true,
+		click:false,
+		preventDefaultException:{tagName:/.*/},//解除默认事件锁定，调用tab，click等事件,不支持swipeleft
+		scrollbars: true,
+		mouseWheel: true,
+		fadeScrollbars: true
+	}); 
+}
+
+function preventDefault(e) { e.preventDefault(); };
+document.addEventListener('touchmove', preventDefault, false);
+</script>
+<script src="js/jquery.mobile-1.4.4.min.js"></script>
+</head>
+<body onload="loaded()">
+<div id="pageIndex" data-role="page" data-theme="none">
+<link rel="stylesheet" href="css/owl.carousel.css"> 
+<link rel="stylesheet" href="css/owl.theme.css"> 
+    <div id="wrapper">
+        <div id="scroller">
+                <!--幻灯片 -->
+                <div class="x_slideBk">
+                    <div class="owl-carousel">
+                        <div class="article" style="background:url(img/slider01.png) no-repeat; background-size: 100% 100%;"><h2></h2><img src="img/x_space.png" width="360" height="150"></div>
+                        <div class="article" style="background:url(img/slider02.png) no-repeat; background-size: 100% 100%;"><h2></h2><img src="img/x_space.png" width="360" height="150"></div>
+                        <div class="article" style="background:url(img/slider03.png) no-repeat; background-size: 100% 100%;"><h2></h2><img src="img/x_space.png" width="360" height="150"></div>
+                    </div>
+                </div>   
+                <!--//幻灯片 -->
+                <div class="c_item">
+                    <div class="ui-block-a">
+                        <div class="ui-body">
+                            <span>走进东正</span>
+                            <a href="company.html" data-role="none" data-transition="slide"><img src="img/item_comp.png"></a>
+                        </div>
+                    </div>
+                    <div class="ui-block-b">
+                        <div class="ui-body">
+                            <span>驾校导航</span>
+                            <a href="navigation.html" data-role="none" data-ajax="false"><img src="img/item_guide.png"></a>
+                        </div>
+                    </div>
+                    <div class="ui-block-c">
+                        <div class="ui-body">
+                            <span>在线报名</span>
+                            <a href="regGuide.html" data-role="none" data-ajax="false"><img src="img/item_card.png"></a>
+                        </div>
+                    </div>
+                    <div class="ui-block-d">
+                        <div class="ui-body">
+                            <span>驾校风采</span>
+                            <a href="#" data-ajax="false"><img src="img/item_pic.png"></a>
+                        </div>
+                    </div>
+                    <div class="ui-block-c">
+                        <div class="ui-body">
+                            <span>学员圈</span>
+                            <a href="#" data-ajax="false"><img src="img/item_group.png"></a>
+                        </div>
+                    </div>
+                    <div class="ui-block-f">
+                        <div class="ui-body">
+                            <span>最新优惠</span>
+                            <a href="#" data-ajax="false"><img src="img/item_gift.png"></a>
+                        </div>
+                    </div>
+                    <div class="ui-block-f">
+                        <div class="ui-body">
+                            <span>报名指南</span>
+                            <a href="regGuide.html" data-ajax="false"><img src="img/item_regGuide.png"></a>
+                        </div>
+                    </div>
+                    <div class="ui-block-f">
+                        <div class="ui-body">
+                            <span>模拟考试</span>
+                            <a href="#" data-ajax="false"><img src="img/item_try.png"></a>
+                        </div>
+                    </div>
+                    <div class="ui-block-f">
+                        <div class="ui-body">
+                            <span>在线问答</span>
+                            <a href="ask.html" data-ajax="false"><img src="img/item_chat.png"></a>
+                        </div>
+                    </div>
+                </div>
+                <!--模块 end -->
+        </div>
+    </div><!--//wrapper -->
+    <div data-role="footer" data-theme="none"  class="x_footer"  data-position="fixed"  data-tap-toggle="false" data-id="myfooter">
+        <div class="x_navbar">
+            <ul class="ui-grid-d">
+                <li class="ui-block-a active"><a href="#"  data-ajax="false" class="x_icon_home" >首页</a></li>
+                <li class="ui-block-b"><a href="navigation.html"  data-ajax="false" class="x_icon_guide" >校区导航</a></li>
+                <li class="ui-block-c"><a href="masterList.html"  data-ajax="false" class="x_icon_teacher">找教练</a></li>
+                <li class="ui-block-d"><a  target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=800010000&amp;site=qq&amp;menu=yes" class="x_icon_qq">联系校长</a></li>
+                <li class="ui-block-e"><a href="my.html" data-ajax="false"  class="x_icon_my">我</a></li>
+            </ul>
+        </div>
+    </div><!--//footer -->
+    <script>
+    $(function(){
+       
+	})
+    </script>
+</div> <!--//Page-->
+</body>
+</html>
