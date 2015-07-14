@@ -156,6 +156,7 @@ p{
 	padding-top:.3em;	
 	padding-bottom:.3em;
 }
+
 /* 内容 */
 .x_content{
     padding: 0;
@@ -424,6 +425,24 @@ p{
 .tabSlide50 span{
 	width:50%	
 }
+/*学员列表tabs*/
+.x_tab_padd{
+	background:#fff;
+	padding:34px 0 0;
+}
+.x_tabs_student{
+	height:35px;
+}
+.x_tabs_student li{
+	width:20%;
+	height:32px	
+}
+.x_tabs_student li a{
+	font-size:.8em	
+}
+.tabSlide20 span{
+	width:20%	
+}
 /*选项列表*/
 .x_item_tit{
 	color:#888;
@@ -440,7 +459,7 @@ p{
     border-bottom: 1px solid #ddd;
     overflow: hidden;
     background: url(../img/icon_more.png) no-repeat 97% center;
-    background-size: 22px 22px;
+    background-size: 16px 16px;
 	font-size:.9em;
 	position:relative;
 	cursor:pointer;
@@ -451,6 +470,9 @@ p{
 }	
 .x_item li:active{
     background-color: #e7e7e7;
+}
+.x_item li.noLink:active{
+    background:none;
 }
 .x_item li img{
     float: left;
@@ -598,16 +620,13 @@ p{
 }
 
 /*表格*/
-.x_table table{
-	border-collapse:collapse;
-}
 .x_table td,th{
 	border-bottom:1px solid #E2E2E2;
 	text-align:left;
 	word-break:break-all;
 	background:#fff;
-	padding:.6em .6em;
-	font-size:1em;
+	padding:1em .6em;
+	font-size:.8em;
 	font-weight:normal;
 	text-align:center;
 }
@@ -831,6 +850,7 @@ p{
 	padding-left:5px;
 	background:url(../img/searchLeft.png) 0 -10px no-repeat,
 				url(../img/searchRight.png) right -10px no-repeat;
+	outline:none;
 }
 .c_masterList .row01 .info01 .signal{ /*我的教练*/
 	padding:8px 0 0;
@@ -1666,6 +1686,286 @@ p{
 	text-align:center;
 	color:#aaa;	
 }
+
+/*------------------订单预约  6-20*/
+.c_item2 li{ 
+	padding-top:10px;
+	padding-bottom:8px;
+}
+.c_item2 li i{ 
+    display:block;
+	float:left;
+	width:35px;
+	height:32px;
+	border-right:1px solid #ddd;
+}
+.c_item2 li > span{
+    margin-left: 45px;
+	margin-top:5px;
+	color:#999;
+}
+.c_item2 li .icon_city{
+	background:url(../img/icon_city.png) no-repeat left center;
+}
+.c_item2 li .icon_addr{
+	background:url(../img/icon_addr.png) no-repeat left center;
+}
+.c_item2 li .icon_car2{
+	background:url(../img/icon_car2.png) no-repeat left center;
+}
+.c_item2 li .icon_phone2{
+	background:url(../img/icon_phone2.png) no-repeat left center;
+}
+.c_item2 li .icon_chat2{
+	background:url(../img/icon_chat2.png) no-repeat left center;
+}
+.c_item2 li .icon_time2{
+	background:url(../img/icon_time2.png) no-repeat left center;
+}
+.c_item2 li .icon_car2,
+.c_item2 li .icon_chat2,
+.c_item2 li .icon_phone2,
+.c_item2 li .icon_time2,
+.c_item2 li .icon_addr,
+.c_item2 li .icon_city
+{
+    background-size: 26px 26px;
+}
+.c_item2 li input{
+	border:none;
+	width:90%;
+	padding:0;
+	color:#999;
+}
+
+/*二级导航*/
+.c_subNav{
+	padding:.5em 2em;
+		
+}
+.c_subNav ul{
+	border:1px solid #FF742F;
+	overflow:hidden;
+	-webkit-border-radius:.3em;
+	border-radius:.3em;
+}
+.c_subNav li{
+	float:left;
+	width:50%;
+	background:#fff;
+	padding:.5em .5em;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+	text-align:center;
+	font-size:.9em;
+	color:#FF742F;
+}
+.c_subNav li.curr{
+	background:#FF742F;
+	color:#fff;
+}
+
+.btmPosi{ /*底部定位div*/
+	height:1px;
+	font-size:1px;
+	position:absolute;
+	bottom:0;
+	left:0;
+	right:0;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box
+}
+.c_prompt{ /*提示div*/
+	padding:8px 20px;
+	font-size:.9em;
+	min-width:60px;
+	text-align:center;
+	background-image:-webkit-linear-gradient(top,#222,#000);
+	opacity:.8;
+	color:#fff;
+	text-shadow:none;	
+	box-shadow:0 2px 5px rgba(0,0,0,0.5);
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	position:absolute;
+	top:10px;
+	left:50%;
+	z-index:999;
+}
+/*底部弹出popup*/
+.btmPop{
+	background:#F4F6F7;
+	font-size:.8em;
+}
+.btmPopIn{
+	position:relative;
+}
+.btmPopIn .header01{
+	height:38px;
+	background:#FF5033;
+}
+.btmPopIn .liTit{
+	padding:10px 0 5px 10px;
+	color:#aaa;
+}
+.btmPopIn .header01 .tit01{
+	position:absolute;
+	top:11px;
+	left:58px;
+	right:58px;
+	color:#fff;
+	text-align:center;
+}
+.btmPopIn .header01 .confirm,
+.btmPopIn .header01 .cancel{
+	position:absolute;
+	top:11px;
+	width:39px;
+	text-align:center;
+	color:#fff;
+	font-size:.8em;
+}
+.btmPopIn .header01 .cancel{
+	left:5px;
+}
+.btmPopIn .header01 .confirm{
+	right:5px;
+}
+.ui-content{/*全局*/
+	padding:0;
+}
+.ui-body-a{ /*全局*/
+	text-shadow:none;
+}
+.space100{ /*全局*/
+	margin:0;
+	padding:0;
+	height:1px;
+	overflow:hidden;
+}
+
+/*车型选择*/
+.choose_list{
+	border-top:1px solid #ddd;
+}
+.choose_list li{
+	background:#fff;
+	padding:15px 5px 10px 8px;
+	border-bottom:1px solid #ddd;
+	overflow:hidden;
+}
+.choose_list li label,
+.choose_list li span,
+.choose_list li i{
+	float:left;
+	display:block;
+	font-size:.9em;
+}
+.choose_list li .c_radio{
+	width:20px;
+	height:20px;
+	background:url(../img/c_radio.png) no-repeat center center;
+    background-size: 20px 20px;
+}
+.choose_list li.curr .c_radio{
+	background:url(../img/c_radio_ed.png) no-repeat center center;
+    background-size: 20px 20px;
+}
+.choose_list li .icon_carBiz{
+	padding:0 15px 0 0;
+	width:56px;
+	height:20px;
+	background:url(../img/icon_carBiz.png) no-repeat center center;
+    background-size:56px 20px;
+}
+.choose_list li.curr .icon_carBiz{
+	background:url(../img/icon_carBiz_curr.png) no-repeat center center;
+    background-size:56px 20px;
+}
+.choose_list li .icon_carTiny{
+	padding:0 15px 0 0;
+	width:56px;
+	height:20px;
+	background:url(../img/icon_carTiny.png) no-repeat center center;
+    background-size:56px 20px;
+}
+.choose_list li.curr .icon_carTiny{
+	background:url(../img/icon_carTiny_curr.png) no-repeat center center;
+    background-size:56px 20px;
+}
+/*手动挡自动挡*/
+.col01 li{
+	float:left;
+	width:50%;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box
+}
+.col01 li label{
+	margin:3px 0 0 5px;
+}
+.col01 li:last-child{
+	border-left:1px solid #ddd;
+}
+
+/*学车预约头部*/
+.c_h2{
+	background:#fff;
+	border:1px solid #ddd;
+}
+.c_h2 h1{
+	color:#000;
+}
+
+/*学员列表*/
+.c_studenList{
+	overflow:hidden;
+}
+.c_studenList .row01{
+	position:relative;
+	clear:both;
+	overflow:hidden;
+	padding:8px 8px 12px;
+	background:#fff;
+	border-bottom:1px solid #ddd;
+}
+.c_studenList .pic01{
+	float:left;
+	width:40px;
+	height:40px;
+}
+.c_studenList .pic01 img{
+	float:left;
+	-webkit-border-radius:60px;
+	-webkit-border-radius:60px;
+}
+.c_studenList .info01{
+	margin-left:50px;
+}
+.c_studenList .info01 li{
+	float:left;
+	padding:2px 0 3px;
+	font-size:14px;
+	color:#999;
+}
+.c_studenList .info01 li:nth-child(odd){
+	text-align:left;
+	width:40%;
+}
+.c_studenList .info01 li:nth-child(even){
+	text-align:right;
+	width:60%;
+}
+.c_studenList .phone_sm{
+	margin:0 5px 2px 0;
+}
+
+
+
+
+
+
+
+
 
 
 

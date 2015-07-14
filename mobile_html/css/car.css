@@ -1932,15 +1932,22 @@ p{
 	float:left;
 	width:40px;
 	height:40px;
+	padding:3px 0 0;
+}
+.c_studenList .pic01 img{
+	-webkit-border-radius:60px;
+	border-radius:60px;
+	width:40px;
+	height:40px;
 }
 .c_studenList .info01{
 	margin-left:50px;
 }
 .c_studenList .info01 li{
 	float:left;
-	padding:2px 0 3px;
+	padding:2px 0 1px;
 	font-size:14px;
-	color:#999;
+	color:#aaa;
 }
 .c_studenList .info01 li:nth-child(odd){
 	text-align:left;
@@ -1949,6 +1956,13 @@ p{
 .c_studenList .info01 li:nth-child(even){
 	text-align:right;
 	width:60%;
+}
+.c_studenList .info01 li:nth-child(1){
+	color:#666;
+}
+.c_studenList .info01 li:nth-child(3){
+	font-size:12px;
+	color:#aaa;
 }
 .c_studenList .phone_sm{
 	margin:0 5px 2px 0;
