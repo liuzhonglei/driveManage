@@ -326,8 +326,30 @@ class StudentController extends StudentBaseController
             $sql = 'select t.*, t1.headimgurl from wp_teacher t left join wp_follow t1 on t.openid = t1.openid and t.token = t1.token where t.token = "' . $token . '" and t.id in (' . $ids . ')';
             $teacherList = M('teacher')->query($sql);
         }
+        if($student['id_teacher_k2'] == $student['id_teacher_k3'] && $teacherList != false && sizeof($teacherList) > 0){
+            $teacherList[0]['bindname'] = "科目二教练 科目三教练";
+        }else{
+            if( $teacherList[0] != null){
+                if( $teacherList[0]['id'] == $student['id_teacher_k2']){
+                    $teacherList[0]['bindname'] = "科目二教练";
+                }else{
+                    $teacherList[0]['bindname'] = "科目三教练";
+                }
+
+
+            }
+            if(  $teacherList[1] != null){
+                if( $teacherList[1]['id'] == $student['id_teacher_k2']){
+                    $teacherList[1]['bindname'] = "科目二教练";
+                }else{
+                    $teacherList[1]['bindname'] = "科目三教练";
+                }
+            }
+        }
+
         $this->assign('teacherList', $teacherList);
         $this->assign('student', $student);
+
 
 
         // show
@@ -376,6 +398,9 @@ class StudentController extends StudentBaseController
             $teacher_id = i('teacher_id');
             $sql = 'select t.*, t1.headimgurl from wp_teacher t left join wp_follow t1 on t.openid = t1.openid and t.token = t1.token where t.token = "' . $token . '" and t.id = "' . $teacher_id . '"';
             $teacher =  M('teacher')->query($sql)[0];
+            if($teacher != null && empty($teacher['level'])){
+                $teacher['level'] = 0;
+            }
             $this->assign('teacher',$teacher);
 
             $data = $Model->where(array('teacher_id'=>$teacher_id,'student_id'=>$student_id,'token'=>$token))->find();
@@ -413,22 +438,24 @@ class StudentController extends StudentBaseController
         $openid = get_openid();
         $token = get_token();
         $Model = M('student');
+        $course = i('course');
 
         // get student
         $student = M('student')->where('openid="'.$openid.'" and token = "'.$token.'"')->find();
 
         // check
         $student || $this->ajaxReturn(array('status'=>'-1','error'=>'微信没有绑定学员！'));
-        if(!empty($student['id_teacher_k2']) && !empty($student['id_teacher_k3'])){
-            $this->ajaxReturn(array('status'=>'-1','error'=>'学员已经绑定所有教练，需要修改请于驾校联系！'));
-        }
+//        if(!empty($student['id_teacher_k2']) && !empty($student['id_teacher_k3'])){
+//            $this->ajaxReturn(array('status'=>'-1','error'=>'学员已经绑定所有教练，需要修改请于驾校联系！'));
+//        }
 
         // modify and save
-        if(empty($student['id_teacher_k2'])){
-            $student['id_teacher_k2'] = $teacherId;
-        }else if(empty($student['id_teacher_k3'])){
-            $student['id_teacher_k3'] = $teacherId;
-        }
+        $student['id_teacher_k'.$course] = $teacherId;
+//        if(empty($student['id_teacher_k2'])){
+//            $student['id_teacher_k'+$course] = $teacherId;
+//        }else if(empty($student['id_teacher_k3'])){
+//            $student['id_teacher_k'+$course] = $teacherId;
+//        }
         $Model->save($student);
 
         // return

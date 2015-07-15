@@ -251,3 +251,6 @@ INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_s
 INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('open_id','微信ID','varchar(100) NOT NULL','string','','','0','','0','0','1','1431681752','1431681752','','3','','regex','','3','function');
 UPDATE `wp_attribute` SET model_id= (SELECT MAX(id) FROM `wp_model`) WHERE model_id=0;
 
+DROP  INDEX wp_student_search_index;
+CREATE INDEX wp_student_search_index ON wp_student  (token,name,phone,id_in_teacher,status,openid);
+

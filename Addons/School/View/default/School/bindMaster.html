@@ -56,9 +56,10 @@
                         '<div class="pic01"><img src="' + data[i].headimgurl + '"></div>' +
                         '<div class="info01">' +
                         '<div class="name2">' + data[i].name + '</div>' +
-                        '<div class="signal">' + data[i].intro + '</div>' +
+//                        '<div class="signal">' + data[i].intro + '</div>' +
                         '</div>' +
-                        '<a data-ajax="false" data-role="none" class="ui-btn ui-corner-all x_btn x_btn_curr bindBtn2" onclick="bindingTeacher('+data[i].id+');window.location.reload();">绑定</a>'+
+                        '<a data-ajax="false" data-role="none" class="ui-btn ui-corner-all x_btn x_btn_curr bindBtn2" style="position:absolute;top:8px;" onclick="bindingTeacher('+data[i].id+',2);window.location.reload();">绑定科目二</a>'+
+                        '<a data-ajax="false" data-role="none" class="ui-btn ui-corner-all x_btn x_btn_curr bindBtn2"  style="position:absolute;top:43px;" onclick="bindingTeacher('+data[i].id+',3);window.location.reload();">绑定科目三</a>'+
                         '</div>' ;
                     }
                 },
@@ -71,16 +72,15 @@
         /**
          *  bindTeacher
          */
-        function bindingTeacher(teacherId){
+        function bindingTeacher(teacherId,course){
             $.ajax({ //一个Ajax过程
                 type: "post",
                 url: "{:U('bindTeacher')}",
                 dataType: "json",
-                data:"teacherId="+teacherId,//question=asdf&b=c
+                data:"teacherId="+teacherId+"&course="+course,//question=asdf&b=c
                 success: function (data) {
                     if(data.status == '0'){
-                        history.go(-1);
-//                        history.
+                        window.history.back(-1);
                         location.replace(document.referrer);
                     }else {
                         alert(data.error);

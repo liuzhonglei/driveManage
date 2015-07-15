@@ -7,7 +7,8 @@
  */
 //require_once 'PHPUnit/Framework.php';
 
-class SchoolControlerTest  extends PHPUnit_Framework_TestCase{
+class
+SchoolControlerTest  extends PHPUnit_Framework_TestCase{
 
     /**
      * @test

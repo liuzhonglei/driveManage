@@ -114,7 +114,7 @@ class SchoolController extends BaseController
             $_POST['token'] = get_token();
             $_POST['status'] = '-1';
             $_POST['intro_source'] = '0';
-            $_POST['time_sign'] = time();
+            $_POST['time_sign'] = date("Y-m-d");
             if (empty($_POST['id_in_teacher'])) {
                 $_POST['intro_source'] = '0';
             } else {
@@ -434,7 +434,7 @@ str;
     /**
      * get the all teacher data
      */
-    function getAllTeachers(){
+    function getNavigatorTeachers(){
         // connect the sql
         $sql = <<<str
 select t.*,t1.name school_name, t2.path ,t4.apprise_level from wp_teacher t left join wp_school t1 on t.token = t1.token
@@ -450,6 +450,7 @@ LEFT JOIN (
 		t3.id_teacher
 ) t4 ON t4.id_teacher = t.id
 where 1=1
+and t.position != ""
 str;
         $select_data = M('teacher')->query($sql);
 
@@ -459,5 +460,12 @@ str;
         }
 
         $this->ajaxReturn($select_data);
+    }
+
+    /**
+     * show the my student page
+     */
+    function showMyStudents(){
+        $this->display ( T ( 'Addons://School@School/studentList' ) );
     }
 }

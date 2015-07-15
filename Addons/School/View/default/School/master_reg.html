@@ -53,6 +53,18 @@ function info_submit() {
     var name = $("#re_name").val();
     var phone = $("#re_phone").val();
     var remark = $("#re_remark").val();
+    if(name == $("#re_name")[0].defaultValue || name == ""){
+        alert("请填写您的姓名!")
+        return;
+    }
+    if(phone == $("#re_phone")[0].defaultValue || phone == ""){
+        alert("请填写您的电话号码!")
+        return;
+    }
+    if(remark == $("#re_remark")[0].defaultValue){
+        remark = "";
+    }
+
     $.ajax({ //一个Ajax过程
         type: "post",
         url: "{:U('register')}",

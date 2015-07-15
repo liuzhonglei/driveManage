@@ -19,9 +19,9 @@ class WeixinAddonModel extends WeixinModel
         $param ['openid'] =$this->data['FromUserName'];
 
         // get the data
-         $map = array('token' => $param ['token'],'type'=>'0');
+        $map = array('token' => $param ['token'],'type'=>'0');
         $school = M('school')->where($map)->find();
-        $photo = M('school_photo')->where($map)->find();
+        $photo = M('school_photo')->where($map)->order("rand()")->find();
 
         // 组装微信需要的图文数据，格式是固定的
         $articles [0] = array(

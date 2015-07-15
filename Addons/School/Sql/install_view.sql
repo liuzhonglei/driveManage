@@ -68,6 +68,13 @@ FROM
 LEFT JOIN wp_follow t1 ON t.openid = t1.openid  and  t.token = t1.token
 AND t.token = t1.token;;
 
-create view wp_student_notification_all
-as
-select t.*,t1.phone from wp_student_notification t left join wp_student t1 on t.token = t1.token and t.name = t1.name and t.card_id = t1.card_id;
+
+DROP  INDEX wp_student_index_search ON wp_student ;
+DROP  INDEX wp_student_index_token ON wp_student ;
+CREATE INDEX wp_student_index_token ON wp_student (token);
+CREATE INDEX wp_student_index_search ON wp_student  (token,name,phone,id_in_teacher,status,openid);
+
+DROP  INDEX wp_follow_index_search ON wp_follow ;
+CREATE INDEX wp_follow_index_search on wp_follow (token);
+DROP  INDEX wp_follow_index_openid ON wp_follow ;
+CREATE INDEX wp_follow_index_openid on wp_follow (openid);

@@ -97,4 +97,27 @@ class TeacherController extends BaseController{
         $list = M ( 'teacher' )->query('select id, name text from wp_teacher t where t.token="'.get_token().'" and status="1"' );
         $this->ajaxReturn($list);
     }
+
+    /**
+     * get my teacher data
+     */
+    function getMyStudent(){
+        $openid = get_openid();
+
+        // find teacher
+        $sql = <<<str
+SELECT DISTINCT
+	t.*, FROM_UNIXTIME(t.time_sign, "%Y-%m-%d") sign_date,t2.headimgurl,t3.name course_name
+FROM
+	wp_student t
+INNER JOIN wp_teacher t1 ON (t.id_teacher_k2 = t1.id  and t.status ="2")
+OR (t.id_teacher_k3 = t1.id and t.status ="3")
+OR (t.id_in_teacher = t1.id and t.status="-1")
+left join wp_follow t2 on t.openid = t2.openid
+left join wp_school_course t3 on t.course_id = t3.id
+str;
+        $sql = $sql . " where t1.openid=\"" . $openid . "\" and t.status in (\"-1\",\"0\",\"1\",\"2\",\"3\",\"4\")";
+        $data = M('student')->query($sql);
+        $this->ajaxReturn($data, 'JSON');
+    }
 }
