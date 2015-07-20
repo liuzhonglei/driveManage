@@ -1,0 +1,155 @@
+﻿
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+	name="viewport" />
+<meta content="telephone=no" name="format-detection">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>E客邦--微信自定义支付</title>
+<style type="text/css">
+body{
+margin:auto;
+font-family:Arial, "微软雅黑";
+font-size:14px;
+background:#f5f5f5;
+}
+.login_picture{
+margin-bottom:16px;	
+}
+.the_input{
+border-bottom:#e0dee8 1px solid;
+border-top:#e0dee8 1px solid;
+background:#FFF;
+}
+.input_phone{
+width:90%;	
+border-bottom:#e0dee8 1px solid;
+height:44px;
+line-height:44px;
+margin:auto;
+}
+.input_phone_left{
+float:left;
+width:25px;	
+padding-top:3px;
+}
+.input_phone_right{
+float:left;
+width:200px;
+}
+input{
+border:0px;
+font-size:16px;
+}
+/*修改input颜色*/
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #ababab;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #ababab;
+}
+.input_password{
+width:90%;	
+height:44px;
+line-height:44px;
+margin:auto;	
+margin-top:2px;
+}
+.input_password_left{
+float:left;
+width:25px;	
+letter-spacing:1em;
+padding-top:3px;
+}
+.input_password_right{
+float:left;
+width:200px;
+}
+.forget_password{
+width:90%;
+color:#ff8314;
+text-align:right;	
+margin:auto;
+margin-top:10px;
+margin-bottom: 10px;
+height: 25px;
+}
+.login_submit{
+margin:auto;
+width:90%;
+background:#ff6c16;
+color:#fff2ea;
+text-align:center;
+height:44px;
+line-height:44px;
+border-radius:2px;
+font-size:16px;
+}
+a{
+color:#ff8314;
+text-decoration:none;	
+}
+.login_submit:active{
+background:#ec5f0d;
+color:#ffc09b;	
+}
+a:active{
+color:#fea556;
+}
+
+.choose{
+width:90%;	
+height:44px;
+line-height:44px;
+margin:auto;
+margin-top:2px;
+}
+.chosse_left_pic{
+float:left;	
+}
+.chosse_left_text{
+float:left;
+line-height:36px;	
+}
+.choose_left{
+width:50%;
+height:44px;
+float:left;
+}
+</style>
+
+</head>
+
+<body >
+	<div class="login_picture">
+		<img src="{:ADDON_PUBLIC_PATH}/72F58PICwiv_1024.jpg" width="100%">
+	</div>
+	<form name="frm" action="{:U('/addon/EO2OPayment/EO2OPayment/PayTo','')}" method="post" id="loginform">
+	<div class="the_input">
+		<div class="input_phone">
+
+			<div class="input_phone_right">
+				<input placeholder="金额" type="text" id="total" name="total" >
+			</div>
+		</div>
+
+		<div class="input_password">
+			<div class="input_password_right">
+				<input placeholder="描述" type="text" id="desc" name="desc" >
+			</div>
+		</div>
+	</div>
+	</form>
+	<div class="forget_password">
+		<span id="hintShow" style="color: red;float:left;"></span>
+	</div>
+	<div id="login_btn"class="login_submit" onclick="frm.submit();">支&nbsp;&nbsp;付</div>
+
+
+</body>
+</html>
