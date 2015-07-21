@@ -27,6 +27,10 @@ return array(
     'notification_address_km4' => array(
         'title' => '科目四考试地点:',
         'type' => 'text'
+    ),
+    'temp_id' => array(
+    'title' => '消息模板ID:',
+    'type' => 'text'
     )
 
 );

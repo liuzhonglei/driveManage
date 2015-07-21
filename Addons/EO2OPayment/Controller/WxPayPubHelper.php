@@ -81,7 +81,7 @@ class Common_util_pub
 			//$buff .= strtolower($k) . "=" . $v . "&";
 			$buff .= $k . "=" . $v . "&";
 		}
-		$reqPar;
+        $reqPar = null;
 		if (strlen($buff) > 0) 
 		{
 			$reqPar = substr($buff, 0, strlen($buff)-1);
@@ -363,10 +363,11 @@ class UnifiedOrder_pub extends Wxpay_client_pub
 	function getPrepayId()
 	{
         // send reauest
-		if(!$this->postXml()){
+        $this->postXml();
+        $this->result = $this->xmlToArray($this->response);
+		if($this->result['return_code'] == 'FAIL' ){
             return false;
         }else{
-	    	$this->result = $this->xmlToArray($this->response);
             //save the result
             M('eo2o_payment').add($this->result);
 

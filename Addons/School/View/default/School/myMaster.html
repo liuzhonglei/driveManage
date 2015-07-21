@@ -40,7 +40,7 @@
                 <li class="ui-block-a">
                 	<div class="c_iconTxt">
                         <div class="pic01"><img src="{:ADDON_PUBLIC_PATH}/img/icon_student.png"></div>
-                        <div class="info01"> <a href="{:U('showMyStudents')}" data-role="none" data-transition="slide"  data-ajax="false"><span>我的学员</span></div>
+                        <a href="{:U('showMyStudents')}" data-role="none" data-transition="slide"  data-ajax="false"><div class="info01"><span>我的学员</span></div></a>
                         <div class="c_dot" style="top:19px; left:105px;"></div>
                     </div>
                 </li>
@@ -64,7 +64,7 @@
         <div class="x_blank2"></div>
         <div class="x_item2">
             <ul>
-                <li><img src="{:ADDON_PUBLIC_PATH}/img/icon_contact.png"><span>内部通讯录</span></li>
+                <a href="{:U('showPage?page=masterContact')}" data-role="none" data-transition="slide"  data-ajax="false"><li><img src="{:ADDON_PUBLIC_PATH}/img/icon_contact.png"><span>内部通讯录</span></li></a>
                 <li><img src="{:ADDON_PUBLIC_PATH}/img/icon_circle.png"><span>学员圈</span></li>
             </ul>
         </div>

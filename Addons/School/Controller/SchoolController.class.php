@@ -203,6 +203,7 @@ class SchoolController extends BaseController
         $sql = <<<str
 SELECT
 	t1.*, t2.path,
+	FROM_UNIXTIME(t1.time_in,"%Y-%m-%d") show_time_in,
 	t4.*, CASE t1. LEVEL
 WHEN 1 THEN
 	"一级教练"
@@ -258,8 +259,8 @@ str;
     function getTeacherInfo()
     {
         $teacher_id = $_REQUEST['teacher_id'];
+        get_openid();
         $token = $this->setTeacherToken($teacher_id);
-        $openid = get_openid();
         $code_url = U('/home/Index/leaflets', 'token=' . get_token());
         $this->assign('code_url', $code_url);
 
@@ -467,5 +468,12 @@ str;
      */
     function showMyStudents(){
         $this->display ( T ( 'Addons://School@School/studentList' ) );
+    }
+
+    /**
+     * show the page
+     */
+    function showPage(){
+        $this->display ( T ( 'Addons://School@School/'.i('page') ) );
     }
 }

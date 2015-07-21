@@ -149,7 +149,9 @@ class NotificationController extends StudentBaseController{
         $exam_address = i('exam_address');
         $token = get_token();
         $Notification = M($this->model['name']);
-        $tempId = 'XTl_diLQIcO4E8xxJG9hGkSGa91-UvHnMegaR8EZH9s'; // todo
+        $db_config = D ( 'Common/AddonConfig' )->get ( _ADDONS );
+        $tempId = $db_config['temp_id'];
+        ! empty ( $tempId ) || $this->error ( '请配置消息模板ID!' );
 
 
         // get the id

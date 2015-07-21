@@ -1,7 +1,12 @@
 <?php
 
 namespace Addons\Student\Controller;
-require_once('Excel/reader.php');
+//require_once('Excel/excel_reader2.php');
+require_once 'Excel/PHPExcel.php';
+require_once 'Excel/PHPExcel/Reader/Excel2007.php';
+require_once 'Excel/PHPExcel/Reader/Excel5.php';
+include_once 'Excel/PHPExcel/IOFactory.php';
+
 
 define ( 'SCHOOL_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Public' );
 
@@ -112,18 +117,26 @@ class StudentController extends StudentBaseController
                 $this->error('上传失败');
             }
 
-            // ExcelFile($filename, $encoding);
-            $excleReader = new \Spreadsheet_Excel_Reader();
+//            // ExcelFile($filename, $encoding);
+//            $excleReader = new \Spreadsheet_Excel_Reader();
+//
+//            // Set output Encoding.
+//            $excleReader->setutfencoder('iconv');
+//            $excleReader->setOutputEncoding('GBK');
+//            $excleReader->read($savePath.$file_name);
 
-            // Set output Encoding.
-            $excleReader->setOutputEncoding('GBK');
-            $excleReader->read($savePath.$file_name);
-            error_reporting(E_ALL ^ E_NOTICE);
+
+            $objReader = \PHPExcel_IOFactory::createReader ( 'Excel5' );
+            $objReader->setReadDataOnly ( true );
+            $objPHPExcel = $objReader->load ($savePath.$file_name);
+            $objWorksheet = $objPHPExcel->getSheet(0);
+            $colNum = $objWorksheet->getHighestColumn();
+            $rowNum =  $objWorksheet->getHighestRow();
             $Model = D(parse_name(get_table_name($this->model['id']), 1));
             // 取得字段
             $fields = array();
-            for ($j = 1; $j <= $excleReader->sheets[0]['numCols']; $j++) {
-                $value = iconv('gbk', 'utf-8', $excleReader->sheets[0]['cells'][1][$j]);
+            for ($j = 'A'; $j <= $colNum; $j++) {
+                $value = $objWorksheet->getCell( $j.'1' )->getValue();
                 if (!empty($value)) {
                     $fields[$j] = $value;
                 }
@@ -133,12 +146,12 @@ class StudentController extends StudentBaseController
             $fieldMap = $this->getFieldMap();
 
             // 批量插入
-            for ($i = 3; $i <= $excleReader->sheets[0]['numRows']; $i++) {
+            for ($i = 3; $i <= $objWorksheet->getHighestRow (); $i++) {
                 $modelData = array();
                 $modelData['token'] = $token;
-                for ($j = 1; $j <= $excleReader->sheets[0]['numCols']; $j++) {
-                    $value = iconv('gbk', 'utf-8', $excleReader->sheets[0]['cells'][$i][$j]);
-                    if (!empty($fields[$j])) {
+                for ($j = 'A'; $j <= $objWorksheet->getHighestColumn(); $j++) {
+                    $value = $objWorksheet->getCell( $j.$i )->getValue();
+                    if (!empty($fields[$j]) && !empty($value)) {
                         $modelData[$fields[$j]] = $this->convertField($fieldMap,$fields[$j],$value);
                     }
                 }
@@ -150,16 +163,19 @@ class StudentController extends StudentBaseController
                     $modelData['id'] = $exist_student[id];
                     $Model->save($modelData);
                 }
-
-
-
             }
         }
 
         if(!empty($Model->getError())){
             $this->error($Model->getError());
         }else{
-            $this->success('添加' . $this->model ['title'] . '成功！', U('lists?model=' . $this->model ['name'], $this->get_param));
+            $num = $colNum;
+            if($num == null){
+                $num = 0;
+            }else{
+                $num = $rowNum - 2;
+            }
+            $this->success('添加'.$num.'个' . $this->model ['title'] . '成功！', U('lists?model=' . $this->model ['name'], $this->get_param));
         }
     }
 

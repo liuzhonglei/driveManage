@@ -9,6 +9,7 @@
 namespace Addons\School\Controller;
 
 use Home\Controller\AddonsController;
+use Think\Model;
 
 
 class BaseController extends AddonsController
@@ -62,6 +63,34 @@ class BaseController extends AddonsController
     {
         $_POST['token'] = get_token();
         parent::common_lists($this->model);
+    }
+
+    public function listsData(){
+        $data = M('student')->query("select id,type,token from wp_school_info");
+
+        foreach($data as &$vo){
+            array_unshift($vo, '<input type="checkbox" name="id[]" value="'.$vo['id'].'">');//向数组插入元素
+            $vo[1] = intval($vo[1]);
+            $vo[2] = '12/09/2013';
+           $vo[3] = "test";
+        }
+
+        $records = array();
+        $status_list = array(
+            array("success" => "Pending"),
+            array("info" => "Closed"),
+            array("danger" => "On Hold"),
+            array("warning" => "Fraud")
+        );
+        $status = $status_list[rand(0, 2)];
+        $records['data'] = $data;
+        $records["customActionStatus"] = "OK"; // pass custom message(useful for getting status of group actions)
+        $records["customActionMessage"] = "Group action successfully has been completed. Well done!"; // pass custom message(useful for getting status of group actions)
+        $records["draw"] = intval($_REQUEST['draw']);
+        $records["recordsTotal"] = 3;
+        $records["recordsFiltered"] =  3;
+
+        echo json_encode($records);
     }
 
     // 通用插件的增加模型

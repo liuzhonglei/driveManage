@@ -8,6 +8,4 @@ class InfoController extends BaseController{
         $this->model = $this->getModel ( 'school_info' );
         parent::_initialize ();
     }
-
-
 }

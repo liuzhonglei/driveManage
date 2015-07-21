@@ -12,12 +12,6 @@ return array(
 				'value' => '',
 				'tip' => '' 
 		),
-	'NOTIFY_URL' => array (
-				'title' => '回调URL:',
-				'type' => 'text',
-				'value' => 'EO2OPayment://EO2OPayment/CallBackLog',
-				'tip' => '回调通知地址格式： 插件名://控制器/方法名 , 可以通过URL传人： NOTIFY_URL=urlencode(...)' 
-		),
 	'SSLCERT_PATH' => array (
 				'title' => '证书CERT:',
 				'type' => 'text',
