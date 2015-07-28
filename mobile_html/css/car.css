@@ -51,6 +51,9 @@ p{
 .x_flowAuto{
 	overflow:auto	
 }
+.text_primary{
+	color:#2d93e2	
+}
 /* jqm */
 .ui-field-contain{
 	border-bottom:none;
@@ -1973,13 +1976,110 @@ p{
 	padding:30px 0 0 20px;	
 }
 
+/*赠送锦旗--7-19*/
+.c_payBg{
+	position:absolute;
+	top:0;
+	bottom:0;
+	height:100%;
+	width:100%;	
+	background:#A42303 url(../img/payBg.jpg) no-repeat center top;
+	background-size:100% auto;
+}
+.c_payBox{
+	position:absolute;
+	top:168px;
+	padding:0 40px;	
+	width:100%;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+}
+.c_pay_master{
+	border:2px solid #E9441A;
+	background:#fff;
+	padding:10px 10px 10px 10px;
+	overflow:hidden;	
+}
+.c_pay_master .c_pay_photo{
+	float:left;
+}
+.c_pay_master .c_pay_photo img{
+	width:70px;
+	height:70px;
+	border-radius: 100%;
+   -webkit-border-radius: 100%;
+	float:left;
+}
 
+.c_pay_master .c_pay_name{
+	margin-left:90px;
+	margin-top:12px;
+	font-size:28px;
+	color:#333;
+}
+.c_pay_tip{
+	color:#dbb991;
+	font-size:14px;	
+	padding:5px 0 10px;
+}
+.c_pay_flag{overflow:hidden}
+.c_pay_flag li{
+	float:left;
+	width:70px;
+	height:68px;
+	background:url(../img/pay_flag.png) no-repeat center center;
+	cursor:pointer;
+	font-size:28px;
+	color:#fff;
+	text-align:center;
+	padding:10px 0 0;
+	margin-right:5%;
+}
+.c_pay_flag li:last-child{
+	margin-right:0;
+}
+.c_pay_flag li span{
+	font-size:14px;
+}
+.c_pay_flag li.active{
+	background:url(../img/pay_flag_active.png) no-repeat center center;
+}
 
+.c_pay_btn{ 
+	padding-top:5px;
+}
+.c_pay_btn a{
+	font-size:18px;	
+	padding-top:10px;
+	padding-bottom:10px;
+}
+@media all and (min-width:360px) {
+	.c_payBox{
+		top:210px;
+	}
+}
 
+/*我的锦旗--7-21*/
+.c_flagTotal .info01 li:nth-child(odd){
+	width:100%;
+	color:#aaa;
+	font-size:.8em;
+}
+.c_flagTotal .info01 li:nth-child(even){
+	text-align:left;
+	width:100%;
+	color:#999;
+}
+.c_topLine{
+	border-top:1px solid #ddd;	
+}
+.c_flagTit{
+	padding:10px 0 10px 20px
+}
 
-
-
-
+.c_flagTit span{
+	font-size:1.3em;
+}
 
 
 
