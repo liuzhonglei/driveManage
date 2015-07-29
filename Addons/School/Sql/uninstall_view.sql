@@ -5,3 +5,4 @@ drop view wp_teacher_rank;
 drop view wp_teacher_rank_all;
 drop view wp_teacher_all;
 drop view wp_student_notification_all;
+drop view wp_student_banner_all;

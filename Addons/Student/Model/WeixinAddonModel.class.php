@@ -23,7 +23,7 @@ class WeixinAddonModel extends WeixinModel{
             'Title' => $school['name'],
             'Description' => '点击进入个人中心',
             'PicUrl' => get_cover_url($photo['photo']),
-            'Url' =>  addons_url('School://School/getMyInfo', $param)
+            'Url' =>  addons_url('School://School/myCenter', $param)
         );
         $this->replyNews($articles);
 

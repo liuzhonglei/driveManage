@@ -37,6 +37,7 @@ class StudentController extends StudentBaseController
         // assign
         $this->assign('sub_nav', $nav);
     }
+
     /**
      * show the sign student list
      * @return [type] [description]
@@ -116,14 +117,6 @@ class StudentController extends StudentBaseController
             if (!copy($tmp_file, $savePath . $file_name)) {
                 $this->error('上传失败');
             }
-
-//            // ExcelFile($filename, $encoding);
-//            $excleReader = new \Spreadsheet_Excel_Reader();
-//
-//            // Set output Encoding.
-//            $excleReader->setutfencoder('iconv');
-//            $excleReader->setOutputEncoding('GBK');
-//            $excleReader->read($savePath.$file_name);
 
 
             $objReader = \PHPExcel_IOFactory::createReader ( 'Excel5' );
@@ -369,7 +362,7 @@ class StudentController extends StudentBaseController
 
 
         // show
-        $this->display(T('Addons://School@School/showMaster'));
+        $this->display(T(MOBILE_PATH.'studentCenterTeacherList'));
     }
 
     /**
@@ -423,7 +416,7 @@ class StudentController extends StudentBaseController
             $this->assign('data',$data);
 
             // show
-            $this->display(T('Addons://School@School/comment'));
+            $this->display(T(MOBILE_PATH.'studentCenterCommentTeacher'));
         }
     }
 
@@ -441,7 +434,7 @@ class StudentController extends StudentBaseController
             $teacherList = M('teacher')->query($sql);
             $this->ajaxReturn($teacherList);
         }else{
-            $this->display(T('Addons://School@School/bindMaster'));
+            $this->display(T(MOBILE_PATH.'studentCenterBindTeacher'));
         }
     }
 
@@ -461,9 +454,9 @@ class StudentController extends StudentBaseController
 
         // check
         $student || $this->ajaxReturn(array('status'=>'-1','error'=>'微信没有绑定学员！'));
-//        if(!empty($student['id_teacher_k2']) && !empty($student['id_teacher_k3'])){
-//            $this->ajaxReturn(array('status'=>'-1','error'=>'学员已经绑定所有教练，需要修改请于驾校联系！'));
-//        }
+        if(!empty($student['id_teacher_k'.$course])){
+            $this->ajaxReturn(array('status'=>'-1','error'=>'学员已经绑定相应`教练，需要修改请于驾校联系！'));
+        }
 
         // modify and save
         $student['id_teacher_k'.$course] = $teacherId;
@@ -477,5 +470,13 @@ class StudentController extends StudentBaseController
         // return
         $this->ajaxReturn(array('status'=>'0'));
 
+    }
+
+    /**
+     * pay the money
+     */
+    function pay(){
+        $this->assign($_REQUEST);
+        $this->display(T(MOBILE_PATH.'studentCenterBannerPay'));
     }
 }

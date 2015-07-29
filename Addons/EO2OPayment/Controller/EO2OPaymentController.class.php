@@ -6,79 +6,100 @@ include_once "WxPayPubHelper.php";
 
 class EO2OPaymentController extends BaseController{
     // the pay type info
-    private static $paytypeInfo = array('banner' => array('page'=>'Addons://EO2OPayment@EO2OPayment/Payment','callback'=>'EO2OPayment://EO2OPayment/CallBackLog'));
+    private static $paytypeInfo = array('banner' => array('page'=>'Addons://EO2OPayment@EO2OPayment/Payment','body'=>'教练锦旗','callback'=>'EO2OPayment://EO2OPayment/CallBackLog'));
 
     /**
      * start pay request
      */
-    public function Payment()
+    public function paymentPage()
     {
-        // param
-        $appinfo = get_token_appinfo();
         $payType = i('paytype');
-        $config = getAddonConfig ( 'EO2OPayment' );
-        $wxconfig = array(
-            'APPID' => $appinfo['appid'],
-            'MCHID' => $config['MCHID'],
-            'KEY' =>$config['KEY'],
-            'APPSECRET' => $appinfo['secret'],
-            'SSLCERT_PATH' =>$config['SSLCERT_PATH'],
-            'SSLKEY_PATH' =>$config['SSLKEY_PATH'],
-            'NOTIFY_URL' => $config['NOTIFY_URL'],
-            'CURL_TIMEOUT' => 30
-        );
-
-        // 请求预支付ID
-        $unifiedOrder = new \UnifiedOrder_pub($wxconfig);
-        $unifiedOrder->setParameter("openid",get_openid());
-        $unifiedOrder->setParameter("trade_type","JSAPI");//交易类型
-        $unifiedOrder->setParameter("body",I('desc'));//商品描述
-        $unifiedOrder->setParameter("attach",i('attach'));//附加数据
-
-        //订单号
-        $timeStamp = time();
-        $out_trade_no = $appinfo['appid']."$timeStamp";
-        $unifiedOrder->setParameter("out_trade_no","$out_trade_no");//商户订单号
-
-        //总金额
-        $total = I("total");
-        $total = $total * 100;
-        $unifiedOrder->setParameter("total_fee",$total);
-
-        // notify url
-        $url = U('Notify',array("token"=>get_token(),"openid"=>get_openid()));
-        $url = str_replace("?s=","", $url);
-        $unifiedOrder->setParameter("notify_url",$url);//默认通知地址
-
-        // get the $prepay_id
-        $prepay_id = $unifiedOrder->getPrepayId();
-        $transaction = array();
-        $transaction = array_merge($unifiedOrder->parameters,$unifiedOrder->result);
-        $transaction['token'] = get_token();
-        $transaction['time_begin'] = time();
-        $Model = M('eo2o_payment');
-        $Model->add($transaction);
-        if(!empty($Model->getError())){
-            $this->error($Model->getError());
-        }
-
-        if(!$prepay_id){
-            $this->error($unifiedOrder->result['return_msg']);
-        }
-
-
-
-
-        //使用jsapi接口,返回请求支付
-        $jsApi = new \JsApi_pub($wxconfig);
-        $jsApi->setPrepayId($prepay_id);
-        $jsApiParameters = $jsApi->getParameters();
+        $payPatameters = $this->getPayParameters();
         $this->assign("total",I("total"));
         $this->assign("desc",I("desc"));
-        $this->assign("jsApiParameters",$jsApiParameters);
+        $this->assign("jsApiParameters",$payPatameters);
         $pageUrl = T(self::$paytypeInfo[$payType]['page']);
         $this->display($pageUrl);
     }
+
+    /**
+     * start pay request
+     */
+    public function paymentData()
+    {
+         $payPatameters = $this->getPayParameters();
+         $this->ajaxReturn($payPatameters);
+    }
+
+    /**
+     * 取得支付信息
+     */
+   function getPayParameters(){
+        // param
+       $appinfo = get_token_appinfo();
+       $payType = i('paytype');
+       $config = getAddonConfig ( 'EO2OPayment' );
+       $wxconfig = array(
+           'APPID' => $appinfo['appid'],
+           'MCHID' => $config['MCHID'],
+           'KEY' =>$config['KEY'],
+           'APPSECRET' => $appinfo['secret'],
+           'SSLCERT_PATH' =>$config['SSLCERT_PATH'],
+           'SSLKEY_PATH' =>$config['SSLKEY_PATH'],
+           'NOTIFY_URL' => $config['NOTIFY_URL'],
+           'CURL_TIMEOUT' => 30
+       );
+
+       // 请求预支付ID
+       $unifiedOrder = new \UnifiedOrder_pub($wxconfig);
+       $unifiedOrder->setParameter("openid",get_openid());
+       $unifiedOrder->setParameter("trade_type","JSAPI");//交易类型
+       $unifiedOrder->setParameter("body",self::$paytypeInfo[$payType]['body']);//商品描述
+
+       // attach
+       $attach = array("paytype"=>$payType);
+       switch($payType){
+           case "banner" : $attach['teacher_id'] = i('teacher_id');
+       }
+       $unifiedOrder->setParameter("attach",$attach);//附加数据
+
+       //订单号
+       $timeStamp = time();
+       $out_trade_no = $appinfo['appid']."$timeStamp";
+       $unifiedOrder->setParameter("out_trade_no","$out_trade_no");//商户订单号
+
+       //总金额
+       $total = I("total");
+       $total = $total * 100;
+       $unifiedOrder->setParameter("total_fee",$total);
+
+       // notify url
+       $url = U('Notify',array("token"=>get_token(),"openid"=>get_openid()));
+       $url = str_replace("?s=","", $url);
+       $unifiedOrder->setParameter("notify_url",$url);//默认通知地址
+
+       // get the $prepay_id
+       $prepay_id = $unifiedOrder->getPrepayId();
+       $transaction = array();
+       $transaction = array_merge($unifiedOrder->parameters,$unifiedOrder->result);
+       $transaction['token'] = get_token();
+       $transaction['time_begin'] = time();
+       $Model = M('eo2o_payment');
+       $Model->add($transaction);
+       if(!empty($Model->getError())){
+           $this->error($Model->getError());
+       }
+
+       if(!$prepay_id){
+           $this->error($unifiedOrder->result['return_msg']);
+       }
+
+       //使用jsapi接口,返回请求支付
+       $jsApi = new \JsApi_pub($wxconfig);
+       $jsApi->setPrepayId($prepay_id);
+       $jsApiParameters = $jsApi->getParameters();
+       return $jsApiParameters;
+   }
 
 
     public function Notify()

@@ -48,13 +48,16 @@ class PrivilegeController extends BaseController{
         $this->display ('detail');
     }
 
-    // 详情
-    function mainPri() {
+    /**
+     * show the school privilege page
+     * @return the page
+     */
+    function schoolRrivilege() {
         $map ['token'] = get_token ();
         $Model = M ( $this->model['name']);
         $info = $Model->where($map)->find();
         $this->assign ( 'info', $info );
-        $this->display ( 'detail' );
+        $this->display ( T ( MOBILE_PATH.'schoolRrivilege' )  );
     }
 
 }

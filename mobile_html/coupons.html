@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon-precomposed" href="img/screen_icon.png">
+<title>轻轻学车百万学车红包大补贴，每人100元现金等你来抢！</title>
+<link rel="stylesheet" href="css/jquery.mobile-1.4.4.css" /> 
+<link rel="stylesheet" href="css/car.css"> 
+<script src="js/jquery-1.11.1.min.js"></script> 
+<script src="js/jquery.kxbdmarquee.js"></script>
+<script src="js/jquery.mobile-1.4.4.min.js"></script>
+<script>
+$(function(){
+	$("#marquee2").kxbdMarquee({isEqual:true});
+	/*点击弹出层*/
+	$("#getCoupon").click(function(){
+		$("#getCoupon_pop").popup("open");
+	})
+	$(".coupon_pop_close").click(function(){
+		$("#getCoupon_pop").popup("close");
+	})
+});
+</script>
+</head>
+<body class="x_flowAuto couponsBg">
+<div id="pageCoupon" data-role="page" data-theme="none">
+<!--获得红包 弹出层-->
+<div data-role="popup" id="getCoupon_pop" data-position-to="window" data-tolerance="10,30,10,30" data-shadow="false" data-overlay-theme="b" data-corners="false">
+    <div class="coupon_pop_box">
+       <span class="coupon_pop_close"></span>
+       <div class="coupon_pop_title01">恭喜获得<span>100元学车红包</span></div>
+       <div class="coupon_pop_title02">关注公众号，回复"红包"领取</div>
+       <div class="coupon_pop_pic"></div>
+       <a href="#" class="ui-btn x_btn shareBtn" id="getCoupon">分享给小伙伴们</a>
+    </div>
+</div>
+<!--//获得红包 弹出层-->
+    	<div class="c_couponsBk">
+            <img src="img/iqqxc_logo.png" class="iqqxc_logo">
+            <img src="img/xc_qrCode.png" class="xc_qrCode">
+            <div class="couponsList">
+                <div id="marquee2">
+                    <ul>
+                        <li>138*＊＊＊3111 抢了100元红包</li>
+                        <li>139＊＊＊＊2436抢了100元红包</li>
+                        <li>133*＊＊＊6573 抢了100元红包</li>
+                        <li>136＊＊＊＊3322抢了100元红包</li>
+                        <li>135*＊＊＊5312 抢了100元红包</li>
+                        <li>189＊＊＊＊3322抢了100元红包</li>
+                        <li>158*＊＊＊3233 抢了100元红包</li>
+                        <li>136＊＊＊＊0212抢了100元红包</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="c_coupons">
+            	<img src="img/coupons_blank.png" class="coupons_blank">
+                <!--红包-->
+                <div class="c_warn_bk" >
+                  <div class="c_warn bindWarn" id="c_warn" style="display:none"><span ></span><label>请输入正确的电话号码！</label></div>
+                </div>
+                <div class="c_formMain">
+                    <div>
+                        <input data-role="none" type="text" id="name" class="c_ipt couponsIpt" value="" placeholder="请输入您的姓名">
+                        <div class="x_blank"></div>
+                        <input data-role="none" type="text" id="phoneNum" class="c_ipt couponsIpt" value="" placeholder="请输入您的手机号码">
+                    </div>
+                    <div class="x_blank"></div>
+                    <a href="#" class="ui-btn ui-corner-all x_btn couponsBtn" id="getCoupon">领取大红包</a>
+                </div>
+                <!--//红包-->
+            </div> 
+            <!--//联盟-->
+            <div class="coupons_union_bk">
+                <img src="img/coupons_union.png" class="coupons_union" >
+            </div> 
+            <!--//联盟-->
+            <!--红包详情-->
+            <div class="coupons_detail">
+            	<div class="title">红包详情</div>
+                <div>
+                    <p>1、填写姓名、手机号，参与活动，即可获得学车大红包，该红包仅限厦门区域使用；</p>
+                    <p>2、关注轻轻学车微信公众号 qqxueche，并回复红 包二字，领取红包；</p>
+                    <p>3、手机保持畅通，美女客服将与你联系并支付红包金额； </p>
+                </div>
+            </div>
+            <!--//红包详情-->
+       </div>        
+</div> <!--//Page-->
+</body>
+</html>

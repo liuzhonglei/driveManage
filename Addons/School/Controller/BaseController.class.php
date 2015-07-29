@@ -11,11 +11,12 @@ namespace Addons\School\Controller;
 use Home\Controller\AddonsController;
 use Think\Model;
 
-
+define ( 'MOBILE_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Mobile' );
+define ( 'MOBILE_PATH',"Addons://School@Mobile/");
 class BaseController extends AddonsController
 {
 
-    static  $tableNames = array('student','student_question','teacher','student_notification');
+    static  $tableNames = array('student','student_question','student_banner','teacher','student_notification','qingqing_coupon');
 
     function _initialize()
     {
@@ -286,5 +287,16 @@ class BaseController extends AddonsController
     }
 
 
+    /**
+     * get the school info
+     * @return [type] [description]
+     */
+    protected function  getSchoolInfo()
+    {
+        $Model = M($this->model['name']);
+        $map = array('token' => get_token());
+        $info = $Model->where($map)->find();
+        return $info;
+    }
 
 }
