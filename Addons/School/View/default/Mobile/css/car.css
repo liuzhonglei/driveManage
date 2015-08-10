@@ -13,6 +13,9 @@ ul,li,dl,dt,dd{
 a{ 
 	text-decoration:none;
 }
+a.text-primary{
+	color:#2ea7e0	
+}
 .cRed{
 	color:#f00;	
 }
@@ -20,6 +23,15 @@ a{
 	background:#fff;	
 }
 
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
 textarea,input{font-family: '微软雅黑'; font-weight:normal}
 img{ vertical-align:middle}
 p{
@@ -667,7 +679,7 @@ p{
 .c_texta{
     width: 100%;
     border:1px solid #ddd;
-    color: #aaa;
+    color: #555;
 	padding:.3em;
 	min-height:5em;
 	margin:0;
@@ -678,7 +690,7 @@ p{
 .c_ipt{
     width: 100%;
     border:1px solid #ddd;
-    color: #aaa;
+    color: #555;
     -webkit-box-sizing:border-box;
     box-sizing:border-box;
 	padding:.3em;
@@ -2232,15 +2244,62 @@ p{
 }
 
 
-
-
-
-
-
-
-
-
-
+/*支付08-07*/
+.c_wrapper_padd{
+	padding:0 16px	
+}
+.c_item_border li{
+	border-left:1px solid #ddd;
+	border-right:1px solid #ddd;
+}
+.c_merchant{
+	padding-bottom:20px;
+	color:#555;
+	text-align:center;
+}
+.c_merchant_pic{
+	background:#fff;
+	width:65px;
+	height:65px;
+	overflow:hidden;
+	margin:25px auto 0;	
+	-webkit-border-radius:65px;
+	border-radius:65px;
+}
+.c_merchant_pic img{
+	width:65px;
+	margin:50 auto;
+}
+.c_payList{
+	background:#fff;
+	color:#aaa;
+	padding:10px;
+	line-height:1.4;
+	margin:-1px 0 10px;	
+	overflow:hidden;
+	border-bottom:1px solid #ddd;
+	border-top:1px solid #ddd;
+	
+}
+.c_payList .title{
+	color:#555;	
+	border-bottom:1px solid #E2E2E2;
+	padding:0 0 5px;
+	margin-bottom:10px;
+	font-size:1.1em;
+}
+.c_payList .title span{
+	float:right;		
+}
+.c_payList li{
+	clear:both;	
+}
+.c_payList li label{
+	float:left
+}
+.c_payList li span{
+	float:right
+}
 
 
 
