@@ -13,10 +13,12 @@ use Think\Model;
 
 define ( 'MOBILE_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Mobile' );
 define ( 'MOBILE_PATH',"Addons://School@Mobile/");
+
+define ( 'QINGQING_TOKEN',"gh_94ecad95d624");
 class BaseController extends AddonsController
 {
 
-    static  $tableNames = array('student','student_question','student_banner','teacher','student_notification','qingqing_coupon');
+    static  $tableNames = array('student','student_question','student_banner','teacher','student_notification','qingqing_coupon','eo2o_payment');
 
     function _initialize()
     {
@@ -37,6 +39,11 @@ class BaseController extends AddonsController
         $res ['title'] = '课程信息';
         $res ['url'] = addons_url('School://Course/lists');
         $res ['class'] = $controller == 'course' ? 'current' : '';
+        $nav [] = $res;
+
+        $res ['title'] = '费用信息';
+        $res ['url'] = addons_url('School://Payitem/lists');
+        $res ['class'] = $controller == 'payitem' ? 'current' : '';
         $nav [] = $res;
 
 
@@ -293,10 +300,21 @@ class BaseController extends AddonsController
      */
     protected function  getSchoolInfo()
     {
-        $Model = M($this->model['name']);
+        $Model = M("school");
         $map = array('token' => get_token());
         $info = $Model->where($map)->find();
         return $info;
+    }
+
+    /**
+     * check if the weixin is bind  student or teacher
+     */
+    protected function  checkWeixinBind(){
+        $studentInfo =  M("student")->where("openid= \"".get_openid()."\" and token=\"".get_token()."\"")->find();
+        $teacherInfo =  M("teacher")->where("openid= \"".get_openid()."\" and token=\"".get_token()."\"")->find();
+        if(empty($studentInfo) && empty($teacherInfo)){
+            $this->display(T(MOBILE_PATH.'schoolCenterBind'));
+        }
     }
 
 }

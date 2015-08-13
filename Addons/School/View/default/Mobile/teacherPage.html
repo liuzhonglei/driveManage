@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon-precomposed" href="img/screen_icon.png">
+    <title>我的学车教练，值得推荐！想学车请找他哦！</title>
+    <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/jquery.mobile-1.4.4.css"/>
+    <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/swiper.min.css"/>
+    <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/car.css"/>
+    <script src="{:MOBILE_PUBLIC_PATH}/js/jquery-1.11.1.min.js"></script>
+    <script src="{:MOBILE_PUBLIC_PATH}/js/jquery.mobile-1.4.4.min.js"></script>
+    <script src="{:MOBILE_PUBLIC_PATH}/js/swiper.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=TF9uZIGSSLdT4yNQQXjvi5N5&v=1.0"></script>
+    <script src="{:MOBILE_PUBLIC_PATH}/js/car.js"></script>
+
+    <script>
+        $(function () {
+            $.post("{:U('teacherSignPackage','teacher_id='.$teacher_data['id'])}", function (data) {
+                // xalert(data.appId + "|" +data.timestamp +  "|" +data.nonceStr +   "|" +data.signature + data.url);
+                wx.config({
+                    debug: false,
+                    appId: data.appId,
+                    timestamp: data.timestamp,
+                    nonceStr: data.nonceStr,
+                    signature: data.signature,
+                    jsApiList: [
+                        'checkJsApi',
+                        'onMenuShareTimeline',
+                        'onMenuShareAppMessage',
+                        'onMenuShareQQ',
+                        'onMenuShareWeibo'
+                    ]
+                });
+
+                wx.ready(function () {
+                    wx.onMenuShareTimeline({
+                        title: '我的学车教练{$teacher_data.name}，值得推荐！想学车请找他哦!', // 分享标题
+                        link: window.location.href, // 分享链接
+                        imgUrl: "{:get_cover_url($teacher_data['photo'])}", // 分享图标
+
+                        success: function (res) {
+                            // alert("进入成功");
+                            // location.reload();
+                        },
+                        cancel: function (res) {
+                            // 用户取消分享后执行的回调函数
+                            //
+                            // alert("进入失败");
+                        }
+                    });
+                });
+            });
+
+            $("#masterNav li").click(function () {
+                var mPage = $(this).attr("url");
+
+                //ajax控制显示隐藏loading
+                $(".c_loadBk").ajaxStart(function () {
+                    $(this).show();
+                });
+                $(".c_loadBk").ajaxStop(function () {
+                    $(this).hide();
+                });
+
+                //加载对应的页面
+                $.ajax({
+                    type: "get",
+                    url: mPage,
+                    dataType: "html",
+                    success: function (data) {
+                        $('#masterCon').html(data);
+                    }
+                });
+                $(this).addClass("active").siblings().removeClass("active")
+            })
+
+            $('#masterNav li').eq(0).trigger("click");
+
+            /*点击弹出中的课程*/
+            $("#allType li").click(function () {
+                $("#allType li").find("img").attr("src", "{:MOBILE_PUBLIC_PATH}/img/radio.png");
+                $(this).find("img").attr("src", "{:MOBILE_PUBLIC_PATH}/img/radioed.png");
+                $("#courseShow").text($(this).text());
+                $("#courseSel").popup("close");
+            })
+
+            /*Siwper*/
+            var swiper = new Swiper('.swiper-container', {
+                pagination: '.swiper-pagination',
+                paginationClickable: true,
+                autoplay: 2000
+            });
+
+
+        })
+    </script>
+</head>
+<body class="x_flowAuto">
+<div id="pageMaster" data-role="page" data-theme="none">
+<!--开设课程 popup 必须放在主页-->
+<div data-role="popup" id="courseSel" data-position-to="window" data-tolerance="10,10,10,10" data-shadow="false" data-overlay-theme="b" data-corners="false">
+    <div class="c_popupList">
+        <ul id="allType">
+            <volist name = "course_data" id="vo">
+                <li><img src="{:MOBILE_PUBLIC_PATH}/img/radio.png">{$vo.name} <span>{$vo.sign_charge}元</span></li>
+            </volist>
+        </ul>
+    </div>
+</div>
+<!--//开设课程-->
+    <div data-role="header" data-theme="none"  class="x_header"  data-position="fixed"  data-tap-toggle="false">
+        <a href="#"  data-role="none" data-rel="back" class="x_btn_back" data-transition="slide"></a>
+        <h1>我的学车教练{$teacher_data.name}，值得推荐！想学车请找他哦！</h1>
+    </div><!--//header -->
+    <div class="x_content">
+        <!--头部信息-->
+        <div class="masterBg">
+            <!--幻灯片 swiper-->
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <volist name="imgs" id="vo">
+                        <div class="swiper-slide"><img src="{$vo.path}"></div>
+                    </volist>
+                  <!--   <div class="swiper-slide"><img src="{:MOBILE_PUBLIC_PATH}/img/master_bg.png"></div> -->
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+            <!--//幻灯片 slider-->
+        </div>
+        <div class="masterInfo">
+            <input type="hidden" id = "teacher_id" value="{$teacher_data.id}">
+            <input type="hidden" id = "token" value="{$token}">
+        	<div class="Photo"><img src="{:get_cover_url($teacher_data['photo'])}"></div>
+        	<div class="name">{$teacher_data.name} <span>{$teacher_data.level_name}</span></div>
+            <div class="school">{$school_data.name}</div>
+            <div class="cardList">
+            	<ul>
+                	<li><img src="{:MOBILE_PUBLIC_PATH}/img/card_id.png">身份认证</li>
+                	<li><img src="{:MOBILE_PUBLIC_PATH}/img/card_teacher.png">教练认证</li>
+                	<li><img src="{:MOBILE_PUBLIC_PATH}/img/card_pl.png">陪练证</li>
+                </ul>
+            </div>
+        </div>
+
+        <!--//头部信息-->
+        <!--导航-->
+        <div class="masterNav">
+        	<ul class="ui-grid-c" id="masterNav">
+                <li class="ui-block-a active" url="{:U('getTeacherMainInfo','teacher_id='.$teacher_data['id'])}"><span class="icon_masterHome"></span>教练主页</li>
+                <li class="ui-block-b" url="{:U('getTeacherSchool','teacher_id='.$teacher_data['id'])}"><span class="icon_masterSchool"></span>驾校介绍</li>
+                <li class="ui-block-c" url="{:U('getTeacherReg','teacher_id='.$teacher_data['id'])}"><span class="icon_masterReg"></span>在线报名</li>
+                <li class="ui-block-d" url="{:U('getTeacherReserve','teacher_id='.$teacher_data['id'])}"><span class="icon_masterReserve"></span>预约练车</li>
+            </ul>
+        </div>
+        <!--//导航-->
+        <div class="c_loadBk" style="display:none">
+        	<div class="c_loading">
+                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>`
+                <span>正在加载...</span>
+            </div>
+        </div>
+        <!--内容 ajax加载-->
+        <div id="masterCon" class="masterCon">
+
+        </div>
+        <!--内容 ajax加载-->
+	</div><!-- /wrapper -->
+    <div data-role="footer" data-position="fixed" class="masterFooter" data-tap-toggle="false">
+        <div class="mFooterBk">
+         	<a href="{$code_url}" class="c_footerBtn fcode" data-role="none" data-ajax="false"></a>
+        	<a  href="tel:{$phone}" class="c_footerBtnMid" data-role="none"><img src="{:MOBILE_PUBLIC_PATH}/img/phone.png">立即预约</a>
+        	<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=<if condition="$teacher_data.qq neq ''">{$teacher_data.qq}<else/>{$school_data.qq}</if>&amp;site=qq&amp;menu=yes" class="c_footerBtn fqq" data-role="none"></a>
+        </div>
+    </div>
+</div> <!--//Page-->
+</body>
+</html>

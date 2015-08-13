@@ -239,6 +239,7 @@ class SchoolController extends BaseController
             $myinfo = M('student')->query($sql)[0];
             if (!empty($myinfo)) {
                 $this->assign('myinfo', $myinfo);
+                $this->assign('schoolinfo', $this->getSchoolInfo());
                 $this->display(T(MOBILE_PATH.'studentCenter'));
             }
             $sql = 'select t.*, t2.headimgurl headimgurl from wp_teacher t left join wp_follow  t2 on t.openid = t2.openid where t.openid= "' . get_openid() . '" and t.token = "' .  get_token() . '"';
@@ -273,7 +274,7 @@ class SchoolController extends BaseController
     }
 
    
-
+ 
         // function top()
     // {
     //     $vote_id = I('id', 0, 'intval');

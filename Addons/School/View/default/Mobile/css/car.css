@@ -2244,7 +2244,7 @@ p{
 }
 
 
-/*支付08-07*/
+/*缴费08-07*/
 .c_wrapper_padd{
 	padding:0 16px	
 }
@@ -2254,32 +2254,34 @@ p{
 }
 .c_merchant{
 	padding-bottom:20px;
-	color:#555;
+	color:#333;
 	text-align:center;
+	font-size:1.1em
 }
 .c_merchant_pic{
 	background:#fff;
 	width:65px;
 	height:65px;
 	overflow:hidden;
-	margin:25px auto 0;	
+	margin:25px auto 5px;	
 	-webkit-border-radius:65px;
 	border-radius:65px;
+	border:2px solid #fff;
 }
 .c_merchant_pic img{
+	height:65px;
 	width:65px;
-	margin:50 auto;
+	margin:0 auto;
 }
 .c_payList{
 	background:#fff;
 	color:#aaa;
-	padding:10px;
-	line-height:1.4;
-	margin:-1px 0 10px;	
+	padding:15px 15px 10px;
+	line-height:1.0;
+	margin:-1px 0 18px;	
 	overflow:hidden;
 	border-bottom:1px solid #ddd;
 	border-top:1px solid #ddd;
-	
 }
 .c_payList .title{
 	color:#555;	
@@ -2295,20 +2297,82 @@ p{
 	clear:both;	
 }
 .c_payList li label{
-	float:left
+	float:left;
+	font-size:0.8em;
 }
 .c_payList li span{
-	float:right
+	float:right;
+	font-size:0.8em;
 }
 
+/*css3垂直居中*/
+.box-center{
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+	-webkit-box-pack: center;
+	-webkit-box-align: center;
+	display: box;
+	box-orient: horizontal;
+	box-pack: center;
+	box-align: center;
+}
 
+.item_note{
+	font-size:0.9em;
+	color:#aaa;
+	padding:0.2em 0 0.2em;	
+}
 
+.c_full_paddleft,.c_full_li_paddleft li{
+	padding-left:1em;	
+}
 
-
-
-
-
-
-
+/*二级面板*/
+.c_panel{
+	min-width:258px;
+	padding-top:15px;
+	padding-bottom:15px;
+	background:#fff;	
+	border-radius: 3px;
+   -webkit-border-radius: 3px;
+}
+.c_panel > div > h3{
+	font-size:1.1em;
+	padding:10px 10px 5px 10px;
+	margin:0;
+	font-weight:normal;
+	height:25px;
+	background:#f6f6f6;
+	border-bottom:1px solid #ddd;	
+	border-top:1px solid #ddd;	
+}
+.c_panel > div > h3 span{
+	width:14px;
+	height:14px;
+	background:url(../img/panel_close.png) no-repeat center center;
+	background-size:8px 14px;
+	display:block;
+	float:right;
+	margin-right:-1px;
+	margin-top:3px;
+}
+.c_panel > div.active > h3 span{
+	background:url(../img/panel_open.png) no-repeat center center;
+	background-size:14px 8px;
+	margin-top:1px;
+	margin-right:0;
+}
+.c_panel li{
+	overflow:hidden;
+	padding:8px 0 6px 20px;
+	margin:8px 0 6px;
+	border-bottom:1px solid #eee;
+	border-top:none;
+	color:#555;
+}
+.c_panel li img{
+	float:right;
+	margin-right:10px;	
+}
 
 

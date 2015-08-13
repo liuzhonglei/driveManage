@@ -1,28 +1,31 @@
 <?php
 
 namespace Addons\EO2OPayment\Controller;
-use Home\Controller\AddonsController;
+//use Home\Controller\AddonsController;
+use Addons\School\Controller\BaseController;
 
 
-class BaseController extends AddonsController {
+
+class EO2OBaseController extends BaseController {
 	function _initialize() {
 		parent::_initialize();
 		
 		$controller = strtolower ( _CONTROLLER );
+        $action = strtolower ( _ACTION );
 	
 		$res ['title'] = '客户';
-		$res ['url'] = addons_url ( 'EO2OPayment://Eo2oPaymentList/lists' );
-		$res ['class'] = $controller == 'eo2opaymentlist' ? 'current' : '';
+		$res ['url'] = addons_url ( 'EO2OPayment://EO2OPayment/lists' );
+		$res ['class'] = $action == 'lists' ? 'cur' : '';
 		$nav [] = $res;
 		
 		$res ['title'] = '系统设置';
 		$res ['url'] = addons_url ( 'EO2OPayment://EO2OPayment/config' );
-		$res ['class'] = $controller == 'eo2opayment' ? 'current' : '';
+		$res ['class'] = $action == 'config' ? 'cur' : '';
 		$nav [] = $res;
 		
 		$this->assign ( 'nav', $nav );
 		
-		$config = getAddonConfig ( 'EO2O' );
+		$config = getAddonConfig ( 'EO2OPayment' );
 		$config ['background_url'] = $config ['background'] == 11 ? $config ['background_custom'] : ADDON_PUBLIC_PATH . '/card_bg_' . $config ['background'] . '.png';
 		$this->assign ( 'config', $config );
 		//dump ( $config );
