@@ -21,7 +21,6 @@ class WeixinController extends StudentBaseController{
         $res ['class'] = '';
         $nav [] = $res;
 
-         $action = strtolower ( _ACTION );
         $res ['title'] = '微信信息';
         $res ['url'] = addons_url ( 'Student://weixin/lists' );
         $res ['class'] = 'cur';
@@ -44,6 +43,7 @@ class WeixinController extends StudentBaseController{
         $this->assign('check_all','0');
         $this->assign('add_button','0');
         $this->assign('del_button','0');
+        $this->assign('student_id',$_REQUEST['student_id']);
 
         // display
         $this->display ( 'lists' );

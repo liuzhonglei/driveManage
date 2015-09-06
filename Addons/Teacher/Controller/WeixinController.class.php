@@ -41,6 +41,7 @@ class WeixinController extends BaseController{
         $this->assign('check_all','0');
         $this->assign('add_button','0');
         $this->assign('del_button','0');
+        $this->assign('teacher_id',$_REQUEST['teacher_id']);
 
         // display
         $this->display ( 'lists' );

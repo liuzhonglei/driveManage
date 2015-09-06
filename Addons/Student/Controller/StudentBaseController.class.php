@@ -33,6 +33,11 @@ class StudentBaseController  extends BaseController{
         $res ['class'] = $controller == 'appraise' ? 'current' : '';
         $nav [] = $res;
 
+        $res ['title'] = '学员锦旗';
+        $res ['url'] = addons_url ( 'Student://Banner/lists' );
+        $res ['class'] = $controller == 'banner' ? 'current' : '';
+        $nav [] = $res;
+
         $res ['title'] = '考试通知';
         $res ['url'] = addons_url ( 'Student://Notification/lists' );
         $res ['class'] = ($controller == 'notification' || $controller == 'notificationaccount') ? 'current' : '';

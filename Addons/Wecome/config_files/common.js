@@ -3,8 +3,8 @@
 
 	//全选的实现
 	$(".check-all").click(function(){
-		$(".ids").prop("checked", this.checked);
-	});
+       $(".ids").prop("checked", this.checked);
+   });
 	$(".ids").click(function(){
 		var option = $(".ids");
 		option.each(function(i){
@@ -55,9 +55,9 @@
                 }
             });
 
-        }
-        return false;
-    });
+}
+return false;
+});
 
     //ajax post submit请求
     $('.ajax-post').click(function(){
@@ -135,26 +135,26 @@
                     },1500);
                 }
             });
-        }
-        return false;
-    });
+}
+return false;
+});
 
-	/**顶部警告栏*/
-	var content = $('#main');
-	var top_alert = $('#top-alert');
-	top_alert.find('.close').on('click', function () {
-		top_alert.removeClass('block').slideUp(200);
+/**顶部警告栏*/
+var content = $('#main');
+var top_alert = $('#top-alert');
+top_alert.find('.close').on('click', function () {
+  top_alert.removeClass('block').slideUp(200);
 		// content.animate({paddingTop:'-=55'},200);
 	});
 
-    window.updateAlert = function (text,c) {
-		text = text||'default';
-		c = c||false;
-		if ( text!='default' ) {
-            top_alert.find('.alert-content').text(text);
-			if (top_alert.hasClass('block')) {
-			} else {
-				top_alert.addClass('block').slideDown(200);
+window.updateAlert = function (text,c) {
+  text = text||'default';
+  c = c||false;
+  if ( text!='default' ) {
+    top_alert.find('.alert-content').text(text);
+    if (top_alert.hasClass('block')) {
+    } else {
+        top_alert.addClass('block').slideDown(200);
 				// content.animate({paddingTop:'+=55'},200);
 			}
 		} else {
@@ -165,8 +165,8 @@
 		}
 		if ( c!=false ) {
             top_alert.removeClass('alert-error alert-warn alert-info alert-success').addClass(c);
-		}
-	};
+        }
+    };
 
     //按钮组
     (function(){
@@ -192,23 +192,23 @@
         //     icon.toggleClass("btn-arrowup");
         //     userMenu.toggleClass("block");
         // });
-        $(".btn-group-click .btn").click(function(e){
-            if ($(this).next(".dropdown").is(":hidden")) {
-                $(this).next(".dropdown").show();
-                $(this).find("i").addClass("btn-arrowup");
-                e.stopPropagation();
-            }else{
-                $(this).find("i").removeClass("btn-arrowup");
-            }
-        })
-        $(".dropdown").click(function(e) {
-            e.stopPropagation();
-        });
-        $(document).click(function() {
-            $(".dropdown").hide();
-            $(".btn-group-click .btn").find("i").removeClass("btn-arrowup");
-        });
-    })();
+$(".btn-group-click .btn").click(function(e){
+    if ($(this).next(".dropdown").is(":hidden")) {
+        $(this).next(".dropdown").show();
+        $(this).find("i").addClass("btn-arrowup");
+        e.stopPropagation();
+    }else{
+        $(this).find("i").removeClass("btn-arrowup");
+    }
+})
+$(".dropdown").click(function(e) {
+    e.stopPropagation();
+});
+$(document).click(function() {
+    $(".dropdown").hide();
+    $(".btn-group-click .btn").find("i").removeClass("btn-arrowup");
+});
+})();
 
     // 独立域表单获取焦点样式
     $(".text").focus(function(){
@@ -243,7 +243,7 @@ $(function(){
                 $(imgPopup).appendTo("body");
                 $(".upload-img-popup").html(
                     imgItem + "<a class=\"close-pop\" href=\"javascript:;\" title=\"关闭\"></a>"
-                );
+                    );
             }
 
             // 弹出层定位
@@ -273,7 +273,7 @@ $(function(){
             $(node).height($(node).height()*0.8);
         }
     }
-})
+});
 
 //标签页切换(无下一步)
 function showTab() {
@@ -288,19 +288,19 @@ function showTab() {
 
 //标签页切换(有下一步)
 function nextTab() {
-     $(".tab-nav li").click(function(){
-        var self = $(this), target = self.data("tab");
-        self.addClass("current").siblings(".current").removeClass("current");
-        window.location.hash = "#" + target.substr(3);
-        $(".tab-pane.in").removeClass("in");
-        $("." + target).addClass("in");
-        showBtn();
-    }).filter("[data-tab=tab" + window.location.hash.substr(1) + "]").click();
+ $(".tab-nav li").click(function(){
+    var self = $(this), target = self.data("tab");
+    self.addClass("current").siblings(".current").removeClass("current");
+    window.location.hash = "#" + target.substr(3);
+    $(".tab-pane.in").removeClass("in");
+    $("." + target).addClass("in");
+    showBtn();
+}).filter("[data-tab=tab" + window.location.hash.substr(1) + "]").click();
 
-    $("#submit-next").click(function(){
-        $(".tab-nav li.current").next().click();
-        showBtn();
-    });
+ $("#submit-next").click(function(){
+    $(".tab-nav li.current").next().click();
+    showBtn();
+});
 }
 
 // 下一步按钮切换

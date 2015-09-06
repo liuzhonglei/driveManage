@@ -1,0 +1,240 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+    <meta http-equiv="pragma" content="no-cache">
+
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+
+    <meta http-equiv="expires" content="-1">
+
+    <link rel="stylesheet" type="text/css" href="http://game.588fy.com/game/meinv/js/m.min.css">
+
+    <title>爱我你就吻我吧</title>
+
+</head>
+
+<body>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+<script src="http://libs.baidu.com/underscore/1.3.3/underscore-min.js"></script>
+
+<script type="text/javascript">
+
+    shareDataX = {
+
+        imgUrl: "http://ndes24560.jznv365.com/game/meinv/icon.png",
+
+        timeLineLink: "http://ndes24560.jznv365.com/game/meinv/",
+
+        tTitle: "show girl 么么哒",
+
+        tContent: "爱我你就吻我吧"
+
+    };
+
+    hotUrl="http://ndes24560.jznv365.com/top/";
+
+</script>
+
+
+
+
+
+<div id="layout">
+
+    <div id="loading" class="page show hide">loading</div>
+
+    <div id="index" class="page show">
+
+        <div class="app_name">show girl 么么哒</div>
+
+        <div class="app_desc">爱我你就吻我吧</div>
+
+        <div class="p_btns">
+
+            <span class="btn_start_game js_start_game">开始游戏</span>
+
+        </div>
+
+        <!--<div class="p_btns"><a href="http://app.kuaileya/game/" class="btn_download_game js_download_game">更多游戏</a></div>-->
+
+        <div class="p_btns"><a href="http://mp.weixin.qq.com/s?__biz=MzAwMDY4NTkxMQ==&mid=208368434&idx=2&sn=97b676897a3c561202fd101a5afe9b81#rd" class="btn_download_game js_download_game">手贱别点</a></div>
+
+    </div>
+
+    <div id="game" class="page hide">
+
+        <div id="game_header">
+
+            <span class="score">得分：<span>0</span></span>
+
+            <span class="count_down"></span>
+
+            <span class="btn_pause js_pause_game">暂停</span>
+
+        </div>
+
+        <div id="box">
+
+            <div class="inner">
+
+                <div class="hole" id="hole1">
+
+                    <div class="meizi" data-id="0"></div>
+
+                </div>
+
+                <div class="hole" id="hole2">
+
+                    <div class="meizi" data-id="1"></div>
+
+                </div>
+
+                <div class="hole" id="hole3">
+
+                    <div class="meizi" data-id="2"></div>
+
+                </div>
+
+                <div class="hole" id="hole4">
+
+                    <div class="meizi" data-id="3"></div>
+
+                </div>
+
+                <div class="hole" id="hole5">
+
+                    <div class="meizi" data-id="4"></div>
+
+                </div>
+
+                <div class="hole" id="hole6">
+
+                    <div class="meizi" data-id="5"></div>
+
+                </div>
+
+                <div class="hole" id="hole7">
+
+                    <div class="meizi" data-id="6"></div>
+
+                </div>
+
+                <div class="hole" id="hole8">
+
+                    <div class="meizi" data-id="7"></div>
+
+                </div>
+
+                <div class="hole" id="hole9">
+
+                    <div class="meizi" data-id="8"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="gameover" class="page hide"></div>
+
+    <div id="game_pause" class="page hide">
+
+        <div class="share">
+
+            <img src="http://t2.qpic.cn/mblogpic/9a866dde2f32e54090b0/460" width="160">
+
+        </div>
+
+        <div class="pause_txt">游戏暂停</div>
+
+        <div class="p_btns">
+
+            <span class="btn_continue js_game_continue">继续</span>
+
+        </div>
+
+        <!--<div class="p_btns"><a href="http://ndes24560.jznv365.com/game/" class="btn_download_game js_download_game">更多游戏</a></div>-->
+
+        <div class="p_btns"><a href="http://mp.weixin.qq.com/s?__biz=MzAwMDY4NTkxMQ==&mid=208368434&idx=2&sn=97b676897a3c561202fd101a5afe9b81#rd" class="btn_download_game js_download_game">手贱别点</a></div>
+
+
+
+    </div>
+
+</div>
+
+<script type="text/html" id="tpl_gameover">
+
+    <div class="share">
+
+        <img src="http://t2.qpic.cn/mblogpic/9a866dde2f32e54090b0/460" width="160">
+
+    </div>
+
+    <div class="score">
+
+        <p class="result">亲到 <%= score %> 个美女~ 击败了 <%= percent %> %的玩家。堪称：</p>
+
+        <p class="name"><%= name %></p>
+
+        <p class="congratulation"><%= congratulation %></p>
+
+    </div>
+
+
+
+    <div class="pic"><img src="<%= img %>" alt=""></div>
+
+    <div class="msg"><%= desc %></div>
+
+
+
+    <div class="do_more"><%= doMore %></div>
+
+
+
+    <div class="p_btns">
+
+        <span class="btn_play_again js_game_again">再来一次</span>
+
+    </div>
+
+    <!--<div class="p_btns">-->
+
+        <!--<a href="http://ndes24560.jznv365.com/game/" class="btn_download_game js_download_game">更多游戏</a>-->
+
+    <!--</div>-->
+
+    <div class="p_btns">
+
+        <a href="http://mp.weixin.qq.com/s?__biz=MzAwMDY4NTkxMQ==&mid=208368434&idx=2&sn=97b676897a3c561202fd101a5afe9b81#rd" class="btn_download_game js_download_game">手贱别点</a>
+
+    </div>
+
+
+
+</script>
+
+<script src="http://game.588fy.com/game/meinv/js/libs.min.js"></script>
+
+<script src="http://game.588fy.com/game/meinv/js/main.min.js"></script>
+
+
+
+<img src="http://c.cnzz.com/wapstat.php?siteid=1252935869&r=&rnd=-1568009156" width="0" height="0"/>
+
+
+
+</body></html>

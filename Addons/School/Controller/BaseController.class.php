@@ -8,17 +8,26 @@
 
 namespace Addons\School\Controller;
 
+require_once 'Excel/PHPExcel.php';
+require_once 'Excel/PHPExcel/Reader/Excel2007.php';
+require_once 'Excel/PHPExcel/Reader/Excel5.php';
+include_once 'Excel/PHPExcel/IOFactory.php';
+include_once 'Excel/PHPExcel/style/Alignment.php';
+include_once 'Excel/PHPExcel/style/NumberFormat.php';
+require_once(dirname(__FILE__) . '/../../QingQing/Public/Weixin/JSSDK.php');
+
 use Home\Controller\AddonsController;
 use Think\Model;
 
-define ( 'MOBILE_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Mobile' );
-define ( 'MOBILE_PATH',"Addons://School@Mobile/");
+define ('MOBILE_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Mobile');
+define ('MOBILE_PATH', "Addons://School@Mobile/");
 
-define ( 'QINGQING_TOKEN',"gh_94ecad95d624");
+define ('QINGQING_TOKEN', "gh_94ecad95d624");
+
 class BaseController extends AddonsController
 {
 
-    static  $tableNames = array('student','student_question','student_banner','teacher','student_notification','qingqing_coupon','eo2o_payment');
+    static $tableNames = array('student', 'student_question', 'student_banner', 'teacher', 'student_notification', 'qingqing_coupon', 'eo2o_payment');
 
     function _initialize()
     {
@@ -60,27 +69,28 @@ class BaseController extends AddonsController
         $this->assign('nav', $nav);
 
         // set if
-        if(i('model') == 'teacher'){
+        if (i('model') == 'teacher') {
             $this->assign('nav', null);
         }
     }
-
 
     // 通用插件的增加模型
     public function lists()
     {
         $_POST['token'] = get_token();
+
         parent::common_lists($this->model);
     }
 
-    public function listsData(){
+    public function listsData()
+    {
         $data = M('student')->query("select id,type,token from wp_school_info");
 
-        foreach($data as &$vo){
-            array_unshift($vo, '<input type="checkbox" name="id[]" value="'.$vo['id'].'">');//向数组插入元素
+        foreach ($data as &$vo) {
+            array_unshift($vo, '<input type="checkbox" name="id[]" value="' . $vo['id'] . '">');//向数组插入元素
             $vo[1] = intval($vo[1]);
             $vo[2] = '12/09/2013';
-           $vo[3] = "test";
+            $vo[3] = "test";
         }
 
         $records = array();
@@ -96,7 +106,7 @@ class BaseController extends AddonsController
         $records["customActionMessage"] = "Group action successfully has been completed. Well done!"; // pass custom message(useful for getting status of group actions)
         $records["draw"] = intval($_REQUEST['draw']);
         $records["recordsTotal"] = 3;
-        $records["recordsFiltered"] =  3;
+        $records["recordsFiltered"] = 3;
 
         echo json_encode($records);
     }
@@ -124,170 +134,185 @@ class BaseController extends AddonsController
 
 
     // 获取模型列表数据
-    public function _get_model_list($model = null, $page = 0, $order = 'id desc') {
-        $page || $page = I ( 'p', 1, 'intval' ); // 默认显示第一页数据
+    public function _get_model_list($model = null, $page = 0, $order = 'id desc')
+    {
+        $page || $page = I('p', 1, 'intval'); // 默认显示第一页数据
 
         // 解析列表规则
-
-        $list_data = $this->_list_grid ( $model );
+        $list_data = $this->_list_grid($model);
         $grids = $list_data ['list_grids'];
         $fields = $list_data ['fields'];
 
         // 搜索条件
-        $map = $this->_search_map ( $model, $fields );
+        $map = $this->_search_map($model, $fields);
 
-        $row = empty ( $model ['list_row'] ) ? 20 : $model ['list_row'];
+        // 关键字搜索
+
+        $row = empty ($model ['list_row']) ? 20 : $model ['list_row'];
+
 
         // 读取模型数据列表
         if ($model ['extend']) {
-            $name = get_table_name ( $model ['id'] );
-            $parent = get_table_name ( $model ['extend'] );
-            $fix = C ( "DB_PREFIX" );
+            $name = get_table_name($model ['id']);
+            $parent = get_table_name($model ['extend']);
+            $fix = C("DB_PREFIX");
 
-            $key = array_search ( 'id', $fields );
+            $key = array_search('id', $fields);
             if (false === $key) {
-                array_push ( $fields, "{$fix}{$parent}.id as id" );
+                array_push($fields, "{$fix}{$parent}.id as id");
             } else {
                 $fields [$key] = "{$fix}{$parent}.id as id";
             }
 
             /* 查询记录数 */
-            $count = M ( $parent )->join ( "INNER JOIN {$fix}{$name} ON {$fix}{$parent}.id = {$fix}{$name}.id" )->where ( $map )->count ();
+            $count = M($parent)->join("INNER JOIN {$fix}{$name} ON {$fix}{$parent}.id = {$fix}{$name}.id")->where($map)->count();
 
             // 查询数据
-            $data = M ( $parent )->join ( "INNER JOIN {$fix}{$name} ON {$fix}{$parent}.id = {$fix}{$name}.id" )->field ( empty ( $fields ) ? true : $fields )->where ( $map )->order ( "{$fix}{$parent}.{$order}" )->page ( $page, $row )->select ();
+            $data = M($parent)->join("INNER JOIN {$fix}{$name} ON {$fix}{$parent}.id = {$fix}{$name}.id")->field(empty ($fields) ? true : $fields)->where($map)->order("{$fix}{$parent}.{$order}")->page($page, $row)->select();
         } else {
-            empty ( $fields ) || in_array ( 'id', $fields ) || array_push ( $fields, 'id' );
+            empty ($fields) || in_array('id', $fields) || array_push($fields, 'id');
 
 
             // special handle
-            $name = get_table_name ( $model ['id'] );
-            foreach(self::$tableNames as $handleName){
-                if(!strcmp($handleName, $name)){
+            $name = get_table_name($model ['id']);
+            foreach (self::$tableNames as $handleName) {
+                if (!strcmp($handleName, $name)) {
                     $name .= '_all';
                     break;
                 }
             }
             //$name = parse_name ($name, true );
-            $data = M ( $name )->field ( empty ( $fields ) ? true : $fields )->where ( $map )->order ( $order )->page ( $page, $row )->select ();
+            $data = M($name)->field(empty ($fields) ? true : $fields)->where($map)->order($order)->page($page, $row)->select();
 
             /* 查询记录总数 */
-            $count = M ( $name )->where ( $map )->count ();
+            $count = M($name)->where($map)->count();
         }
         $list_data ['list_data'] = $data;
 
         // 分页
         if ($count > $row) {
-            $page = new \Think\Page ( $count, $row );
-            $page->setConfig ( 'theme', '%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%' );
-            $list_data ['_page'] = $page->show ();
+            $page = new \Think\Page ($count, $row);
+            $page->setConfig('theme', '%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
+            $list_data ['_page'] = $page->show();
         }
 
         return $list_data;
     }
 
     // 解析列表规则
-    public function _list_grid($model) {
-        $fields = array ();
-        $grids = preg_split ( '/[;\r\n]+/s', htmlspecialchars_decode ( $model ['list_grid'] ) );
-        foreach ( $grids as &$value ) {
+    public function _list_grid($model)
+    {
+        $fields = array();
+        $grids = preg_split('/[;\r\n]+/s', htmlspecialchars_decode($model ['list_grid']));
+        foreach ($grids as &$value) {
             // 字段:标题:链接
-            $val = explode ( ':', $value );
+            $val = explode(':', $value);
             // 支持多个字段显示
-            $field = explode ( ',', $val [0] );
-            $value = array (
+            $field = explode(',', $val [0]);
+            $value = array(
                 'field' => $field,
                 'title' => $val [1]
             );
-            if (preg_match ( '/^([0-9]*)%/', $val [1], $matches )) {
-                $value ['title'] = str_replace ( $matches [0], '', $value ['title'] );
+            if (preg_match('/^([0-9]*)%/', $val [1], $matches)) {
+                $value ['title'] = str_replace($matches [0], '', $value ['title']);
                 $value ['width'] = $matches [1];
             }
-            if (isset ( $val [2] )) {
+            if (isset ($val [2])) {
                 // 链接信息
                 $value ['href'] = $val [2];
                 // 搜索链接信息中的字段信息
-                preg_replace_callback ( '/\[([a-z_]+)\]/', function ($match) use(&$fields) {
+                preg_replace_callback('/\[([a-z_]+)\]/', function ($match) use (&$fields) {
                     $fields [] = $match [1];
-                }, $value ['href'] );
+                }, $value ['href']);
             }
-            if (strpos ( $val [1], '|' )) {
+            if (strpos($val [1], '|')) {
                 // 显示格式定义
-                list ( $value ['title'], $value ['format'] ) = explode ( '|', $val [1] );
+                list ($value ['title'], $value ['format']) = explode('|', $val [1]);
             }
-            foreach ( $field as $val ) {
-                $array = explode ( '|', $val );
+            foreach ($field as $val) {
+                $array = explode('|', $val);
                 $fields [] = $array [0];
             }
         }
         // 过滤重复和错误字段信息
         $sign = ture;
-        foreach(self::$tableNames  as $tableName){
-            if(!strcmp($tableName, $model['name'])){
+        foreach (self::$tableNames as $tableName) {
+            if (!strcmp($tableName, $model['name'])) {
                 $sign = false;
                 break;
             }
         }
-        if($sign){
-        $model_fields = M ( 'attribute' )->where ( 'model_id=' . $model ['id'] )->field ( 'name' )->select ();
-        $model_fields = getSubByKey ( $model_fields, 'name' );
-        in_array ( 'id', $model_fields ) || array_push ( $model_fields, 'id' );
-        $fields = array_intersect ( $fields, $model_fields );
+        if ($sign) {
+            $model_fields = M('attribute')->where('model_id=' . $model ['id'])->field('name')->select();
+            $model_fields = getSubByKey($model_fields, 'name');
+            in_array('id', $model_fields) || array_push($model_fields, 'id');
+            $fields = array_intersect($fields, $model_fields);
         }
-        $res ['fields'] = array_unique ( $fields );
+        $res ['fields'] = array_unique($fields);
 
         $res ['list_grids'] = $grids;
         return $res;
     }
 
     // add the search map
-    public function _search_map($model, $fields) {
-        $map='';
+    public function _search_map($model, $fields)
+    {
+        $map = '';
 
-
-        foreach($_REQUEST as $name=>$vlaue) {
-            if (strpos($name, ',') && !empty($vlaue)) {
-                $where_str = " token = \"".get_token()."\" and ";
-                $map = parent::_search_map($model,$fields);
-
-                unset($map['token']);
-                unset($map[$name]);
-                // converth map
-                foreach($map as $mapMame=>$mapValue){
-                    $where_str =  $where_str.$mapMame.' = "'.$mapValue.'" and ';
-                }
-
-
-                // add the high search
-                $where_str = $where_str.' (';
-                $names = explode(',', $name);
-                $values = explode(' ', $vlaue);
-                foreach ($values as $fieldValue) {
-                    $where_str = $where_str.' (';
-                    foreach ($names as $field) {
-                        if(!empty($field) && !empty($fieldValue)){
-                            $where_str = $where_str. $field . ' like "%' . $fieldValue . '%" ' . 'or ' ;
-                        }
-                    }
-                    if(strrchr($where_str,'or ') == 'or '){
-                        $where_str = substr($where_str,0,sizeof($where_str)-4);
-                    }
-                    $where_str = $where_str.' ) and ';
-                }
-
-                if(strrchr($where_str,'and ') == 'and '){
-                    $where_str = substr($where_str,0,sizeof($where_str)-5);
-                }
-
-                $where_str = $where_str.' ) ';
-                $map = $where_str;
-
-                // get out
-                break;
+        foreach ($_REQUEST as $name => $value) {
+            if (strpos($name, ',')) {
+                $fieldName = $name;
+                $fieldValue = $value;
             }
         }
-        if(empty($map)){
-            $map = parent::_search_map($model,$fields);
+
+
+        if (!empty($fieldName)) {
+            $where_str = " token = \"" . get_token() . "\"  ";
+            $map = parent::_search_map($model, $fields);
+
+            unset($map['token']);
+            unset($map[$fieldName]);
+            // converth map
+            foreach ($map as $mapMame => $mapValue) {
+                $where_str =  $where_str. " and " . $mapMame . ' = "' . $mapValue . '" ';
+            }
+
+
+            // add the high search
+            if (!empty($fieldValue)) {
+                $where_str = $where_str . ' and  (';
+                $names = explode(',', $fieldName);
+                $values = explode(' ', $fieldValue);
+                foreach ($values as $fieldValue) {
+                    $where_str = $where_str . ' (';
+                    foreach ($names as $field) {
+                        if (!empty($field) && !empty($fieldValue)) {
+                            $where_str = $where_str . $field . ' like "%' . $fieldValue . '%" ' . 'or ';
+                        }
+                    }
+                    if (strrchr($where_str, 'or ') == 'or ') {
+                        $where_str = substr($where_str, 0, sizeof($where_str) - 4);
+                    }
+                    $where_str = $where_str . ' ) and ';
+                }
+
+                if (strrchr($where_str, 'and ') == 'and ') {
+                    $where_str = substr($where_str, 0, sizeof($where_str) - 5);
+                }
+
+                $where_str = $where_str . ' ) ';
+            }
+            $map = $where_str;
+
+            // get out
+        }
+        if (empty($map)) {
+            $_SERVER["PATH_INFO"];
+        }
+
+        if (empty($map)) {
+            $map = parent::_search_map($model, $fields);
         }
 
         return $map;
@@ -309,12 +334,256 @@ class BaseController extends AddonsController
     /**
      * check if the weixin is bind  student or teacher
      */
-    protected function  checkWeixinBind(){
-        $studentInfo =  M("student")->where("openid= \"".get_openid()."\" and token=\"".get_token()."\"")->find();
-        $teacherInfo =  M("teacher")->where("openid= \"".get_openid()."\" and token=\"".get_token()."\"")->find();
-        if(empty($studentInfo) && empty($teacherInfo)){
-            $this->display(T(MOBILE_PATH.'schoolCenterBind'));
+    protected function  checkWeixinBind()
+    {
+        $studentInfo = M("student")->where("openid= \"" . get_openid() . "\" and token=\"" . get_token() . "\"")->find();
+        $teacherInfo = M("teacher")->where("openid= \"" . get_openid() . "\" and token=\"" . get_token() . "\"")->find();
+        if (empty($studentInfo) && empty($teacherInfo)) {
+            $this->display(T(MOBILE_PATH . 'schoolCenterBind'));
         }
     }
 
+    /**
+     * download the model excel
+     */
+    public function downloadExcel($list_data = null)
+    {
+        // get the data
+        $model = $this->model;
+        $model ['list_row'] = 100000;
+        if (empty($list_data)) {
+            $list_data = $this->_get_model_list($model);
+        }
+
+        foreach ($list_data['list_data'] as &$record) {
+            for ($i = 0; $i < count($record); $i++) {
+                $record[$list_data['fields'][$i]] = get_list_field($record, $list_data['list_grids'][$i], $model);
+            }
+        }
+
+        // 创建一个处理对象实例
+        $objExcel = new \PHPExcel();
+
+        //设置文档基本属性
+        $objProps = $objExcel->getProperties();
+        $objProps->setCreator("QingQing");
+        $objProps->setTitle("导出数据");
+
+        //设置当前的sheet索引，用于后续的内容操作。
+        //一般只有在使用多个sheet的时候才需要显示调用。
+        //缺省情况下，PHPExcel会自动创建第一个sheet被设置SheetIndex=0
+        $objExcel->setActiveSheetIndex(0);
+        $objActSheet = $objExcel->getActiveSheet();
+
+        //由PHPExcel根据传入内容自动判断单元格内容类型
+        $skip = 0;
+        if (end($list_data['fields']) == "id") {
+            $skip = 1;
+        }
+        for ($i = 0, $b = 'A'; $i < sizeof($list_data['list_grids']) - $skip; $i++, $b++) {
+            $objActSheet->setCellValue($b . "1", $list_data['list_grids'][$i]["title"]);;
+            //$objActSheet->getColumnDimension($b)->setAutoSize(true);   //内容自适应
+            $objActSheet->getColumnDimension($b)->setWidth(20);   //内容自适应
+            $objActSheet->getStyle($b)->getNumberFormat()->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_TEXT);
+        }
+
+        for ($i = 0; $i <= sizeof($list_data['list_data']); $i++) {
+            for ($j = 0, $b = 'A'; $j < sizeof($list_data['list_data'][$i]) - $skip; $j++, $b++) {
+                $objActSheet->setCellValueExplicit($b . ($i + 2), $list_data['list_data'][$i][$list_data['fields'][$j]],
+                    \PHPExcel_Cell_DataType::TYPE_STRING);;
+            }
+        }
+
+        // write to file
+        $outputFileName = get_token() . i("model") . ".xls";
+        $objWriter = \PHPExcel_IOFactory::createWriter($objExcel, 'Excel5');
+        $objWriter->save($outputFileName);
+
+        redirect(__ROOT__ . "/" . $outputFileName);
+    }
+
+
+    /**
+     * get the model fields
+     * @param $model
+     * @return the model fields
+     */
+    public function getModelFields($model)
+    {
+        $model || $model = $this->getModel(I('model')); // 默认显示第一页数据
+        $list_data = $this->_list_grid($model);
+        $this->ajaxReturn($list_data);
+    }
+
+
+    /**
+     * get the model data
+     * @param null $model
+     * @param int $page
+     * @param string $order
+     */
+    public function getModelData($model = null, $page = 0, $order = 'id desc')
+    {
+        $model || $model = $this->getModel(I('model')); // 默认显示第一页数据
+        $page || $page = I('p', 1, 'intval'); // 默认显示第一页数据
+        $sEcho = '1';
+
+        // 解析列表规则
+        $list_data = $this->_list_grid($model);
+        $grids = $list_data ['list_grids'];
+        $fields = $list_data ['fields'];
+
+        // 搜索条件
+        $map = $this->_search_map($model, $fields);
+
+        $row = empty ($model ['list_row']) ? 20 : $model ['list_row'];
+
+        // 读取模型数据列表
+        if ($model ['extend']) {
+            $name = get_table_name($model ['id']);
+            $parent = get_table_name($model ['extend']);
+            $fix = C("DB_PREFIX");
+
+            $key = array_search('id', $fields);
+            if (false === $key) {
+                array_push($fields, "{$fix}{$parent}.id as id");
+            } else {
+                $fields [$key] = "{$fix}{$parent}.id as id";
+            }
+
+            /* 查询记录数 */
+            $count = M($parent)->join("INNER JOIN {$fix}{$name} ON {$fix}{$parent}.id = {$fix}{$name}.id")->where($map)->count();
+
+            // 查询数据
+            $data = M($parent)->join("INNER JOIN {$fix}{$name} ON {$fix}{$parent}.id = {$fix}{$name}.id")->field(empty ($fields) ? true : $fields)->where($map)->order("{$fix}{$parent}.{$order}")->page($page, $row)->select();
+        } else {
+            empty ($fields) || in_array('id', $fields) || array_push($fields, 'id');
+            $name = parse_name(get_table_name($model ['id']), true);
+            $data = M($name)->field(empty ($fields) ? true : $fields)->where($map)->order($order)->page($page, $row)->select();
+
+            /* 查询记录总数 */
+            $count = M($name)->where($map)->count();
+        }
+
+        foreach ($data as $record) {
+            $convertRecord = array_values($record);
+            for ($i = 0; $i < count($record); $i++) {
+                $convertRecord[$i] = get_list_field($record, $grids[$i], $model);
+            }
+
+            array_unshift($convertRecord, '<input type="checkbox" name="id[]" value="' . $record['id'] . '">');
+            $list_data ['data'][] = $convertRecord;
+        }
+
+        // $list_data ['data'] = json_encode( $list_data ['data'],true);
+        $list_data ['recordsTotal'] = $count;
+        $list_data["recordsFiltered"] = $count;
+        $list_data["draw"] = $sEcho;
+
+
+        $this->ajaxReturn($list_data);
+    }
+
+    public function modelAdd($model = null, $templateFile = '')
+    {
+        is_array($model) || $model = $this->getModel($model);
+        if (IS_POST) {
+            $Model = D(parse_name(get_table_name($model ['id']), 1));
+            // 获取模型的字段信息
+            $Model = $this->checkAttr($Model, $model ['id']);
+            if ($Model->create() && $id = $Model->add()) {
+                $this->_saveKeyword($model, $id);
+
+                $this->success('添加' . $model ['title'] . '成功！', U('lists?model=' . $model ['name'], $this->get_param));
+            } else {
+                $this->error($Model->getError());
+            }
+        } else {
+            $fields = get_model_attribute($model ['id']);
+            $this->assign('fields', $fields);
+            $this->meta_title = '新增' . $model ['title'];
+
+            $templateFile || $templateFile = $model ['template_add'] ? $model ['template_add'] : '';
+            $this->display($templateFile);
+        }
+    }
+
+    /**
+     * save the post data
+     * @return bool
+     */
+    public function saveModel()
+    {
+        $Model = D(parse_name(get_table_name($this->model  ['id']), 1));
+        $Model = $this->checkAttr($Model, $this->model['id']);
+        if (empty(i('id'))) {
+            $result = $Model->create() && $id = $Model->add();
+        } else {
+            $result = $Model->create() && $id = $Model->save();
+        }
+        if ($result) {
+            $this->_saveKeyword($this->model, $id);
+        }
+        return $Model->getError();
+    }
+
+    // 通用插件的编辑模型
+    public function modelEdit($model = null, $id = 0)
+    {
+        $modelData = json_decode(file_get_contents("php://input"));
+        if (!empty($modelData)) {
+            foreach ($modelData as $key => $value) {
+                $_REQUEST[$key] = $value;
+            }
+        }
+
+        is_array($model) || $model = $this->getModel($model);
+        $id || $id = I('id');
+
+        // 获取数据
+        $data = M(get_table_name($model ['id']))->find($id);
+        $data || $this->error('数据不存在！');
+
+//        $token = get_token ();
+//        if (isset ( $data ['token'] ) && $token != $data ['token'] && defined ( 'ADDON_PUBLIC_PATH' )) {
+//            $this->error ( '非法访问！' );
+//        }
+
+        if (IS_POST) {
+            $Model = D(parse_name(get_table_name($model ['id']), 1));
+            // 获取模型的字段信息
+            $Model = $this->checkAttr($Model, $model ['id']);
+            if ($Model->create() && $Model->save()) {
+                $this->_saveKeyword($model, $id);
+                $result = array("code" => "0", "msg" => '保存' . $model ['title'] . '成功！', U('lists?model=' . $model ['name'], $this->get_param));
+                $this->ajaxReturn($result);
+            } else {
+                $msg = $Model->getError() | "操作失败";
+                $result = array("code" => "-1", "msg" => $msg);
+            }
+            $this->ajaxReturn($result);
+        } else {
+//            $fields = get_model_attribute ( $model ['id'] );
+//
+//            $this->assign ( 'fields', $fields );
+//            $this->assign ( 'data', $data );
+//            $this->meta_title = '编辑' . $model ['title'];
+//
+//            $templateFile || $templateFile = $model ['template_edit'] ? $model ['template_edit'] : '';
+//            $this->display ( $templateFile );
+
+            $this->ajaxReturn($data);
+        }
+    }
+
+    /**
+     * return the page attention
+     */
+    public function wxSignPackage()
+    {
+        $appinfo = get_token_appinfo("gh_94ecad95d624");
+        $jssdk = new \JsSdk($appinfo["appid"], $appinfo["secret"]);
+        $signPackage = $jssdk->GetSignPackage($_SERVER['HTTP_REFERER']);
+        $this->ajaxReturn($signPackage);
+    }
 }

@@ -14,9 +14,9 @@
     <meta property="og:title" content="16分以下不要再玩手机了！">
     <meta property="og:description" content="你想知道自己的色彩分辨能力有多强吗？快來进行免费的色彩测试。找出所有色块里颜色不同的一个!">
     <meta name="x-share-desc" content="你想知道自己的色彩分辨能力有多強吗？快来进行免费的视觉测试！" data-custom="你想知道自己的色彩分辨能力有多強吗？快来进行免费的视觉测试！">
-    <!--<meta name="x-share-icon" content="http://www.lezyo.com/special/game/color/static/share_logo.gif">-->
+    <!--<meta name="x-share-icon" content="{:QINGQING_MOBILE_PUBLIC_PATH}/file/share_logo.gif">-->
     <!--<meta property="og:image" content="{:QINGQING_MOBILE_PUBLIC_PATH}/file/icon.png">-->
-    <link rel="stylesheet" href="http://www.lezyo.com/special/game/color/static/m.css">
+    <link rel="stylesheet" href="{:QINGQING_MOBILE_PUBLIC_PATH}/file/m.css">
     <!--<script type="text/javascript" async="" src="{:QINGQING_MOBILE_PUBLIC_PATH}/file/linkid.js"></script>-->
     <script type="text/javascript" async="" src="{:QINGQING_MOBILE_PUBLIC_PATH}/file/color.min.js"></script>
     <!--<script src="{:QINGQING_MOBILE_PUBLIC_PATH}/file/zepto.min.js"></script>-->
@@ -30,6 +30,18 @@
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(hm, s);
         })();
+
+//        function attention() {
+//            _hmt.push(['_trackEvent', 'software', 'foxcard']);
+//            window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.sihan.foxcard.android";
+//        }
+
+        function attention() {
+            _hmt.push(['_trackEvent', 'weixin', 'attention']);
+            window.location.href = "http://mp.weixin.qq.com/s?__biz=MzAwMDY4NTkxMQ==&mid=208368434&idx=2&sn=97b676897a3c561202fd101a5afe9b81#rd";
+        }
+
+
 
         var _paq = _paq || [];
         // jssdk config 对象
@@ -94,7 +106,7 @@
                 title: share_title,
                 desc: share_desc,
                 link: share_url,
-                imgUrl: "http://www.lezyo.com/special/game/color/static/share_logo.gif",
+                imgUrl: "{:QINGQING_MOBILE_PUBLIC_PATH}/file/share_logo.gif",
                 trigger: function (res) {
                 },
                 success: function (res) {
@@ -181,22 +193,13 @@
             return shareURL;
         }
 
-        function getTPCodeFromURL() {
-            var pattern = /tpcode=([0-9a-z]{12})/i;
-            tpCode = pattern.exec(window.location.href)[1];
-            if (tpCode == undefined || tpCode.length != 12)
-                return '';
-            return tpCode;
-        }
 
-        var fatherTPCode = getTPCodeFromURL();
-        if (fatherTPCode != undefined)
-            _paq.push(['setCustomVariable', 1, "TrackPath_From", fatherTPCode, "visit"]);
 
-        var myTPCode = getTPCode();
-        if (myTPCode != undefined)
-            _paq.push(['setCustomVariable', 2, "TrackPath_Mine", myTPCode, "visit"]);
+
+
         /*Track Path Info End*/
+
+
     </script>
     <style>
         #mask {
@@ -232,14 +235,13 @@
     }
     </style>
 
-
 </head>
 
 <body>
 
-<img src="http://www.lezyo.com/special/game/color/static/share_logo.gif" width="0" height="0" style="position:absolute">
+<img src="{:QINGQING_MOBILE_PUBLIC_PATH}/file/share_logo.gif" width="0" height="0" style="position:absolute">
 
-<div id="mask" onclick="javascript:$('#mask').css('display', 'none');"><img src="http://www.lezyo.com/special/game/color/static/share_white.gif"></div>
+<div id="mask" onclick="javascript:$('#mask').css('display', 'none');"><img src="{:QINGQING_MOBILE_PUBLIC_PATH}/file/share_white.gif"></div>
 <div class="grid">
     <div class="page hide" id="index" style="display: block;">
         <h1>测测你的视力有多强</h1>
@@ -278,7 +280,7 @@
         </header>
         <div id="box" class="lv1">
         </div>
-        <div style="position:absolute;text-align: center;left:10%;right: 10%;bottom: 5px;font-size:15px "><span>轻轻学车（公众号：qqxueche).<br>关注送学车红包，<a href="http://www.iqqxc.com/index.php?s=/home/Index/leaflets/token/gh_94ecad95d624.html">戳我</a>！</span></div>
+        <div style="position:absolute;text-align: center;left:10%;right: 10%;bottom: 5px;font-size:15px "><span>比比排名，抢红包 <a  href="#" onclick="attention()">戳我</a>！</span></div>
     </div>
     <div class="page hide" id="dialog">
         <div class="inner">
@@ -300,7 +302,7 @@
                     </button>
                 </div>
                 <br>
-                <div style="position:absolute;text-align: center;left:10%;right: 10%;bottom: 5px;font-size:15px "><span>轻轻学车（公众号：qqxueche).<br>关注送学车红包，<a href="http://www.iqqxc.com/index.php?s=/home/Index/leaflets/token/gh_94ecad95d624.html">戳我</a>！</span></div>
+                <div style="position:absolute;text-align: center;left:10%;right: 10%;bottom: 5px;font-size:15px "><span>比比排名，抢红包 <a href="#" onclick="attention()">搓我</a>！</span></div>
             </div>
             <div class="content pause">
                 <h3>

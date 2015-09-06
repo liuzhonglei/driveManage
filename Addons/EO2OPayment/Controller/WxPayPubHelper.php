@@ -366,10 +366,10 @@ class UnifiedOrder_pub extends Wxpay_client_pub
         $this->postXml();
         $this->result = $this->xmlToArray($this->response);
 		if($this->result['return_code'] == 'FAIL' ){
-            return false;
+            return $this->result;
         }else{
             //save the result
-            M('eo2o_payment').add($this->result);
+          //  M('eo2o_payment').add($this->result);
 
             //return
 	    	$prepay_id = $this->result["prepay_id"];
