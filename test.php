@@ -9,31 +9,28 @@
 error_reporting ( E_ERROR );
 date_default_timezone_set ( 'PRC' );
 if (version_compare ( PHP_VERSION, '5.3.0', '<' ))
-	die ( 'Your PHP Version is ' . PHP_VERSION . ', But WeiPHP require PHP > 5.3.0 !' );
+    die ( 'Your PHP Version is ' . PHP_VERSION . ', But WeiPHP require PHP > 5.3.0 !' );
 
-$path = getcwd();
-chdir("../");
-define ('__ROOT__',"/");
 /**
  * 微信接入验证
  * 在入口进行验证而不是放到框架里验证，主要是解决验证URL超时的问题
  */
 if (! empty ( $_GET ['echostr'] ) && ! empty ( $_GET ["signature"] ) && ! empty ( $_GET ["nonce"] )) {
-	$signature = $_GET ["signature"];
-	$timestamp = $_GET ["timestamp"];
-	$nonce = $_GET ["nonce"];
-	$tmpArr = array (
-		'weiphp',
-		$timestamp,
-		$nonce
-		);
-	sort ( $tmpArr, SORT_STRING );
-	$tmpStr = sha1 ( implode ( $tmpArr ) );
+    $signature = $_GET ["signature"];
+    $timestamp = $_GET ["timestamp"];
+    $nonce = $_GET ["nonce"];
+    $tmpArr = array (
+        'weiphp',
+        $timestamp,
+        $nonce
+    );
+    sort ( $tmpArr, SORT_STRING );
+    $tmpStr = sha1 ( implode ( $tmpArr ) );
 
-	if ($tmpStr == $signature) {
-		echo $_GET ["echostr"];
-	}
-	exit ();
+    if ($tmpStr == $signature) {
+        echo $_GET ["echostr"];
+    }
+    exit ();
 }
 /**
  * 系统调试设置
@@ -56,8 +53,8 @@ define ( 'SITE_PATH', dirname ( __FILE__ ) );
 define ( 'APP_PATH', './Application/' );
 
 if (! is_file ( APP_PATH . 'User/Conf/config.php' )) {
-	header ( 'Location: ./install.php' );
-	exit ();
+    header ( 'Location: ./install.php' );
+    exit ();
 }
 
 /**

@@ -815,6 +815,7 @@ abstract class Controller {
 		
 		return $list_data;
 	}
+
 	// 解析列表规则
 	public function _list_grid($model) {
 		$fields = array ();

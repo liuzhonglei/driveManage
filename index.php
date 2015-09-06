@@ -19,12 +19,11 @@ if (! empty ( $_GET ['echostr'] ) && ! empty ( $_GET ["signature"] ) && ! empty 
 	$signature = $_GET ["signature"];
 	$timestamp = $_GET ["timestamp"];
 	$nonce = $_GET ["nonce"];
-	
 	$tmpArr = array (
-			'weiphp',
-			$timestamp,
-			$nonce 
-	);
+		'weiphp',
+		$timestamp,
+		$nonce 
+		);
 	sort ( $tmpArr, SORT_STRING );
 	$tmpStr = sha1 ( implode ( $tmpArr ) );
 	

@@ -8,10 +8,18 @@ var TableAjax = function () {
         });
     }
 
+    var initMenu = function(dataSrc){
+        $.get(dataSrc, function(data){
+            for(var i=0; i < data.fields.length; i++){
+                var menu = $(".heading");
+                menu.html(menu.html()+'<th class="sorting" tabindex="0" aria-controls="datatable_ajax" rowspan="1" colspan="1">'+data.fields[i]+'</th>');
+            }
+        });
+    }
+
     var handleRecords = function (dataSrc) {
 
         var grid = new Datatable();
-
         grid.init({
             src: $("#datatable_ajax"),
             onSuccess: function (grid) {
@@ -20,6 +28,23 @@ var TableAjax = function () {
             onError: function (grid) {
                 // execute some code on network or other general error  
             },
+            aoColumns:[
+                { "sTitle": "Engine" },
+                { "sTitle": "Browser" },
+                { "sTitle": "Platform" },
+                { "sTitle": "Version", "sClass": "center" },
+                {
+                    "sTitle": "Grade",
+                    "sClass": "center",
+                    "fnRender": function(obj) {
+                        var sReturn = obj.aData[ obj.iDataColumn ];
+                        if ( sReturn == "A" ) {
+                            sReturn = "<b>A</b>";
+                        }
+                        return sReturn;
+                    }
+                }
+            ],
             loadingMessage: 'Loading...',
             dataTable: { // here you can define a typical datatable settings from http://datatables.net/usage/options 
 
@@ -27,7 +52,6 @@ var TableAjax = function () {
                 // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/scripts/datatable.js). 
                 // So when dropdowns used the scrollable div should be removed. 
                 //"dom": "<'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'<'table-group-actions pull-right'>>r>t<'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'>>",
-                
                 "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
 
                 "lengthMenu": [
@@ -77,9 +101,10 @@ var TableAjax = function () {
     return {
 
         //main function to initiate the module
-        init: function (dataSrc) {
+        init: function (model) {
+            //initMenu(Metronic.rootPath()+"/index.php?s=/addon/School/School/getModelFields/model/"+model);
             initPickers();
-            handleRecords(dataSrc);
+            handleRecords(Metronic.rootPath()+"/index.php?s=/addon/School/School/getModelData/model/"+model+"/p/0/draw/1/token/gh_36a5c6958de0");
         }
     };
 }();
