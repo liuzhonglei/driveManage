@@ -12,7 +12,7 @@ use Common\Controller\Addon;
 
         public $info = array(
             'name'=>'EO2OPayment',
-            'title'=>'鑫无线支付插件',
+            'title'=>'支付信息',
             'description'=>'支持微信支付，参考Controller/EO2OPaymentController 里面的PayTo 使用',
             'status'=>1,
             'author'=>'鑫无线',

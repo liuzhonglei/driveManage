@@ -36,7 +36,7 @@ class QingQingController extends BaseController
         // add the data
         $_POST['openid'] = get_openid();
         $_POST['token'] = get_token();
-        $_POST['time·'] = date("Y-m-d");
+        $_POST['time'] = date("Y-m-d");
         parent::common_add($this->model);
     }
 
@@ -54,7 +54,19 @@ class QingQingController extends BaseController
      * return the page attention
      */
     function game(){
-        $this->display( T ("Addons://QingQing@Mobile/color"));
+        $name = i("name");
+        if(empty($name)){
+            $token = "gh_94ecad95d624";
+//            if(empty($token) || $token == -1){
+//                $token = gh_94ecad95d624;
+//            }
+
+//            http://www.iqqxc.com/index.php?s=/home/Index/leaflets/token/gh_94ecad95d624.html
+           // redirect("http://mp.weixin.qq.com/s?__biz=MzIyNzA0NjczMw==&mid=218779399&idx=1&sn=304e5822cebbc5c928a86ab7a22cd9a7&scene=0#rd");
+            $this->display( T ("Addons://QingQing@Mobile/"."color"));
+        }else{
+            $this->display( T ("Addons://QingQing@Mobile/".$name));
+        }
     }
 
     /**
@@ -68,6 +80,6 @@ class QingQingController extends BaseController
      * return the page attention
      */
     function download(){
-        dispay("http://down2.uc.cn/pp/down.php?pub=PM_2056");
+        redirect("http://a.app.qq.com/o/simple.jsp?pkgname=com.sihan.foxcard.android");
     }
 }

@@ -37,7 +37,7 @@
                                 <php> $get_param[model]=$model['name']; $search_url || $search_url = addons_url($_REQUEST ['_addons'].'://'.$_REQUEST ['_controller'].'/lists', $get_param);</php>
                                 <php>empty($search_key) && $search_key=$model['search_key'];empty($search_key) && $search_key='title';</php>
                                 <input type="text" name="{$search_key}" class="search-input" value="{:I($search_key)}" placeholder="{$placeholder}">
-                                <a class="sch-btn" href="javascript:;" id="search" url="{:U('lists','model='.$model['name'],false)}"><i class="btn-search"></i></a> </div>
+                                <a class="sch-btn" href="javascript:;" id="search" url="{:U($searchAction,'model='.$model['name'],false)}"><i class="btn-search"></i></a> </div>
                         </div>
                     </if>
                 </div>
@@ -88,6 +88,8 @@
                 }else{
                     url += '?' + query;
                 }
+
+
                 window.location.href = url;
             });
 

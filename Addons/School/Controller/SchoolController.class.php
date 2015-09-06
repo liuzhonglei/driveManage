@@ -12,15 +12,13 @@ class SchoolController extends BaseController
     {
         $this->model = $this->getModel('school');
         parent::_initialize();
-
         // 子导航
         $action = strtolower(_ACTION);
         $res ['title'] = '信息';
         $res ['url'] = addons_url('School://school/lists');
         $res ['class'] = 'cur';
         $nav [] = $res;
-
-
+    
         $this->assign('sub_nav', $nav);
     }
 
@@ -43,7 +41,6 @@ class SchoolController extends BaseController
         $this->display("lists");
     }
 
-
      /**
       * edit the page
       * @return [type] [description]
@@ -55,8 +52,6 @@ class SchoolController extends BaseController
         redirect($url);
     }
 
-   
-
      /**
      * show the page
      */
@@ -64,8 +59,6 @@ class SchoolController extends BaseController
         $page = i('page');
         $this->display ( T ( MOBILE_PATH.$page ) );
     }
-
-
 
     /**
      * show the index page
@@ -89,9 +82,6 @@ class SchoolController extends BaseController
         $url = MOBILE_PATH.'index';
         $this->display(T($url));
     }
-
-
-
 
     /**
      * show the school plage navigator page
@@ -271,6 +261,22 @@ class SchoolController extends BaseController
      */
     function showMyStudents(){
         $this->display ( T ( MOBILE_PATH.'teacherCenterStudentList' ) );
+    }
+
+
+    /**
+     * return the recommandPage
+     */
+    function getRecommandPage(){
+        // param
+        $token = get_token();
+        $openid = get_openid();
+        $teacherInfo =  M('teacher')->where("token = \"".$token."\" and openid = \"".$openid."\"")->find();
+        if(!empty($teacherInfo)){
+            redirect(addons_url("Teacher://Teacher/teacherPage",array("teacher_id"=>$teacherInfo["id"])));
+        }else {
+            redirect(addons_url("Student://Student/studentPayAdvance", array("token" => $token)));
+        }
     }
 
    

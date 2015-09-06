@@ -30,7 +30,7 @@ a.text-primary{
   text-align: right;
 }
 .text-center {
-  text-align: center;
+  text-align: center !important;
 }
 textarea,input{font-family: '微软雅黑'; font-weight:normal}
 img{ vertical-align:middle}
@@ -2264,8 +2264,8 @@ p{
 	height:65px;
 	overflow:hidden;
 	margin:25px auto 5px;	
-	-webkit-border-radius:65px;
-	border-radius:65px;
+	-webkit-border-radius:50%;
+	border-radius:50%;
 	border:2px solid #fff;
 }
 .c_merchant_pic img{
@@ -2329,12 +2329,9 @@ p{
 
 /*二级面板*/
 .c_panel{
-	min-width:258px;
-	padding-top:15px;
-	padding-bottom:15px;
-	background:#fff;	
-	border-radius: 3px;
-   -webkit-border-radius: 3px;
+	min-width:288px;
+	padding-top:8px;
+	padding-bottom:12px;
 }
 .c_panel > div > h3{
 	font-size:1.1em;

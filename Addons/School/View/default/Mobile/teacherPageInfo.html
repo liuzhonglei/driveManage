@@ -24,6 +24,18 @@
     <div class="c_box" id="allmap" style="height: 70px">
     </div>
 </div>
+<if condition="$payItme neq null">
+    <div class="x_blank"></div>
+    <div class="c_box">
+        <div class="tit01">优惠活动</div>
+        <div class="mainList">
+            <dl class="mainInfo">
+                1、选择课程，进入预约，注册并支付100元预约金。现场报名在享受驾校同期最低价格同时，可再抵用200元；<br/>
+                2、手机保持畅通，美女客服将与你联系并支付红包金额；
+            </dl>
+        </div>
+    </div>
+</if>
 <div class="x_blank"></div>
 <div class="c_box">
     <div class="tit01">开设课程</div>
@@ -52,7 +64,7 @@
 <div class="c_box">
     <div class="tit01" id="apprise_num">学员评价</div>
     <div class="masterComment">
-        <ul id = 'apprise_data'>
+        <ul id='apprise_data'>
         </ul>
         <input id="load_number" type="hidden" value="0">
         <a href="#" class="ui-btn ui-corner-all x_btn x_mini" id="load_more" onclick="load_more()">加载更多</a>
@@ -102,16 +114,16 @@
                 for (var i=0;i<data.length;i++){
                     // inner html
                     var html =
-                    '<li>'+
-                        '<div class="tit01">';
+                            '<li>'+
+                            '<div class="tit01">';
                     if(data[i].headimgurl != null){
                         html +=   '<img src="'+data[i].headimgurl+'" >';
                     }
                     html += data[i].show_name+
-                        '<span>'+data[i].format_time+'</span></div>'+
-                        '<div class="row01">'+
-                        data[i].apprise+
-                        '</div>'+
+                    '<span>'+data[i].format_time+'</span></div>'+
+                    '<div class="row01">'+
+                    data[i].apprise+
+                    '</div>'+
                     '</li>';
 
                     appriseData.innerHTML  += html;

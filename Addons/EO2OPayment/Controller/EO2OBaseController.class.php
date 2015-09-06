@@ -13,14 +13,14 @@ class EO2OBaseController extends BaseController {
 		$controller = strtolower ( _CONTROLLER );
         $action = strtolower ( _ACTION );
 	
-		$res ['title'] = '客户';
+		$res ['title'] = '划款信息';
 		$res ['url'] = addons_url ( 'EO2OPayment://EO2OPayment/lists' );
-		$res ['class'] = $action == 'lists' ? 'cur' : '';
+		$res ['class'] = $action == 'lists' ? 'current' : '';
 		$nav [] = $res;
 		
 		$res ['title'] = '系统设置';
 		$res ['url'] = addons_url ( 'EO2OPayment://EO2OPayment/config' );
-		$res ['class'] = $action == 'config' ? 'cur' : '';
+		$res ['class'] = $action == 'config' ? 'current' : '';
 		$nav [] = $res;
 		
 		$this->assign ( 'nav', $nav );
@@ -28,8 +28,6 @@ class EO2OBaseController extends BaseController {
 		$config = getAddonConfig ( 'EO2OPayment' );
 		$config ['background_url'] = $config ['background'] == 11 ? $config ['background_custom'] : ADDON_PUBLIC_PATH . '/card_bg_' . $config ['background'] . '.png';
 		$this->assign ( 'config', $config );
-		//dump ( $config );
-		//dump(get_token());
 	}
 	
 	protected function log($logtxt)

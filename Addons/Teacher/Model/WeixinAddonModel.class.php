@@ -11,6 +11,7 @@ class WeixinAddonModel extends WeixinModel{
         // 其中token和openid这两个参数一定要传，否则程序不知道是哪个微信用户进入了系统
         $param ['token'] = $this->data['ToUserName'];
         $param ['openid'] =$this->data['FromUserName'];
+        $param ['page'] = 'schoolTeacherList';
 
         // get the data
         $map = array('token' => $param ['token'],'type'=>'0');
@@ -22,7 +23,7 @@ class WeixinAddonModel extends WeixinModel{
             'Title' => $school['name'],
             'Description' => '点击查找教练',
             'PicUrl' => get_cover_url($photo['photo']),
-            'Url' =>  addons_url('School://School/getTeacher', $param)
+            'Url' =>  addons_url('School://School/showPage', $param)
         );
         $this->replyNews($articles);
 
