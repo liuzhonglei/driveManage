@@ -76,6 +76,7 @@ function info_submit() {
         data: 'id_in_teacher='+teacher_id+'&course_id='+course_id+'&name=' + name + '&phone=' + phone + '&remark=' + remark+"&token="+ token,
         success: function (data) {
             if(data.status == 0 ){
+                document.getElementById("c_success").style.display = "none";
                 document.getElementById("c_warn").style.display = "";
                 document.getElementById("c_warn_label").innerHTML = data.info;
             }else{
