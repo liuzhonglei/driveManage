@@ -478,6 +478,10 @@ str;
             $this->assign("signHide", "");
         }
 
+        // the activity
+        $payItme = M("school_payitem")->where("type='activity' and token = '" . $token . "'")->find();
+        $this->assign("payItme",$payItme);
+
         // display
         $this->display(T(MOBILE_PATH . 'teacherPageRegister'));
     }

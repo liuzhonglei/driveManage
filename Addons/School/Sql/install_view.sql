@@ -16,7 +16,7 @@ SELECT
 		WHEN '1' THEN
 			t2. NAME
 		ELSE
-			''
+			t.in_student_openid
 		END
 	) in_name,
 	t8.total_fee

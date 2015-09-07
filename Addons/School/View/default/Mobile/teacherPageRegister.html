@@ -17,7 +17,11 @@
     <input type="text" data-role="none" id="re_remark" value="{$studentInfo.remark}" placeholder="备注">
 </div>
 <div class="item_note text-center">{$signText}</div>
-<div class="c_remark"  {$signHide}>报名说明：报名成功后,驾校会在第一时间联系您与您确认,请耐心等候。如急需报名可拨打我们的预约电话联系我们。</div>
+<if condition="$payItme neq null">
+    <div class="c_remark" {$signHide}>报名说明：姓名、手机提交后，直接微信支付100，到店可以抵用200！</div>
+    <else/>
+    <div class="c_remark" {$signHide}>报名说明：报名成功后,驾校会在第一时间联系您与您确认,请耐心等候。如急需报名可拨打我们的预约电话联系我们。</div>
+</if>
 <div class="c_warn_bk"  >
     <div class="c_warn" id="c_warn" style="display:none"><span ></span><label id="c_warn_label">请输入正确的电话号码！</label></div>
     <div class="c_warn" id="c_success"  style="display:none"><span class="icon_success"></span><label>提交成功，我们会尽快和您联系！</label></div>
@@ -26,36 +30,6 @@
     <a href="#" class="ui-btn ui-corner-all x_btn x_btn_curr" onclick = "info_submit()">提交</a>
 </div>
 <script>
-//$(function(){
-//	/*报名表单*/
-//	$(".c_formFull input").focus(function(){
-//		  $(this).addClass("focus");
-//		  if($(this).val() ==this.defaultValue){
-//		      if($(this).attr("id")=="psw"){
-//				   	$("#pswShow").show();
-//				  	$(this).attr("type","password");
-//			  }
-//			  $(this).val("");
-//		  }
-//	}).blur(function(){
-//		 if ($(this).val() == '') {
-//			 $(this).removeClass("focus");
-//			$(this).val(this.defaultValue);
-//			if($(this).attr("id")=="psw"){
-//				  	$(this).attr("type","text");
-//
-//			  }
-//		 }else{
-//			 $(this).addClass("focus");
-//			}
-//	});
-//});
-//
-//function getQueryString(name) {
-//    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-//    var r = window.location.search.substr(1).match(reg);
-//    if (r != null) return unescape(r[2]); return null;
-//}
 
 function info_submit() {
     var teacher_id = $("#teacher_id").val();
@@ -77,8 +51,9 @@ function info_submit() {
         return;
     }
 
+<if condition="$payItme neq null">
 
-    var url = "{:U('/addon/Student/Student/studentPayAdvance',null,false)}/id_in_teacher="+teacher_id+'&course_id='+course_id+'&name=' + name + '&phone=' + phone + '&remark=' + remark+"&token="+ token; // 跳转到支付界面
+        var url = "{:U('/addon/Student/Student/studentPayAdvance',null,false)}/id_in_teacher="+teacher_id+'&course_id='+course_id+'&name=' + name + '&phone=' + phone + '&remark=' + remark+"&token="+ token; // 跳转到支付界面
     $.post(url, null, function (response) {
         if (response.status == 0) {
             document.getElementById("c_success").style.display = "none";
@@ -93,5 +68,25 @@ function info_submit() {
             });
         }
     });
+<else />
+    $.ajax({ //一个Ajax过程
+        type: "post",
+        url: "{:U('register')}",
+        dataType: 'json',
+        data: 'id_in_teacher='+teacher_id+'&course_id='+course_id+'&name=' + name + '&phone=' + phone + '&remark=' + remark+"&token="+ token,
+        success: function (data) {
+            if(data.status == 0 ){
+                document.getElementById("c_warn").style.display = "";
+                document.getElementById("c_warn_label").innerHTML = data.info;
+            }else{
+                document.getElementById("c_success").style.display = "";
+                document.getElementById("c_success").getElementsByTagName('label') .innerHTML = "报名成功";
+            }
+        },
+        failed: function(){
+            alert("报名出错！");
+        }
+    })
+    </if>
 };
 </script>
