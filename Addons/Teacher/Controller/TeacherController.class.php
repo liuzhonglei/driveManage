@@ -343,6 +343,7 @@ str;
     {
         $teacher_id = $_REQUEST['teacher_id'];
         $token = $this->getTeacherToken($teacher_id);
+        get_token($token);
         $code_url = U('/home/Index/leaflets', 'token=' . get_token());
         $this->assign('code_url', $code_url);
 

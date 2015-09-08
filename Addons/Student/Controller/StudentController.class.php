@@ -47,7 +47,7 @@ class StudentController extends StudentBaseController
         // tips
         $normal_tips = '一般情况下请不要删除数据，会影响对应的与评价等相关数据。';
         $this->assign('normal_tips', $normal_tips);
-        $top_more_button = array(array("is_buttion" => "0", "title" => "EXL导出", "url" => U("downloadExcel")));
+        $top_more_button = array(array("is_buttion" => "0", "title" => "EXL导出", "url" => U("listsExcel")));
         $this->assign('top_more_button', $top_more_button);
         $this->assign('searchAction', "lists");
 
@@ -70,6 +70,23 @@ class StudentController extends StudentBaseController
         $this->display("lists");
     }
 
+    /**
+     * download the studentl lists
+     */
+    public function listsExcel(){
+        $this->model ['list_row'] = 100000;
+        // get data
+        $list_data = $this->_get_model_list($this->model);
+
+        // if referrer is student set in_name
+        foreach ($list_data['list_data'] as &$data) {
+            if ($data['intro_source'] == "2" && !empty($data['in_name'])) {
+                $inStudentInfo = M('student')->where('token = "' . get_token() . '" and openid="' . $data["in_name"] . '"')->find();
+                $data["in_name"] = $inStudentInfo['name'];
+            }
+        }
+        $this->downloadExcel($list_data);
+    }
 
     /**
      * get the sign student data
@@ -676,9 +693,13 @@ class StudentController extends StudentBaseController
     function studentPayAdvance()
     {
         // param
-        $token = get_token();
-        $openid = get_openid();
         $id_in_teacher = $_GET["id_in_teacher"];
+        if (!empty($id_in_teacher)) {
+            $teacherInfo = M('teacher')->where('id=' . $id_in_teacher)->find();
+            get_token($teacherInfo['token']);
+        }
+        $openid = get_openid();
+        $token = get_token();
         $in_student_openid = $_GET["in_student_openid"];
         $studentInfo = $this->getMyInfo();
 
@@ -726,8 +747,9 @@ class StudentController extends StudentBaseController
             $_POST['name'] = $_GET['name'];
             $_POST['phone'] = $_GET['phone'];
             $_POST['remark'] = $_GET['remark'];
+            $_POST['id_in_teacher'] = $_GET['id_in_teacher'];
             $_POST['in_student_openid'] = $in_student_openid;
-            if (!empty(id_in_teacher)) {
+            if (!empty($id_in_teacher)) {
                 $_POST['intro_source'] = '1';
             } else if (!empty($in_student_openid)) {
                 $_POST['intro_source'] = '2';
@@ -746,6 +768,7 @@ class StudentController extends StudentBaseController
             R('Addons://EO2OPayment/EO2OPayment/paymentData');
         }
     }
+
 
     /**
      * return the student pay advance result
@@ -770,19 +793,37 @@ class StudentController extends StudentBaseController
      */
     function getMyStudent()
     {
+        // param
+        $token = get_token();
         $openid = get_openid();
+        $where = 'token = "'.$token.'" and openid = "'.$openid.'"';
+        $queryParam = "";
 
-        // find teacher
+        // current user is student or teacher
+        $student = M("student")->where($where)->find();
+        $teacher = M("teacher")->where($where)->find();
+        if(!empty($student)){
+            $queryParam = 't.in_student_openid="'.$openid.'"';
+        }else if(!empty($teacher)){
+            $queryParam = 't.id_in_teacher="'.$teacher['id'].'"';
+        }else{
+            $this->ajaxReturn("", 'JSON');
+        }
+
+
+        // find student
         $sql = <<<str
 SELECT DISTINCT
 	t.*, FROM_UNIXTIME(t.time_sign, "%Y-%m-%d") sign_date,t2.headimgurl
 FROM
 	wp_student t
-left join wp_follow t2 on t.openid = t2.openid
-where t.in_student_openid = "$openid"
+left join wp_follow t2 on t.token = t2.token and  t.openid = t2.openid
+where $queryParam
 order by t.id desc
 str;
         $data = M('student')->query($sql);
+
+        // return
         $this->ajaxReturn($data, 'JSON');
     }
 }

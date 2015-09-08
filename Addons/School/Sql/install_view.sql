@@ -15,8 +15,10 @@ SELECT
 		CASE t.intro_source
 		WHEN '1' THEN
 			t2. NAME
-		ELSE
+    WHEN '2' THEN
 			t.in_student_openid
+		ELSE
+			''
 		END
 	) in_name,
 	t8.total_fee

@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="format-detection" content="telephone=no">
-<link rel="apple-touch-icon-precomposed" href="{:MOBILE_PUBLIC_PATH}/img/screen_icon.png">
-<title>我的教练</title>
-<link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/jquery.mobile-1.4.4.css" />
-<link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/car.css">
-<script src="{:MOBILE_PUBLIC_PATH}/js/jquery-1.11.1.min.js"></script>
-<script src="{:MOBILE_PUBLIC_PATH}/js/jquery.mobile-1.4.4.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon-precomposed" href="{:MOBILE_PUBLIC_PATH}/img/screen_icon.png">
+    <title>我的教练</title>
+    <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/jquery.mobile-1.4.4.css"/>
+    <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/car.css">
+    <script src="{:MOBILE_PUBLIC_PATH}/js/jquery-1.11.1.min.js"></script>
+    <script src="{:MOBILE_PUBLIC_PATH}/js/jquery.mobile-1.4.4.min.js"></script>
     <script src="{:MOBILE_PUBLIC_PATH}/js/car.js"></script>
 </head>
 <body class="x_flowAuto">
 <div id="pageFollow" data-role="page" data-theme="none">
-    <div data-role="header" data-theme="none"  class="x_header"  data-position="fixed"  data-tap-toggle="false">
-        <a href="#"  data-role="none" data-rel="back" class="x_btn_back" data-transition="slide"></a>
+    <div data-role="header" data-theme="none" class="x_header" data-position="fixed" data-tap-toggle="false">
+        <a href="#" data-role="none" data-rel="back" class="x_btn_back" data-transition="slide"></a>
+
         <h1>个人中心</h1>
-    </div><!--//header -->
+    </div>
+    <!--//header -->
     <div class="x_content">
         <!--个人信息-->
-    	<div class="my_top" id="userpic" style="background:url({:MOBILE_PUBLIC_PATH}/img/my_bg2.png) no-repeat;background-size:100% 100%;">
-        	<div class="tit01">
+        <div class="my_top" id="userpic"
+             style="background:url({:MOBILE_PUBLIC_PATH}/img/my_bg2.png) no-repeat;background-size:100% 100%;">
+            <div class="tit01">
                 <div class="pic01">
-                <if condition="$myinfo.headimgurl eq ''">
-                    <img src="{:MOBILE_PUBLIC_PATH}/img/userPic.png">
-                    <else />
-                    <img src="{$myinfo.headimgurl}">
-                </if>
-                    </div>
+                    <if condition="$myinfo.headimgurl eq ''">
+                        <img src="{:MOBILE_PUBLIC_PATH}/img/userPic.png">
+                        <else/>
+                        <img src="{$myinfo.headimgurl}">
+                    </if>
+                </div>
                 <div class="info01">{$myinfo.name}<label>{$myinfo.phone}</label></div>
             </div>
         </div>
@@ -39,16 +42,23 @@
         <div class="c_grid">
             <ul class="ui-grid-a">
                 <li class="ui-block-a">
-                	<div class="c_iconTxt">
+                    <div class="c_iconTxt">
                         <div class="pic01"><img src="{:MOBILE_PUBLIC_PATH}/img/icon_student.png"></div>
-                        <a href="{:U('/addon/School/School/showMyStudents')}" data-role="none" data-transition="slide"  data-ajax="false"><div class="info01"><span>我的学员</span></div></a>
+                        <a href="{:U('/addon/School/School/showMyStudents')}" data-role="none" data-transition="slide"
+                           data-ajax="false">
+                            <div class="info01"><span>我的学员</span></div>
+                        </a>
+
                         <div class="c_dot" style="top:19px; left:105px;"></div>
                     </div>
                 </li>
                 <li class="ui-block-b">
-                	<div class="c_iconTxt">
+                    <div class="c_iconTxt">
                         <div class="pic01"><img src="{:MOBILE_PUBLIC_PATH}/img/icon_group.png"></div>
-                        <div class="info01"><span>我的招生</span></div>
+                        <a href="{:addons_url('School://School/showpage',array('page'=>'enrollStudentList'))}"
+                           data-role="none" data-transition="slide" data-ajax="false">
+                            <div class="info01"><span>我的招生</span></div>
+                        </a>
                     </div>
                 </li>
             </ul>
@@ -57,21 +67,31 @@
         <div class="x_blank2"></div>
         <div class="x_item2">
             <ul>
-                <a href="{:U('/addon/Teacher/Teacher/teacherAppriseList')}" data-role="none" data-transition="slide"  data-ajax="false"> <li><img src="{:MOBILE_PUBLIC_PATH}/img/icon_comment.png"><span>我的评价</span></li></a>
+                <a href="{:U('/addon/Teacher/Teacher/teacherAppriseList')}" data-role="none" data-transition="slide"
+                   data-ajax="false">
+                    <li><img src="{:MOBILE_PUBLIC_PATH}/img/icon_comment.png"><span>我的评价</span></li>
+                </a>
                 <li><img src="{:MOBILE_PUBLIC_PATH}/img/icon_car.png"><span>我的约车策略（暂未开通）</span></li>
-                <a href="{:U('/addon/Teacher/Teacher/teacherBannerList')}" data-role="none" data-transition="slide"  data-ajax="false"> <li><img src="{:MOBILE_PUBLIC_PATH}/img/icon_flag.png"><span>获得锦旗
+                <a href="{:U('/addon/Teacher/Teacher/teacherBannerList')}" data-role="none" data-transition="slide"
+                   data-ajax="false">
+                    <li><img src="{:MOBILE_PUBLIC_PATH}/img/icon_flag.png"><span>获得锦旗
                     <!--<label class="tips01">18个</label>-->
-                </span></li></a>
+                </span></li>
+                </a>
             </ul>
         </div>
         <div class="x_blank2"></div>
         <div class="x_item2">
             <ul>
-                <a href="{:U('/addon/School/School/showPage',null,false)}/page/teacherCenterConteact" data-role="none" data-transition="slide"  data-ajax="false"><li><img src="{:MOBILE_PUBLIC_PATH}/img/icon_contact.png"><span>内部通讯录</span></li></a>
-                <!--<li><img src="{:MOBILE_PUBLIC_PATH}/img/icon_circle.png"><span>学员圈</span></li>-->
+                <a href="{:U('/addon/School/School/showPage',null,false)}/page/teacherCenterConteact" data-role="none"
+                   data-transition="slide" data-ajax="false">
+                    <li><img src="{:MOBILE_PUBLIC_PATH}/img/icon_contact.png"><span>内部通讯录</span></li>
+                </a>
             </ul>
         </div>
-	</div><!-- /content -->
-</div> <!--//Page-->
+    </div>
+    <!-- /content -->
+</div>
+<!--//Page-->
 </body>
 </html>
