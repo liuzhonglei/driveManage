@@ -81,7 +81,7 @@
                 type: "get",
                 url: "{:U('getTeacherReg')}",
                 dataType: "html",
-                data: "id={$vo.id}&name={$vo.name}&sign_charge={$vo.sign_charge}",
+                data: "teacher_id={$teacher_data.id}&id={$vo.id}&name={$vo.name}&sign_charge={$vo.sign_charge}",
                 success: function (data) {
                     $('#masterCon').html(data);
                 }

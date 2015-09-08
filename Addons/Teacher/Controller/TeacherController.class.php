@@ -465,12 +465,16 @@ str;
 
         // assign
         $this->assign("studentInfo", $studentInfo);
-        if (empty($_REQUEST['id'])) {
+        if (!empty($studentInfo['course_id'])) {
+            $course_data = M('school_course')->where('token = "' . $token . '" and id = "' . $studentInfo['course_id'] . '"')->find();
+            $this->assign($course_data);
+        } else  if (empty($_REQUEST['id'])) {
             $course_data = M('school_course')->where('token = "' . $token . '"')->find();
             $this->assign($course_data);
         } else {
             $this->assign($_REQUEST);
         }
+
 
         if (!empty($studentInfo) && ((!empty($studentInfo['total_fee']) && $studentInfo['status'] == "-1") || $studentInfo['status'] != "-1")) {
             $this->assign("signHide", "hidden");
@@ -638,6 +642,7 @@ str;
     protected function  getTeacherToken($teacherId)
     {
         $info = M('teacher')->where('id=' . $teacherId)->find();
+        get_token($info['token']);
         return $info['token'];
     }
 

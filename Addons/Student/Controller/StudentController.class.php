@@ -745,6 +745,7 @@ class StudentController extends StudentBaseController
             $_POST['intro_source'] = '0';
             $_POST['time_sign'] = date("Y-m-d");
             $_POST['name'] = $_GET['name'];
+            $_POST['course_id'] = $_GET['course_id'];
             $_POST['phone'] = $_GET['phone'];
             $_POST['remark'] = $_GET['remark'];
             $_POST['id_in_teacher'] = $_GET['id_in_teacher'];
