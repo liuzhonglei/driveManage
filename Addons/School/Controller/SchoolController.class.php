@@ -22,6 +22,17 @@ class SchoolController extends BaseController
         $this->assign('sub_nav', $nav);
     }
 
+    public function index()
+    {
+        if (!is_login()) {
+            Cookie('__forward__', $_SERVER ['REQUEST_URI']);
+            $url = "Admin/index.html";
+        }else{
+            $url = "Admin/login.html";
+        }
+        redirect($url);
+    }
+
     // 通用插件的列表模型
     public function lists()
     {

@@ -54,20 +54,30 @@ class StudentController extends StudentBaseController
         // get data
         $list_data = $this->_get_model_list($this->model);
 
-        // if referrer is student set in_name
-        foreach ($list_data['list_data'] as &$data) {
-            if ($data['intro_source'] == "2" && !empty($data['in_name'])) {
-                $inStudentInfo = M('student')->where('token = "' . get_token() . '" and openid="' . $data["in_name"] . '"')->find();
-                $data["in_name"] = $inStudentInfo['name'];
-            }
-        }
-
         // configure data
         $this->assign('file_button', 1);
         $this->assign($list_data);
 
         // display
         $this->display("lists");
+    }
+
+    // 获取模型列表数据
+    public function _get_model_list($model = null, $page = 0, $order = 'id desc')
+    {
+        $list_data =  parent::_get_model_list($model,$page,$order);
+        // if referrer is student set in_name
+        foreach ($list_data['list_data'] as &$data) {
+            if ($data['intro_source'] == "2" && !empty($data['in_name'])) {
+                $inStudentInfo = M('student')->where('token = "' . get_token() . '" and openid="' . $data["in_name"] . '"')->find();
+                $data["in_name"] = $inStudentInfo['name'];
+            }
+            if(!empty($data["weixin_name"])){
+                $follow = M('follow')->where('token = "' . get_token() . '" and openid="' . $data["weixin_name"] . '"')->find();
+                $data["weixin_name"] = $follow["nickname"];
+            }
+        }
+        return $list_data;
     }
 
     /**

@@ -24,6 +24,24 @@ class EO2OPaymentController extends EO2OBaseController{
         parent::lists();
     }
 
+    // 获取模型列表数据
+    public function _get_model_list($model = null, $page = 0, $order = 'id desc')
+    {
+        $list_data =  parent::_get_model_list($model,$page,$order);
+        // if referrer is student set in_name
+        foreach ($list_data['list_data'] as &$data) {
+            if(!empty($data["student_name"])){
+                $info = M('student')->where('token = "' . get_token() . '" and openid="' . $data["student_name"] . '"')->find();
+                $data["student_name"] = $info["name"];
+            }
+            if(!empty($data["nickname"])){
+                $info = M('follow')->where('token = "' . get_token() . '" and openid="' . $data["nickname"] . '"')->find();
+                $data["nickname"] = $info["nickname"];
+            }
+        }
+        return $list_data;
+    }
+
     // 通用插件的删除模型
     public function del() {
         parent::common_del ( $this->model );

@@ -8,7 +8,7 @@ SELECT
 	t.*, t1. NAME teacher_k2_name,
 	t2. NAME in_teacher_name,
 	t3. NAME course_name,
-	t4.nickname weixin_name,
+	t.openid weixin_name,
 	t5. NAME status_name,
 	t6. NAME teacher_k3_name,
 	(
@@ -27,7 +27,7 @@ FROM
 LEFT JOIN wp_teacher t1 ON  t.token = t1.token and t.id_teacher_k2 = t1.id
 LEFT JOIN wp_teacher t2 ON  t.token = t2.token and t.id_in_teacher = t2.id
 LEFT JOIN wp_school_course t3 ON  t.token = t3.token and  t.course_id = t3.id
-LEFT JOIN wp_follow t4 ON t.openid = t4.openid AND t.token = t4.token
+-- LEFT JOIN wp_follow t4 ON t.openid = t4.openid AND t.token = t4.token
 LEFT JOIN wp_school_dict t5 ON t5.dic_type = 'student_status' AND t.STATUS = t5.VALUE
 LEFT JOIN wp_teacher t6 ON  t.token = t6.token and t.id_teacher_k3 = t6.id
 left join wp_eo2o_payment_count t8 on t.token = t8.token and  t.openid = t8.openid;
@@ -107,16 +107,14 @@ drop view wp_qingqing_coupon_all;
 create view wp_qingqing_coupon_all as
 select t.*,t1.nickname from wp_qingqing_coupon t left join wp_follow t1 on t1.token = t.token and t1.openid = t.openid;
 
-
-
 #wp_eo2o_payment_all
 DROP VIEW wp_eo2o_payment_all;
 CREATE VIEW wp_eo2o_payment_all AS
 SELECT
 DISTINCT
 	t.*,
-	t3.name student_name,
-	t4.nickname,
+	t.openid  student_name,
+	t.openid nickname,
 	FROM_UNIXTIME(t.time_end, "%Y-%m-%d %H:%i:%S") pay_time,
 	ROUND(t.total_fee / 100, 2) pay_fee,
 	(
@@ -144,9 +142,10 @@ FROM
 	wp_eo2o_payment t
 LEFT JOIN wp_school_payitem t1 ON t.payitem_id = t1.id
 LEFT JOIN wp_school t2 ON t.token = t2.token
-left join wp_student t3 on  t.token = t3.token and t.openid = t3.openid
-left join wp_follow t4 on t.token = t4.token and t.openid = t4.openid
+-- left join wp_student t3 on  t.token = t3.token and t.openid = t3.openid
+-- left join wp_follow t4 on t.token = t4.token and t.openid = t4.openid
 WHERE   LENGTH(trim(transaction_id))>0 ;
+
 
 #wp_eo2o_payment_count
 drop view wp_eo2o_payment_count;
