@@ -745,6 +745,12 @@ class StudentController extends StudentBaseController
 
             $this->display(T(MOBILE_PATH . 'studentPayAdvance'));
         } else {
+            // check is teacher
+            $teacherInfo = M("teacher")->where('openid= "' . $in_student_openid . '" and token = "' . $token . '"')->find();
+            if(!empty($teacherInfo)){
+                $this->error("当前微信号已与教练[".$teacherInfo['name']."]绑定。如果有误，请与驾校联系！");
+            }
+
             if (!empty($studentInfo)) {
                 $_POST['id'] = $studentInfo["id"];
             }
