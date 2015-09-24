@@ -746,9 +746,9 @@ class StudentController extends StudentBaseController
             $this->display(T(MOBILE_PATH . 'studentPayAdvance'));
         } else {
             // check is teacher
-            $teacherInfo = M("teacher")->where('openid= "' . $in_student_openid . '" and token = "' . $token . '"')->find();
-            if(!empty($teacherInfo)){
-                $this->error("当前微信号已与教练[".$teacherInfo['name']."]绑定。如果有误，请与驾校联系！");
+            $existTeacherInfo = M("teacher")->where('openid= "' . $openid . '" and token = "' . $token . '"')->find();
+            if(!empty($existTeacherInfo)){
+                $this->error("当前微信号已与教练[".$existTeacherInfo['name']."]绑定。如果有误，请与驾校联系！");
             }
 
             if (!empty($studentInfo)) {
@@ -773,8 +773,9 @@ class StudentController extends StudentBaseController
             } else {
                 $_POST['intro_source'] = '0';
             }
-            if (!empty($erroMsg = $this->saveModel())) {
-                $this->ajaxReturn(array("status" => "0", "info" => $erroMsg));
+            $result  = $this->saveModel();
+            if ($result['status'] == '0') {
+                $this->ajaxReturn($result);
             }
 
             // start the pay 

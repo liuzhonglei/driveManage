@@ -36,6 +36,7 @@ class PageController extends BaseController
         $this->assign("cutInfo", $cutInfo);
         $this->assign("cutResult", $cutResult);
         $this->assign("cutList", $this->getCutList());
+        $this->assign("courseList", $this->getCourseList());
 
         // get the conf info
         $db_config = D('Common/AddonConfig')->get(_ADDONS);
@@ -64,7 +65,7 @@ class PageController extends BaseController
             // status
             if ($this->isMyActivity()) {
                 if (empty($info)) {
-                    $this->assign("courseList", $this->getCourseList());
+
                     $activityInfo['status'] = 1;
                 } else {
                     $activityInfo['status'] = 2;
@@ -94,6 +95,7 @@ class PageController extends BaseController
         $_POST['status'] = '-1';
         $_POST['intro_source'] = '0';
         $_POST['time_sign'] = date("Y-m-d");
+
         $_POST['openid'] = get_openid();
         $this->ajaxReturn($this->saveModel("student"));
     }
@@ -147,7 +149,7 @@ class PageController extends BaseController
     function getCourseList()
     {
         $params = array("token" => get_token());
-        $info = M('school_course')->where($params)->find();
+        $info = M('school_course')->where($params)->select();
         return $info;
     }
 

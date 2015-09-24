@@ -26,8 +26,11 @@ define ('QINGQING_TOKEN', "gh_94ecad95d624");
 
 class BaseController extends AddonsController
 {
+    // param
+    var $model;
+    var $listsTable;
 
-    static $tableNames = array('student', 'student_question', 'student_banner', 'teacher', 'student_notification', 'qingqing_coupon', 'eo2o_payment');
+    public static $tableNames = array('student', 'student_question', 'student_banner', 'teacher', 'student_notification', 'qingqing_coupon', 'eo2o_payment');
 
     function _initialize()
     {
@@ -172,15 +175,19 @@ class BaseController extends AddonsController
         } else {
             empty ($fields) || in_array('id', $fields) || array_push($fields, 'id');
 
-
             // special handle
-            $name = get_table_name($model ['id']);
-            foreach (self::$tableNames as $handleName) {
-                if (!strcmp($handleName, $name)) {
-                    $name .= '_all';
-                    break;
+            if(!empty($this->listsTable)){
+                $name = $this->listsTable;
+            }else{
+                $name = get_table_name($model ['id']);
+                foreach (self::$tableNames as $handleName) {
+                    if (!strcmp($handleName, $name)) {
+                        $name .= '_all';
+                        break;
+                    }
                 }
             }
+
             //$name = parse_name ($name, true );
             $data = M($name)->field(empty ($fields) ? true : $fields)->where($map)->order($order)->page($page, $row)->select();
 
@@ -236,10 +243,14 @@ class BaseController extends AddonsController
         }
         // 过滤重复和错误字段信息
         $sign = ture;
-        foreach (self::$tableNames as $tableName) {
-            if (!strcmp($tableName, $model['name'])) {
-                $sign = false;
-                break;
+        if (!empty($this->listsTable)) {
+            $sign = false;
+        } else {
+            foreach (self::$tableNames as $tableName) {
+                if (!strcmp($tableName, $model['name'])) {
+                    $sign = false;
+                    break;
+                }
             }
         }
         if ($sign) {
@@ -413,5 +424,39 @@ class BaseController extends AddonsController
         $jssdk = new \JsSdk($appinfo["appid"], $appinfo["secret"]);
         $signPackage = $jssdk->GetSignPackage($_SERVER['HTTP_REFERER']);
         $this->ajaxReturn($signPackage);
+    }
+
+    /**
+     * save the post data
+     * @return bool
+     */
+    protected function saveModel($model = null)
+    {
+        //set token
+        $_POST["token"] ||  $_POST["token"] = get_token();
+
+        //param
+        $model || $model = $_GET["model"];
+        $model || $model = $this->model;
+        is_array($model) || $model = $this->getModel($model);
+        $id =  i('id');
+
+        // process
+        $Model = D ( parse_name ( get_table_name ( $model ['id'] ), 1 ) );
+        $Model = $this->checkAttr($Model,$model['id']);
+        if (empty(i('id'))) {
+            $result = $Model->create() && $id = $Model->add();
+        } else {
+            $result = $Model->create() && $id = $Model->save();
+        }
+        if ($result || empty($Model->getError())) {
+            $this->_saveKeyword($this->model, $id);
+            $result = array("status" => "1", "info" => '保存成功');
+        }else{
+            $result = array("status" => "0", "info" => "保存失败！".$Model->getError());
+        }
+
+        // return
+        return  $result;
     }
 }

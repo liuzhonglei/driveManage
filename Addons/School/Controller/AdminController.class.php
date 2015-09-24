@@ -19,10 +19,50 @@ class AdminController extends BaseController
      * get the model fileds config
      * @param $model the model name
      */
-    public function getFieldList($model){
+    public function getFieldList($model)
+    {
+        // get the  fields
         $model || $model = $this->getModel($_GET['model']); // 默认显示第一页数据
-        $fields = get_model_attribute ($model['id']);
+        $fields = get_model_attribute($model['id']);
+
+        // set the extra data
+        for ($i = 1; $i <= count($fields); $i++) {
+            for ($j = 0; $j < count($fields[$i]); $j++) {
+                if (in_array($fields[$i][$j]['name'], array('id_teacher', 'id_teacher_k2', 'id_teacher_k3', 'id_in_teacher'))) {
+                    if (empty($teacherData)) {
+                        $teacherData = $this->getFieldData('teacher', array('status' => 1, 'token' => get_token()));
+                    }
+                    $fields[$i][$j] ['extra'] .= "\r\n" . $teacherData;
+                }else if (in_array($fields[$i][$j]['name'], array('course_id'))) {
+                    if (empty($teacherData)) {
+                        $courseData = $this->getFieldData('school_course', array('token' => get_token()));
+                    }
+                    $fields[$i][$j] ['extra'] .= "\r\n" . $courseData;
+                }
+            }
+        }
+
+        // return
         $this->ajaxReturn($fields);
+    }
+
+    /**
+     * get the model value
+     * @param $modelName
+     * @param $map
+     * @return string id:value
+     */
+    private  function getFieldData($modelName, $map)
+    {
+        $extra = ':' . "\r\n";
+        $list = M($modelName)->where($map)->select();
+
+        foreach ($list as $v) {
+            $extra .= $v ['id'] . ':' . $v ['name'] . "\r\n";
+        }
+
+        // return
+        return $extra;
     }
 
     /**
@@ -35,6 +75,29 @@ class AdminController extends BaseController
         $model || $model = $this->getModel(I('model')); // 默认显示第一页数据
         $list_data = $this->_list_grid($model);
         $this->ajaxReturn($list_data);
+    }
+
+    /**
+     * get the data by id
+     * @param null $model
+     * @param int $id
+     */
+    public function getDataById($model = null, $id = 0)
+    {
+        // param
+        $token = get_token();
+        $model || $model = i("model");
+        $id || $id = i("id");
+
+        // search
+        $info = M($model)->where('id="'.$id.'" and token= "'.$token.'" ')->find();
+        if (!empty($info["photo"])) {
+            $info["photoUrl"] = get_cover($info["photo"])['path'];
+        }else{
+            $info["photoUrl"] = "";
+        }
+
+        return $this->ajaxReturn($info);
     }
 
     /**
@@ -123,6 +186,36 @@ class AdminController extends BaseController
     }
 
     /**
+     * save the post data
+     * @return bool
+     */
+    public function saveModel($model)
+    {
+        //param
+        $model || $model = $_GET["model"];
+        $model || $model = $this->model['id'];
+        $id =  i('id');
+
+        // process
+        $Model = M($model);
+        $Model = $this->checkAttr($Model,$model);
+        if (empty(i('id'))) {
+            $result = $Model->create() && $id = $Model->add();
+        } else {
+            $result = $Model->create() && $id = $Model->save();
+        }
+        if ($result) {
+            $this->_saveKeyword($this->model, $id);
+            $result = array("status" => "1", "msg" => '保存成功');
+        }else{
+            $result = array("status" => "0", "msg" => "保存失败！");
+        }
+
+        // return
+        $this->ajaxReturn($result);
+    }
+
+    /**
      *
      * @param null $model
      * @param string $templateFile
@@ -149,25 +242,6 @@ class AdminController extends BaseController
             $templateFile || $templateFile = $model ['template_add'] ? $model ['template_add'] : '';
             $this->display($templateFile);
         }
-    }
-
-    /**
-     * save the post data
-     * @return bool
-     */
-    public function saveModel()
-    {
-        $Model = D(parse_name(get_table_name($this->model  ['id']), 1));
-        $Model = $this->checkAttr($Model, $this->model['id']);
-        if (empty(i('id'))) {
-            $result = $Model->create() && $id = $Model->add();
-        } else {
-            $result = $Model->create() && $id = $Model->save();
-        }
-        if ($result) {
-            $this->_saveKeyword($this->model, $id);
-        }
-        return $Model->getError();
     }
 
     /**
@@ -232,57 +306,57 @@ class AdminController extends BaseController
         }
 
     }
-
-    /**
-     * admin edit
-     */
-    public function modelEdit($model = null, $id = 0)
-    {
-        $modelData = json_decode(file_get_contents("php://input"));
-        if (!empty($modelData)) {
-            foreach ($modelData as $key => $value) {
-                $_REQUEST[$key] = $value;
-            }
-        }
-
-        is_array($model) || $model = $this->getModel($model);
-        $id || $id = I('id');
-
-        // 获取数据
-        $data = M(get_table_name($model ['id']))->find($id);
-        $data || $this->error('数据不存在！');
-
-//        $token = get_token ();
-//        if (isset ( $data ['token'] ) && $token != $data ['token'] && defined ( 'ADDON_PUBLIC_PATH' )) {
-//            $this->error ( '非法访问！' );
+//
+//    /**
+//     * admin edit
+//     */
+//    public function modelEdit($model = null, $id = 0)
+//    {
+//        $modelData = json_decode(file_get_contents("php://input"));
+//        if (!empty($modelData)) {
+//            foreach ($modelData as $key => $value) {
+//                $_REQUEST[$key] = $value;
+//            }
 //        }
-
-        if (IS_POST) {
-            $Model = D(parse_name(get_table_name($model ['id']), 1));
-            // 获取模型的字段信息
-            $Model = $this->checkAttr($Model, $model ['id']);
-            if ($Model->create() && $Model->save()) {
-                $this->_saveKeyword($model, $id);
-                $result = array("code" => "0", "msg" => '保存' . $model ['title'] . '成功！', U('lists?model=' . $model ['name'], $this->get_param));
-                $this->ajaxReturn($result);
-            } else {
-                $msg = $Model->getError() | "操作失败";
-                $result = array("code" => "-1", "msg" => $msg);
-            }
-            $this->ajaxReturn($result);
-        } else {
-//            $fields = get_model_attribute ( $model ['id'] );
 //
-//            $this->assign ( 'fields', $fields );
-//            $this->assign ( 'data', $data );
-//            $this->meta_title = '编辑' . $model ['title'];
+//        is_array($model) || $model = $this->getModel($model);
+//        $id || $id = I('id');
 //
-//            $templateFile || $templateFile = $model ['template_edit'] ? $model ['template_edit'] : '';
-//            $this->display ( $templateFile );
-
-            $this->ajaxReturn($data);
-        }
-    }
+//        // 获取数据
+//        $data = M(get_table_name($model ['id']))->find($id);
+//        $data || $this->error('数据不存在！');
+//
+////        $token = get_token ();
+////        if (isset ( $data ['token'] ) && $token != $data ['token'] && defined ( 'ADDON_PUBLIC_PATH' )) {
+////            $this->error ( '非法访问！' );
+////        }
+//
+//        if (IS_POST) {
+//            $Model = D(parse_name(get_table_name($model ['id']), 1));
+//            // 获取模型的字段信息
+//            $Model = $this->checkAttr($Model, $model ['id']);
+//            if ($Model->create() && $Model->save()) {
+//                $this->_saveKeyword($model, $id);
+//                $result = array("code" => "0", "msg" => '保存' . $model ['title'] . '成功！', U('lists?model=' . $model ['name'], $this->get_param));
+//                $this->ajaxReturn($result);
+//            } else {
+//                $msg = $Model->getError() | "操作失败";
+//                $result = array("code" => "-1", "msg" => $msg);
+//            }
+//            $this->ajaxReturn($result);
+//        } else {
+////            $fields = get_model_attribute ( $model ['id'] );
+////
+////            $this->assign ( 'fields', $fields );
+////            $this->assign ( 'data', $data );
+////            $this->meta_title = '编辑' . $model ['title'];
+////
+////            $templateFile || $templateFile = $model ['template_edit'] ? $model ['template_edit'] : '';
+////            $this->display ( $templateFile );
+//
+//            $this->ajaxReturn($data);
+//        }
+//    }
 
 
     /* 解析列表定义规则 */
@@ -351,7 +425,7 @@ class AdminController extends BaseController
                     if ($show == '删除') {
                         $val [] = '<li><a class="confirm"   href="' . urldecode(U($href, $GLOBALS ['get_param'])) . '">' . $show . '</a></li>';
                     } else if (strpos($href, "#") === 0) {
-                        $val [] = '<li><a  data-target="'.$href.'" data-toggle="modal">' . $show . '</a></li>';
+                        $val [] = '<li><a  data-target="' . $href . '" data-toggle="modal">' . $show . '</a></li>';
                     } else if (strpos($href, "javascript_") === 0) {
                         $val [] = '<li><a  target="' . $target . '" href="' . str_replace("javascript_", "javascript:", $href) . '">' . $show . '</a></li>';
                     } else {
@@ -369,8 +443,6 @@ class AdminController extends BaseController
 </span>
 srt;
         }
-
-
         return $value;
     }
 

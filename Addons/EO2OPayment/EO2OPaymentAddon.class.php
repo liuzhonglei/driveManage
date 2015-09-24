@@ -17,7 +17,7 @@ use Common\Controller\Addon;
             'status'=>1,
             'author'=>'鑫无线',
             'version'=>'0.1',
-            'has_adminlist'=>0,
+            'has_adminlist'=>1,
             'type'=>1         
         );
 
