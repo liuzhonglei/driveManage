@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon-precomposed" href="img/screen_icon.png">
+<title></title>
+<link rel="stylesheet" href="css/jquery.mobile-1.4.4.css" /> 
+<link rel="stylesheet" href="css/car.css"> 
+<script src="js/jquery-1.11.1.min.js"></script> 
+<script src="js/jquery.mobile-1.4.4.min.js"></script>
+<style>
+body{ background:#13B7E3}
+.c_ipt,.c_texta{ color:#333; padding-left:0.5em;  border-radius:3px}
+.x_blank{ height:12px;}
+.c_ipt::-webkit-input-placeholder,.c_texta::-webkit-input-placeholder{color:#999;}
+.cut_main{ height:401px; background:#1DCAEB url(img/cut_price.jpg) no-repeat left top; background-size:cover;}
+.c_merchant{ color:#fff;margin:0;}
+.c_merchant span{ color:#fff;text-decoration:line-through}
+.c_merchant_pic{ margin-top:0;}
+.cut_jx{background:#0098c1;}
+.cut_jx img{ width:100%; height:300px; margin:0 auto; vertical-align:middle}
+.countdown{ text-align:center;}
+.countdown span{ display:inline-block;}
+.countdown span.cnum{ background:#17282E; color:#ffe100; text-align:center;padding:0 6px; margin-right:3px;}
+.priceBtn{ background:#D0B40C; color:#fff; border:none; border-radius:30px;  margin:20px 30px;font-size:18px;}
+.regBtn{ background:#EC4455}
+.box_price{ background:#fff;padding:15px; color:#333;border-radius:10px; margin:15px 15px;}
+.box_price .box_price_title small{ display:block;}
+small{ color:#aaa;}
+.box_price li{ border-bottom:1px dashed #ddd;padding:15px 0 5px; color:#aaa;}
+.box_price li span{ color:#333}
+.box_price li span:first-child{ color:#0096c7}
+
+.footer-price {
+	display: -webkit-flex;  /*兼容android*/
+	display: -webkit-box; /*兼容ios*/
+	height:45px;
+	position:fixed;
+	bottom:0;
+	left:0;
+	right:0;
+}
+.footer-price a{
+	-webkit-flex: 1;/*兼容android*/
+	-webkit-box-flex: 1;/*兼容ios*/
+	background:#0f96d8;
+	display:block;
+	height:45px;
+	line-height:45px;
+	text-align:center;
+	font-size:18px;
+	color:#fff;
+}
+.footer-price a:first-child{
+	background:#F1771B;	
+}
+
+.end-price{ color:#000; font-size:18px; text-align:center; margin:15px 0 5px;}
+.coupon_pop_box{padding:1px 20px 20px; min-width:200px;}
+.coupon_pop_title01{ margin-top:10px;}
+.info-content{min-height:100px; margin-top:30px;}
+.ok{ width:58px; height:58px; margin:10px auto 0;}
+</style>
+<script type="text/javascript">
+$(function(){
+	/*点击弹出 提交成功*/
+	$("#submitBtn").click(function(){
+		$("#ok_pop").popup("open");
+	})
+	/*点击弹出 填写信息*/
+	$("#cutPrice").click(function(){
+		$("#info_pop").popup("open");
+	})
+	$(".coupon_pop_close").click(function(){
+		$("#info_pop").popup("close");
+	})
+	
+	$("#submitBtn").click(function(){
+			$("#submitInfo").hide();
+			$("#sharePrice").show();
+	})
+});
+</script>
+
+</head>
+<body class="x_flowAuto">
+<div id="pageCutPrice" data-role="page" data-theme="none" class="gift-bg">
+<!--填写信息 弹出层-->
+<div data-role="popup" id="info_pop" data-position-to="window" data-tolerance="10,30,10,30" data-shadow="false" data-overlay-theme="b" data-corners="false">
+    <div class="coupon_pop_box">
+       <span class="coupon_pop_close" id="info_close"></span>
+       <!--提交信息-->
+       <div class="" id="submitInfo">
+         <div class="info-content">
+         			<div class="">填写个人信息</div>
+              <div class="x_blank"></div>
+              <input data-role="none" type="text" id="name" class="c_ipt" placeholder="请输入您的大名" >
+              <div class="x_blank"></div>
+              <input data-role="none" type="text" id="phone" class="c_ipt" placeholder="请输入您的手机号" >
+              <div class="x_blank"></div>
+              <input data-role="none" type="text" id="remark" class="c_ipt" placeholder="备注" >
+         </div>
+         <a href="#" class="ui-btn x_btn couponsBtn" id="submitBtn">提交 </a>
+         </div>
+       <!--//提交信息-->
+       <!--分享-->
+       <div class="" id="sharePrice" style="display:none">
+         <span class="coupon_pop_close"></span>
+         <div class="info-content" style="min-height:130px;">
+           <img src="img/ok.png" class="ok">
+           <div class="coupon_pop_title01">提交成功</div>
+         </div>
+         <a href="#" class="ui-btn x_btn shareBtn" id="getCoupon">邀请朋友开始砍价 </a>
+       </div>
+       <!--//分享-->
+    </div>
+</div>
+<!--//填写信息 弹出层-->
+	<div class="x_content">
+  			<div class="cut_jx">
+        	<img src="img/jx_pic.jpg">
+        </div>
+        <!--砍价-->
+        <div class="cut_main">
+          <div class="c_merchant">
+          		<div class="x_blank" style="height:100px"></div>
+              <div class="c_merchant_pic"><img src="img/nonePic.png"></div>
+              陈建斌的学车价格<br>
+              <span>已经砍掉80元</span>
+          </div>
+          <!--倒计时-->
+          <div class="countdown">
+          	<span>倒计时：</span>
+            <span class="cnum">00</span><span>时</span>
+            <span class="cnum">30</span><span>分</span>
+            <span class="cnum">25</span><span>秒</span>
+          </div>
+          <!--//倒计时-->
+          <a href="#" class="ui-btn  x_btn priceBtn" id="cutPrice">继续帮我砍价，戳我</a>
+          
+          <!--<div class="end-price">
+          “你已经帮TA砍了10元”
+          </div>
+          <a href="#" class="ui-btn  x_btn priceBtn regBtn" id="">我也要免费学车</a>-->
+          
+          
+        </div>
+       <!--//砍价-->
+       <!--活动规则-->
+       <div class="box_price">
+       		<div class="box_price_title"><b>活动规则</b></div>
+          <div class="box_price_content">
+          	<p>1. 填写个人姓名、联系方式注册个人信息登记</p>
+            <p>2. 分享朋友圈或邀请好友帮忙砍价</p>
+            <p>3. 砍价结束直接到驾校进行报名，在享受同期最低价后再享受砍价优惠额度</p>
+          </div>
+       </div>
+       <!--//活动规则-->
+       <!--砍价记录-->
+       <div class="box_price" style="margin-bottom:60px;">
+       		<div class="box_price_title"><b>砍价记录</b><small>目前 5位好友一共帮你砍掉了 80元 </small></div>
+          <div class="box_price_content">
+          	<ul>
+            	<li><span>匿名</span> 帮你 砍了 <span>10元</span></li>
+            	<li><span>匿名</span> 帮你 砍了 <span>10元</span></li>
+            	<li><span>匿名</span> 帮你 砍了 <span>20元</span></li>
+            	<li><span>匿名</span> 帮你 砍了 <span>30元</span></li>
+            	<li><span>匿名</span> 帮你 砍了 <span>10元</span></li>
+            </ul>
+          </div>  
+       </div>
+       <!--//砍价记录-->
+       <!--关注-->
+       <div class="footer-price">
+       		<a href="#">咨询</a>
+       		<a href="#">关注</a>
+       </div>
+       <!--//关注-->
+	</div>
+</div> <!--//Page-->
+</body>
+</html>
