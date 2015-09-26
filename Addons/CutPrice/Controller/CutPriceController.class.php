@@ -14,7 +14,7 @@ class CutPriceController extends BaseController {
         $this->model = $this->getModel ( 'cut_price' );
         $this->listsTable = "cut_price_all";
         $this->assign('add_button',0);
-        $this->assign('del_button',0);
+//        $this->assign('del_button',0);
         parent::lists();
     }
 
@@ -27,6 +27,7 @@ class CutPriceController extends BaseController {
         $_POST['token'] = get_token();
         $this->assign('add_button',0);
         $this->assign('del_button',0);
-        parent::common_lists($this->model,0,"lists" );
+        parent::common_lists($this->model,0,"listsCount" );
     }
+
 }

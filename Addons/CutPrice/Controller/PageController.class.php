@@ -29,8 +29,11 @@ class PageController extends BaseController
 
         if (!empty($info) && !empty($cutResult)) {
             $courseInfo = M('school_course')->where("id = '" . $info["course_id"] . "'")->find();
+            $cutResult['course_name'] = $courseInfo["name"];
             $cutResult['total_fee'] = $courseInfo["sign_charge"];
+            $cutResult['current_fee'] = $courseInfo["sign_charge"] - $cutResult["fee"];
         }
+
         $this->assign('schoolInfo', $this->getSchoolInfo());
         $this->assign("info", $info);
         $this->assign("cutInfo", $cutInfo);
@@ -110,6 +113,9 @@ class PageController extends BaseController
         $db_config = D('Common/AddonConfig')->get(_ADDONS);
         $fee = $db_config['money_options'][array_rand($db_config['money_options'])];
 
+//        $userName = get_nickname(get_openid());
+
+
         // 查找是否已存在
         $param = array("token" => get_token(), "friend_openid" => get_openid(), 'openid' => $activityOpenid);
         if (empty(M('cut_price')->where($param)->find())) {
@@ -130,6 +136,7 @@ class PageController extends BaseController
             // set
             $_POST['openid'] = $activityOpenid;
             $_POST['friend_openid'] = get_openid();
+//            $_POST['friend_name'] = $userName;
             $_POST['token'] = get_token();
             $_POST['fee'] = $fee;
             $_POST['time'] = date("Y-m-d H:i:s");
