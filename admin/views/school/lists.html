@@ -10,7 +10,7 @@
 <!-- END PAGE BREADCRUMB -->
 
 <!-- BEGIN MAIN CONTENT -->
-<div class="row">
+<div class="row" ng-controller="ListController">
     <input id="url" hidden="true" value="http://localhost:8891/index.php?s=/addon/School/School/getModelData/model/school/p/0/draw/1/token/gh_36a5c6958de0">
     <div class="col-md-12">
         <!--<div class="note note-danger note-bordered">-->
@@ -22,8 +22,7 @@
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="caption font-green-sharp">
-                    <span class="caption-subject bold uppercase" data-ng-bind="$state.$current.data.pageTitle"></span>
-
+                    <span class="caption-subject bold uppercase">111{{$state.$current.data.pageTitle}}</span>
                 </div>
                 <div class="actions">
                     <a href="#/school/edit.html" class="btn default yellow-stripe">

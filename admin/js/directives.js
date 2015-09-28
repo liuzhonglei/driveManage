@@ -161,3 +161,28 @@ MetronicApp.directive("checkboxGroup", function () {
         };
     }
 );
+
+MetronicApp.directive("fileread", [function () {
+    return {
+        scope: {
+            info: "="
+        },
+        link: function (scope, element, attributes,ngModel) {
+            element.bind("change", function (event) {
+                var xhr = new XMLHttpRequest();
+                var files = event.target.files;
+                var formData = new FormData();
+                formData.append('filename', files[0]); // index 为第 n 个文件的索引
+                xhr.open('post',Metronic.rootPath()+"/index.php?s=/home/File/uploadPicture.html"); // url 为提交的后台地址
+                xhr.addEventListener("load", uploadComplete, false); // 处理上传完成
+                // 改变t2的函数
+                function uploadComplete() {
+                    var returnData = JSON.parse(xhr.responseText);
+                    var fieldName = attributes["name"]
+                    scope.info[fieldName] = returnData.id;
+                }
+                xhr.send(formData);
+            });
+        }
+    }
+}]);

@@ -16,39 +16,17 @@
 				<!-- BEGIN USER LOGIN DROPDOWN -->
 				<li class="dropdown dropdown-user dropdown-dark">
 					<a href="javascript:;" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
-					<img alt="" class="img-circle" src="../../../assets/admin/layout3/img/avatar9.jpg">
 					<span class="username username-hide-mobile">Nick</span>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
+
 						<li>
-							<a href="#/profile/dashboard">
-							<i class="icon-user"></i> My Profile </a>
+							<a href="#">
+							<i class="icon-lock"></i>修改密码</a>
 						</li>
 						<li>
 							<a href="#">
-							<i class="icon-calendar"></i> My Calendar </a>
-						</li>
-						<li>
-							<a href="#">
-							<i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger">
-							3 </span>
-							</a>
-						</li>
-						<li>
-							<a href="#/todo">
-							<i class="icon-rocket"></i> My Tasks <span class="badge badge-success">
-							7 </span>
-							</a>
-						</li>
-						<li class="divider">
-						</li>
-						<li>
-							<a href="#">
-							<i class="icon-lock"></i> Lock Screen </a>
-						</li>
-						<li>
-							<a href="#">
-							<i class="icon-key"></i> Log Out </a>
+							<i class="icon-key"></i> 退出 </a>
 						</li>
 					</ul>
 				</li>
@@ -63,14 +41,14 @@
 <div class="page-header-menu">
 	<div class="container">
 		<!-- BEGIN HEADER SEARCH BOX -->
-		<form class="search-form" action="extra_search.html" method="GET">
-			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Search" name="query">
-				<span class="input-group-btn">
-				<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
-				</span>
-			</div>
-		</form>
+		<!--<form class="search-form" action="extra_search.html" method="GET">-->
+			<!--<div class="input-group">-->
+				<!--<input type="text" class="form-control" placeholder="Search" name="query">-->
+				<!--<span class="input-group-btn">-->
+				<!--<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>-->
+				<!--</span>-->
+			<!--</div>-->
+		<!--</form>-->
 		<!-- END HEADER SEARCH BOX -->
 		<!-- BEGIN MEGA MENU -->
 		<!-- DOC: Apply "hor-menu-light" class after the "hor-menu" class below to have a horizontal menu with white background -->
@@ -367,6 +345,24 @@
 						</li>
 					</ul>
 				</li>
+                <li class="menu-dropdown classic-menu-dropdown ">
+                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+                        学员管理 <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        <li>
+                            <a href="#/student/list.html">
+                                学员列表
+                            </a>
+                            <a href="#/student/qustionList.html">
+                                学员提问
+                            </a>
+                            <a href="#/student/appriseList.html">
+                                学员评级
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 				<li class="menu-dropdown classic-menu-dropdown ">
                     <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
                         驾校 <i class="fa fa-angle-down"></i>
