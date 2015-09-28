@@ -5,8 +5,8 @@ Metronic AngularJS App Main Script
 /* Metronic App */
 var MetronicApp = angular.module("MetronicApp", [
     "ui.router", 
-    "ui.bootstrap", 
-    "oc.lazyLoad",  
+    "ui.bootstrap",
+    "oc.lazyLoad",
     "ngSanitize"
 ]); 
 
@@ -16,6 +16,14 @@ MetronicApp.config(['$ocLazyLoadProvider', function($ocLazyLoadProvider) {
         cssFilesInsertBefore: 'ng_load_plugins_before' // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
     });
 }]);
+
+/**
+ * define metadata
+ */
+MetronicApp.constant('metadata',
+    {"sex":[{"name":"男", value:"M"},{"name":"女", value:"M"}],
+    "intro_source":[]});    //方法3定义全局变量
+
 
 /********************************************
  BEGIN: BREAKING CHANGE in AngularJS v1.3.x:
@@ -124,10 +132,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
     $urlRouterProvider.otherwise("/dashboard.html");
 
     $stateProvider
-
-
-
-
         // Dashboard
         .state('dashboard', {
             url: "/dashboard.html",
@@ -390,7 +394,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         .state("schoolInfo", {
             url: "/school/lists.html",
             templateUrl: "views/school/lists.html",
-            data: {pageTitle: '驾校信息', pageSubTitle: '驾校信息列表',model: "school"},
+            data: {pageTitle: 's信息', pageSubTitle: '驾校信息列表',model: "school"},
             controller: "ListsController",
             resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -411,6 +415,143 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                             'js/controllers/ListsController.js'
                         ]
                     },]);
+                }]
+            }
+        })
+
+        // student info
+        .state("studentList", {
+            url: "/student/list.html",
+            templateUrl: "views/list.html",
+            data: {modelName:"学员",model: "student"},
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'ui.select',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: [
+                                '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                                '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
+                            ]
+                        }, {
+                            files: [
+
+                                '../assets/global/plugins/bootstrap-datepicker/css/datepicker3.css',
+                                '../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'
+                            ]
+                        }, {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: [
+                                '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
+                                '../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
+                                '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
+                                '../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css',
+                                '../assets/global/plugins/jquery-tags-input/jquery.tagsinput.css',
+                                '../assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css',
+                                '../assets/global/plugins/typeahead/typeahead.css',
+
+                                '../assets/global/plugins/datatables/all.min.js',
+                                '../assets/global/scripts/datatable.js',
+                                '../assets/admin/pages/scripts/components-pickers.js',
+                                '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js',
+                                '../assets/admin/pages/scripts/components-form-tools.js',
+                                '../assets/global/plugins/fuelux/js/spinner.min.js',
+                                '../assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
+                                '../assets/global/plugins/jquery.input-ip-address-control-1.0.min.js',
+                                '../assets/global/plugins/bootstrap-pwstrength/pwstrength-bootstrap.min.js',
+                                '../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js',
+                                '../assets/global/plugins/jquery-tags-input/jquery.tagsinput.min.js',
+                                '../assets/global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js',
+                                '../assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js',
+                                '../assets/global/plugins/typeahead/handlebars.min.js',
+                                '../assets/global/plugins/typeahead/typeahead.bundle.min.js',
+                                '../assets/admin/pages/scripts/components-form-tools.js',
+
+                                'js/scripts/weixin-table-ajax.js',
+                                'js/controllers/ListController.js'
+                            ]
+                        }]);
+                }]
+            }
+        })
+
+        // student info
+        .state("studentQueationList", {
+            url: "/student/qustionList.html",
+            templateUrl: "views/list.html",
+            data: {modelName:"提问",model: "student_question"},
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'ui.select',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: [
+                                '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                                '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
+                            ]
+                        }, {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: [
+                                '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
+                                '../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
+                                '../assets/global/plugins/bootstrap-datepicker/css/datepicker3.css',
+
+
+                                '../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js',
+                                '../assets/global/plugins/datatables/all.min.js',
+                                '../assets/global/scripts/datatable.js',
+
+
+                                '../assets/admin/pages/scripts/components-pickers.js',
+                                'js/scripts/weixin-table-ajax.js',
+                                'js/controllers/ListController.js'
+                            ]
+                        }]);
+                }]
+            }
+        })
+
+        // student info
+        .state("studentAppriseList", {
+            url: "/student/appriseList.html",
+            templateUrl: "views/list.html",
+            data: {modelName:"评价",model: "student_apprise"},
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'ui.select',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: [
+                                '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                                '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
+                            ]
+                        }, {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: [
+                                '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
+                                '../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
+                                '../assets/global/plugins/bootstrap-datepicker/css/datepicker3.css',
+
+
+                                '../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js',
+                                '../assets/global/plugins/datatables/all.min.js',
+                                '../assets/global/scripts/datatable.js',
+
+
+                                '../assets/admin/pages/scripts/components-pickers.js',
+                                'js/scripts/weixin-table-ajax.js',
+                                'js/controllers/ListController.js'
+                            ]
+                        }]);
                 }]
             }
         })
@@ -437,37 +578,35 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                 }]
             }
         })
-
-
-        // school info
-        .state("schoolEdit", {
-            url: "/school/edit.html",
-            templateUrl: "views/school/edit.html",
-            data: {pageTitle: '驾校信息', pageSubTitle: '驾校信息',model: "school"},
-            controller: "EditController",
-            resolve: {
-                deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                    return $ocLazyLoad.load([{
-                        name: 'angularFileUpload',
-                        files: [
-                            '../assets/global/plugins/angularjs/plugins/angular-file-upload/angular-file-upload.min.js',
-                        ] 
-                    }, {
-                        name: 'MetronicApp',
-                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                        files: [
-                        '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
-
-                        '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js',
-                        '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js',
-                        '../assets/global/plugins/angularjs/plugins/angular-file-upload/angular-file-upload.min.js',
-                        'js/controllers/school/EditController.js'
-                        ]
-                    }]);
-                }]
-            }
-        })
-
+        //
+        //// school info
+        //.state("schoolEdit", {
+        //    url: "/school/edit.html",
+        //    templateUrl: "views/school/edit.html",
+        //    data: {pageTitle: '驾校信息', pageSubTitle: '驾校信息',model: "school"},
+        //    controller: "EditController",
+        //    resolve: {
+        //        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+        //            return $ocLazyLoad.load([{
+        //                name: 'angularFileUpload',
+        //                files: [
+        //                    '../assets/global/plugins/angularjs/plugins/angular-file-upload/angular-file-upload.min.js',
+        //                ]
+        //            }, {
+        //                name: 'MetronicApp',
+        //                insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+        //                files: [
+        //                    '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
+        //
+        //                    '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js',
+        //                    '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js',
+        //                    '../assets/global/plugins/angularjs/plugins/angular-file-upload/angular-file-upload.min.js',
+        //                    'js/controllers/school/EditController.js'
+        //                ]
+        //            }]);
+        //        }]
+        //    }
+        //})
         // User Profile
         .state("profile", {
             url: "/profile",

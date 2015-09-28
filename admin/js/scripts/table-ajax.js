@@ -9,9 +9,7 @@ var TableAjax = function () {
     }
 
     var handleRecords = function () {
-
         var grid = new Datatable();
-
         grid.init({
             src: $("#datatable_ajax"),
             onSuccess: function (grid) {
@@ -72,17 +70,13 @@ var TableAjax = function () {
                 });
             }
         });
-    }
+    };
 
     return {
-
         //main function to initiate the module
         init: function () {
-
             initPickers();
             handleRecords();
         }
-
     };
-
 }();
