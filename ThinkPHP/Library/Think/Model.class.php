@@ -403,7 +403,7 @@ class Model {
         if(false === $this->_before_update($data,$options)) {
             return false;
         }        
-        $result     =   $this->db->update($data,$options);
+        $result     =   $this->db->update($data,$options,true);
         if(false !== $result) {
             if(isset($pkValue)) $data[$pk]   =  $pkValue;
             $this->_after_update($data,$options);
