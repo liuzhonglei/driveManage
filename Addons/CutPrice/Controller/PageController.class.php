@@ -68,13 +68,14 @@ class PageController extends BaseController
             // status
             if ($this->isMyActivity()) {
                 if (empty($info)) {
-
                     $activityInfo['status'] = 1;
                 } else {
                     $activityInfo['status'] = 2;
                 }
             } else {
-                if (empty($cutInfo)) {
+                if(empty($info)) {
+                    $activityInfo['status'] = 1;
+                }else if (empty($cutInfo)) {
                     $activityInfo['status'] = 3;
                 } else {
                     $activityInfo['status'] = 4;

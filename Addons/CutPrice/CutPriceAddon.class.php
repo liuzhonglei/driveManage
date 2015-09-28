@@ -13,7 +13,7 @@ class CutPriceAddon extends Addon
 
     public $info = array(
         'name' => 'CutPrice',
-        'title' => '砍价活动',
+        'title' => '砍价活动插件',
         'description' => '驾校的砍价活动插件',
         'status' => 1,
         'author' => '丑陋虚',

@@ -27,7 +27,7 @@ class CutPriceController extends BaseController {
         $_POST['token'] = get_token();
         $this->assign('add_button',0);
         $this->assign('del_button',0);
-        parent::common_lists($this->model,0,"listsCount" );
+        parent::common_lists($this->model,0,"listsCount", $order = 'time_sign desc');
     }
 
 }
