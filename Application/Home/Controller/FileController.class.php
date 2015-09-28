@@ -75,9 +75,12 @@ class FileController extends HomeController {
         ); //TODO:上传到远程服务器
 
         /* 记录图片信息 */
-        if($info){
+        if($info['download']){
             $return['status'] = 1;
             $return = array_merge($info['download'], $return);
+        } else if($info['filename']){
+            $return['status'] = 1;
+            $return = array_merge($info['filename'], $return);
         } else {
             $return['status'] = 0;
             $return['info']   = $Picture->getError();
