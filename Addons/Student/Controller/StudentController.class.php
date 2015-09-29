@@ -87,14 +87,14 @@ class StudentController extends StudentBaseController
         $this->model ['list_row'] = 100000;
         // get data
         $list_data = $this->_get_model_list($this->model);
-
-        // if referrer is student set in_name
-        foreach ($list_data['list_data'] as &$data) {
-            if ($data['intro_source'] == "2" && !empty($data['in_name'])) {
-                $inStudentInfo = M('student')->where('token = "' . get_token() . '" and openid="' . $data["in_name"] . '"')->find();
-                $data["in_name"] = $inStudentInfo['name'];
-            }
-        }
+//
+//        // if referrer is student set in_name
+//        foreach ($list_data['list_data'] as &$data) {
+//            if ($data['intro_source'] == "2" && !empty($data['in_name'])) {
+//                $inStudentInfo = M('student')->where('token = "' . get_token() . '" and openid="' . $data["in_name"] . '"')->find();
+//                $data["in_name"] = $inStudentInfo['name'];
+//            }
+//        }
         $this->downloadExcel($list_data);
     }
 
