@@ -29,89 +29,16 @@ class BaseController extends AddonsController
     // param
     var $model;
     var $listsTable;
+    var $dataMultiEdit = false;
 
+    // the need show all table
     public static $tableNames = array('student', 'student_question', 'student_banner', 'teacher', 'student_notification', 'qingqing_coupon', 'eo2o_payment');
-
-    function _initialize()
-    {
-        parent::_initialize();
-
-        $controller = strtolower(_CONTROLLER);
-
-        $res ['title'] = '驾校信息';
-        $res ['url'] = addons_url('School://School/lists');
-        $res ['class'] = ($controller == 'school' || $controller == 'photo') ? 'current' : '';
-        $nav [] = $res;
-
-        $res ['title'] = '相关信息';
-        $res ['url'] = addons_url('School://Info/lists');
-        $res ['class'] = $controller == 'info' ? 'current' : '';
-        $nav [] = $res;
-
-        $res ['title'] = '课程信息';
-        $res ['url'] = addons_url('School://Course/lists');
-        $res ['class'] = $controller == 'course' ? 'current' : '';
-        $nav [] = $res;
-
-        $res ['title'] = '费用信息';
-        $res ['url'] = addons_url('School://Payitem/lists');
-        $res ['class'] = $controller == 'payitem' ? 'current' : '';
-        $nav [] = $res;
-
-
-        $res ['title'] = '驾校场地';
-        $res ['url'] = addons_url('School://Place/lists');
-        $res ['class'] = $controller == 'place' ? 'current' : '';
-        $nav [] = $res;
-
-        $res ['title'] = '优惠资讯';
-        $res ['url'] = addons_url('School://Privilege/lists');
-        $res ['class'] = $controller == 'privilege' ? 'current' : '';
-        $nav [] = $res;
-
-        $this->assign('nav', $nav);
-
-        // set if
-        if (i('model') == 'teacher') {
-            $this->assign('nav', null);
-        }
-    }
 
     // 通用插件的增加模型
     public function lists()
     {
         $_POST['token'] = get_token();
-
         parent::common_lists($this->model);
-    }
-
-    public function listsData()
-    {
-        $data = M('student')->query("select id,type,token from wp_school_info");
-
-        foreach ($data as &$vo) {
-            array_unshift($vo, '<input type="checkbox" name="id[]" value="' . $vo['id'] . '">');//向数组插入元素
-            $vo[1] = intval($vo[1]);
-            $vo[2] = '12/09/2013';
-            $vo[3] = "test";
-        }
-
-        $records = array();
-        $status_list = array(
-            array("success" => "Pending"),
-            array("info" => "Closed"),
-            array("danger" => "On Hold"),
-            array("warning" => "Fraud")
-        );
-        $status = $status_list[rand(0, 2)];
-        $records['data'] = $data;
-        $records["customActionStatus"] = "OK"; // pass custom message(useful for getting status of group actions)
-        $records["customActionMessage"] = "Group action successfully has been completed. Well done!"; // pass custom message(useful for getting status of group actions)
-        $records["draw"] = intval($_REQUEST['draw']);
-        $records["recordsTotal"] = 3;
-        $records["recordsFiltered"] = 3;
-
-        echo json_encode($records);
     }
 
     // 通用插件的增加模型
@@ -135,223 +62,274 @@ class BaseController extends AddonsController
         parent::common_del($this->model);
     }
 
-
-    // 获取模型列表数据
-    public function _get_model_list($model = null, $page = 0, $order = 'id desc')
+    /**
+     * get the model grid fields
+     * @return the model fields
+     */
+    public function getModelFields()
     {
-        $page || $page = I('p', 1, 'intval'); // 默认显示第一页数据
-
-        // 解析列表规则
+        $model = $this->model;
         $list_data = $this->_list_grid($model);
-        $grids = $list_data ['list_grids'];
-        $fields = $list_data ['fields'];
 
-        // 搜索条件
-        $map = $this->_search_map($model, $fields);
+        if ($this->dataMultiEdit) {
+            array_unshift($list_data['fields'], 'select');
+            array_unshift($list_data['list_grids'], array("title" => '<input type="checkbox" class="group-checkable">'));
+        }
 
-        // 关键字搜索
+        $this->ajaxReturn($list_data);
+    }
 
-        $row = empty ($model ['list_row']) ? 20 : $model ['list_row'];
+    /**
+     * get the model info
+     */
+    public function getModelInfo()
+    {
+        $model = $this->model;
+        $fieldList = $this->getFieldList($model);
 
+        // result
+        $result = array();
+        $result['model'] = $model;
+        $result['fieldList'] = $fieldList;
 
-        // 读取模型数据列表
-        if ($model ['extend']) {
-            $name = get_table_name($model ['id']);
-            $parent = get_table_name($model ['extend']);
-            $fix = C("DB_PREFIX");
+        // return
+        $this->ajaxReturn($result);
+    }
 
-            $key = array_search('id', $fields);
-            if (false === $key) {
-                array_push($fields, "{$fix}{$parent}.id as id");
-            } else {
-                $fields [$key] = "{$fix}{$parent}.id as id";
-            }
+    /**
+     * get the model fileds config
+     * @param $model the model name
+     */
+    public function getFieldList($model)
+    {
+        // get the  fields
+        $model || $model = $this->getModel($_GET['model']); // 默认显示第一页数据
+        $fields = get_model_attribute($model['id']);
 
-            /* 查询记录数 */
-            $count = M($parent)->join("INNER JOIN {$fix}{$name} ON {$fix}{$parent}.id = {$fix}{$name}.id")->where($map)->count();
-
-            // 查询数据
-            $data = M($parent)->join("INNER JOIN {$fix}{$name} ON {$fix}{$parent}.id = {$fix}{$name}.id")->field(empty ($fields) ? true : $fields)->where($map)->order("{$fix}{$parent}.{$order}")->page($page, $row)->select();
-        } else {
-            empty ($fields) || in_array('id', $fields) || array_push($fields, 'id');
-
-            // special handle
-            if(!empty($this->listsTable)){
-                $name = $this->listsTable;
-            }else{
-                $name = get_table_name($model ['id']);
-                foreach (self::$tableNames as $handleName) {
-                    if (!strcmp($handleName, $name)) {
-                        $name .= '_all';
-                        break;
+        // set the extra data
+        for ($i = 1; $i <= count($fields); $i++) {
+            for ($j = 0; $j < count($fields[$i]); $j++) {
+                if (in_array($fields[$i][$j]['name'], array('id_teacher', 'id_teacher_k2', 'id_teacher_k3', 'id_in_teacher'))) {
+                    if (empty($teacherData)) {
+                        $teacherData = $this->getFieldData('teacher', array('status' => 1, 'token' => get_token()));
                     }
+                    $fields[$i][$j] ['extra'] .= "\r\n" . $teacherData;
+                } else if (in_array($fields[$i][$j]['name'], array('course_id'))) {
+                    if (empty($teacherData)) {
+                        $courseData = $this->getFieldData('school_course', array('token' => get_token()));
+                    }
+                    $fields[$i][$j] ['extra'] .= "\r\n" . $courseData;
                 }
             }
-
-            //$name = parse_name ($name, true );
-            $data = M($name)->field(empty ($fields) ? true : $fields)->where($map)->order($order)->page($page, $row)->select();
-
-            /* 查询记录总数 */
-            $count = M($name)->where($map)->count();
-        }
-        $list_data ['list_data'] = $data;
-
-        // 分页
-        if ($count > $row) {
-            $page = new \Think\Page ($count, $row);
-            $page->setConfig('theme', '%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
-            $list_data ['_page'] = $page->show();
         }
 
-        return $list_data;
+
+        // return
+        return $fields;
     }
 
-    // 解析列表规则
-    public function _list_grid($model)
+
+    /**
+     * get the data by id
+     * @param null $model
+     * @param int $id
+     */
+    public function getDataById($model = null, $id = 0)
     {
-        $fields = array();
-        $grids = preg_split('/[;\r\n]+/s', htmlspecialchars_decode($model ['list_grid']));
-        foreach ($grids as &$value) {
-            // 字段:标题:链接
-            $val = explode(':', $value);
-            // 支持多个字段显示
-            $field = explode(',', $val [0]);
-            $value = array(
-                'field' => $field,
-                'title' => $val [1]
-            );
-            if (preg_match('/^([0-9]*)%/', $val [1], $matches)) {
-                $value ['title'] = str_replace($matches [0], '', $value ['title']);
-                $value ['width'] = $matches [1];
-            }
-            if (isset ($val [2])) {
-                // 链接信息
-                $value ['href'] = $val [2];
-                // 搜索链接信息中的字段信息
-                preg_replace_callback('/\[([a-z_]+)\]/', function ($match) use (&$fields) {
-                    $fields [] = $match [1];
-                }, $value ['href']);
-            }
-            if (strpos($val [1], '|')) {
-                // 显示格式定义
-                list ($value ['title'], $value ['format']) = explode('|', $val [1]);
-            }
-            foreach ($field as $val) {
-                $array = explode('|', $val);
-                $fields [] = $array [0];
-            }
-        }
-        // 过滤重复和错误字段信息
-        $sign = ture;
-        if (!empty($this->listsTable)) {
-            $sign = false;
+        // param
+        $token = get_token();
+        $model || $model = i("model");
+        $id || $id = i("id");
+
+        // search
+        $info = M($model)->where('id="' . $id . '" and token= "' . $token . '" ')->find();
+        if (!empty($info["photo"])) {
+            $info["photoUrl"] = get_cover($info["photo"])['path'];
         } else {
-            foreach (self::$tableNames as $tableName) {
-                if (!strcmp($tableName, $model['name'])) {
-                    $sign = false;
-                    break;
-                }
-            }
+            $info["photoUrl"] = "";
         }
-        if ($sign) {
-            $model_fields = M('attribute')->where('model_id=' . $model ['id'])->field('name')->select();
-            $model_fields = getSubByKey($model_fields, 'name');
-            in_array('id', $model_fields) || array_push($model_fields, 'id');
-            $fields = array_intersect($fields, $model_fields);
-        }
-        $res ['fields'] = array_unique($fields);
 
-        $res ['list_grids'] = $grids;
-        return $res;
+        return $this->ajaxReturn($info);
     }
 
-    // add the search map
-    public function _search_map($model, $fields)
+    /**
+     * get the model data
+     * @param null $model
+     * @param int $page
+     * @param string $order
+     */
+    public function listsAdmin()
     {
-        $map = '';
+        // page and length
+        $custromActionType = i("custromActionType");
+        $customActionName = i("customActionName");
+        $start = I('start', 0, 'intval');
+        $row = I('length', 1, 'intval');
+//        $model = $this->getModel($_GET['model']);
+        $model = $this->model;
 
-        foreach ($_REQUEST as $name => $value) {
-            if (strpos($name, ',')) {
-                $fieldName = $name;
-                $fieldValue = $value;
+        // if remove some data
+        if ($customActionName == "delete") {
+            $_POST['ids'] = $_POST['id'];
+            unset($_REQUEST['id']);
+            unset($_POST['id']);
+            if (!$this->commonDel($model)) {
+                $this->error("数据删除失败");
+            }
+        }
+        $page = $start / $row + 1;
+        $list_data = $this->_get_model_list($model, $page);
+
+        // convert
+        $list_data ['data'] = array();
+        foreach ($list_data ['list_data'] as $record) {
+            $convertRecord = array_values($record);
+            for ($i = 0; $i < count($record); $i++) {
+                $convertRecord[$i] = $this->get_list_field($record, $list_data ['list_grids'][$i], $model);
+            }
+            if ($this->dataMultiEdit) {
+                array_unshift($convertRecord, '<input type="checkbox" name="id[]" value="' . $record['id'] . '">');
+            }
+            $list_data ['data'][] = $convertRecord;
+        }
+
+        $list_data ['recordsTotal'] = $list_data ['count'];
+        $list_data["recordsFiltered"] = $list_data ['count'];
+        $list_data["draw"] = i("draw");
+
+
+        // return
+        $this->ajaxReturn($list_data);
+    }
+
+    /**
+     * get  and set the config
+     */
+    public function configAdmin()
+    {
+        $this->getModel();
+        if (IS_POST) {
+            $conf = $GLOBALS['HTTP_RAW_POST_DATA'];
+            $conf = json_decode($conf);
+            $flag = D('Common/AddonConfig')->set(_ADDONS, $conf);
+
+            if ($flag !== false) {
+                $this->success('保存成功', Cookie('__forward__'));
+            } else {
+                $this->error('保存失败');
             }
         }
 
-
-        if (!empty($fieldName)) {
-            $where_str = " token = \"" . get_token() . "\"  ";
-            $map = parent::_search_map($model, $fields);
-
-            unset($map['token']);
-            unset($map[$fieldName]);
-            // converth map
-            foreach ($map as $mapMame => $mapValue) {
-                $where_str = $where_str . " and " . $mapMame . ' = "' . $mapValue . '" ';
-            }
-
-
-            // add the high search
-            if (!empty($fieldValue)) {
-                $where_str = $where_str . ' and  (';
-                $names = explode(',', $fieldName);
-                $values = explode(' ', $fieldValue);
-                foreach ($values as $fieldValue) {
-                    $where_str = $where_str . ' (';
-                    foreach ($names as $field) {
-                        if (!empty($field) && !empty($fieldValue)) {
-                            $where_str = $where_str . $field . ' like "%' . $fieldValue . '%" ' . 'or ';
+        $map ['name'] = _ADDONS;
+        $addon = M('Addons')->where($map)->find();
+        if (!$addon)
+            $this->error('插件未安装');
+        $addon_class = get_addon_class($addon ['name']);
+        if (!class_exists($addon_class))
+            trace("插件{$addon['name']}无法实例化,", 'ADDONS', 'ERR');
+        $data = new $addon_class ();
+        $addon ['addon_path'] = $data->addon_path;
+        $addon ['custom_config'] = $data->custom_config;
+        $this->meta_title = '设置插件-' . $data->info ['title'];
+        $db_config = D('Common/AddonConfig')->get(_ADDONS);
+        $addon ['config'] = include $data->config_file;
+        if ($db_config) {
+            foreach ($addon ['config'] as $key => $value) {
+                if ($value ['type'] != 'group') {
+                    !isset ($db_config [$key]) || $addon ['config'] [$key] ['value'] = $db_config [$key];
+                } else {
+                    foreach ($value ['options'] as $gourp => $options) {
+                        foreach ($options ['options'] as $gkey => $value) {
+                            !isset ($db_config [$key]) || $addon ['config'] [$key] ['options'] [$gourp] ['options'] [$gkey] ['value'] = $db_config [$gkey];
                         }
                     }
-                    if (strrchr($where_str, 'or ') == 'or ') {
-                        $where_str = substr($where_str, 0, sizeof($where_str) - 4);
-                    }
-                    $where_str = $where_str . ' ) and ';
                 }
-
-                if (strrchr($where_str, 'and ') == 'and ') {
-                    $where_str = substr($where_str, 0, sizeof($where_str) - 5);
-                }
-
-                $where_str = $where_str . ' ) ';
             }
-            $map = $where_str;
-
-            // get out
-        }
-        if (empty($map)) {
-            $_SERVER["PATH_INFO"];
         }
 
-        if (empty($map)) {
-            $map = parent::_search_map($model, $fields);
+        $addon['configs'] = array();
+        foreach ($addon['config'] as $key => $value) {
+            $value['id'] = $key;
+            $addon['configs'][] = $value;
         }
 
-        return $map;
+        $this->ajaxReturn($addon);
     }
 
 
     /**
-     * get the school info
-     * @return [type] [description]
+     * delete the data
+     * @param $model model
+     * @return bool is succeed
      */
-    protected function  getSchoolInfo()
+    public function commonDel($model)
     {
-        $Model = M("school");
-        $map = array('token' => get_token());
-        $info = $Model->where($map)->find();
-        return $info;
+        is_array($model) || $model = $this->getModel($model);
+
+        !empty ($ids) || $ids = I('id');
+        !empty ($ids) || $ids = array_filter(array_unique(( array )I('ids', 0)));
+        !empty ($ids) || $this->error('请选择要操作的数据!');
+
+        $Model = M(get_table_name($model ['id']));
+        $map ['id'] = array(
+            'in',
+            $ids
+        );
+
+        // 插件里的操作自动加上Token限制
+        $token = get_token();
+        if (defined('ADDON_PUBLIC_PATH') && !empty ($token)) {
+            $map ['token'] = $token;
+        }
+
+        if ($Model->where($map)->delete()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
-     * check if the weixin is bind  student or teacher
+     * admin delete
      */
-    protected function  checkWeixinBind()
+    public function modelDelete($model)
     {
-        $studentInfo = M("student")->where("openid= \"" . get_openid() . "\" and token=\"" . get_token() . "\"")->find();
-        $teacherInfo = M("teacher")->where("openid= \"" . get_openid() . "\" and token=\"" . get_token() . "\"")->find();
-        if (empty($studentInfo) && empty($teacherInfo)) {
-            $this->display(T(MOBILE_PATH . 'schoolCenterBind'));
+        $this->ajaxReturn($this->common_del($model));
+    }
+
+
+    /**
+     * save the post data
+     * @return bool
+     */
+    protected function saveModel($model = null)
+    {
+        //set token
+        $_POST["token"] || $_POST["token"] = get_token();
+
+        //param
+        $model || $model = $_GET["model"];
+        $model || $model = $this->model;
+        is_array($model) || $model = $this->getModel($model);
+        $id = i('id');
+
+        // process
+        $Model = D(parse_name(get_table_name($model ['id']), 1));
+        $Model = $this->checkAttr($Model, $model['id']);
+        if (empty(i('id'))) {
+            $result = $Model->create() && $id = $Model->add();
+        } else {
+            $result = $Model->create() && $id = $Model->save();
         }
+        if ($result || empty($Model->getError())) {
+            $this->_saveKeyword($this->model, $id);
+            $result = array("status" => "1", "info" => '保存成功');
+        } else {
+            $result = array("status" => "0", "info" => "保存失败！" . $Model->getError());
+        }
+
+        // return
+        return $result;
     }
 
     /**
@@ -414,6 +392,351 @@ class BaseController extends AddonsController
     }
 
 
+    /**
+     * 获取数据
+     * @param null $model
+     * @param int $page
+     * @param string $order
+     * @return mixed
+     */
+    public function _get_model_list($model = null, $page = 0, $order = 'id desc')
+    {
+        $page || $page = I('p', 1, 'intval'); // 默认显示第一页数据
+
+        // 解析列表规则
+        $list_data = $this->_list_grid($model);
+        $grids = $list_data ['list_grids'];
+        $fields = $list_data ['fields'];
+
+        // 搜索条件
+        $map = $this->_search_map($model, $fields);
+
+        // 关键字搜索
+
+        $row = empty ($model ['list_row']) ? 20 : $model ['list_row'];
+
+
+        // 读取模型数据列表
+        if ($model ['extend']) {
+            $name = get_table_name($model ['id']);
+            $parent = get_table_name($model ['extend']);
+            $fix = C("DB_PREFIX");
+
+            $key = array_search('id', $fields);
+            if (false === $key) {
+                array_push($fields, "{$fix}{$parent}.id as id");
+            } else {
+                $fields [$key] = "{$fix}{$parent}.id as id";
+            }
+
+            /* 查询记录数 */
+            $count = M($parent)->join("INNER JOIN {$fix}{$name} ON {$fix}{$parent}.id = {$fix}{$name}.id")->where($map)->count();
+
+            // 查询数据
+            $data = M($parent)->join("INNER JOIN {$fix}{$name} ON {$fix}{$parent}.id = {$fix}{$name}.id")->field(empty ($fields) ? true : $fields)->where($map)->order("{$fix}{$parent}.{$order}")->page($page, $row)->select();
+        } else {
+            empty ($fields) || in_array('id', $fields) || array_push($fields, 'id');
+
+            // special handle
+            if (!empty($this->listsTable)) {
+                $name = $this->listsTable;
+            } else {
+                $name = get_table_name($model ['id']);
+                foreach (self::$tableNames as $handleName) {
+                    if (!strcmp($handleName, $name)) {
+                        $name .= '_all';
+                        break;
+                    }
+                }
+            }
+
+            //$name = parse_name ($name, true );
+            $data = M($name)->field(empty ($fields) ? true : $fields)->where($map)->order($order)->page($page, $row)->select();
+
+            /* 查询记录总数 */
+            $count = M($name)->where($map)->count();
+        }
+        $list_data ['list_data'] = $data;
+        $list_data ['count'] = $count;
+
+        // 分页
+        if ($count > $row) {
+            $page = new \Think\Page ($count, $row);
+            $page->setConfig('theme', '%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
+            $list_data ['_page'] = $page->show();
+        }
+
+        return $list_data;
+    }
+
+
+    /**
+     * 解析列表规则
+     * @param $model
+     * @return mixed
+     */
+    public function _list_grid($model)
+    {
+        $fields = array();
+        $grids = preg_split('/[;\r\n]+/s', htmlspecialchars_decode($model ['list_grid']));
+        foreach ($grids as &$value) {
+            // 字段:标题:链接
+            $val = explode(':', $value);
+            // 支持多个字段显示
+            $field = explode(',', $val [0]);
+            $value = array(
+                'field' => $field,
+                'title' => $val [1]
+            );
+            if (preg_match('/^([0-9]*)%/', $val [1], $matches)) {
+                $value ['title'] = str_replace($matches [0], '', $value ['title']);
+                $value ['width'] = $matches [1];
+            }
+            if (isset ($val [2])) {
+                // 链接信息
+                $value ['href'] = $val [2];
+                // 搜索链接信息中的字段信息
+                preg_replace_callback('/\[([a-z_]+)\]/', function ($match) use (&$fields) {
+                    $fields [] = $match [1];
+                }, $value ['href']);
+            }
+            if (strpos($val [1], '|')) {
+                // 显示格式定义
+                list ($value ['title'], $value ['format']) = explode('|', $val [1]);
+            }
+            foreach ($field as $val) {
+                $array = explode('|', $val);
+                $fields [] = $array [0];
+            }
+        }
+        // 过滤重复和错误字段信息
+        $sign = ture;
+        if (!empty($this->listsTable)) {
+            $sign = false;
+        } else {
+            foreach (self::$tableNames as $tableName) {
+                if (!strcmp($tableName, $model['name'])) {
+                    $sign = false;
+                    break;
+                }
+            }
+        }
+        if ($sign) {
+            $model_fields = M('attribute')->where('model_id=' . $model ['id'])->field('name')->select();
+            $model_fields = getSubByKey($model_fields, 'name');
+            in_array('id', $model_fields) || array_push($model_fields, 'id');
+            $fields = array_intersect($fields, $model_fields);
+        }
+        $res ['fields'] = array_unique($fields);
+
+        $res ['list_grids'] = $grids;
+        return $res;
+    }
+
+    /**
+     * 获取搜索条件
+     * @param $model
+     * @param $fields
+     * @return array|string
+     */
+    public function _search_map($model, $fields)
+    {
+        $map = '';
+
+        foreach ($_REQUEST as $name => $value) {
+            if (strpos($name, ',')) {
+                $fieldName = $name;
+                $fieldValue = $value;
+            }
+        }
+
+
+        if (!empty($fieldName)) {
+            $where_str = " token = \"" . get_token() . "\"  ";
+            $map = parent::_search_map($model, $fields);
+
+            unset($map['token']);
+            unset($map[$fieldName]);
+            // converth map
+            foreach ($map as $mapMame => $mapValue) {
+                $where_str = $where_str . " and " . $mapMame . ' = "' . $mapValue . '" ';
+            }
+
+
+            // add the high search
+            if (!empty($fieldValue)) {
+                $where_str = $where_str . ' and  (';
+                $names = explode(',', $fieldName);
+                $values = explode(' ', $fieldValue);
+                foreach ($values as $fieldValue) {
+                    $where_str = $where_str . ' (';
+                    foreach ($names as $field) {
+                        if (!empty($field) && !empty($fieldValue)) {
+                            $where_str = $where_str . $field . ' like "%' . $fieldValue . '%" ' . 'or ';
+                        }
+                    }
+                    if (strrchr($where_str, 'or ') == 'or ') {
+                        $where_str = substr($where_str, 0, sizeof($where_str) - 4);
+                    }
+                    $where_str = $where_str . ' ) and ';
+                }
+
+                if (strrchr($where_str, 'and ') == 'and ') {
+                    $where_str = substr($where_str, 0, sizeof($where_str) - 5);
+                }
+
+                $where_str = $where_str . ' ) ';
+            }
+            $map = $where_str;
+
+            // get out
+        }
+        if (empty($map)) {
+            $_SERVER["PATH_INFO"];
+        }
+
+        if (empty($map)) {
+            $map = parent::_search_map($model, $fields);
+        }
+        return $map;
+    }
+
+    /**
+     * 解析列表定义规则(数据格式转换)
+     * @param $data
+     * @param $grid
+     * @param $model
+     * @return mixed|string
+     */
+    function get_list_field($data, $grid, $model)
+    {
+        // 获取当前字段数据
+        foreach ($grid ['field'] as $field) {
+            $array = explode('|', $field);
+            $array [0] = trim($array [0]);
+            $temp = $data [$array [0]];
+            // 函数支持
+            if (isset ($array [1])) {
+                if ($array [1] == 'get_name_by_status') {
+                    $temp = get_name_by_status($temp, $array [0], $model ['id']);
+                } else {
+                    $temp = call_user_func($array [1], $temp);
+                }
+            }
+            $data2 [$array [0]] = $temp;
+        }
+        if (!empty ($grid ['format'])) {
+            $value = preg_replace_callback('/\[([a-z_]+)\]/', function ($match) use ($data2) {
+                return $data2 [$match [1]];
+            }, $grid ['format']);
+        } else {
+            $value = implode(' ', $data2);
+        }
+
+        // 链接支持
+        if (!empty ($grid ['href'])) {
+            $links = explode(',', $grid ['href']);
+            foreach ($links as $link) {
+                $array = explode('|', $link);
+                $href = $array [0];
+                if (preg_match('/^\[([a-z_]+)\]$/', $href, $matches)) {
+                    $val [] = $data2 [$matches [1]];
+                } else {
+                    $show = isset ($array [1]) ? $array [1] : $value;
+                    // 增加跳转方式处理 weiphp
+                    $target = '_self';
+                    if (preg_match('/target=(\w+)/', $href, $matches)) {
+                        $target = $matches [1];
+                        $href = str_replace('&' . $matches [0], '', $href);
+                    }
+
+                    // 替换系统特殊字符串
+                    $href = str_replace(array(
+                        '[DELETE]',
+                        '[EDIT]',
+                        '[MODEL]'
+                    ), array(
+                        'modelDelete?id=[id]&model=[MODEL]',
+                        'modelEdit?id=[id]&model=[MODEL]',
+                        $model ['id']
+                    ), $href);
+
+                    // 替换数据变量
+                    $href = preg_replace_callback('/\[([a-z_]+)\]/', function ($match) use ($data) {
+                        return $data [$match [1]];
+                    }, $href);
+
+                    // 兼容多种写法
+                    if (strpos($href, '?') === false && strpos($href, '&') !== false) {
+                        $href = preg_replace("/&/i", "?", $href, 1);
+                    }
+                    if ($show == '删除') {
+                        $val [] = '<li><a class="confirm"   href="' . urldecode(U($href, $GLOBALS ['get_param'])) . '">' . $show . '</a></li>';
+                    } else if (strpos($href, "#") === 0) {
+                        $val [] = '<li><a  data-target="' . $href . '" data-toggle="modal">' . $show . '</a></li>';
+                    } else if (strpos($href, "javascript_") === 0) {
+                        $val [] = '<li><a  target="' . $target . '" href="' . str_replace("javascript_", "javascript:", $href) . '">' . $show . '</a></li>';
+                    } else {
+                        $val [] = '<li><a  target="' . $target . '" href="' . urldecode(U($href, $GLOBALS ['get_param'])) . '">' . $show . '</a></li>';
+                    }
+                }
+            }
+            $value = implode(' ', $val);
+            $value = <<<srt
+<span class="input-group-btn btn-left">
+											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+											Action <i class="fa fa-angle-down"></i>
+											</button>
+											<ul class="dropdown-menu pull-right" role="menu">$value</ul>
+</span>
+srt;
+        }
+        return $value;
+    }
+
+    /**
+     * check if the weixin is bind  student or teacher
+     */
+    protected function  checkWeixinBind()
+    {
+        $studentInfo = M("student")->where("openid= \"" . get_openid() . "\" and token=\"" . get_token() . "\"")->find();
+        $teacherInfo = M("teacher")->where("openid= \"" . get_openid() . "\" and token=\"" . get_token() . "\"")->find();
+        if (empty($studentInfo) && empty($teacherInfo)) {
+            $this->display(T(MOBILE_PATH . 'schoolCenterBind'));
+        }
+    }
+
+    /**
+     * get the school info
+     * @return [type] [description]
+     */
+    protected function  getSchoolInfo()
+    {
+        $Model = M("school");
+        $map = array('token' => get_token());
+        $info = $Model->where($map)->find();
+        return $info;
+    }
+
+
+    /**
+     * get the model value
+     * @param $modelName
+     * @param $map
+     * @return string id:value
+     */
+    private function getFieldData($modelName, $map)
+    {
+        $extra = ':' . "\r\n";
+        $list = M($modelName)->where($map)->select();
+
+        foreach ($list as $v) {
+            $extra .= $v ['id'] . ':' . $v ['name'] . "\r\n";
+        }
+
+        // return
+        return $extra;
+    }
 
     /**
      * return the page attention
@@ -426,37 +749,5 @@ class BaseController extends AddonsController
         $this->ajaxReturn($signPackage);
     }
 
-    /**
-     * save the post data
-     * @return bool
-     */
-    protected function saveModel($model = null)
-    {
-        //set token
-        $_POST["token"] ||  $_POST["token"] = get_token();
 
-        //param
-        $model || $model = $_GET["model"];
-        $model || $model = $this->model;
-        is_array($model) || $model = $this->getModel($model);
-        $id =  i('id');
-
-        // process
-        $Model = D ( parse_name ( get_table_name ( $model ['id'] ), 1 ) );
-        $Model = $this->checkAttr($Model,$model['id']);
-        if (empty(i('id'))) {
-            $result = $Model->create() && $id = $Model->add();
-        } else {
-            $result = $Model->create() && $id = $Model->save();
-        }
-        if ($result || empty($Model->getError())) {
-            $this->_saveKeyword($this->model, $id);
-            $result = array("status" => "1", "info" => '保存成功');
-        }else{
-            $result = array("status" => "0", "info" => "保存失败！".$Model->getError());
-        }
-
-        // return
-        return  $result;
-    }
 }
