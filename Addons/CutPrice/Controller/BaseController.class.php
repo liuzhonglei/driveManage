@@ -18,14 +18,14 @@ class BaseController extends \Addons\School\Controller\BaseController {
 		parent::_initialize();
 
         $action = strtolower ( _ACTION );
-		$res ['title'] = '砍价明细';
+		$res ['title'] = '砍价统计';
         $res ['url'] = addons_url ( 'CutPrice://CutPrice/lists' );
         $res ['class'] = $action == 'lists' ? 'current' : '';
         $nav [] = $res;
 
-        $res ['title'] = '砍价统计';
-        $res ['url'] = addons_url ( 'CutPrice://CutPrice/listsCount' );
-        $res ['class'] = $action == 'listscount' ? 'current' : '';
+        $res ['title'] = '砍价明细';
+        $res ['url'] = addons_url ( 'CutPrice://CutPrice/listsDetail' );
+        $res ['class'] = $action == 'listsdetail' ? 'current' : '';
         $nav [] = $res;
 
         $res ['title'] = '系统设置';

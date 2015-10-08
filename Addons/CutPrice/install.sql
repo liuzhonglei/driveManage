@@ -2,11 +2,6 @@ DROP INDEX wp_cut_price_index ON wp_cut_price;
 
 CREATE INDEX wp_cut_price_index ON wp_cut_price (token, openid, friend_openid);
 
-SELECT
-  *
-FROM
-  wp_cut_price_all;
-
 DROP VIEW wp_cut_price_all;
 
 CREATE VIEW wp_cut_price_all AS SELECT
@@ -19,17 +14,17 @@ CREATE VIEW wp_cut_price_all AS SELECT
                                          t.openid = openid
                                          AND t.token = token
                                        LIMIT 1
-                                     ) AS nickname,
+  ) AS nickname,
                                      (
                                        SELECT
-                                     NAME
+                                     name
                                        FROM
                                          wp_student
                                        WHERE
                                          t.openid = openid
                                          AND t.token = token
                                        LIMIT 1
-                                     ) AS NAME,
+                                     ) AS name,
                                      (
                                        SELECT
                                      nickname
@@ -42,7 +37,7 @@ CREATE VIEW wp_cut_price_all AS SELECT
                                      ) AS friend_nickname,
                                      (
                                        SELECT
-                                     NAME
+                                     name
                                        FROM
                                          wp_student
                                        WHERE
@@ -73,14 +68,14 @@ CREATE VIEW wp_cut_price_count AS SELECT
                                     ) AS nickname,
                                     (
                                       SELECT
-                                    NAME
+                                    name
                                       FROM
                                         wp_student
                                       WHERE
                                         t.openid = openid
                                         AND t.token = token
                                       LIMIT 1
-                                    ) AS NAME,
+                                    ) AS name,
                                     (
                                       SELECT
                                     phone
@@ -158,7 +153,7 @@ VALUES
     '',
     '',
     '',
-    'name:学员名称\r\nphone:电话\r\nnickname:微信昵称\r\n\r\nfee:砍价总金额(元)\r\nremark:备注\r\ntime_sign|day_format:注册日期',
+    'name:学员名称\r\nphone:电话\r\nnickname:微信昵称\r\nfee:砍价总金额(元)\r\nremark:备注\r\ntime_sign|day_format:注册日期',
     '10',
     'name,nickname',
     '',
