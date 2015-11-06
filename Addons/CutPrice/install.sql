@@ -48,14 +48,37 @@ CREATE VIEW wp_cut_price_all AS SELECT
                                 FROM
                                   wp_cut_price t;
 
+DROP VIEW wp_cut_price_count_detail;
+
+CREATE VIEW wp_cut_price_count_detail AS SELECT
+                                           t.openid id,
+                                           t.token,
+                                           t.openid,
+                                           count(*) count,
+                                           sum(t.fee) fee
+                                         FROM
+                                           wp_cut_price t
+                                         GROUP BY
+                                           t.token,
+                                           t.openid;
+
+SELECT
+  *
+FROM
+  wp_cut_price_count_detail;
+
 DROP VIEW wp_cut_price_count;
 
 CREATE VIEW wp_cut_price_count AS SELECT
-                                    t.openid id,
+                                    t.id,
                                     t.token,
                                     t.openid,
-                                    count(*) count,
-                                    sum(t.fee) fee,
+                                    t.count,
+                                    t.fee,
+                                    t1.name,
+                                    t1.phone,
+                                    t1.remark,
+                                    t1.time_sign,
                                     (
                                       SELECT
                                     nickname
@@ -65,52 +88,11 @@ CREATE VIEW wp_cut_price_count AS SELECT
                                         t.openid = openid
                                         AND t.token = token
                                       LIMIT 1
-                                    ) AS nickname,
-                                    (
-                                      SELECT
-                                    name
-                                      FROM
-                                        wp_student
-                                      WHERE
-                                        t.openid = openid
-                                        AND t.token = token
-                                      LIMIT 1
-                                    ) AS name,
-                                    (
-                                      SELECT
-                                    phone
-                                      FROM
-                                        wp_student
-                                      WHERE
-                                        t.openid = openid
-                                        AND t.token = token
-                                      LIMIT 1
-                                    ) AS phone,
-                                    (
-                                      SELECT
-                                    remark
-                                      FROM
-                                        wp_student
-                                      WHERE
-                                        t.openid = openid
-                                        AND t.token = token
-                                      LIMIT 1
-                                    ) AS remark,
-                                    (
-                                      SELECT
-                                    time_sign
-                                      FROM
-                                        wp_student
-                                      WHERE
-                                        t.openid = openid
-                                        AND t.token = token
-                                      LIMIT 1
-                                    ) AS time_sign
+                                    ) AS nickname
                                   FROM
-                                    wp_cut_price t
-                                  GROUP BY
-                                    t.token,
-                                    t.openid;
+                                    wp_cut_price_count_detail t
+                                    LEFT JOIN wp_student t1 ON t.token = t1.token and t.openid = t1.openid;
+
 
 
 DELETE
