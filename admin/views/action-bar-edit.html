@@ -1,19 +1,31 @@
-<div class="row">
-    <div class="col-md-6 col-sm-12">
-        <div class="actions">
-            <a href="javascript:TableAjax.add()" class="btn default">
-                    <span class="hidden-480">
-                    导出成excel</span>
+<!--<div class="row">-->
+
+<div class="table-actions-wrapper ">
+    <div style="margin-left: 5px">
+        <select class="table-group-action-input form-control input-inline input-small input-sm">
+            <option value="">批量操作</option>
+            <option value="delete">删除</option>
+        </select>
+
+        <button class="btn btn-sm yellow table-group-action-submit">提交 <i class="fa fa-check"></i>
+        </button>
+        <!--<a href="javascript:TableAjax.add()" class="btn btn-sm  green">-->
+        <!--新增 <i class="fa fa-plus"></i>-->
+        <!--</a>-->
+        <div class="btn-group">
+            <a class="btn btn-sm default yellow-stripe" href="#" data-toggle="dropdown">
+                <i class="fa fa-share"></i>
+                        <span>
+                        其他 </span>
+                <i class="fa fa-angle-down"></i>
             </a>
-        </div>
-    </div>
-    <div class="col-md-6 col-sm-12">
-        <div class="dataTables_filter pull-right">
-            <input type="searchText" class="form-control input-small input-inline  input-sm"
-                   placeholder=""
-                   aria-controls="sample_2" id="search-text">
-            <button class="btn btn-sm green" onclick="javascript:TableAjax.reload()">搜索
-            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="javascript:TableAjax.add()">
+                        新增 </a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
+<!--</div>-->
