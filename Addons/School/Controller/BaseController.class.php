@@ -139,6 +139,7 @@ class BaseController extends AddonsController
         // param
         $token = get_token();
         $model || $model = i("model");
+        $model = $this->getModel()['name'];
         $id || $id = i("id");
 
         // search
@@ -146,7 +147,7 @@ class BaseController extends AddonsController
         if (!empty($info["photo"])) {
             $info["photoUrl"] = get_cover($info["photo"])['path'];
         } else {
-            $info["photoUrl"] = "";
+            $info["photoUrl"] = "http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image";
         }
 
         return $this->ajaxReturn($info);
@@ -165,7 +166,6 @@ class BaseController extends AddonsController
         $customActionName = i("customActionName");
         $start = I('start', 0, 'intval');
         $row = I('length', 1, 'intval');
-//        $model = $this->getModel($_GET['model']);
         $model = $this->model;
 
         // if remove some data
@@ -177,8 +177,33 @@ class BaseController extends AddonsController
                 $this->error("数据删除失败");
             }
         }
-        $page = $start / $row + 1;
-        $list_data = $this->_get_model_list($model, $page);
+
+        // page
+        $page = floor($start / $row) + 1;
+
+        // max row
+        $model ['list_row'] = $row;
+
+        // model and  fields
+        $list_data = $this->_list_grid($model);
+        $grids = $list_data ['list_grids'];
+        $fields = $list_data ['fields'];
+
+
+        // order
+        $orderList = i('order');
+        if (!empty($orderList)) {
+            $order = "";
+        }
+        foreach ($orderList as $orderItem) {
+            if (!empty($order)) {
+                $order .= ", ";
+            }
+            $order .= $fields[$orderItem["column"]] . " " . $orderItem["dir"];
+        }
+
+        // list data
+        $list_data = $this->_get_model_list($model, $page,$order);
 
         // convert
         $list_data ['data'] = array();
@@ -193,10 +218,10 @@ class BaseController extends AddonsController
             $list_data ['data'][] = $convertRecord;
         }
 
+        // set others
         $list_data ['recordsTotal'] = $list_data ['count'];
         $list_data["recordsFiltered"] = $list_data ['count'];
         $list_data["draw"] = i("draw");
-
 
         // return
         $this->ajaxReturn($list_data);
@@ -247,12 +272,7 @@ class BaseController extends AddonsController
             }
         }
 
-        $addon['configs'] = array();
-        foreach ($addon['config'] as $key => $value) {
-            $value['id'] = $key;
-            $addon['configs'][] = $value;
-        }
-
+        // return
         $this->ajaxReturn($addon);
     }
 
@@ -295,6 +315,13 @@ class BaseController extends AddonsController
     public function modelDelete($model)
     {
         $this->ajaxReturn($this->common_del($model));
+    }
+
+    /**
+     * admin save
+     */
+    public function  saveAdmin(){
+        $this->ajaxReturn($this->saveModel());
     }
 
 
@@ -412,7 +439,6 @@ class BaseController extends AddonsController
         $map = $this->_search_map($model, $fields);
 
         // 关键字搜索
-
         $row = empty ($model ['list_row']) ? 20 : $model ['list_row'];
 
 
@@ -671,25 +697,25 @@ class BaseController extends AddonsController
                         $href = preg_replace("/&/i", "?", $href, 1);
                     }
                     if ($show == '删除') {
-                        $val [] = '<li><a class="confirm"   href="' . urldecode(U($href, $GLOBALS ['get_param'])) . '">' . $show . '</a></li>';
+                        $val [] = '<a class="confirm"   href="' . urldecode(U($href, $GLOBALS ['get_param'])) . '">' . $show . '</a>';
                     } else if (strpos($href, "#") === 0) {
-                        $val [] = '<li><a  data-target="' . $href . '" data-toggle="modal">' . $show . '</a></li>';
+                        $val [] = '<a  data-target="' . $href . '" data-toggle="modal">' . $show . '</a>';
                     } else if (strpos($href, "javascript_") === 0) {
-                        $val [] = '<li><a  target="' . $target . '" href="' . str_replace("javascript_", "javascript:", $href) . '">' . $show . '</a></li>';
+                        $val [] = '<a  target="' . $target . '" href="' . str_replace("javascript_", "javascript:", $href) . '">' . $show . '</a>';
                     } else {
-                        $val [] = '<li><a  target="' . $target . '" href="' . urldecode(U($href, $GLOBALS ['get_param'])) . '">' . $show . '</a></li>';
+                        $val [] = '<a  target="' . $target . '" href="' . urldecode(U($href, $GLOBALS ['get_param'])) . '">' . $show . '</a>';
                     }
                 }
             }
             $value = implode(' ', $val);
-            $value = <<<srt
-<span class="input-group-btn btn-left">
-											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-											Action <i class="fa fa-angle-down"></i>
-											</button>
-											<ul class="dropdown-menu pull-right" role="menu">$value</ul>
-</span>
-srt;
+//            $value = <<<srt
+//<span class="input-group-btn btn-left">
+//											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+//											Action <i class="fa fa-angle-down"></i>
+//											</button>
+//											<ul class="dropdown-menu pull-right" role="menu">$value</ul>
+//</span>
+//srt;
         }
         return $value;
     }
@@ -749,5 +775,20 @@ srt;
         $this->ajaxReturn($signPackage);
     }
 
+    /**
+     * 取得当前查询的表名
+     * @return string
+     */
+    protected function getTableName()
+    {
+        if (!empty($this->listsTable)) {
+            $name = $this->listsTable;
+        } else {
+            $name = get_table_name($this->model['id']);
+        }
+
+        // 返回
+        return $name;
+    }
 
 }

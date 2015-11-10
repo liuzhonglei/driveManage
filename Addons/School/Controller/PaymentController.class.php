@@ -1,13 +1,12 @@
 <?php
 
 namespace Addons\School\Controller;
-use Home\Controller\AddonsController;
 
 /**
  * Class PaymentController
  * @package Addons\School\Controller
  */
-class PaymentController extends BaseController{
+class PaymentController extends SchoolBaseController{
     function paybegin() {
         $this->model = $this->getModel ( 'student' );
         $student =  M('student')->where('openid="'.get_openid().'"')->find();

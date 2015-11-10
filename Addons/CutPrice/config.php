@@ -10,6 +10,16 @@ return array(
         'type' => 'text',
         'tip' => '格式如 1989-07-08'
     ),
+    'c1_price' => array(
+        'title' => '手动挡价格:',
+        'type' => 'text',
+        'tip' => '替代费用信息中包含C1的价格，不填写按原价格'
+    ),
+    'c2_price' => array(
+        'title' => '自动挡价格:',
+        'type' => 'text',
+        'tip' => '替代费用信息中包含C2的价格，不填写按原价格'
+    ),
     'max_sum_money' => array(
         'title' => '最高砍价总金额:',
         'type' => 'text'

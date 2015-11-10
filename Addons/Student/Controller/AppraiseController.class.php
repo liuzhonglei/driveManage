@@ -5,6 +5,7 @@ namespace Addons\Student\Controller;
 class AppraiseController extends StudentBaseController{
     function _initialize() {
         $this->model = $this->getModel ( 'student_apprise' );
+        $this->dataMultiEdit = false;
         parent::_initialize ();
     }
 

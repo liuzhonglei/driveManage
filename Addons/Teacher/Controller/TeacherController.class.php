@@ -16,8 +16,11 @@ class TeacherController extends BaseController
      */
     function _initialize()
     {
-        $this->model = $this->getModel('teacher');
         parent::_initialize();
+
+        // init
+        $this->dataMultiEdit = true;
+        $this->model = $this->getModel('teacher');
 
         // 子导航
         $action = strtolower(_ACTION);

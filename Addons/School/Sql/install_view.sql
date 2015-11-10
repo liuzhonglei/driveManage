@@ -4,33 +4,56 @@
 #wp_student_all
 drop view wp_student_all;
 create view wp_student_all as
-SELECT
-	t.*, t1. NAME teacher_k2_name,
-	t2. NAME in_teacher_name,
-	t3. NAME course_name,
-	t.openid weixin_name,
-	t5. NAME status_name,
-	t6. NAME teacher_k3_name,
-	(
-		CASE t.intro_source
-		WHEN '1' THEN
-			t2. NAME
-    WHEN '2' THEN
-			t.in_student_openid
-		ELSE
-			''
-		END
-	) in_name,
-	t8.total_fee
-FROM
-	wp_student t
-LEFT JOIN wp_teacher t1 ON  t.token = t1.token and t.id_teacher_k2 = t1.id
-LEFT JOIN wp_teacher t2 ON  t.token = t2.token and t.id_in_teacher = t2.id
-LEFT JOIN wp_school_course t3 ON  t.token = t3.token and  t.course_id = t3.id
--- LEFT JOIN wp_follow t4 ON t.openid = t4.openid AND t.token = t4.token
-LEFT JOIN wp_school_dict t5 ON t5.dic_type = 'student_status' AND t.STATUS = t5.VALUE
-LEFT JOIN wp_teacher t6 ON  t.token = t6.token and t.id_teacher_k3 = t6.id
-left join wp_eo2o_payment_count t8 on t.token = t8.token and  t.openid = t8.openid;
+  SELECT
+    t.*, t1. NAME teacher_k2_name,
+         t2. NAME in_teacher_name,
+         t3. NAME course_name,
+         t5. NAME status_name,
+         t6. NAME teacher_k3_name,
+         (
+           CASE t.intro_source
+           WHEN '1' THEN
+             t2. NAME
+           WHEN '2' THEN
+             (
+               SELECT
+                 NAME
+               FROM
+                 wp_student
+               WHERE
+                 t.token = token
+                 AND t.in_student_openid = openid
+               LIMIT 1
+             )
+           ELSE
+             ''
+           END
+         ) in_name,
+         (
+           SELECT
+         nickname
+           FROM
+             wp_follow
+           WHERE
+             token = t.token
+             AND openid = t.openid
+           LIMIT 1
+         ) weixin_name,
+    t8.total_fee
+  FROM
+    wp_student t
+    LEFT JOIN wp_teacher t1 ON t.token = t1.token
+                               AND t.id_teacher_k2 = t1.id
+    LEFT JOIN wp_teacher t2 ON t.token = t2.token
+                               AND t.id_in_teacher = t2.id
+    LEFT JOIN wp_school_course t3 ON t.token = t3.token
+                                     AND t.course_id = t3.id
+    LEFT JOIN wp_school_dict t5 ON t5.dic_type = 'student_status'
+                                   AND t. STATUS = t5.VALUE
+    LEFT JOIN wp_teacher t6 ON t.token = t6.token
+                               AND t.id_teacher_k3 = t6.id
+    LEFT JOIN wp_eo2o_payment_count t8 ON t.token = t8.token
+                                          AND t.openid = t8.openid;
 
 #wp_student_apprise_all
 drop view wp_student_apprise_all;

@@ -18,6 +18,31 @@ class PageController extends BaseController
     }
 
     /**
+     * 得到对应课程的活动价格
+     * @param $courseName 课程名称
+     * @param $coursePrice 课程价格
+     */
+    function getActivityPrice($courseName, $coursePrice){
+        $resultPrice = $coursePrice;
+
+        // 取得配置信息
+        $db_config = D('Common/AddonConfig')->get(_ADDONS);
+        $priceC1 = $db_config['c1_price'];
+        $priceC2 = $db_config['c2_price'];
+
+        // 判断是否使用活动价格
+        if(strpos($courseName,"C1") !== false && !empty($priceC1)){
+            $resultPrice = intval($priceC1);
+        }
+        if (strpos($courseName,"C2")  !== false && !empty($priceC2)){
+            $resultPrice =  intval($priceC2);
+        }
+
+        // 返回
+        return $resultPrice;
+    }
+
+    /**
      * show the main page
      */
     function show()
@@ -30,8 +55,8 @@ class PageController extends BaseController
         if (!empty($info) && !empty($cutResult)) {
             $courseInfo = M('school_course')->where("id = '" . $info["course_id"] . "'")->find();
             $cutResult['course_name'] = $courseInfo["name"];
-            $cutResult['total_fee'] = $courseInfo["sign_charge"];
-            $cutResult['current_fee'] = $courseInfo["sign_charge"] - $cutResult["fee"];
+            $cutResult['total_fee'] = $this->getActivityPrice($courseInfo["name"],$courseInfo["sign_charge"]);
+            $cutResult['current_fee'] = $cutResult['total_fee'] - $cutResult["fee"];
         }
 
         $this->assign('schoolInfo', $this->getSchoolInfo());
@@ -158,6 +183,11 @@ class PageController extends BaseController
     {
         $params = array("token" => get_token());
         $info = M('school_course')->where($params)->select();
+
+        foreach ($info as &$vo) {
+            $vo ['sign_charge'] = $this->getActivityPrice( $vo ['name'], $vo ['sign_charge']);
+        }
+
         return $info;
     }
 

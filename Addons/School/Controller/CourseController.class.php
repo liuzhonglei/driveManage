@@ -1,9 +1,8 @@
 <?php
 
 namespace Addons\School\Controller;
-use Home\Controller\AddonsController;
 
-class CourseController extends BaseController{
+class CourseController extends SchoolBaseController{
     function _initialize() {
         $this->model = $this->getModel ( 'school_course' );
         parent::_initialize ();

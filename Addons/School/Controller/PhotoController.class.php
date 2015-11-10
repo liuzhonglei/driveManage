@@ -1,9 +1,8 @@
 <?php
 
 namespace Addons\School\Controller;
-use Home\Controller\AddonsController;
 
-class PhotoController extends BaseController{
+class PhotoController extends SchoolBaseController{
     function _initialize() {
         $this->model = $this->getModel ( 'school_photo' );
         parent::_initialize ();

@@ -9,7 +9,7 @@
 namespace Addons\School\Controller;
 
 
-class PlaceController extends BaseController{
+class PlaceController extends SchoolBaseController{
 
         function _initialize() {
             $this->model = $this->getModel ( 'school_place' );

@@ -5,7 +5,11 @@ namespace Addons\Student\Controller;
 
 define ('SCHOOL_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Public');
 
-
+/**
+ * student controller
+ * Class StudentController
+ * @package Addons\Student\Controller
+ */
 class StudentController extends StudentBaseController
 {
     /**
@@ -15,6 +19,7 @@ class StudentController extends StudentBaseController
     {
 
         $this->model = $this->getModel('student');
+        $this->dataMultiEdit = true;
         parent::_initialize();
         $action = strtolower(_ACTION);
 
@@ -62,39 +67,291 @@ class StudentController extends StudentBaseController
         $this->display("lists");
     }
 
-    // 获取模型列表数据
+    /**
+     * search the students
+     * @param $text
+     * @param $fieldResult
+     * @return mixed
+     */
+    public function getStudentOpenids($text, $fieldResult)
+    {
+        $fields = array("name", "phone");
+        $sql = "select " . $fieldResult . " from wp_student t where t.token = '" . get_token() . "' and (";
+        $fieldMap = "";
+        foreach ($fields as $field) {
+            if (empty(!$fieldMap)) {
+                $fieldMap .= "or ";
+            }
+            $fieldMap .= $field . " like '%" . $text . "%' ";
+        };
+        $sql .= $fieldMap . " )";
+        return M('student')->query($sql);
+    }
+
+    /**
+     * search the follow
+     * @param $text
+     * @param $fieldResult
+     * @return mixed
+     */
+    public function getFollowOpneids($text, $fieldResult)
+    {
+        $fields = array("nickname");
+        $sql = "select " . $fieldResult . " from wp_follow t where t.token = '" . get_token() . "' and ( ";
+        $fieldMap = "";
+        foreach ($fields as $field) {
+            if (empty(!$fieldMap)) {
+                $fieldMap .= "or ";
+            }
+            $fieldMap .= $field . " like '%" . $text . "%' ";
+        };
+        $sql .= $fieldMap . " )";
+        return M('follow')->query($sql);
+    }
+
+    /**
+     * get the
+     * @return string
+     */
+    private function getPayOpenid()
+    {
+        $payed = $_REQUEST['payed'];
+        $result = "";
+        if ($payed !== null) {
+            $sql = "select openid from wp_eo2o_payment_count t where t.token = '" . get_token() . "' and  total_fee is not null";
+            $records = M('eo2o_payment_count')->query($sql);
+            if(count($records) >0){
+                if ($payed) {
+                    $result = "and openid in ( " . $this->getArrayStr($records) . " )";
+                } else {
+                    $result = "and openid not in ( " . $this->getArrayStr($records) . " )";
+                }
+            }else{
+                if ($payed) {
+                    $result = "1 = 2";
+                } else {
+                    $result = " ";
+                }
+            }
+
+        }
+
+        // return
+        return $result;
+
+    }
+
+
+
+    /**
+     * 获取数据
+     * @param null $model
+     * @param int $page
+     * @param string $order
+     * @return mixed
+     */
     public function _get_model_list($model = null, $page = 0, $order = 'id desc')
     {
-        $list_data =  parent::_get_model_list($model,$page,$order);
-        // if referrer is student set in_name
-        foreach ($list_data['list_data'] as &$data) {
-            if ($data['intro_source'] == "2" && !empty($data['in_name'])) {
-                $inStudentInfo = M('student')->where('token = "' . get_token() . '" and openid="' . $data["in_name"] . '"')->find();
-                $data["in_name"] = $inStudentInfo['name'];
-            }
-            if(!empty($data["weixin_name"])){
-                $follow = M('follow')->where('token = "' . get_token() . '" and openid="' . $data["weixin_name"] . '"')->find();
-                $data["weixin_name"] = $follow["nickname"];
+        $page || $page = I('p', 1, 'intval'); // 默认显示第一页数据
+
+        // 解析列表规则
+        $list_data = $this->_list_grid($model);
+        $grids = $list_data ['list_grids'];
+        $fields = $list_data ['fields'];
+
+        // 搜索条件
+        $fieldValue = "";
+        foreach ($_REQUEST as $name => $value) {
+            if (strpos($name, ',')) {
+                $fieldValue = $value;
             }
         }
+
+        $map = "t.token = '" . get_token() . "'" . $this->getPayOpenid();;
+        if (!empty($fieldValue)) {
+            $ids = $this->getStudentOpenids($fieldValue, "id");
+            $openids = $this->getFollowOpneids($fieldValue, "openid");
+            if (count($ids) < 1 && count($openids) < 1) {
+                $map .= " and 1 = 0";
+            } else {
+                $connectSql = "";
+                if (count($ids) > 0) {
+                    $connectSql .= "id in (" . $this->getArrayStr($ids) . ")";
+                }
+                if (count($openids) > 0) {
+                    if (!empty($connectSql)) {
+                        $connectSql .= " or ";
+                    }
+                    $connectSql .= "openid in (" . $this->getArrayStr($openids) . ")";
+                }
+                $map .= "and ( " . $connectSql . " )";
+            }
+        }
+
+
+        // 关键字搜索
+        $row = empty ($model ['list_row']) ? 20 : $model ['list_row'];
+        empty ($fields) || in_array('id', $fields) || array_push($fields, 'id');
+
+        // special handle
+        if (!empty($this->listsTable)) {
+            $name = $this->listsTable;
+        } else {
+            $name = get_table_name($model ['id']);
+        }
+
+        //$name = parse_name ($name, true );
+        $sql = $this->createStudentSql($fields, $map, $page, $row, $order);
+        $data = M($name)->query($sql);
+
+        /* 查询记录总数 */
+//        $sql = $this->createStudentSql($fields, $map, null, null, $order);
+        $count = M('student')->execute("select * from wp_student  t  where " . $map);
+
+        $list_data ['list_data'] = $data;
+        $list_data ['count'] = $count;
+
+        // 分页
+        if ($count > $row) {
+            $page = new \Think\Page ($count, $row);
+            $page->setConfig('theme', '%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
+            $list_data ['_page'] = $page->show();
+        }
+
         return $list_data;
+    }
+
+
+    /**
+     * create the student execute sql
+     * @param $fields
+     * @param $map
+     * @param $page
+     * @param $row
+     * @param $order
+     * @return string
+     */
+    private function createStudentSql($fields, $map, $page, $row, $order)
+    {
+        $token = get_token();
+        $fieldsSql = implode(",", $fields);
+        $mapSql = "";
+        if (is_array($map)) {
+            foreach ($map as $key => $value) {
+                if (!empty($mapSql)) {
+                    $mapSql .= " and ";
+                }
+                $mapSql .= $key . " = '" . $value . "'";
+            }
+        } else {
+            $mapSql = $map;
+        }
+        if (!empty($mapSql)) {
+            $mapSql = "where " . $mapSql;
+        }
+
+        $limitSql = "";
+        if (!empty($page) && !empty($row)) {
+            $limitBegin = ($page - 1) * $row;
+            $limitSql = "limit " . $limitBegin . "," . $row;
+        }
+
+
+        $sql = <<<STR
+        select $fieldsSql from (
+        select t.*,(
+				SELECT
+					NAME
+				FROM
+					wp_teacher
+				WHERE
+					token = t.token
+				AND id = t.id_teacher_k2
+				LIMIT 1
+			) teacher_k2_name,
+			t3. NAME course_name,
+			t5. NAME status_name,
+			(
+				SELECT
+					NAME
+				FROM
+					wp_teacher
+				WHERE
+					token = t.token
+				AND id = t.id_teacher_k3
+				LIMIT 1
+			) teacher_k3_name,
+			(
+				CASE t.intro_source
+				WHEN '1' THEN
+					(
+						SELECT
+							NAME
+						FROM
+							wp_teacher
+						WHERE
+							token = t.token
+						AND id = t.id_in_teacher
+						LIMIT 1
+					)
+				WHEN '2' THEN
+					(
+						SELECT
+							NAME
+						FROM
+							wp_student
+						WHERE
+							t.token = token
+						AND t.in_student_openid = openid
+						LIMIT 1
+					)
+				ELSE
+					''
+				END
+			) in_name,
+			(
+				SELECT
+					nickname
+				FROM
+					wp_follow
+				WHERE
+					token = t.token
+				AND openid = t.openid
+				LIMIT 1
+			) weixin_name,
+			t8.total_fee
+		FROM
+			(
+			select t.* from
+			wp_student t
+			$mapSql
+             order by $order
+            $limitSql ) t
+		LEFT JOIN wp_school_course t3 ON t.token = t3.token
+		AND t.course_id = t3.id
+		LEFT JOIN wp_school_dict t5 ON t5.dic_type = 'student_status'
+		AND t. STATUS = t5.
+		VALUE
+
+		LEFT JOIN wp_eo2o_payment_count t8 ON t.token = t8.token
+		AND t.openid = t8.openid
+     ) tw
+     order by $order
+
+STR;
+
+        // return
+        return $sql;
     }
 
     /**
      * download the studentl lists
      */
-    public function listsExcel(){
+    public function listsExcel()
+    {
         $this->model ['list_row'] = 100000;
         // get data
         $list_data = $this->_get_model_list($this->model);
-//
-//        // if referrer is student set in_name
-//        foreach ($list_data['list_data'] as &$data) {
-//            if ($data['intro_source'] == "2" && !empty($data['in_name'])) {
-//                $inStudentInfo = M('student')->where('token = "' . get_token() . '" and openid="' . $data["in_name"] . '"')->find();
-//                $data["in_name"] = $inStudentInfo['name'];
-//            }
-//        }
         $this->downloadExcel($list_data);
     }
 
@@ -104,67 +361,8 @@ class StudentController extends StudentBaseController
      */
     private function getSignData($payed = false)
     {
-        // find the database
-        $_REQUEST['status_name'] = '预约';
-        $page = I('p', 1, 'intval'); // 默认显示第一页数据
-
-        // 解析列表规则
-        $list_data = $this->_list_grid($this->model);
-        $grids = $list_data ['list_grids'];
-        $fields = $list_data ['fields'];
-
-        // 搜索条件
-        $map = $this->_search_map($this->model, $fields);
-        if (is_array($map)) {
-            $tempMap = "";
-            foreach ($map as $name => $value) {
-                $tempMap .= $name . " = \"" . $value . "\" and ";
-            }
-            $map = $tempMap;
-        } else {
-            $map .= " and ";
-        }
-
-        if ($payed) {
-            $map .= "total_fee is not null";
-        } else {
-            $map .= "total_fee is null";
-        }
-
-        $row = empty ($model ['list_row']) ? 20 : $model ['list_row'];
-
-        // 读取模型数据列表
-
-        empty ($fields) || in_array('id', $fields) || array_push($fields, 'id');
-
-
-        // special handle
-        $name = "student_all";
-
-        $datas = M($name)->field(empty ($fields) ? true : $fields)->where($map)->order('id desc')->page($page, $row)->select();
-        // if referrer is student set in_name
-        foreach ($datas as &$data) {
-            if ($data['intro_source'] == "2" && !empty($data['in_name'])) {
-                $inStudentInfo = M('student')->where('token = "' . get_token() . '" and openid="' . $data["in_name"] . '"')->find();
-                $data["in_name"] = $inStudentInfo['name'];
-            }
-        }
-
-        /* 查询记录总数 */
-        $count = M($name)->where($map)->count();
-
-        $list_data ['list_data'] = $datas;
-
-        // 分页
-        if ($count > $row) {
-            $page = new \Think\Page ($count, $row);
-            $page->setConfig('theme', '%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
-            $list_data ['_page'] = $page->show();
-        }
-
-
-        //return
-        return $list_data;
+        $_REQUEST['payed'] = $payed;
+        return $this->_get_model_list($this->model);
     }
 
     /**
@@ -178,7 +376,8 @@ class StudentController extends StudentBaseController
         $this->assign('searchAction', "signList");
 
         // if referrer is student set in_name
-        $list_data = $this->getSignData();
+
+        $list_data = $this->getSignData(false);
 
         // configure data
         $list_data['list_grids'][count($list_data['list_grids']) - 1]['href'] = 'signConfirm&student_id=[id]|确认,signCancel&student_id=[id]|取消,inPay&student_id=[id]|推荐费已支付';
@@ -747,8 +946,8 @@ class StudentController extends StudentBaseController
         } else {
             // check is teacher
             $existTeacherInfo = M("teacher")->where('openid= "' . $openid . '" and token = "' . $token . '"')->find();
-            if(!empty($existTeacherInfo)){
-                $this->error("当前微信号已与教练[".$existTeacherInfo['name']."]绑定。如果有误，请与驾校联系！");
+            if (!empty($existTeacherInfo)) {
+                $this->error("当前微信号已与教练[" . $existTeacherInfo['name'] . "]绑定。如果有误，请与驾校联系！");
             }
 
             if (!empty($studentInfo)) {
@@ -773,12 +972,12 @@ class StudentController extends StudentBaseController
             } else {
                 $_POST['intro_source'] = '0';
             }
-            $result  = $this->saveModel();
+            $result = $this->saveModel();
             if ($result['status'] == '0') {
                 $this->ajaxReturn($result);
             }
 
-            // start the pay 
+            // start the pay
             $payItme = M("school_payitem")->where("type='activity' and token = '" . $token . "'")->find();
             $_POST["payitem_id"] = $payItme["id"];
             $_POST["paytype"] = $payItme["type"];
@@ -814,17 +1013,17 @@ class StudentController extends StudentBaseController
         // param
         $token = get_token();
         $openid = get_openid();
-        $where = 'token = "'.$token.'" and openid = "'.$openid.'"';
+        $where = 'token = "' . $token . '" and openid = "' . $openid . '"';
         $queryParam = "";
 
         // current user is student or teacher
         $student = M("student")->where($where)->find();
         $teacher = M("teacher")->where($where)->find();
-        if(!empty($student)){
-            $queryParam = 't.in_student_openid="'.$openid.'"';
-        }else if(!empty($teacher)){
-            $queryParam = 't.id_in_teacher="'.$teacher['id'].'"';
-        }else{
+        if (!empty($student)) {
+            $queryParam = 't.in_student_openid="' . $openid . '"';
+        } else if (!empty($teacher)) {
+            $queryParam = 't.id_in_teacher="' . $teacher['id'] . '"';
+        } else {
             $this->ajaxReturn("", 'JSON');
         }
 
@@ -844,4 +1043,27 @@ str;
         // return
         $this->ajaxReturn($data, 'JSON');
     }
+
+
+    /**
+     * convert  the records to condition str
+     * @param $array
+     * @return string
+     */
+    private function  getArrayStr($array)
+    {
+        $return = "";
+        foreach ($array as $record) {
+            if (!empty($return)) {
+                $return .= ",";
+            }
+            foreach ($record as $key => $value) {
+                $return .= "'" . $value . "'";
+                break;
+            }
+
+        }
+        return $return;
+    }
+
 }

@@ -55,17 +55,14 @@ CREATE VIEW wp_cut_price_count_detail AS SELECT
                                            t.token,
                                            t.openid,
                                            count(*) count,
-                                           sum(t.fee) fee
+                                           sum(t.fee) fee,
+                                           AVG(time) time
                                          FROM
                                            wp_cut_price t
                                          GROUP BY
                                            t.token,
                                            t.openid;
 
-SELECT
-  *
-FROM
-  wp_cut_price_count_detail;
 
 DROP VIEW wp_cut_price_count;
 
@@ -91,7 +88,7 @@ CREATE VIEW wp_cut_price_count AS SELECT
                                     ) AS nickname
                                   FROM
                                     wp_cut_price_count_detail t
-                                    LEFT JOIN wp_student t1 ON t.token = t1.token and t.openid = t1.openid;
+                                    LEFT JOIN wp_student t1 ON t.openid = t1.openid and t.token = t1.token;
 
 
 

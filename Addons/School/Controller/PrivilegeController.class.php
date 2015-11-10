@@ -9,7 +9,7 @@
 namespace Addons\School\Controller;
 
 
-class PrivilegeController extends BaseController{
+class PrivilegeController extends SchoolBaseController{
     function _initialize() {
         $this->model = $this->getModel ( 'school_privilege' );
         parent::_initialize ();

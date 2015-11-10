@@ -1,0 +1,190 @@
+<!-- BEGIN PAGE BREADCRUMB -->
+<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="index.html#/dashboard.html">主页</a><i class="fa fa-circle"></i>
+    </li>
+    <li class="active">
+        {{$state.$current.data.modelName}}管理
+    </li>
+</ul>
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row" ng-controller="ListController">
+    <input id="model" hidden="true"
+           value="{{$state.$current.data.model}}">
+    <input id="search-name" hidden="true" ng-model="searchName">
+
+    <div class="col-md-12">
+        <!-- Begin: life time stats -->
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject font-green-sharp bold uppercase">{{$state.$current.data.pageTitle}}</span>
+                </div>
+                <div class="actions">
+                    <select class="table-group-action-input form-control input-inline input-small input-sm">
+                        <option value="">选择数据操作</option>
+                        <option value="delete">删除</option>
+                    </select>
+                    <a class="btn default table-group-action-submit"> <span class="hidden-480">
+                    提交</span>
+                    </a>
+                    <a href="javascript:TableAjax.add()" class="btn default">
+                    <span class="hidden-480">
+                    新增</span>
+                    </a>
+                    <div class="btn-group">
+                        <a class="btn default" href="#" data-toggle="dropdown">
+                            <!--<i class="fa fa-share"></i>-->
+                        <span class="hidden-480">
+                        其他</span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="#">
+                                    导出成EXCEL </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-container">
+                    <div class="table-actions-wrapper">
+                        <span>
+                        </span>
+                        <input type="searchText" class="form-control input-small input-inline  input-sm" placeholder=""
+                               aria-controls="sample_2" id="search-text">
+                        <button class="btn btn-sm green" onclick="javascript:TableAjax.reload()">搜索
+                        </button>
+                    </div>
+                    <table class="table table-striped table-bordered table-hover" id="datatable_ajax">
+                        <thead>
+                        <tr role="row" class="heading">
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Begin: info -->
+    <div id="form_info" class="modal fade" role="dialog" aria-labelledby="myModalLabel10" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <input type="text" hidden="true" id="form_info_id" ng-model="infoId"/>
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">{{$rootScope.$state.$current.data.modelName}}信息</h4>
+                </div>
+                <div class="modal-body form">
+                    <form action="{{editurl}}" id="{{field.name}}" enctype="multipart/form-data" method="post"
+                          class="form-horizontal form-row-seperated ng-pristine ng-valid">
+                        <div class="form-group" ng-repeat="field in fieldList">
+                            <label class="col-sm-4 control-label">{{field.title}}</label>
+
+                            <div class="col-sm-8">
+                                <div ng-switch="field.type">
+                                    <input ng-switch-when="string" type="text" name="{{field.name}}"
+                                           class="form-control  input-medium " ng-model="info[field.name]"/>
+                                    <input ng-switch-when="num" class="form-control  input-medium " id="mask_number"
+                                           type="text" ng-model="info[field.name]">
+                                    <input ng-switch-when="date"
+                                           class="form-control form-control-inline input-medium date-picker" size="16"
+                                           data-date-format="yyyy-mm-dd"
+                                           type="text" ng-model="info[field.name]"/>
+
+                                    <div ng-switch-when="radio">
+                                        <ui-select ng-model="person.selected" theme="bootstrap" name="{{field.name}}"
+                                                   ng-model="info[field.name]">
+                                            <ui-select-match placeholder="选择或搜索">
+                                                {{$select.selected.name}}
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in metadata[getText] | filter: $select.search">
+                                                <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                                <!--<small ng-bind-html="item.email | highlight: $select.search"></small>-->
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                    <div ng-switch-when="select">
+                                        <ui-select ng-model="selected[field.name]" class="input-medium "
+                                                   theme="bootstrap">
+                                            <ui-select-match
+                                                    placeholder="选择或搜索">
+                                                <!--{{$select.selected.text}}-->
+                                                {{$select.selected.text}}
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in metadata[field.name] | filter: $select.search">
+                                                <span ng-bind-html="item.text | highlight: $select.search"></span>
+                                                <!--<small ng-bind-html="item.email | highlight: $select.search"></small>-->
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                    <div ng-switch-when="checkbox" name="{{field.name}}" class="input-medium ">
+                                        <ui-select multiple theme="bootstrap"
+                                                   ng-disabled="disabled" ng-model="multipleDemo"
+                                                   ng-model="info[field.name]">
+                                            <ui-select-match placeholder="Select person...">
+                                                {{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="person in people | propsFilter: {name: $select.search, age: $select.search}">
+                                                {{person.name}} - {{person.email}}
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                    <div ng-switch-when="picture">
+                                        <div class="fileinput fileinput-new"
+                                             data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail">
+                                                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image"
+                                                     style="max-height: 150px;" alt="" ng-src="{{info.photoUrl}}">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail"
+                                                 style="max-width: 200px; max-height: 150px;">
+                                            </div>
+                                            <div>
+                                                <span class="btn default btn-file">
+                                                <span class="fileinput-new">
+                                                选择 </span>
+                                                <span class="fileinput-exists">
+                                                修改 </span>
+                                                    <input fileread info="info" name="{{field.name}}" type="file"
+                                                           accept="image/*">
+                                                </span>
+                                                <a href="#" class="btn red fileinput-exists"
+                                                   data-dismiss="fileinput">
+                                                    取消 </a>
+                                            </div>
+                                        </div>
+                                        <!--</form>-->
+                                    </div>
+                                </div>
+                                <p class="help-block">
+                                    {{field.reamrk}}
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="alert alert-danger" ng-show="infoErrorShow" ng-bind="infoErrorMsg">
+                        <button class="close" data-close="alert"></button>
+                    </div>
+                    <button class="btn default" data-dismiss="modal" aria-hidden="true">取消</button>
+                    <button class="btn green" ng-click="save()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End: info -->
+    <!-- END MAIN CONTENT -->
+    <!-- BEGIN MAIN JS -->
+</div>
+<!-- END MAIN JS -->
+<script>
+</script>
