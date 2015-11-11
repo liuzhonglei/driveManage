@@ -1,12 +1,11 @@
 <?php
 namespace Addons\School\Controller;
-use Home\Controller\AddonsController;
 
 /**
  * the main school controller
  */
 
-class SchoolController extends BaseController
+class SchoolController extends SchoolBaseController
 {
     function _initialize()
     {

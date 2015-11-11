@@ -38,6 +38,11 @@ class AdminController extends BaseController
                         $courseData = $this->getFieldData('school_course', array('token' => get_token()));
                     }
                     $fields[$i][$j] ['extra'] .= "\r\n" . $courseData;
+                }else if(in_array($fields[$i][$j]['name'], array('school_place_id'))){
+                    if (empty($teacherData)) {
+                        $courseData = $this->getFieldData('school_course', array('token' => get_token()));
+                    }
+                    $fields[$i][$j] ['extra'] .= "\r\n" . $courseData;
                 }
             }
         }

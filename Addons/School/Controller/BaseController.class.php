@@ -85,7 +85,10 @@ class BaseController extends AddonsController
     public function getModelInfo()
     {
         $model = $this->model;
-        $fieldList = $this->getFieldList($model);
+        // get the  fields
+        $model || $model = $this->getModel($_GET['model']); // 默认显示第一页数据
+        $fields = get_model_attribute($model['id']);
+        $fieldList = $this->getFieldList($fields);
 
         // result
         $result = array();
@@ -97,15 +100,32 @@ class BaseController extends AddonsController
     }
 
     /**
+     * 模板变量赋值
+     *
+     * @access protected
+     * @param mixed $name
+     *            要显示的模板变量
+     * @param mixed $value
+     *            变量的值
+     * @return Action
+     */
+    protected function assign($name, $value = '')
+    {
+        // set the teahcer data
+        if ($name == 'fields') {
+            $value = $this->getFieldList($value);
+        }
+
+        // return
+        return parent::assign($name, $value);
+    }
+
+    /**
      * get the model fileds config
      * @param $model the model name
      */
-    public function getFieldList($model)
+    public function getFieldList($fields)
     {
-        // get the  fields
-        $model || $model = $this->getModel($_GET['model']); // 默认显示第一页数据
-        $fields = get_model_attribute($model['id']);
-
         // set the extra data
         for ($i = 1; $i <= count($fields); $i++) {
             for ($j = 0; $j < count($fields[$i]); $j++) {
@@ -115,10 +135,11 @@ class BaseController extends AddonsController
                     }
                     $fields[$i][$j] ['extra'] .= "\r\n" . $teacherData;
                 } else if (in_array($fields[$i][$j]['name'], array('course_id'))) {
-                    if (empty($teacherData)) {
-                        $courseData = $this->getFieldData('school_course', array('token' => get_token()));
-                    }
+                    $courseData = $this->getFieldData('school_course', array('token' => get_token()));
                     $fields[$i][$j] ['extra'] .= "\r\n" . $courseData;
+                } else if (in_array($fields[$i][$j]['name'], array('school_place_id'))){
+                    $schoolPlaceData = $this->getFieldData('school_place', array('token' => get_token()));
+                    $fields[$i][$j] ['extra'] .= "\r\n" . $schoolPlaceData;
                 }
             }
         }

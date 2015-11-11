@@ -7,15 +7,13 @@
  */
 
 namespace Addons\School\Controller;
-
-use Home\Controller\AddonsController;
 use Think\Model;
 
 /**
  * Class SchoolBaseController
  * @package Addons\School\Controller
  */
-class SchoolBaseController extends AddonsController
+class SchoolBaseController extends BaseController
 {
     /**
      * inint
