@@ -41,6 +41,7 @@ class StudentController extends StudentBaseController
 
         // assign
         $this->assign('sub_nav', $nav);
+
     }
 
     /**
@@ -120,13 +121,13 @@ class StudentController extends StudentBaseController
         if ($payed !== null) {
             $sql = "select openid from wp_eo2o_payment_count t where t.token = '" . get_token() . "' and  total_fee is not null";
             $records = M('eo2o_payment_count')->query($sql);
-            if(count($records) >0){
+            if (count($records) > 0) {
                 if ($payed) {
                     $result = "and openid in ( " . $this->getArrayStr($records) . " )";
                 } else {
                     $result = "and openid not in ( " . $this->getArrayStr($records) . " )";
                 }
-            }else{
+            } else {
                 if ($payed) {
                     $result = "1 = 2";
                 } else {
@@ -140,7 +141,6 @@ class StudentController extends StudentBaseController
         return $result;
 
     }
-
 
 
     /**
@@ -634,38 +634,6 @@ STR;
         redirect($url);
     }
 
-    /**
-     * 模板变量赋值
-     *
-     * @access protected
-     * @param mixed $name
-     *            要显示的模板变量
-     * @param mixed $value
-     *            变量的值
-     * @return Action
-     */
-    protected function assign($name, $value = '')
-    {
-        // set the teahcer data
-        if ($name == 'fields') {
-            $teacherData = $this->getData('teacher', array('status' => 1, 'token' => get_token()));
-            $courseData = $this->getData('school_course', array('token' => get_token()));
-
-            for ($i = 1; $i <= sizeof($value); $i++) {
-                foreach ($value [$i] as &$vo) {
-                    if (in_array($vo ['name'], array('id_teacher', 'id_teacher_k2', 'id_teacher_k3', 'id_in_teacher'))) {
-                        $vo ['extra'] .= "\r\n" . $teacherData;
-                    }
-                    if ($vo ['name'] == 'course_id') {
-                        $vo ['extra'] .= "\r\n" . $courseData;
-                    }
-                }
-            }
-        }
-
-        // return
-        return parent::assign($name, $value);
-    }
 
     /**
      * get the model value

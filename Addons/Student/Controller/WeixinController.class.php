@@ -10,15 +10,20 @@ class WeixinController extends StudentBaseController{
         parent::_initialize ();
 
         // 子导航
-        $res ['title'] = '报名';
-        $res ['url'] = addons_url('Student://student/signList');
-        $res ['class'] =  '';
-        $nav [] = $res;
-
         $action = strtolower ( _ACTION );
         $res ['title'] = '信息';
         $res ['url'] = addons_url ( 'Student://student/lists' );
         $res ['class'] = '';
+        $nav [] = $res;
+
+        $res ['title'] = '未付款预约';
+        $res ['url'] = addons_url('Student://student/signlist');
+        $res ['class'] = ($action == 'signlist') ? 'cur' : '';
+        $nav [] = $res;
+
+        $res ['title'] = '已付款预约';
+        $res ['url'] = addons_url('Student://student/payedSignList');
+        $res ['class'] = ($action == 'payedsignlist') ? 'cur' : '';
         $nav [] = $res;
 
         $res ['title'] = '微信信息';

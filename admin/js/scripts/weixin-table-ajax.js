@@ -3,14 +3,6 @@ var TableAjax = function () {
     var module = null;
     var handleController = null;
     var grid = "";
-    //
-    //var initPickers = function () {
-    //    //init date pickers
-    //    $('.date-picker').datepicker({
-    //        rtl: Metronic.isRTL(),
-    //        autoclose: true
-    //    });
-    //};
 
     /**
      * init the table
