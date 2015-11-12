@@ -1,6 +1,8 @@
 <?php
 
 namespace Addons\Student\Controller;
+use Addons\School\Controller\Common\Log\LogController;
+use Addons\School\Controller\Common\Log\LogMajorType;
 
 
 define ('SCHOOL_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Public');
@@ -443,6 +445,28 @@ STR;
         redirect($url);
     }
 
+    public function edit()
+    {
+        //检查是否修改状态，并记录日志
+        if (IS_POST) {
+            $id = $_REQUEST['id'];
+            $student = M('student')->where('id = '.$id)->find();
+            if(!empty($student)){
+                $status = $_REQUEST['status'];
+                if($status != $student['status']){
+                    $logController = new   LogController();
+                    $originalStatus = get_name_by_status($student['status'],'status',$this->model['id']);
+                    $currentStatus = get_name_by_status($status,'status',$this->model['id']);
+                    $logController->writeLog("学员状态发生变化，状态[".$originalStatus."]->状态[".$currentStatus."]",LogMajorType::STUDENT,$id);
+                }
+            }
+        }
+
+
+        //修改
+        parent::edit();
+    }
+
 
     /**
      * upload the excel
@@ -597,6 +621,16 @@ STR;
         }
 
         return $field_maps;
+    }
+
+    /**
+     * 查看学员的详情
+     */
+    function detail(){
+
+        $param = array('student_id' => $_REQUEST['student_id']);
+        $url = addons_url('Student://detail/log', $param);
+        redirect($url);
     }
 
     // binding the weixin code
@@ -859,7 +893,7 @@ STR;
     {
         $token = get_token();
         $openid = get_openid();
-        $student = M('student_all')->where('openid= "' . $openid . '" and token = "' . $token . '"')->find();
+        $student = M('student')->where('openid= "' . $openid . '" and token = "' . $token . '"')->find();
         return $student;
     }
 

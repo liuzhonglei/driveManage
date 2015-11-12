@@ -658,7 +658,7 @@ str;
     {
         $token = get_token();
         $openid = get_openid();
-        $student = M('student_all')->where('openid= "' . $openid . '" and token = "' . $token . '"')->find();
+        $student = M('student')->where('openid= "' . $openid . '" and token = "' . $token . '"')->find();
         return $student;
     }
 
