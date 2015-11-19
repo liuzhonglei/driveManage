@@ -312,7 +312,7 @@ where 1=1
 
 str;
 
-        $sql = $sql . 'and token ="' . get_token() . '" ';
+        $sql = $sql . 'and token ="' . $token . '" ';
         if (!empty($_POST['course_type']) && $_POST['course_type'] != '0') {
             $sql = $sql . 'and subject like "%' . $_POST['course_type'] . '%"';
         }
@@ -320,13 +320,18 @@ str;
             $sql = $sql . 'and name like "%' . $_POST['search_name'] . '%"';
         }
 
-        if ($_POST['level_type'] == '0') {
+        if ($_POST['level_type'] == '-1') {
+            $sql = $sql . 'order by belong  desc';
+        } else if ($_POST['level_type'] == '0') {
             $sql = $sql . 'order by apprise_level desc';
         } else if ($_POST['level_type'] == '1') {
             $sql = $sql . 'order by apprise_num desc';
         } else if ($_POST['level_type'] == '2') {
             $sql = $sql . 'order by banner_number desc';
+        } else {
+            $sql = $sql . 'order by banner_number desc';
         }
+
 
         $select_data = M('teacher')->query($sql);
         // add url
@@ -438,7 +443,7 @@ str;
 
         // the activity
         $payItme = M("school_payitem")->where("type='activity' and token = '" . $token . "'")->find();
-        $this->assign("payItme",$payItme);
+        $this->assign("payItme", $payItme);
 
         // display
         $this->display(T(MOBILE_PATH . 'teacherPageInfo'));
@@ -471,7 +476,7 @@ str;
         if (!empty($studentInfo['course_id'])) {
             $course_data = M('school_course')->where('token = "' . $token . '" and id = "' . $studentInfo['course_id'] . '"')->find();
             $this->assign($course_data);
-        } else  if (empty($_REQUEST['id'])) {
+        } else if (empty($_REQUEST['id'])) {
             $course_data = M('school_course')->where('token = "' . $token . '"')->find();
             $this->assign($course_data);
         } else {
@@ -488,7 +493,7 @@ str;
 
         // the activity
         $payItme = M("school_payitem")->where("type='activity' and token = '" . $token . "'")->find();
-        $this->assign("payItme",$payItme);
+        $this->assign("payItme", $payItme);
 
         // display
         $this->display(T(MOBILE_PATH . 'teacherPageRegister'));
@@ -530,9 +535,9 @@ OR (t.id_teacher_k3 = t1.id and t.status ="3")
 OR (t.id_in_teacher = t1.id and t.status="-1")
 left join wp_follow t2 on t.openid = t2.openid
 left join wp_school_course t3 on t.course_id = t3.id
-order by t.id desc
 str;
         $sql = $sql . " where t1.openid=\"" . $openid . "\" and t.status in (\"-1\",\"0\",\"1\",\"2\",\"3\",\"4\")";
+        $sql = $sql. "order by t.id desc";
         $data = M('student')->query($sql);
         $this->ajaxReturn($data, 'JSON');
     }
