@@ -6,7 +6,7 @@
  * Time: 10:46
  */
 
-namespace Addons\School\Controller\Common;
+namespace Addons\School\Controller\Common\Util;
 
 
 class CommonUtil {

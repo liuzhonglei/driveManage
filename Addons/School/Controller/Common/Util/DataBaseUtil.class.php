@@ -5,7 +5,7 @@
  * Date: 15/11/10
  * Time: 10:19
  */
-namespace Addons\School\Controller\Common;
+namespace Addons\School\Controller\Common\Util;
 
 
 class DataBaseUtil {
@@ -111,5 +111,22 @@ class DataBaseUtil {
             $limitSql = "limit " . $limitBegin . "," . $row;
         }
         return $limitSql;
+    }
+
+    /**
+     * 取得模型配置的操作字符
+     * @param $model
+     * @param int $index
+     */
+    public static function getOperationStr($model,$index = 0){
+        if($model){
+            $listGridList = $model['list_grid'];
+            $operation = $listGridList[count($listGridList) - 1];
+            $operations = explode("|||",$operation);
+            $listGridList[count($listGridList) - 1] = $operations[$index];
+        }
+
+        // 返回空
+        return null;
     }
 }

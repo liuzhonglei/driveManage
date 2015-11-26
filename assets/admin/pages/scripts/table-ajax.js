@@ -81,11 +81,8 @@ var TableAjax = function () {
 
         //main function to initiate the module
         init: function () {
-
             initPickers();
             handleRecords();
         }
-
     };
-
 }();

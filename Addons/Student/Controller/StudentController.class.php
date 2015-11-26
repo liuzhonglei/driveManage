@@ -650,8 +650,12 @@ STR;
         $Model->where('id=' . $_REQUEST['student_id'])->save($data);
 
         // show
-        $url = addons_url('Student://student/lists');
-        redirect($url);
+        if($this->isAdmin()){
+            $this->success();
+        }else{
+            $url = addons_url('Student://student/lists');
+            redirect($url);
+        }
     }
 
     /**
@@ -924,7 +928,7 @@ STR;
             $follow = M('follow')->where('openid= "' . get_openid() . '" and token = "' . $token . '"')->find();
             $this->assign("follow", $follow);
             if (!empty($in_student_openid)) {
-                $inStudentInfo = M('student_all')->where('openid= "' . $in_student_openid . '" and token = "' . $token . '"')->find();
+                $inStudentInfo = M('student')->where('openid= "' . $in_student_openid . '" and token = "' . $token . '"')->find();
                 $inFollow = M('follow')->where('openid= "' . $in_student_openid . '" and token = "' . $token . '"')->find();
 
                 if (!empty($inFollow)) {

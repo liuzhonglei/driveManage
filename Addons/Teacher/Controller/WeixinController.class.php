@@ -67,6 +67,12 @@ class WeixinController extends BaseController{
         $Model = M('teacher');
         $data['openid'] = $_REQUEST['openid'];
         $Model->where('id='.$_REQUEST['teacher_id'])->save($data);
-        redirect($url);
+
+        // return
+        if($this->isAdmin()){
+            $this->adminReturn();
+        }else{
+            redirect($url);
+        }
     }
 }

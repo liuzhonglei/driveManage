@@ -1,21 +1,16 @@
 <!-- Begin: info -->
-<script type="text/javascript" src='../assets/admin/pages/scripts/components-pickers.js'/>
-<script type="text/javascript" src='../assets/admin/pages/scripts/components-form-tools.js'/>
-
-
-
+<script type="text/javascript" src='../../assets/admin/pages/scripts/components-pickers.js'/>
+<script type="text/javascript" src='../../assets/admin/pages/scripts/components-form-tools.js'/>
 <div id="form_info" class="modal fade" role="dialog" aria-labelledby="myModalLabel10" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="portlet-title tabbable-line">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <!--<h4 class="modal-title">{{$state.$current.data.modelName}}信息</h4>-->
                     <ul class="nav nav-tabs ">
                         <li class="active">
                             <a href="#" data-target="#info_1" data-toggle="tab">{{fieldGroup[1]}}</a>
                         </li>
-                        <li ng-repeat="(key,value) in fieldGroup" ng-if="key != '1'">
+                        <li ng-repeat="(key,value) in fieldGroup track by $index" ng-if="key != '1'">
                             <a href="#" data-target="#info_{{key}}" data-toggle="tab">{{value}}</a>
                         </li>
 
@@ -25,20 +20,19 @@
                     <form enctype="multipart/form-data" method="post"
                           class="form-horizontal form-row-seperated ng-pristine ng-valid">
                         <input type="text" id="form_info_id" hidden="true" ng-model='info["id"]'/>
-
                         <div class="tab-content">
                             <div class="tab-pane active" id="info_1">
-                                <div ng-repeat="field in fieldList[1]" ng-show="field.is_show == '1'"
+                                <div ng-repeat="field in fieldList[1] track by $index" ng-show="field.is_show == '1'"
                                      class="form-group">
-                                    <div ng-include="'views/field.html'">
+                                    <div ng-include="'views/module/field.html'">
                                     </div>
                                 </div>
                             </div>
-                            <div ng-repeat="(key,value) in fieldGroup" ng-if="key != '1'" class="tab-pane"
+                            <div ng-repeat="(key,value) in fieldGroup track by $index" ng-if="key != '1'" class="tab-pane"
                                  id="info_{{key}}">
-                                <div ng-repeat="field in fieldList[key]" ng-show="field.is_show == '1'"
+                                <div ng-repeat="field in fieldList[key] track by $index" ng-show="field.is_show == '1'"
                                      class="form-group">
-                                    <div ng-include="'views/field.html'">
+                                    <div ng-include="'views/module/field.html'">
                                     </div>
                                 </div>
                             </div>
@@ -56,4 +50,3 @@
         </div>
     </div>
 </div>
-<!-- End: info -->

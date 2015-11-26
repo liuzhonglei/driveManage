@@ -6,7 +6,7 @@
  * Time: 11:51
  */
 
-namespace Addons\School\Controller\Common;
+namespace Addons\School\Controller\Common\Util;
 
 
 class RequestUtil {

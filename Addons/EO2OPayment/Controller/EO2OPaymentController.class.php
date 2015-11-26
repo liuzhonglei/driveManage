@@ -15,11 +15,16 @@ class EO2OPaymentController extends EO2OBaseController{
     }
 
     // 通用插件的列表模型
-    public function lists() {
+    public function lists($nav=null, $subNav = null) {
+        if(!empty($nav) || !empty($subNav)){
+            $this->assign('nav', $nav);
+            $this->assign('sub_nav', $subNav);
+        }else{
+            $top_more_button = array(array("is_buttion" => "0","title"=>"EXL导出","url" => U("downloadExcel")));
+        }
         $this->assign('add_button',0);
         $this->assign('del_button',0);
         $this->assign('check_all',0);
-        $top_more_button = array(array("is_buttion" => "0","title"=>"EXL导出","url" => U("downloadExcel")));
         $this->assign('top_more_button',$top_more_button);
         parent::lists();
     }

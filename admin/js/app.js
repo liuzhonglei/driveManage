@@ -13,12 +13,11 @@ var MetronicApp = angular.module("MetronicApp", [
 
 var depFile = {
     list: new Array('../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
-
         '../assets/global/plugins/datatables/all.min.js',
         '../assets/global/scripts/datatable.js',
-
         'js/scripts/weixin-table-ajax.js',
-        'js/controllers/ListController.js'),
+        'js/controllers/common/Filter.js',
+        'js/controllers/common/ListController.js'),
     info: new Array('../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
         '../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css',
         '../assets/global/plugins/jquery-tags-input/jquery.tagsinput.css',
@@ -40,7 +39,7 @@ var depFile = {
         '../assets/global/plugins/typeahead/typeahead.bundle.min.js',
         '../assets/admin/pages/scripts/components-pickers.js',
         '../assets/admin/pages/scripts/components-form-tools.js',
-        'js/controllers/InfoController.js')
+        'js/controllers/common/InfoController.js')
 };
 
 /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
@@ -196,10 +195,28 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             }
         })
 
+        // school info
+        .state("schoolList", {
+            url: "/school/list.html",
+            templateUrl: "views/school/list.html",
+            data: {pageTitle: "驾校信息", module: "School", handleController: "School", action: "edit",info:true},
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before',
+                            files: $.merge(depFile.info, depFile.list)
+                        }]);
+                }]
+            }
+        })
+
         // student info
         .state("studentList", {
             url: "/student/list.html",
-            templateUrl: "views/list.html",
+            templateUrl: "views/student/list.html",
             data: {
                 pageTitle: "学员列表",
                 module: "Student",
@@ -301,53 +318,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         })
 
 
-        //// school info
-        //.state("schoolEdit", {
-        //    url: "/school/edit.html",
-        //    templateUrl: "views/school/edit.html",
-        //    data: {pageTitle: "学员评级", module: "Teacher", handleController: "Teacher", action: "show"},
-        //    controller: "EditController",
-        //    resolve: {
-        //        deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-        //            return $ocLazyLoad.load([{
-        //                name: 'angularFileUpload',
-        //                files: [
-        //                    '../assets/global/plugins/angularjs/plugins/angular-file-upload/angular-file-upload.min.js',
-        //                ]
-        //            }, {
-        //                name: 'MetronicApp',
-        //                insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-        //                files: [
-        //                    '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
-        //
-        //                    '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js',
-        //                    '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js',
-        //                    '../assets/global/plugins/angularjs/plugins/angular-file-upload/angular-file-upload.min.js',
-        //                    'js/controllers/school/EditController.js'
-        //                ]
-        //            }]);
-        //        }]
-        //    }
-        //})
-
-        // school info
-        .state("schoolList", {
-            url: "/school/list.html",
-            templateUrl: "views/list.html",
-            data: {pageTitle: "驾校信息", module: "School", handleController: "School", action: "edit"},
-            controller: "ListController",
-            resolve: {
-                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            name: 'MetronicApp',
-                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: depFile.list
-                        }]);
-                }]
-            }
-        })
-
         // school info
         .state("teacherList", {
             url: "/teacher/list.html",
@@ -360,7 +330,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: $.merge(depFile.info,depFile.list)
+                            files: $.merge(depFile.info, depFile.list)
                         }]);
                 }]
             }

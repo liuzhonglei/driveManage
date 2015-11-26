@@ -81,7 +81,9 @@ class SchoolController extends SchoolBaseController
     {
 
         // gete compnay info
-        $token =  get_token($_REQUEST['token']);
+        if($_REQUEST['token']){
+            $token =  get_token($_REQUEST['token']);
+        }
         get_openid($_REQUEST['openid']);
         $info = $this->getSchoolInfo();
         $this->assign($info);

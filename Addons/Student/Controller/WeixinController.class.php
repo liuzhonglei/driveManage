@@ -35,6 +35,20 @@ class WeixinController extends StudentBaseController{
         $this->assign ( 'sub_nav', $nav );
     }
 
+    /**
+     * 新界面显示的界面
+     */
+    protected function  setAdminModel(){
+        // 调用父类
+        parent::setAdminModel();
+
+        // 设置操作栏
+        $list_grids = $this->model['list_grid'];
+        $list_grids = substr($list_grids,0,strpos($list_grids,"ids"))."openid:15%操作:javascript_followBind('[openid]')|绑定";
+        $this->model['list_grid'] = $list_grids;
+    }
+
+
     function lists(){
         // data
         $list_data = $this->_get_model_list ($this->model);
@@ -57,13 +71,13 @@ class WeixinController extends StudentBaseController{
     function binding(){
         $url = addons_url('Student://student/lists');
 
-        // teahcer
+        // teacher
         $teacher_data =  M('teacher')->where('token="'.get_token().'" and openid="'.$_REQUEST['openid'].'"')->find();
         if(!empty($teacher_data)){
             $this->error('已有教练['.$teacher_data['name'].']绑定此帐号!');
         }
 
-        // studnt
+        // student
         $student_data =  M('student')->where('token="'.get_token().'" and openid="'.$_REQUEST['openid'].'" and id<>"'.$_REQUEST['student_id'].'"')->find();
         if(!empty($student_data)){
             $this->error('已有学员['.$student_data['name'].']绑定此帐号!');
@@ -73,6 +87,10 @@ class WeixinController extends StudentBaseController{
         $Model = M('student');
         $data['openid'] = $_REQUEST['openid'];
         $Model->where('id='.$_REQUEST['student_id'])->save($data);
-        redirect($url);
+        if($this->isAdmin()){
+            $this->success();
+        }else{
+            redirect($url);
+        }
     }
 }

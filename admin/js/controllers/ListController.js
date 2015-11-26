@@ -49,7 +49,6 @@ MetronicApp.controller('ListController', ['$rootScope', '$http', '$scope', funct
             },
             url: Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/getModelInfo"
         }).success(function (data) {
-            // set searchTexg
             $scope.searchName = data.model.search_key;
         });
     });

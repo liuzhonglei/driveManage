@@ -96,7 +96,6 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
         }
     });
 
-
     /**
      * upload the img
      */
@@ -132,6 +131,4 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
             }
         });
     };
-
-
 }]);

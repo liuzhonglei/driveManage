@@ -110,6 +110,12 @@ class UserController extends HomeController {
 		}
 	}
 
+    /**
+     * the admin page login
+     * @param string $username
+     * @param string $password
+     * @param string $verify
+     */
     public function loginAdmin($username = '', $password = '', $verify = '') {
         if (IS_POST) { // 登录验证
             /* 检测验证码 */
@@ -120,7 +126,17 @@ class UserController extends HomeController {
             /* 调用UC登录接口登录 */
             $user = new UserApi ();
             $uid = $user->login ( $username, $password );
+
+            // todo set the token
             if (0 < $uid) { // UC登录成功
+
+                //find the user and member link info
+                $map =array("is_use"=>"1", "uid"=>$uid);
+                $linkInfo  = M ( 'member_public_link' )->where ( $map )->find();
+                $map =array("id"=>$linkInfo['mp_id']);
+                $mpInfo  = M ( 'member_public' )->where ( $map )->find();
+                get_token($mpInfo['token']);
+
                 /* 登录用户 */
                 $Member = D ( 'Member' );
                 if ($Member->login ( $uid )) { // 登录用户

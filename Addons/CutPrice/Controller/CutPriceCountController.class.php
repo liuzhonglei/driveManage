@@ -2,8 +2,8 @@
 
 namespace Addons\CutPrice\Controller;
 
-use Addons\School\Controller\Common\DataBaseUtil;
-use Addons\School\Controller\Common\CommonUtil;
+use Addons\School\Controller\Common\Util\DataBaseUtil;
+use Addons\School\Controller\Common\Util\CommonUtil;
 
 
 /**
