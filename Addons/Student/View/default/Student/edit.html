@@ -256,6 +256,9 @@ $(function(){    $('.time').datetimepicker({
         dataType: "json",
         success: function (data) {
             var selectData = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
+            $('select[name=id_teacher_k1]').select2({
+                data: data
+            });
             $('select[name=id_teacher_k2]').select2({
                 data: data
             });

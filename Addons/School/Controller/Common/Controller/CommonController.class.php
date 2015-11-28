@@ -107,7 +107,7 @@ class CommonController extends ExtendAddonsController
         // set the extra data
         for ($i = 1; $i <= count($fields); $i++) {
             for ($j = 0; $j < count($fields[$i]); $j++) {
-                if (in_array($fields[$i][$j]['name'], array('id_teacher', 'id_teacher_k2', 'id_teacher_k3', 'id_in_teacher'))) {
+                if (in_array($fields[$i][$j]['name'], array('id_teacher','id_teacher_k1','id_teacher_k2', 'id_teacher_k3', 'id_in_teacher'))) {
                     if (empty($teacherData)) {
                         $teacherData = $this->getFieldData('teacher', array('status' => 1, 'token' => get_token()));
                     }

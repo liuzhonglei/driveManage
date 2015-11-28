@@ -530,7 +530,9 @@ SELECT DISTINCT
 	t.*, FROM_UNIXTIME(t.time_sign, "%Y-%m-%d") sign_date,t2.headimgurl,t3.name course_name
 FROM
 	wp_student t
-INNER JOIN wp_teacher t1 ON (t.id_teacher_k2 = t1.id  and t.status ="2")
+INNER JOIN wp_teacher t1 ON
+(t.id_teacher_k1 = t1.id  and t.status ="1")
+OR (t.id_teacher_k2 = t1.id  and t.status ="2")
 OR (t.id_teacher_k3 = t1.id and t.status ="3")
 OR (t.id_in_teacher = t1.id and t.status="-1")
 left join wp_follow t2 on t.openid = t2.openid
