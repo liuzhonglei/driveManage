@@ -22,13 +22,6 @@ class CommonController extends ExtendAddonsController
     public function lists()
     {
         $_POST['token'] = get_token();
-        //分辨list 和 adminlist的操作配置
-        if($this->model){
-            $listGridList = $this->model['list_grid'];
-            $operation = $listGridList[count($listGridList) - 1];
-            $operations = explode("|||",$operation);
-            $listGridList[count($listGridList) - 1] = $operations[0];
-        }
         parent::common_lists($this->model);
     }
 
@@ -90,15 +83,6 @@ class CommonController extends ExtendAddonsController
 
 
     /**
-     * admin delete
-     */
-    public function modelDelete($model)
-    {
-        $this->ajaxReturn($this->common_del($model));
-    }
-
-
-    /**
      * get the model fileds config
      * @param $model the model name
      */
@@ -107,7 +91,7 @@ class CommonController extends ExtendAddonsController
         // set the extra data
         for ($i = 1; $i <= count($fields); $i++) {
             for ($j = 0; $j < count($fields[$i]); $j++) {
-                if (in_array($fields[$i][$j]['name'], array('id_teacher','id_teacher_k1','id_teacher_k2', 'id_teacher_k3', 'id_in_teacher'))) {
+                if (in_array($fields[$i][$j]['name'], array('id_teacher', 'id_teacher_k1', 'id_teacher_k2', 'id_teacher_k3', 'id_in_teacher'))) {
                     if (empty($teacherData)) {
                         $teacherData = $this->getFieldData('teacher', array('status' => 1, 'token' => get_token()));
                     }
@@ -122,8 +106,31 @@ class CommonController extends ExtendAddonsController
             }
         }
 
-
         // return
+        return $fields;
+    }
+
+
+    /**
+     * 当下拉框数据位其他表的数据室，调用进行设置附加值
+     * @param $fields 当前的字段
+     * @param $fieldName 要修改的字段名
+     * @param $model 要查询的模型名称
+     * @param $showFiled 要显示的模型字段
+     */
+    protected function setFiledExtra($fields, $fieldName, $model, $showFiled)
+    {
+        for ($i = 1; $i <= count($fields); $i++) {
+            for ($j = 0; $j < count($fields[$i]); $j++) {
+                if ($fields[$i][$j]['name'] == $fieldName) {
+//                    $fields[$i][$j] ['extra'] = null;
+                    $extraData = $this->getFieldData($model, array('token' => get_token()),$showFiled);
+                    $fields[$i][$j] ['extra'] = $extraData;
+                    return $fields;
+                }
+            }
+        }
+
         return $fields;
     }
 
@@ -159,15 +166,16 @@ class CommonController extends ExtendAddonsController
      * get the model value
      * @param $modelName
      * @param $map
+     * @param $showField 显示字段
      * @return string id:value
      */
-    private function getFieldData($modelName, $map)
+    private function getFieldData($modelName, $map, $showField = 'name')
     {
-        $extra = ':' . "\r\n";
+        $extra = "";
         $list = M($modelName)->where($map)->select();
 
         foreach ($list as $v) {
-            $extra .= $v ['id'] . ':' . $v ['name'] . "\r\n";
+            $extra .= $v ['id'] . ':' . $v [$showField] . "\r\n";
         }
 
         // return
@@ -354,34 +362,27 @@ class CommonController extends ExtendAddonsController
         $this->ajaxReturn($list_data);
     }
 
-
     /**
-     *
-     * @param null $model
-     * @param string $templateFile
+     * 使用模糊查询查询数据集合
+     * @param $model
+     * @param $getFields
+     * @param $searchFieldList
+     * @param $text
+     * @return mixed
      */
-    public function modelAdd($model = null, $templateFile = '')
+    public function getModelDataList($model, $getFields, $searchFieldList, $text)
     {
-        is_array($model) || $model = $this->getModel($model);
-        if (IS_POST) {
-            $Model = D(parse_name(get_table_name($model ['id']), 1));
-            // 获取模型的字段信息
-            $Model = $this->checkAttr($Model, $model ['id']);
-            if ($Model->create() && $id = $Model->add()) {
-                $this->_saveKeyword($model, $id);
-
-                $this->success('添加' . $model ['title'] . '成功！', U('lists?model=' . $model ['name'], $this->get_param));
-            } else {
-                $this->error($Model->getError());
+        $sql = "select " . $getFields . " from wp_".$model." t where t.token = '" . get_token() . "' and (";
+        $fieldMap = "";
+        foreach ($searchFieldList as $field) {
+            if (empty(!$fieldMap)) {
+                $fieldMap .= "or ";
             }
-        } else {
-            $fields = get_model_attribute($model ['id']);
-            $this->assign('fields', $fields);
-            $this->meta_title = '新增' . $model ['title'];
+            $fieldMap .= $field . " like '%" . $text . "%' ";
+        };
+        $sql .= $fieldMap . " )";
 
-            $templateFile || $templateFile = $model ['template_add'] ? $model ['template_add'] : '';
-            $this->display($templateFile);
-        }
+        // 反悔
+        return M($model)->query($sql);
     }
-
 }

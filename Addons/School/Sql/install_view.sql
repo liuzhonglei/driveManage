@@ -63,7 +63,7 @@ select t1.*,t2.name student ,t3.name teacher from wp_student_apprise t1 left joi
 #wp_teacher_rank
 drop view wp_teacher_rank;
 create view wp_teacher_rank as
-select wp_student.id_in_teacher AS id_in_teacher,count(if((wp_student.status > 0),1,NULL)) AS suc_count,concat(left((ifnull((count(if((wp_student.status > 0),1,NULL)) / count(wp_student.id)),0) * 100),5),'%') AS suc_rate from wp_student group by wp_student.id_in_teacher;
+select wp_student.id_in_teacher AS id_in_teacher,count(if((wp_student.status > 0),1,NULL)) AS suc_count,concat(left((ifnull((count(if((wp_student.status > 0),1,NULL)) / count(wp_student.id)),0) * 100),5)) AS suc_rate from wp_student group by wp_student.id_in_teacher;
 
 #wp_teacher_rank
 drop view wp_teacher_rank_all;
@@ -72,7 +72,8 @@ SELECT
 	T1.id AS id,
 	T1.name AS name,
 	ifnull(T3.suc_count, 0) AS suc_count,
-	ifnull(T3.suc_rate, '0%') AS suc_rate
+	ifnull(T3.suc_rate, '0%') AS suc_rate,
+	T1.token as token
 FROM
 	(
 		wp_teacher T1
@@ -141,6 +142,18 @@ DISTINCT
 	FROM_UNIXTIME(t.time_end, "%Y-%m-%d %H:%i:%S") pay_time,
 	ROUND(t.total_fee / 100, 2) pay_fee,
 	(
+		CASE t.pay_channel
+		WHEN "human" THEN
+			"人工"
+			WHEN "weixin" THEN
+			"微信"
+			WHEN "alipay" THEN
+			"支付宝"
+		ELSE
+			t1. NAME
+		END
+	) pay_channel_name,
+	(
 		CASE t.paytype
 		WHEN "banner" THEN
 			"锦旗支付"
@@ -149,7 +162,6 @@ DISTINCT
 		END
 	) pay_item_name,
 	t2. NAME school_name,
-	"微信支付" pay_channel,
 	(
 		CASE t.result_code
 		WHEN "SUCCESS"
@@ -167,7 +179,7 @@ LEFT JOIN wp_school_payitem t1 ON t.payitem_id = t1.id
 LEFT JOIN wp_school t2 ON t.token = t2.token
 -- left join wp_student t3 on  t.token = t3.token and t.openid = t3.openid
 -- left join wp_follow t4 on t.token = t4.token and t.openid = t4.openid
-WHERE   LENGTH(trim(transaction_id))>0 ;
+WHERE   LENGTH(trim(transaction_id))>0 or pay_channel = "human";
 
 
 #wp_eo2o_payment_count

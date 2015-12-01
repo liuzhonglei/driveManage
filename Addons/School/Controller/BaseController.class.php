@@ -42,4 +42,57 @@ class BaseController extends AdminController
     }
 
 
+    /**
+     * search the follow
+     * @param $text
+     * @param $fieldResult
+     * @return mixed
+     */
+    public function getFollowOpneids($text, $fieldResult)
+    {
+        $fields = array("nickname");
+        $sql = "select " . $fieldResult . " from wp_follow t where t.token = '" . get_token() . "' and ( ";
+        $fieldMap = "";
+        foreach ($fields as $field) {
+            if (empty(!$fieldMap)) {
+                $fieldMap .= "or ";
+            }
+            $fieldMap .= $field . " like '%" . $text . "%' ";
+        };
+        $sql .= $fieldMap . " )";
+        return M('follow')->query($sql);
+    }
+
+    /**
+     * get the
+     * @return string
+     */
+    private function getPayOpenid()
+    {
+        $payed = $_REQUEST['payed'];
+        $result = "";
+        if ($payed !== null) {
+            $sql = "select openid from wp_eo2o_payment_count t where t.token = '" . get_token() . "' and  total_fee is not null";
+            $records = M('eo2o_payment_count')->query($sql);
+            if (count($records) > 0) {
+                if ($payed) {
+                    $result = "and openid in ( " . $this->getArrayStr($records) . " )";
+                } else {
+                    $result = "and openid not in ( " . $this->getArrayStr($records) . " )";
+                }
+            } else {
+                if ($payed) {
+                    $result = "1 = 2";
+                } else {
+                    $result = " ";
+                }
+            }
+
+        }
+
+        // return
+        return $result;
+
+    }
+
 }
