@@ -197,9 +197,29 @@ License: You must have a valid license purchased only from themeforest(the above
 <script type="text/javascript">
     /* Init Metronic's core jquery plugins and layout scripts */
     $(document).ready(function () {
+        console.log('document');
         Metronic.init(); // Run metronic theme
         Metronic.setAssetsPath('../assets/'); // Set the assets folder path
+        $.get("/index.php?s=/Home/Home/login.html");
     });
+
+
+    // 判断是否已登录
+//    $("form").submit(function(){
+//        var self = $(this);
+//
+//        return false;
+//
+//        function success(data){
+//            if(data.status){
+//                window.location.href = data.url;
+//            } else {
+//                self.find(".Validform_checktip").text(data.info);
+//                //刷新验证码
+//                $(".reloadverify").click();
+//            }
+//        }
+//    });
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

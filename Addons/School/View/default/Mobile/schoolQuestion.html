@@ -101,7 +101,7 @@
         var remark = $("#re_remark").val();
         $.ajax({ //一个Ajax过程
             type: "post",
-            url: "{:addons_url('Student://Question/add')}",
+            url: "{:addons_url('Message://Message/add')}",
             dataType: 'json',
             data: 'question=' + question,
             success: function (data) {

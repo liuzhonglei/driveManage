@@ -145,7 +145,7 @@ class UserController extends HomeController {
                         Cookie ( '__forward__', null );
                     } else {
 
-                        $url = "index.html";
+                        $url = "admin/index.html";
                     }
 
                     session ( 'is_follow_login', null );
