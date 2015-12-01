@@ -204,7 +204,14 @@ class SchoolController extends SchoolBaseController
         $token = get_token();
         $_POST['token'] = get_token();
         $number = i('load_number');
-        $sql = 'select t.*, from_unixtime(t.time) str_time,t1.nickname, t1.headimgurl, t2.path   from wp_student_question t left join wp_follow t1 on t.openid = t1.openid left join wp_picture t2 on t1.headimgurl = t2.id where t.token ="'.$token.'"  order by id desc limit '.$number;
+
+        $db_config = D('Common/AddonConfig')->get(_ADDONS);
+        $showAnswer = $db_config['show_no_answer_question'];
+        $sql = 'select t.*, from_unixtime(t.time) str_time,t1.nickname, t1.headimgurl, t2.path   from wp_student_question t left join wp_follow t1 on t.openid = t1.openid left join wp_picture t2 on t1.headimgurl = t2.id where t.token ="'.$token.'" ';
+        if(!$showAnswer){
+            $sql .= "and answer is not null ";
+        }
+        $sql.= 'order by id desc limit '.$number;
         $select_data = M('student_question')->query($sql);
 
         $this->ajaxReturn($select_data);

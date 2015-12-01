@@ -47,30 +47,6 @@ class MessageController extends MessageBaseController
         $this->display();
     }
 
-    public function _search_map($model, $fields)
-    {
-        $map = parent::_search_map($model, $fields);
-        if (is_array($map)) {
-            $where_str = "";
-
-            foreach ($map as $mapMame => $mapValue) {
-                if (!empty($where_str)) {
-                    $where_str .= " and ";
-                }
-                $where_str .= $mapMame . ' = "' . $mapValue . '" ';
-            }
-            $map = $where_str;
-        }
-
-        $db_config = D('Common/AddonConfig')->get(_ADDONS);
-        $showAnswer = $db_config['show_no_answer_question'];
-        if (!$showAnswer) {
-            $map .= " and answer is not null";
-        }
-
-        // 返回
-        return $map;
-    }
 
 
 }
