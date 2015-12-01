@@ -254,4 +254,52 @@ class EO2OPaymentController extends EO2OBaseController{
         $this->log(I('out_trade_no'));
         $this->log(I('result_code'));
     }
+
+    /**
+     * 流水组成统计数据
+     */
+    public
+    function balanceConsist()
+    {
+        // 排序字段
+        $groupField = "pay_day";
+
+        // 查询
+        $sql = <<<STR
+select $groupField,paytype,SUM(total_fee) fee from
+(
+SELECT
+	paytype,
+	total_fee,
+	FROM_UNIXTIME(time_end, '%Y-%m-%d') pay_day,
+	FROM_UNIXTIME(time_end, '%Y-%m') pay_month,
+	FROM_UNIXTIME(time_end, '%Y') pay_year
+FROM
+	wp_eo2o_payment_all) T group by paytype,$groupField order by $groupField
+STR;
+        // 查询
+        $data = M('eo2o_payment')->query($sql);
+        $result = Array();
+        $temp = Array();
+        $count = 0;
+        foreach ($data as $value) {
+            if ($temp[$groupField] == $value[$groupField]) {
+                $temp[$value['paytype']] = $value['fee'];
+            } else {
+                if ($temp[$groupField]) {
+                    array_push($result, $temp);
+                    $count++;
+                    if ($count > 10) {
+                        break;
+                    }
+                }
+                $temp = Array();
+                $temp[$groupField] = $value[$groupField];
+                $temp[$value['paytype']] = $value['fee'];
+            }
+        }
+
+        // 返回
+        $this->ajaxReturn($result);
+    }
 }
