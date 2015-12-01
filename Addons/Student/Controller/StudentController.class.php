@@ -207,7 +207,6 @@ class StudentController extends StudentBaseController
         $data = M($name)->query($sql);
 
         /* 查询记录总数 */
-//        $sql = $this->createStudentSql($fields, $map, null, null, $order);
         $count = M('student')->execute("select * from wp_student  t  where " . $map);
 
         $list_data ['list_data'] = $data;
@@ -220,6 +219,8 @@ class StudentController extends StudentBaseController
             $list_data ['_page'] = $page->show();
         }
 
+
+        //反悔
         return $list_data;
     }
 
@@ -668,8 +669,12 @@ STR;
         $Model->where('id=' . $_REQUEST['student_id'])->save($data);
 
         // show
-        $url = $_SERVER['HTTP_REFERER'];
-        redirect($url);
+        if($this->isAdmin()){
+            $this->success();
+        }else{
+            $url = $_SERVER['HTTP_REFERER'];
+            redirect($url);
+        }
     }
 
 
@@ -1072,4 +1077,11 @@ str;
         return $return;
     }
 
+    /**
+     * 取得驾校的所有学员
+     */
+    public function  getStudents(){
+        $list = M('student')->query('select id, name text from wp_student t where t.token="' . get_token() . '"');
+        $this->ajaxReturn($list);
+    }
 }

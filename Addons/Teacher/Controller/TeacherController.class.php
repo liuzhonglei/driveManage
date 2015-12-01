@@ -253,16 +253,21 @@ class TeacherController extends BaseController
 
 
     /**
-     * show the teacher rank (front)
+     * 教练评价排行
      */
-    function show()
+    function teacher_rank()
     {
         // data
-        $list = M('teacher')->query('select @x:=ifnull(@x,0)+1 as rank, t.* from wp_teacher_rank_all t where token="' . get_token() . '"');
-        $this->assign('list', $list);
+       $sql =  'select * from wp_teacher_rank_all t where token="' . get_token() . '" order by suc_rate desc limit 0,10';
+        $list = M('teacher')->query($sql);
 
         // show
-        $this->display(T('Addons://Teacher@Teacher/top'));
+        if($this->isAdmin()){
+            $this->ajaxReturn($list);
+        }else{
+            $this->assign('list', $list);
+            $this->display(T('Addons://Teacher@Teacher/top'));
+        }
     }
 
     /**
