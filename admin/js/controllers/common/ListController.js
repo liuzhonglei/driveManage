@@ -10,16 +10,5 @@ MetronicApp.controller('ListController', ['$rootScope', '$http', '$scope', funct
 
         // init the table
         TableAjax.init('list',$rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController);
-
-        // init the field
-        //$http({
-        //    method: "post",
-        //    headers: function ($httpProvider) {
-        //        $httpProvider.defaults.withCredentials = true;
-        //    },
-        //    url: Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/getModelInfo"
-        //}).success(function (data) {
-        //    $scope.searchName = data.model.search_key;
-        //});
     });
 }]);

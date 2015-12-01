@@ -12,6 +12,17 @@ var MetronicApp = angular.module("MetronicApp", [
 
 
 var depFile = {
+    chart: new Array(
+        "../assets/global/plugins/amcharts/amcharts/serial.js" ,
+        "../assets/global/plugins/amcharts/amcharts/pie.js" ,
+        "../assets/global/plugins/amcharts/amcharts/radar.js" ,
+        "../assets/global/plugins/amcharts/amcharts/themes/light.js" ,
+        "../assets/global/plugins/amcharts/amcharts/themes/patterns.js" ,
+        "../assets/global/plugins/amcharts/amcharts/themes/chalk.js" ,
+        "../assets/global/plugins/amcharts/ammap/ammap.js" ,
+        "../assets/global/plugins/amcharts/ammap/maps/js/worldLow.js" ,
+        "../assets/global/plugins/amcharts/amstockcharts/amstock.js",
+        "js/controllers/common/ChartController.js"),
     list: new Array('../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
         '../assets/global/plugins/datatables/all.min.js',
         '../assets/global/scripts/datatable.js',
@@ -336,6 +347,46 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                 }]
             }
         })
+
+
+        // 教练统计
+        .state("teacherTop", {
+            url: "/statistics/teacherTop.html",
+            templateUrl: "views/chart/teacherTop.html",
+            data: {pageTitle: "教练统计",module: "Teacher", handleController: "Teacher",action: "teacher_rank",type: "BarChart"},
+            controller: "ChartController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: depFile.chart
+                        }]);
+                }]
+            }
+        })
+
+
+        // 资金流入统计
+        .state("balanceStatistics", {
+            url: "/statistics/balanceStatistics.html",
+            templateUrl: "views/chart/teacherTop.html",
+            data: {pageTitle: "资金统计",module: "EO2OPayment", handleController: "EO2OPayment",action: "balanceConsist",type: "ComposeBarChart"},
+            controller: "ChartController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: depFile.chart
+                        }]);
+                }]
+            }
+        })
+
+
 }]);
 
 /* Init global settings and run the app */

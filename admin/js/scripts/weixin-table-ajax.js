@@ -53,7 +53,7 @@ var TableAjax = function () {
      */
     var reload = function (name) {
         var grid = tableMap[name].grid;
-        grid.getDataTable().ajax.url(createUrl(name)).load();
+        grid.getDataTable().ajax.url(createUrl(name,"listsAdmin")).load();
     }
 
     /**
