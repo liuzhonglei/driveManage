@@ -70,7 +70,7 @@ class WeixinController extends BaseController{
 
         // return
         if($this->isAdmin()){
-            $this->adminReturn();
+            $this->success();
         }else{
             redirect($url);
         }
