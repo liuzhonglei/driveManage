@@ -2,7 +2,7 @@
 
 namespace Addons\School\Controller;
 
-class PayItemController extends SchoolBaseController{
+class PayitemController extends SchoolBaseController{
     function _initialize() {
         $this->model = $this->getModel ( 'school_payitem' );
         parent::_initialize ();
