@@ -32,7 +32,12 @@ var TableAjax = function () {
             }
 
             // set search name
-            $("#"+name+"-search-name").val(data.model.search_key);
+           var searchEle =  $("#"+name+"-search-name");
+            if(searchEle){
+                searchEle.val(data.model.search_key);
+
+            }
+
 
             // init column
             for (var i = 0; i < data.list_data.fields.length; i++) {
