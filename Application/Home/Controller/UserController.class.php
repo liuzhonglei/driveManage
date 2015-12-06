@@ -140,13 +140,7 @@ class UserController extends HomeController {
                 /* 登录用户 */
                 $Member = D ( 'Member' );
                 if ($Member->login ( $uid )) { // 登录用户
-                    $url = Cookie ( '__forward__' );
-                    if ($url) {
-                        Cookie ( '__forward__', null );
-                    } else {
-
-                        $url = "admin/index.html";
-                    }
+					$url = "admin/index.html";
 
                     session ( 'is_follow_login', null );
 
@@ -175,6 +169,16 @@ class UserController extends HomeController {
             $this->display ( $html );
         }
     }
+
+	public function logoutAdmin(){
+		if (is_login ()) {
+			D ( 'Member' )->logout ();
+			$url = "admin/login.html";
+
+		}
+
+		$this->success ( '退出成功！', $url);
+	}
 	
 	/* 退出登录 */
 	public function logout() {

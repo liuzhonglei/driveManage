@@ -26,7 +26,7 @@ var depFile = {
     list: new Array('../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
         '../assets/global/plugins/datatables/all.min.js',
         '../assets/global/scripts/datatable.js',
-        'js/scripts/weixin-table-ajax.js',
+        //'js/scripts/weixin-table-ajax.js',
         'js/controllers/common/Filter.js',
         'js/controllers/common/ListController.js'),
     info: new Array('../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',

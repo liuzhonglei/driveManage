@@ -178,6 +178,7 @@ class ExtendAddonsController extends AddonsController
      * @param null $model
      * @param int $page
      * @param string $order
+     *
      * @return mixed
      */
     public function _get_model_list($model = null, $page = 0, $order = 'id desc')

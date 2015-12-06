@@ -26,6 +26,11 @@ var TableAjax = function () {
         // 查询表格信息
         var url = createUrl(name,"getModelInfo");
         $.get(url, function (data) {
+            // 判断是否登录
+            if(data.result == "-1"){
+                window.location="/admin/login.html"
+            }
+
             // set search name
             $("#"+name+"-search-name").val(data.model.search_key);
 
