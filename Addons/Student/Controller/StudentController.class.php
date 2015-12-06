@@ -3,6 +3,7 @@
 namespace Addons\Student\Controller;
 use Addons\School\Controller\Common\Log\LogController;
 use Addons\School\Controller\Common\Log\LogMajorType;
+use Addons\EO2OPayment\Controller\EO2OPaymentController;
 
 
 define ('SCHOOL_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Public');
@@ -1083,5 +1084,24 @@ str;
     public function  getStudents(){
         $list = M('student')->query('select id, name text from wp_student t where t.token="' . get_token() . '"');
         $this->ajaxReturn($list);
+    }
+
+    /**
+     * 增加学员的划款流水
+     */
+    function  moneyLogAdd(){
+        $where = 'id  = ' .  $_REQUEST['student_id'] . '';
+        $student = M("student")->where($where)->find();
+        $_REQUEST['openid'] = $student['openid'];
+
+        $paymentController = new EO2OPaymentController();
+
+        if($this->isAdmin()){
+            $paymentController->addAdmin();
+        }else{
+            $nav = $this->get('nav');
+            $subNav = $this->get('sub_nav');
+            $paymentController->add($nav,$subNav);
+        }
     }
 }

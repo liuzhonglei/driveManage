@@ -171,7 +171,7 @@ class CommonController extends ExtendAddonsController
      */
     private function getFieldData($modelName, $map, $showField = 'name')
     {
-        $extra = ":空\r\n";
+        $extra = "'':空\r\n";
         $list = M($modelName)->where($map)->select();
 
         foreach ($list as $v) {
