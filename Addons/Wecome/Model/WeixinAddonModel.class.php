@@ -33,7 +33,11 @@ class WeixinAddonModel extends WeixinModel {
 						'PicUrl' => $config ['pic_url'],
 						'Url' => str_replace($sreach, $replace, $config ['url'] )
 				);
+
+				addWeixinLog('wecome subscribe return',$articles);
+
 				$res = $this->replyNews ( $articles );
+
 				break;
 			case '2' :
 				return false;
