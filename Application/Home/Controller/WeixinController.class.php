@@ -29,7 +29,7 @@ class WeixinController extends HomeController {
 		$this->initFollow ( $weixin, $data );
 		
 		// 记录日志
-		addWeixinLog ( $data, $GLOBALS ['HTTP_RAW_POST_DATA'] );
+//		addWeixinLog ( $data, $GLOBALS ['HTTP_RAW_POST_DATA'] );
 		
 		// 回复数据
 		$this->reply ( $data, $weixin );
@@ -136,7 +136,7 @@ class WeixinController extends HomeController {
 			$like ['keyword'] = $key;
 			$like ['keyword_type'] = 0;
 			$keywordArr = M ( 'keyword' )->where ( $like )->order ( 'id desc' )->find ();
-			addWeixinLog ( M ()->getLastSql (), 'addon1' );
+//			addWeixinLog ( M ()->getLastSql (), 'addon1' );
 			if (! empty ( $keywordArr ['addon'] )) {
 				$addons [$key] = $keywordArr ['addon'];
 				$this->request_count ( $keywordArr );
@@ -155,7 +155,7 @@ class WeixinController extends HomeController {
 				$this->_contain_keyword ( $keywordInfo, $key, $addons, $keywordArr );
 			}
 		}
-		addWeixinLog ( M ()->getLastSql (), 'addon2' );
+//		addWeixinLog ( M ()->getLastSql (), 'addon2' );
 		// 通过通配符，查找默认处理方式
 		// by 肥仔聪要淡定 2014.6.8
 		if (! isset ( $addons [$key] )) {
@@ -168,7 +168,7 @@ class WeixinController extends HomeController {
 				$this->request_count ( $keywordArr );
 			}
 		}
-		addWeixinLog ( M ()->getLastSql (), 'addon3' );
+//		addWeixinLog ( M ()->getLastSql (), 'addon3' );
 		// 以上都无法定位插件时，如果开启了智能聊天，则默认使用智能聊天插件
 		if (! isset ( $addons [$key] ) && isset ( $addon_list ['Chat'] )) {
 			
@@ -185,7 +185,7 @@ class WeixinController extends HomeController {
 		if (! isset ( $addons [$key] ) || ! file_exists ( ONETHINK_ADDON_PATH . $addons [$key] . '/Model/WeixinAddonModel.class.php' )) {
 			return false;
 		}
-		addWeixinLog ( $addons [$key], 'addon2' );
+//		addWeixinLog ( $addons [$key], 'addon2' );
 		// 加载相应的插件来处理并反馈信息
 		require_once ONETHINK_ADDON_PATH . $addons [$key] . '/Model/WeixinAddonModel.class.php';
 		$model = D ( 'Addons://' . $addons [$key] . '/WeixinAddon' );

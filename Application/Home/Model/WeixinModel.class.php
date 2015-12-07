@@ -33,7 +33,7 @@ class WeixinModel extends Model {
 			$sMsg = ""; // 解析之后的明文
 			$errCode = $this->wxcpt->DecryptMsg ( $this->sEncryptMsg, $this->sReqTimeStamp, $this->sReqNonce, $content, $sMsg );
 			if ($errCode != 0) {
-				addWeixinLog ( $_GET, "DecryptMsg Error: " . $errCode );
+//				addWeixinLog ( $_GET, "DecryptMsg Error: " . $errCode );
 				exit ();
 			} else {
 				// 解密成功，sMsg即为xml格式的明文
@@ -110,7 +110,7 @@ class WeixinModel extends Model {
 		$str = $xml->asXML ();
 		
 		// 记录日志
-		addWeixinLog ( $str, '_replyData' );
+//		addWeixinLog ( $str, '_replyData' );
 		
 		if ($_GET ['encrypt_type'] == 'aes') {
 			$sEncryptMsg = ""; // xml格式的密文
@@ -118,7 +118,7 @@ class WeixinModel extends Model {
 			if ($errCode == 0) {
 				$str = $sEncryptMsg;
 			} else {
-				addWeixinLog ( $str, "EncryptMsg Error: " . $errCode );
+//				addWeixinLog ( $str, "EncryptMsg Error: " . $errCode );
 			}
 		}
 		

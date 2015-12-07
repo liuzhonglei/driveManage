@@ -1465,7 +1465,7 @@ function get_openid($openid = NULL) {
 function get_token($token = NULL) {
 	if ($token !== NULL) {
 		session ( 'token', $token );
-        addWeixinLog ( session,'session');
+//        addWeixinLog ( session,'session');
 	} elseif (! empty ( $_REQUEST ['token'] )) {
 		session ( 'token', $_REQUEST ['token'] );
 	}

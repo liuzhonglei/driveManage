@@ -34,7 +34,7 @@ class WeixinAddonModel extends WeixinModel {
 			if ($dataArr ['Content'] == $keywordArr ['keyword']) {
 				$url = 'http://web.juhe.cn:8080/finance/gold/shgold?key=' . $config ['gold'];
 				$content = file_get_contents ( $url );
-				addWeixinLog ( $content, $url );
+//				addWeixinLog ( $content, $url );
 				$content = json_decode ( $content, true );
 				$keywordArr ['content'] = $content ['result'] [0];
 				
