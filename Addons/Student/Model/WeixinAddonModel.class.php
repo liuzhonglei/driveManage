@@ -55,7 +55,6 @@ class WeixinAddonModel extends WeixinModel{
 	}
 
     public function templatesendjobfinish($data){
-        addWeixinLog ( $data,'templatesendjobfinish' );
 
         $Model =  M('student_notification');
         $result = explode(':',$data['Status']);

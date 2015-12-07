@@ -205,13 +205,11 @@ class NotificationController extends StudentBaseController{
                     'remark'=> array('value'=>"请提前1个小时到达考场，逾期以挂科处理。", 'color'=>'#173177'),
                 );
                 // 记录日志
-                addWeixinLog ( $tempData,'$tempData' );
                 if($return = $weObj->sendTempMes($studentInfo['openid'],$tempId,$tempData)){
                     if($return['errcode']  == '0'){
                         $data['noti_result'] = '1';
                         $data['msgid'] = $return['msgid'];
                         $data['remark'] = '发送通知成功!';
-                        addWeixinLog ( $return,'$return' );
                     }else{
                         $data['noti_result'] = '-1';
                         $data['remark'] = '发送通知失败,错误代码['.$return[errcode].']错误信息['.$return[errmsg].']!';
