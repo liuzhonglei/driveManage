@@ -8,11 +8,13 @@ use Home\Model\WeixinModel;
  * Vote模型
  */
 class WeixinAddonModel extends WeixinModel {
+
 	function reply($dataArr, $keywordArr = array()) {
 		return true;
 	}
 	// 关注时的操作
 	function subscribe($dataArr) {
+		addWeixinLog('weixin subscribe',$dataArr);
 		$config = getAddonConfig ( 'Wecome' ); // 获取后台插件的配置参数
 		
 		// 其中token和openid这两个参数一定要传，否则程序不知道是哪个微信用户进入了系统
