@@ -24,7 +24,8 @@ class WeixinAddonModel extends WeixinModel {
 		$sreach = array('[follow]', '[website]');
 		$replace = array(addons_url('UserCenter://UserCenter/edit', $param), addons_url('WeiSite://WeiSite/index', $param));
 		$config ['description'] = str_replace($sreach, $replace, $config ['description'] );
-		
+
+		addWeixinLog('wecome subscribe $config',$config);
 		switch ($config ['type']) {
 			case '3' :
 				$articles [0] = array (
