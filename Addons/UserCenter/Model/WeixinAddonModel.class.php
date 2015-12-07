@@ -13,7 +13,7 @@ class WeixinAddonModel extends WeixinModel {
 	}
 	// 关注时的操作
 	function subscribe($dataArr) {
-		addWeixinLog('subscribe',$dataArr);
+		addWeixinLog('user subscribe',$dataArr);
 		$info = D ( 'Common/Follow' )->update_follow ( $dataArr ['FromUserName'] );
 		
 		// 增加积分
