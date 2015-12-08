@@ -35,6 +35,7 @@ class WeixinAddonModel extends WeixinModel {
 						'Url' => str_replace($sreach, $replace, $config ['url'] )
 				);
 
+
 				addWeixinLog('wecome subscribe return',$articles);
 
 				$res = $this->replyNews ( $articles );
