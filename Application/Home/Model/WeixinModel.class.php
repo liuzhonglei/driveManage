@@ -121,7 +121,9 @@ class WeixinModel extends Model {
 //				addWeixinLog ( $str, "EncryptMsg Error: " . $errCode );
 			}
 		}
-		
+
+		addWeixinLog(' 发送回复消息到微信平台',$str);
+
 		echo ($str);
 	}
 	/* 组装xml数据 */
