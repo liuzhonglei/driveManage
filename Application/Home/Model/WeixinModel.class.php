@@ -124,7 +124,8 @@ class WeixinModel extends Model {
 
 		addWeixinLog(' 发送回复消息到微信平台',$str);
 
-		echo ($str);
+		$lines = explode("\n", $str);
+		echo ($lines[1]);
 	}
 	/* 组装xml数据 */
 	public function _data2xml($xml, $data, $item = 'item') {
