@@ -9,11 +9,6 @@ use Home\Model\WeixinModel;
  */
 class WeixinAddonModel extends WeixinModel
 {
-    function reply($dataArr, $keywordArr = array())
-    {
-
-    }
-
     // 关注公众号事件
     public function subscribe()
     {
