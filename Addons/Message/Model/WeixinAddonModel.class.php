@@ -1,6 +1,6 @@
 <?php
 
-namespace Addons\QingQing\Model;
+namespace Addons\Message\Model;
 
 use Home\Model\WeixinModel;
 
