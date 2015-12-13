@@ -48,7 +48,7 @@
      */
     function followBind(openid){
         // 发送绑定请求
-        $.get(Metronic.rootPath() + "/index.php?s=/addon/student/weixin/binding/student_id/"+$("#weixin-bind-id").val()+"/openid/"+openid, function (data) {
+        $.get(Metronic.rootPath() + "/index.php?s=/addon/Student/Weixin/binding/student_id/"+$("#weixin-bind-id").val()+"/openid/"+openid, function (data) {
             // 返回成功，关闭当前窗口，刷新列表
             if (data.result) {
                 TableAjax.reload('list');
@@ -67,7 +67,7 @@
      */
     function followUnbind(id){
         // 发送绑定请求
-        $.get(Metronic.rootPath() + "/index.php?s=/addon/student/student/unbinding/student_id/"+id, function (data) {
+        $.get(Metronic.rootPath() + "/index.php?s=/addon/Student/Student/unbinding/student_id/"+id, function (data) {
             // 返回成功，关闭当前窗口，刷新列表
             if (data.result) {
                 TableAjax.reload('list');
