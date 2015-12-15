@@ -1,6 +1,6 @@
 <?php
 
-namespace Addons\CustomReply\Model;
+namespace Addons\CutPrice\Model;
 
 use Home\Model\WeixinModel;
 
