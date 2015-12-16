@@ -361,13 +361,13 @@ class AdminController extends CommonController
                         $href = preg_replace("/&/i", "?", $href, 1);
                     }
                     if (strpos($href, "javascript_") === 0) {
-                        $val [] = '<a  target="' . $target . '" href="' . str_replace("javascript_", "javascript:", $href) . '">' . $show . '</a>';
+                        $val [] = '<a  target="' . $target . '" href="' . str_replace("javascript_", "javascript:", $href) . '"> ' . $show . ' </a>';
                     } else if ($show == '删除') {
-                        $val [] = '<a class="confirm"   href="' . urldecode(U($href, $GLOBALS ['get_param'])) . '">' . $show . '</a>';
+                        $val [] = '<a class="confirm"   href="' . urldecode(U($href, $GLOBALS ['get_param'])) . '"> ' . $show . ' </a>';
                     } else if (strpos($href, "#") === 0) {
                         $val [] = '<a  data-target="' . $href . '" data-toggle="modal">' . $show . '</a>';
                     } else {
-                        $val [] = '<a  target="' . $target . '" href="' . urldecode(U($href, $GLOBALS ['get_param'])) . '">' . $show . '</a>';
+                        $val [] = '<a  target="' . $target . '" href="' . urldecode(U($href, $GLOBALS ['get_param'])) . '"> ' . $show . ' </a>';
                     }
                 }
             }
