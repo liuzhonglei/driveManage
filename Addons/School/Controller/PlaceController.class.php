@@ -12,9 +12,9 @@ namespace Addons\School\Controller;
 class PlaceController extends SchoolBaseController{
 
         function _initialize() {
-            $this->model = $this->getModel ( 'school_place' );
             parent::_initialize ();
+            $this->model = $this->getModel ( 'school_place' );
+            $this->dataMultiEdit = true;
+
         }
-
-
 }

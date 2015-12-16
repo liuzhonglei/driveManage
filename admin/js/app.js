@@ -13,14 +13,14 @@ var MetronicApp = angular.module("MetronicApp", [
 
 var depFile = {
     chart: new Array(
-        "../assets/global/plugins/amcharts/amcharts/serial.js" ,
-        "../assets/global/plugins/amcharts/amcharts/pie.js" ,
-        "../assets/global/plugins/amcharts/amcharts/radar.js" ,
-        "../assets/global/plugins/amcharts/amcharts/themes/light.js" ,
-        "../assets/global/plugins/amcharts/amcharts/themes/patterns.js" ,
-        "../assets/global/plugins/amcharts/amcharts/themes/chalk.js" ,
-        "../assets/global/plugins/amcharts/ammap/ammap.js" ,
-        "../assets/global/plugins/amcharts/ammap/maps/js/worldLow.js" ,
+        "../assets/global/plugins/amcharts/amcharts/serial.js",
+        "../assets/global/plugins/amcharts/amcharts/pie.js",
+        "../assets/global/plugins/amcharts/amcharts/radar.js",
+        "../assets/global/plugins/amcharts/amcharts/themes/light.js",
+        "../assets/global/plugins/amcharts/amcharts/themes/patterns.js",
+        "../assets/global/plugins/amcharts/amcharts/themes/chalk.js",
+        "../assets/global/plugins/amcharts/ammap/ammap.js",
+        "../assets/global/plugins/amcharts/ammap/maps/js/worldLow.js",
         "../assets/global/plugins/amcharts/amstockcharts/amstock.js",
         "js/controllers/common/ChartController.js"),
     list: new Array('../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
@@ -50,7 +50,8 @@ var depFile = {
         '../assets/global/plugins/typeahead/typeahead.bundle.min.js',
         '../assets/admin/pages/scripts/components-pickers.js',
         '../assets/admin/pages/scripts/components-form-tools.js',
-        'js/controllers/common/InfoController.js')
+        'js/controllers/common/InfoController.js'),
+    conf: new Array('js/controllers/ConfController.js')
 };
 
 /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
@@ -124,6 +125,7 @@ MetronicApp.factory('settings', ['$rootScope', function ($rootScope) {
     // supported languages
     var settings = {
         layout: {
+            pageSidebarClosed: false, // sidebar state
             pageAutoScrollOnLoad: 1000 // auto scroll to top on page load
         },
         layoutImgPath: Metronic.getAssetsPath() + 'admin/layout/img/',
@@ -157,6 +159,16 @@ MetronicApp.controller('HeaderController', ['$scope', function ($scope) {
 }]);
 
 /* Setup Layout Part - Sidebar */
+MetronicApp.controller('SidebarController', ['$scope', function ($scope) {
+    $scope.$on('$includeContentLoaded', function () {
+        // 配置权限
+
+        // 初始化
+        Layout.initSidebar(); // init sidebar
+    });
+}]);
+
+/* Setup Layout Part - Sidebar */
 MetronicApp.controller('PageHeadController', ['$scope', function ($scope) {
     $scope.$on('$includeContentLoaded', function () {
         Demo.init(); // init theme panel
@@ -174,41 +186,10 @@ MetronicApp.controller('FooterController', ['$scope', function ($scope) {
 MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
 
     // Redirect any unmatched url
-    $urlRouterProvider.otherwise("/dashboard.html");
+    $urlRouterProvider.otherwise("/school/list.html");
 
     $stateProvider
-        // Dashboard
-        .state('dashboard', {
-            url: "/dashboard.html",
-            templateUrl: "views/dashboard.html",
-            data: {pageTitle: 'Dashboard', pageSubTitle: 'statistics & reports'},
-            controller: "DashboardController",
-            resolve: {
-                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load({
-                        name: 'MetronicApp',
-                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                        files: [
-                            '../assets/global/plugins/morris/morris.css',
-                            '../assets/admin/pages/css/tasks.css',
-
-                            '../assets/global/plugins/morris/morris.min.js',
-                            '../assets/global/plugins/morris/raphael-min.js',
-                            '../assets/global/plugins/jquery.sparkline.min.js',
-
-                            '../assets/admin/pages/scripts/index3.js',
-                            '../assets/admin/pages/scripts/tasks.js',
-
-                            'js/controllers/DashboardController.js'
-                        ]
-                    });
-                }]
-            }
-        })
-
-
-
-        // student info
+    // student info
         .state("studentList", {
             url: "/student/list.html",
             templateUrl: "views/student/list.html",
@@ -244,7 +225,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("schoolList", {
             url: "/school/list.html",
             templateUrl: "views/school/list.html",
-            data: {pageTitle: "驾校信息", module: "School", handleController: "School", action: "edit",info:true},
+            data: {pageTitle: "驾校信息", module: "School", handleController: "School", info: true},
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -257,11 +238,112 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                 }]
             }
         })
-        // student info
-        .state("studentQuestionList", {
-            url: "/student/questionList.html",
+        // 相关信息
+        .state("schoolInfoList", {
+            url: "/schoolInfo/list.html",
             templateUrl: "views/common/list.html",
-            data: {pageTitle: "问题列表", module: "Student", handleController: "Question", action: "edit",info:true},
+            data: {pageTitle: "相关资料", module: "School", handleController: "Info", action: "edit", info: true},
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before',
+                            files: $.merge(depFile.info, depFile.list)
+                        }]);
+                }]
+            }
+        })
+
+        // 课程信息
+        .state("schoolCourseList", {
+            url: "/schoolCourse/list.html",
+            templateUrl: "views/common/list.html",
+            data: {pageTitle: "课程信息", module: "School", handleController: "Course", action: "edit", info: true},
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before',
+                            files: $.merge(depFile.info, depFile.list)
+                        }]);
+                }]
+            }
+        })
+
+        // 驾校场地信息
+        .state("schoolPlaceList", {
+            url: "/schoolPlace/list.html",
+            templateUrl: "views/common/list.html",
+            data: {pageTitle: "驾校场地", module: "School", handleController: "Place", action: "edit", info: true},
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before',
+                            files: $.merge(depFile.info, depFile.list)
+                        }]);
+                }]
+            }
+        })
+
+
+        // 驾校优惠
+        .state("schoolPrivilegeList", {
+            url: "/schoolPrivilege/list.html",
+            templateUrl: "views/common/list.html",
+            data: {pageTitle: "驾校优惠", module: "School", handleController: "Privilege", action: "edit", info: true},
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before',
+                            files: $.merge(depFile.info, depFile.list)
+                        }]);
+                }]
+            }
+        })
+
+        // 付款项目信息
+        .state("payitemList", {
+            url: "/payitem/list.html",
+            templateUrl: "views/common/list.html",
+            data: {pageTitle: "相关资料", module: "School", handleController: "Payitem", action: "edit", info: true},
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before',
+                            files: $.merge(depFile.info, depFile.list)
+                        }]);
+                }]
+            }
+        })
+
+
+
+
+        // student info
+        .state("messagetQuestionList", {
+            url: "/message/questionList.html",
+            templateUrl: "views/common/list.html",
+            data: {
+                pageTitle: "问题列表",
+                module: "Message",
+                handleController: "Message",
+                action: "edit",
+                info: true,
+                conf: true
+            },
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -269,7 +351,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: $.merge(depFile.info, depFile.list)
+                            files: $.merge($.merge(depFile.info, depFile.list), depFile.conf)
                         }]);
                 }]
             }
@@ -279,7 +361,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("studentBannerList", {
             url: "/student/bannerList.html",
             templateUrl: "views/common/list.html",
-            data: {pageTitle: "学员锦旗", module: "Student", handleController: "Banner", action: "edit",info:true},
+            data: {pageTitle: "学员锦旗", module: "Student", handleController: "Banner", action: "edit", info: true},
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -297,7 +379,14 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("studentNotificationList", {
             url: "/student/notificationList.html",
             templateUrl: "views/common/list.html",
-            data: {pageTitle: "考试通知", module: "Student", handleController: "Notification", action: "edit",info:true, conf: true},
+            data: {
+                pageTitle: "考试通知",
+                module: "Student",
+                handleController: "Notification",
+                action: "edit",
+                info: true,
+                conf: true
+            },
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -305,7 +394,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: $.merge(depFile.info, depFile.list)
+                            files: $.merge($.merge(depFile.info, depFile.list), depFile.conf)
                         }]);
                 }]
             }
@@ -315,7 +404,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("studentAppriseList", {
             url: "/student/appriseList.html",
             templateUrl: "views/common/list.html",
-            data: {pageTitle: "学员评级", module: "Student", handleController: "Appraise", action: "edit",info:true},
+            data: {pageTitle: "学员评级", module: "Student", handleController: "Appraise", action: "edit", info: true},
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -334,7 +423,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("teacherList", {
             url: "/teacher/list.html",
             templateUrl: "views/common/list.html",
-            data: {pageTitle: "教练信息", module: "Teacher", handleController: "Teacher", action: "edit",info:true},
+            data: {pageTitle: "教练信息", module: "Teacher", handleController: "Teacher", action: "edit", info: true},
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -348,12 +437,90 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             }
         })
 
+        // school info
+        .state("userCenterList", {
+            url: "/userCener/list.html",
+            templateUrl: "views/common/list.html",
+            data: {pageTitle: "粉丝信息", module: "UserCenter", handleController: "UserCenter", conf: true},
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: $.merge($.merge(depFile.info, depFile.list), depFile.conf)
+                        }]);
+                }]
+            }
+        })
+
+        // 微信自动回复
+        .state("customReplyList", {
+            url: "/customReply/list.html",
+            templateUrl: "views/common/list.html",
+            data: {pageTitle: "自动回复", module: "CustomReply", handleController: "CustomReply"},
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: $.merge(depFile.info, depFile.list)
+                        }]);
+                }]
+            }
+        })
+
+        // 砍价活动
+        .state("cutPriceList", {
+            url: "/cutPrice/list.html",
+            templateUrl: "views/common/list.html",
+            data: {pageTitle: "砍价活动", module: "CutPrice", handleController: "CutPrice"},
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: depFile.list
+                        }]);
+                }]
+            }
+        })
+
+        // 团购活动
+        //.state("customReplyList", {
+        //    url: "/customReply/list.html",
+        //    templateUrl: "views/common/list.html",
+        //    data: {pageTitle: "自动回复", module: "CustomReply", handleController: "CustomReply"},
+        //    controller: "ListController",
+        //    resolve: {
+        //        deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+        //            return $ocLazyLoad.load([
+        //                {
+        //                    name: 'MetronicApp',
+        //                    insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+        //                    files: $.merge(depFile.info, depFile.list)
+        //                }]);
+        //        }]
+        //    }
+        //})
+
 
         // 教练统计
         .state("teacherTop", {
             url: "/statistics/teacherTop.html",
             templateUrl: "views/chart/teacherTop.html",
-            data: {pageTitle: "教练统计",module: "Teacher", handleController: "Teacher",action: "teacher_rank",type: "BarChart"},
+            data: {
+                pageTitle: "教练统计",
+                module: "Teacher",
+                handleController: "Teacher",
+                action: "teacher_rank",
+                type: "BarChart"
+            },
             controller: "ChartController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -372,7 +539,13 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("balanceStatistics", {
             url: "/statistics/balanceStatistics.html",
             templateUrl: "views/chart/teacherTop.html",
-            data: {pageTitle: "资金统计",module: "EO2OPayment", handleController: "EO2OPayment",action: "balanceConsist",type: "ComposeBarChart"},
+            data: {
+                pageTitle: "资金统计",
+                module: "EO2OPayment",
+                handleController: "EO2OPayment",
+                action: "balanceConsist",
+                type: "ComposeBarChart"
+            },
             controller: "ChartController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {

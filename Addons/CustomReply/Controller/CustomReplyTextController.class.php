@@ -1,9 +1,9 @@
 <?php
 
 namespace Addons\CustomReply\Controller;
-use Addons\CustomReply\Controller\BaseController;
+use Addons\CustomReply\Controller\CustomReplayBaseController;
 
-class CustomReplyTextController extends BaseController{
+class CustomReplyTextController extends CustomReplayBaseController{
 	var $model;
 	function _initialize() {
 		$this->model = $this->getModel ( 'custom_reply_text' );

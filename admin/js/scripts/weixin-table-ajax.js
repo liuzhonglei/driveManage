@@ -40,7 +40,7 @@ var TableAjax = function () {
 
 
             // init column
-            for (var i = 0; i < data.list_data.fields.length; i++) {
+            for (var i = 0; i < data.list_data.list_grids.length; i++) {
                 if (data.list_data.list_grids[i].title.indexOf('checkbox') > 0 || data.list_data.list_grids[i].title == "操作") {
                     tableMap[name].columns.push({
                         "sTitle": data.list_data.list_grids[i].title,
@@ -118,11 +118,7 @@ var TableAjax = function () {
                 "pageLength": 10, // default record count per page
                 "ajax": {
                     "url": url// ajax source
-                },
-                //scrollY: true,
-                "order": [
-                    [1, "asc"]
-                ] // set first column as a default sort by asc
+                }
             }
         });
 

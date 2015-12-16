@@ -14,6 +14,19 @@ use Addons\School\Controller\Common\Util\RequestUtil;
  * @package Addons\CutPrice\Controller
  */
 class CutPriceController extends BaseController {
+
+    /**
+     * init
+     */
+    function _initialize()
+    {
+        parent::_initialize();
+        $this->model = $this->getModel('cut_price_count');
+        $this->dataMultiEdit = true;
+
+    }
+
+
     /**
      * list the data
      */
@@ -57,6 +70,9 @@ class CutPriceController extends BaseController {
             return parent::_get_model_list($model,$page,$order);
         }
 
+        // TODO 修改排序
+        $order = "";
+
         // 返回数据
         $list_data = $this->_list_grid($model);
 
@@ -80,7 +96,7 @@ class CutPriceController extends BaseController {
         $row = empty ($model ['list_row']) ? 20 : $model ['list_row'];
 
         // 查询数目
-        $count = DataBaseUtil::getDataCount("cut_price_count_detail",$map);
+        $count = DataBaseUtil::getDataCount( $this->getTableName(),$map);
         $list_data ['count'] = $count;
         if($count < $row){
             $page = 1;

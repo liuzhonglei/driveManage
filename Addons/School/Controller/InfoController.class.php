@@ -10,8 +10,9 @@ class InfoController extends SchoolBaseController{
 	 * init
 	 */
     function _initialize() {
-        $this->model = $this->getModel ( 'school_info' );
         parent::_initialize ();
+        $this->model = $this->getModel ( 'school_info' );
+        $this->dataMultiEdit = true;
     }
 
      /**

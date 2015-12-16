@@ -1,12 +1,24 @@
 <?php
 
 namespace Addons\UserCenter\Controller;
+use Addons\School\Controller\BaseController;
+
 
 use Home\Controller\AddonsController;
 use User\Api\UserApi;
 
-class UserCenterController extends AddonsController {
-	
+class UserCenterController extends BaseController {
+
+	/**
+	 * init
+	 */
+	function _initialize()
+	{
+		parent::_initialize();
+		$this->model = $this->getModel('follow');
+	}
+
+
 	/**
 	 * 显示微信用户列表数据
 	 */

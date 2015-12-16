@@ -1,34 +1,94 @@
-<!-- BEGIN HEADER TOP -->
+<!-- BEGIN HEADER INNER -->
 <div class="page-header-top">
-    <div class="container">
-        <!-- BEGIN LOGO -->
-        <div class="page-logo">
-            <a href="#/dashboard.html"><img src="../../../assets/admin/layout3/img/logo-default.png" alt="logo"
-                                            class="logo-default"></a>
+    <!-- BEGIN LOGO -->
+    <div class="page-logo" >
+        <a href="index.html">
+            <img src="./resource/top-logo.png"   alt="logo" class="logo-default"/>
+        </a>
+
+        <div class="menu-toggler sidebar-toggler">
+            <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
         </div>
-        <!-- END LOGO -->
-        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-        <a href="javascript:;" class="menu-toggler"></a>
-        <!-- END RESPONSIVE MENU TOGGLER -->
+    </div>
+    <!-- END LOGO -->
+    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse"
+       data-target=".navbar-collapse">
+    </a>
+    <!-- END RESPONSIVE MENU TOGGLER -->
+    <!-- BEGIN PAGE ACTIONS -->
+    <!-- DOC: Remove "hide" class to enable the page header actions -->
+    <!--<div class="page-actions">-->
+    <!--<div class="btn-group">-->
+    <!--<button type="button" class="btn red-haze btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">-->
+    <!--<span class="hidden-sm hidden-xs">Actions&nbsp;</span><i class="fa fa-angle-down"></i>-->
+    <!--</button>-->
+    <!--<ul class="dropdown-menu" role="menu">-->
+    <!--<li>-->
+    <!--<a href="#">-->
+    <!--<i class="icon-docs"></i> New Post </a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a href="#">-->
+    <!--<i class="icon-tag"></i> New Comment </a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a href="#">-->
+    <!--<i class="icon-share"></i> Share </a>-->
+    <!--</li>-->
+    <!--<li class="divider">-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a href="#">-->
+    <!--<i class="icon-flag"></i> Comments <span class="badge badge-success">4</span>-->
+    <!--</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a href="#">-->
+    <!--<i class="icon-users"></i> Feedbacks <span class="badge badge-danger">2</span>-->
+    <!--</a>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!-- END PAGE ACTIONS -->
+    <!-- BEGIN PAGE TOP -->
+    <div class="page-top">
+        <!-- BEGIN HEADER SEARCH BOX -->
+        <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
+        <form class="search-form" action="extra_search.html" method="GET">
+            <div class="input-group">
+                <input type="text" class="form-control input-sm" placeholder="Search..." name="query">
+				<span class="input-group-btn">
+				<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
+				</span>
+            </div>
+        </form>
+        <!-- END HEADER SEARCH BOX -->
         <!-- BEGIN TOP NAVIGATION MENU -->
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
+                <li class="separator hide"></li>
 
                 <!-- BEGIN USER LOGIN DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                 <li class="dropdown dropdown-user dropdown-dark">
-                    <a href="javascript:;" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown"
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                        data-close-others="true">
-                        <span class="username username-hide-mobile">Nick</span>
+						<span class="username username-hide-on-mobile">
+						操作
+						</span>
+                        <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
+                        <img alt="" class="img-circle" src="../assets/admin/layout4/img/avatar9.jpg"/>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
-
                         <li>
                             <a href="#">
-                                <i class="icon-lock"></i>修改密码</a>
+                                <i class="icon-lock"></i> 修改密码 </a>
                         </li>
                         <li>
                             <a href="/index.php?s=/Home/User/logoutAdmin.html">
-                                <i class="icon-key"></i> 退出 </a>
+                                <i class="icon-key"></i> 登出 </a>
                         </li>
                     </ul>
                 </li>
@@ -37,126 +97,6 @@
         </div>
         <!-- END TOP NAVIGATION MENU -->
     </div>
+    <!-- END PAGE TOP -->
 </div>
-<!-- END HEADER TOP -->
-<!-- BEGIN HEADER MENU -->
-<div class="page-header-menu">
-    <div class="container">
-        <!-- BEGIN HEADER SEARCH BOX -->
-        <!--<form class="search-form" action="extra_search.html" method="GET">-->
-        <!--<div class="input-group">-->
-        <!--<input type="text" class="form-control" placeholder="Search" name="query">-->
-        <!--<span class="input-group-btn">-->
-        <!--<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--</form>-->
-        <!-- END HEADER SEARCH BOX -->
-        <!-- BEGIN MEGA MENU -->
-        <!-- DOC: Apply "hor-menu-light" class after the "hor-menu" class below to have a horizontal menu with white background -->
-        <!-- DOC: Remove dropdown-menu-hover and data-close-others="true" attributes below to disable the dropdown opening on mouse hover -->
-        <div class="hor-menu">
-            <ul class="nav navbar-nav">
-                <li class="active">
-                    <a href="#/dashboard.html">监控界面</a>
-                </li>
-                <li class="menu-dropdown classic-menu-dropdown ">
-                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
-                       href="javascript:;">
-                        驾校 <i class="fa fa-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu pull-left">
-                        <li>
-                            <a href="#/school/list.html">
-                                驾校信息
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu-dropdown classic-menu-dropdown ">
-                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
-                       href="javascript:;">
-                        教练 <i class="fa fa-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu pull-left">
-                        <li>
-                            <a href="#/teacher/list.html">
-                                教练信息
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu-dropdown classic-menu-dropdown ">
-                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
-                       href="javascript:;">
-                        学员管理 <i class="fa fa-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu pull-left">
-                        <li>
-                            <a href="#/student/list.html">
-                                学员列表
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/student/questionList.html">
-                                学员提问
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/student/appriseList.html">
-                                学员评级
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/student/bannerList.html">
-                                学员锦旗
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/student/notificationList.html">
-                                学员通知
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-
-                <li class="menu-dropdown classic-menu-dropdown ">
-                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
-                       href="javascript:;">
-                        活动信息 <i class="fa fa-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu pull-left">
-
-                        <li>
-                            <a href="#/school/edit.html">
-                                <i class="icon-check"></i>
-                                砍价信息
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu-dropdown classic-menu-dropdown ">
-                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
-                       href="javascript:;">
-                        信息统计 <i class="fa fa-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu pull-left">
-                        <li>
-                            <a href="#/statistics/teacherTop.html">
-                                教练统计
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/statistics/balanceStatistics.html">
-                                资金统计
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <!-- END MEGA MENU -->
-    </div>
-</div>
-<!-- END HEADER MENU -->
+<!-- END HEADER INNER -->

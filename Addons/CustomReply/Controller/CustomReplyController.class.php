@@ -2,9 +2,10 @@
 
 namespace Addons\CustomReply\Controller;
 
+
 use Addons\CustomReply\Controller\BaseController;
 
-class CustomReplyController extends BaseController {
+class CustomReplyController extends CustomReplayBaseController {
 	var $model;
 	function _initialize() {
 		$this->model = $this->getModel ( 'custom_reply_news' );

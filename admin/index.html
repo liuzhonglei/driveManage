@@ -19,7 +19,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
-    <title data-ng-bind="'Metronic AngularJS | ' + $state.current.data.pageTitle"></title>
+    <title data-ng-bind="'轻轻学车后台管理 | ' + $state.current.data.pageTitle"></title>
 
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,7 +39,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- BEGIN DYMANICLY LOADED CSS FILES(all plugin and page related styles must be loaded between GLOBAL and THEME css files ) -->
     <!-- BEGIN WEIXIN ADMIN STYLES -->
 
-    <!--<link rel="stylesheet" type="text/css" href="../assets/global/plugins/angularjs/plugins/ui-select/select.min.css">-->
+    <link rel="stylesheet" type="text/css" href="../assets/global/plugins/angularjs/plugins/ui-select/select.min.css">
 
 
     <!--<link rel="stylesheet" type="text/css" href="../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css"/>-->
@@ -58,11 +58,11 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <!-- BEGIN THEME STYLES -->
     <!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
-    <link href="../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="../assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css"/>
     <link href="../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
-    <link href="../assets/admin/layout3/css/layout.css" rel="stylesheet" type="text/css"/>
-    <link href="../assets/admin/layout3/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
-    <link href="../assets/admin/layout3/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/admin/layout4/css/layout.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/admin/layout4/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+    <link href="../assets/admin/layout4/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
 
     <!-- BEGIN PAGE LEVEL STYLES -->
@@ -102,7 +102,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN BODY -->
 <!-- DOC: Apply "page-header-menu-fixed" class to set the mega menu fixed  -->
 <!-- DOC: Apply "page-header-top-fixed" class to set the top menu fixed  -->
-<body ng-controller="AppController" class="page-on-load">
+<body ng-controller="AppController" class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-sidebar-closed-hide-logo page-on-load" ng-class="{'page-sidebar-closed': settings.layout.pageSidebarClosed}">
 
 <!-- BEGIN PAGE SPINNER -->
 <div ng-spinner-bar class="page-spinner-bar">
@@ -113,7 +113,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- END PAGE SPINNER -->
 
 <!-- BEGIN HEADER -->
-<div data-ng-include="'tpl/header.html'" data-ng-controller="HeaderController" class="page-header">
+<div data-ng-include="'tpl/header.html'" data-ng-controller="HeaderController" class="page-header  navbar navbar-fixed-top">
 </div>
 <!-- END HEADER -->
 
@@ -122,24 +122,25 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
-
-    <!-- BEGIN PAGE HEAD -->
-    <!--<div data-ng-include="'tpl/page-head.html'" data-ng-controller="PageHeadController" class="page-head">-->
+    <!-- BEGIN SIDEBAR -->
+    <div data-ng-include="'tpl/sidebar.html'" data-ng-controller="SidebarController" class="page-sidebar-wrapper">
+    </div>
+    <!-- END SIDEBAR -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!-- BEGIN PAGE HEAD -->
+            <div data-ng-include="'tpl/page-head.html'" data-ng-controller="PageHeadController" class="page-head">
+            </div>
+            <!-- END PAGE HEAD -->
+            <!-- BEGIN ACTUAL CONTENT -->
+            <div ui-view class="fade-in-up">
+            </div>
+            <!-- END ACTUAL CONTENT -->
+        </div>
+    </div>
 </div>
 <!-- END PAGE HEAD -->
 
-<!-- BEGIN PAGE CONTENT -->
-<div class="page-content">
-    <div class="container">
-        <!-- BEGIN ACTUAL CONTENT -->
-        <div ui-view class="fade-in-up">
-        </div>
-        <!-- END ACTUAL CONTENT -->
-    </div>
-</div>
-<!-- END PAGE CONTENT -->
-</div>
-<!-- END CONTAINER -->
 
 <!-- BEGIN FOOTER -->
 <div data-ng-include="'tpl/footer.html'" data-ng-controller="FooterController">
@@ -183,8 +184,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <!-- BEGIN APP LEVEL JQUERY SCRIPTS -->
 <script src="../assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="../assets/admin/layout3/scripts/layout.js" type="text/javascript"></script>
-<script src="../assets/admin/layout3/scripts/demo.js" type="text/javascript"></script>
+<script src="../assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
+<script src="../assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
 <!-- END APP LEVEL JQUERY SCRIPTS -->
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
@@ -193,8 +194,15 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="../assets/global/plugins/bootstrap-markdown/lib/markdown.js" type="text/javascript"></script>
 <script src="../assets/global/plugins/bootstrap-markdown/js/bootstrap-markdown.js" type="text/javascript"></script>
 <script src="../assets/global/plugins/bootstrap-summernote/summernote.min.js" type="text/javascript"></script>
+<!--<script src="../assets/admin/pages/scripts/components-dropdowns.js"></script>-->
 
 <!-- END PAGE LEVEL PLUGINS -->
+
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
 
 <script type="text/javascript">
     /* Init Metronic's core jquery plugins and layout scripts */
@@ -204,26 +212,4 @@ License: You must have a valid license purchased only from themeforest(the above
         Metronic.setAssetsPath('../assets/'); // Set the assets folder path
         $.get("/index.php?s=/Home/Home/login.html");
     });
-
-
-    // 判断是否已登录
-//    $("form").submit(function(){
-//        var self = $(this);
-//
-//        return false;
-//
-//        function success(data){
-//            if(data.status){
-//                window.location.href = data.url;
-//            } else {
-//                self.find(".Validform_checktip").text(data.info);
-//                //刷新验证码
-//                $(".reloadverify").click();
-//            }
-//        }
-//    });
 </script>
-<!-- END JAVASCRIPTS -->
-</body>
-<!-- END BODY -->
-</html>
