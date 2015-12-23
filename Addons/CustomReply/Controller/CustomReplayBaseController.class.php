@@ -40,4 +40,32 @@ class CustomReplayBaseController extends BaseController {
 	public function _saveKeyword($model, $id, $extra_text) {
 		D ( 'Common/Keyword' )->set ( $_POST ['keyword'], _ADDONS, $id, $_POST ['keyword_type'], $extra_text );
 	}
+
+	/**
+	 * 删除配置,增加删除关键字
+	 * @param null $model
+	 * @param null $ids
+	 */
+	public function common_del($model = null, $ids = null) {
+
+		is_array ( $model ) || $model = $this->getModel ( $model );
+
+		! empty ( $ids ) || $ids = I ( 'id' );
+		! empty ( $ids ) || $ids = array_filter ( array_unique ( ( array ) I ( 'ids', 0 ) ) );
+		! empty ( $ids ) || $this->error ( '请选择要操作的数据!' );
+
+		$map ['id'] = array (
+				'in',
+				$ids
+		);
+
+		if(!is_array($ids)){
+			D ( 'Common/Keyword' )->del (_ADDONS, $ids);
+		}
+		foreach($ids as $id){
+			D ( 'Common/Keyword' )->del (_ADDONS, $id);
+		}
+
+		parent::common_del ( $this->model );
+	}
 }
