@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon-precomposed" href="img/screen_icon.png">
+    <title></title>
+    <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/jquery.mobile-1.4.4.css"/>
+    <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/car.css">
+
+    <style>
+
+
+        .grouponBg {
+            background: #E0F3FD;
+        }
+
+        .grouponBk {
+            height: 100%;
+            width: 100%;
+            background: #E2F5FF url({:MOBILE_PUBLIC_PATH}/img/grouponBg.png) no-repeat center top;
+            background-size: 100% auto;
+            text-align: center;
+        }
+
+        .groupon_blank {
+            width: 100%;
+            height: 50%;
+        }
+
+        .g_total {
+            font-size: 22px;
+            color: #ff4526;
+        }
+
+        .g_total span {
+            font-size: 12px;
+            color: #000;
+            padding: 0 5px;
+        }
+
+        .g_origin {
+            text-decoration: line-through;
+            padding: 5px 0 0;
+            color: #aaa;
+        }
+
+        .g_start {
+            padding: 20px 0;
+        }
+
+        .groupBtn1 {
+            background: #FF4526;
+            border: none;
+            color: #fff;
+            font-size: 1.4em;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            width: 210px;
+            margin: 0 auto;
+        }
+
+        .x_radio {
+            margin: 15px 0 12px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .x_radio > label {
+            display: inline-block;
+        }
+
+        .x_radio > label:first-child {
+            margin-right: 30px;
+        }
+
+        .gBtn2 {
+            background: #7BC0F1;
+            margin-top: 15px;
+        }
+
+        .groupBtn1:active {
+            background: #cd2e13;
+        }
+
+        .gBtn2:active {
+            background: #5596d0;
+        }
+
+        a.groupon_rule {
+            color: #3f91cb;
+            font-size: 1.2em;
+        }
+
+        a.groupon_rule img {
+            margin-right: 5px;
+            width: 18px;
+            height: 18px;
+            vertical-align: middle;
+        }
+
+        .g_rule {
+            background: url({:MOBILE_PUBLIC_PATH}/img/group_rule.png) no-repeat center center;
+            width: 300px;
+            height: 117px;
+            margin: 30px auto 0;
+            background-size: 100% auto;
+        }
+
+        .c_coupons {
+            padding: 5px 0 0;
+            width: 100%;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .groupon_footer {
+            background: #EE3A17;
+            height: 40px;
+            color: #fff;
+            font-size: 1.6em;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .groupon_footer a {
+            float: left;
+            display: block;
+            width: 50%;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .groupon_footer a:first-child {
+            border-right: 1px solid #FFD0C7;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .g_footerblank {
+            height: 50px;
+        }
+
+        .coupon_pop_box {
+            padding: 10px 20px 20px;
+            margin: 10px;
+        }
+
+        .groupon_title {
+            font-size: 1.6em;
+            color: #000;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ccc;
+            text-align: left;
+        }
+
+        .groupon_con {
+            padding: 5px 0;
+            text-align: left;
+        }
+
+        .groupon_con p {
+            padding: 0;
+        }
+
+        .c_merchant_pic {
+            background: #fff;
+            width: 35px;
+            height: 35px;
+            overflow: hidden;
+            margin: -2px auto 5px;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+            border: 1px solid #fff;
+        }
+
+        .c_merchant_pic img {
+            height: 35px;
+            width: 35px;
+            margin: 0 auto;
+        }
+
+        .join_group {
+            width: 300px;
+            border: 1px solid #93d3ff;
+            background: #EAFCFF;
+            padding: 10px 20px;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            overflow: hidden;
+            margin: 0 auto 10px;
+        }
+
+        .join_group h3 {
+            font-size: 1.2em;
+            color: #e30707;
+            font-weight: normal;
+            text-align: center;
+            padding: 0 0 10px;;
+            margin: 0;
+        }
+
+        .join_group li {
+            color: #333;
+            clear: both;
+            margin: 8px 0 0;
+            height: 25px;
+        }
+
+        .join_group li span {
+            float: right;
+            color: #aaa;
+            font-size: .8em;
+        }
+
+        .join_group li label {
+            font-size: .8em;
+            float: left;
+            font-weight: normal;
+        }
+
+        .join_group li img {
+            border: 1px solid #d0d0d0;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body class="x_flowAuto grouponBg">
+<div id="pageGroupon" data-role="page" data-theme="none">
+    <!--填写信息 弹出层-->
+    <div data-role="popup" id="info_pop" data-position-to="window" data-tolerance="10,30,10,30" data-shadow="false"
+         data-overlay-theme="b" data-corners="false">
+        <div class="coupon_pop_box">
+            <span class="coupon_pop_close" id="info_close"></span>
+            <!--提交信息-->
+            <div class="" id="submitInfo">
+                <form method="post" id="registerInfo">
+                    <div class="info-content">
+                        <div class="">填写个人信息</div>
+                        <div class="x_blank"></div>
+                        <input data-role="none" type="text" name="name" class="c_ipt" placeholder="请输入您的大名">
+
+                        <div class="x_blank"></div>
+                        <input data-role="none" type="text" name="phone" class="c_ipt" placeholder="请输入您的手机号">
+
+                        <div class="x_blank"></div>
+                        <input data-role="none" type="text" name="remark" class="c_ipt" placeholder="备注">
+
+                        <div class="x_blank"></div>
+                        <div class="x_radio">
+                            <volist name="courseList" id="vo">
+                                <label>
+                                    <input type="radio" data-role="none" name="course_id" class="chk_2" id="{$vo.id}"
+                                           value="{$vo.id}"><label for="{$vo.id}"></label>{$vo.name}
+                                </label>
+                            </volist>
+                        </div>
+
+                    </div>
+                    <a href="#" class="ui-btn x_btn couponsBtn" type="but" id="submitBtn">提交 </a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--弹出层-->
+    <div data-role="popup" id="getCoupon_pop" data-position-to="window" data-tolerance="10,30,10,30" data-shadow="false"
+         data-overlay-theme="b" data-corners="false">
+        <div class="coupon_pop_box">
+            <span class="coupon_pop_close"></span>
+
+            <h3 class="groupon_title">活动详情</h3>
+
+            <div class="groupon_con">
+                <p>1、点击开始组团,填写报名信息，微信支付{$groupbuyInfo.payItem.fee}元预约金，建团成功；</p>
+
+                <p>2、分享链接给朋友,邀请小伙伴加入组团;</p>
+
+                <p>3、小伙伴打开链接,同样需要填写报名信息,以及支付{$groupbuyInfo.payItem.fee}元预约金,才算成功加入团购;</p>
+
+                <p>4、在限制时间内,邀请越多的人组团,在报名的时候能够得到更高的优惠;</p>
+
+                <p>5、活动最终解释权归{$schoolInfo.name}所有；</p>
+
+                <p>&nbsp;</p>
+            </div>
+            <!--             <a href="#" class="ui-btn x_btn shareBtn" name="register">开始组团</a> -->
+        </div>
+    </div>
+    <!--//弹出层-->
+    <div class="grouponBk">
+        <div class="c_coupons">
+            <div class="c_merchant_pic"><img src="{:MOBILE_PUBLIC_PATH}/img/jx_logo.jpg"></div>
+            <img src="{:MOBILE_PUBLIC_PATH}/img/groupon_blank.png" class="groupon_blank">
+            <!--团购-->
+            <in name="groupbuyInfo.status" value="1">
+            <div class="g_total"><span>当前优惠</span>{$groupbuyInfo.privilege}元</div>
+                </in>
+            <empty name="myInfo.party">
+                <div class="g_start">
+                    <in name="groupbuyInfo.status" value="0">
+                        <a href="#" class="ui-btn ui-corner-all x_btn groupBtn1" name="register">发起我的团购</a>
+                    </in>
+                    <in name="groupbuyInfo.status" value="1">
+                        <a href="#" class="ui-btn ui-corner-all x_btn groupBtn1 gBtn2" name="register">加入团购</a>
+                    </in>
+                    <else/>
+                    <!--<empty name="myInfo.payRecord">-->
+                        <!--<a href="#" class="ui-btn ui-corner-all x_btn groupBtn1 gBtn2" onclick="payMoney()">付款参团</a>-->
+                    <!--</empty>-->
+                </div>
+            </empty>
+            <in name="groupbuyInfo.status" value="1,2,3,4">
+                <div class="join_group">
+                    <h3>
+                        <if condition="$groupbuyInfo.sub_num eq 0 OR $groupbuyInfo.sub_day eq 0">
+                            已有{$groupbuyInfo.current_num}个好友参团，活动结束!
+                            <else/>
+                            活动剩余{$groupbuyInfo.sub_day}天,已有{$groupbuyInfo.current_num}个好友参团,再邀请{$groupbuyInfo.sub_num}个好友,赢取最高折扣!
+                            </if>
+
+                        </h3>
+                    <ul>
+                        <volist name="groupbuyInfo.partyList" id="party">
+                            <li>
+                                <label><img src="img/nonePic.png">
+                                    {$party.name}</label><span>于{$party.time} 参团
+                                                    <!--<empty name="myInfo.payRecord">-->
+                                                        <!--未付款-->
+                                                        <!--<else/>-->
+                                                        <!--已付款-->
+                                                    <!--</empty>-->
+                            <!--</span>-->
+                            </li>
+                        </volist>
+
+                    </ul>
+                </div>
+            </in>
+            <a href="#" class="groupon_rule" id="gronpon_detail"><img src="{:MOBILE_PUBLIC_PATH}/img/group_info.png">活动详情</a>
+
+            <div class="g_rule">
+
+            </div>
+            <!--//团购-->
+        </div>
+    </div>
+    <div class="g_footerblank"></div>
+    <div class="groupon_footer">
+        <a href="{:U('home/Index/leaflets',null,false)}/token/{:get_token()}" data-ajax="false">关注</a>
+        <a href="tel:{$schoolInfo.phone}">咨询</a>
+    </div>
+</div> <!--//Page-->
+</body>
+</html>
+<script src="{:MOBILE_PUBLIC_PATH}/js/jquery-1.11.1.min.js">
+</script>
+<script src="{:MOBILE_PUBLIC_PATH}/js/jquery.kxbdmarquee.js">
+</script>
+<script src="{:MOBILE_PUBLIC_PATH}/js/jquery.mobile-1.4.4.min.js">
+</script>
+<script src="{:MOBILE_PUBLIC_PATH}/js/weixin.js">
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js">
+</script>
+<script>
+
+
+    // 微信分享配置
+    $.post("{:U('wxSignPackage','teacher_id='.$teacher_data['id'])}", function (data) {
+        wx.config({
+            debug: false,
+            appId: data.appId,
+            timestamp: data.timestamp,
+            nonceStr: data.nonceStr,
+            signature: data.signature,
+            jsApiList: [
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo'
+            ]
+        });
+
+        wx.ready(function () {
+            wx.onMenuShareTimeline({
+                title: '我在{$schoolInfo.name}学车，一起来加入团购,赢取优惠!',
+                // 分享标题
+                desc: '没有学不会的学员，只有不会教的教练，{$schoolInfo.name}报名,组团人数越多,越多优惠。',
+                link: "{:U('show',null,false)}/token/{:get_token()}/groupBuyId/{$groupbuyInfo.id}",
+                // 分享链接
+                imgUrl: "http://{$_SERVER['HTTP_HOST']}/{:MOBILE_PUBLIC_PATH}/img/cut_price_activity.png",
+                // 分享图标
+                success: function (res) {
+                },
+                cancel: function (res) {
+                }
+            });
+            wx.onMenuShareAppMessage({
+                title: '我在{$schoolInfo.name}学车，一起来组成团购,赢取优惠!',
+                // 分享标题
+                desc: '没有学不会的学员，只有不会教的教练，{$schoolInfo.name}报名,组团人数越多,越多优惠。',
+                link: "{:U('show',null,false)}/token/{:get_token()}/groupBuyId/{$groupbuyInfo.id}",
+                // 分享链接
+                imgUrl: "http://{$_SERVER['HTTP_HOST']}/{:MOBILE_PUBLIC_PATH}/img/grouponBg.png",
+                // 分享图标
+                success: function (res) {
+                },
+                cancel: function (res) {
+                }
+            });
+        });
+    });
+
+
+    // 提交
+    $(function () {
+        /*点击弹出 提交成功*/
+        $("#submitBtn").click(function () {
+
+            var formData = $("#registerInfo").serialize();
+            var name = $("input[name='name']").val();
+            var phone = $("input[name='phone']").val();
+            var course_id = $("input[name='course_id']").val();
+
+            if (name == null || name == "") {
+                alert("请填写您的姓名!")
+                return;
+            }
+            if (phone == null || phone == "") {
+                alert("请填写您的电话号码!")
+                return;
+            }
+            if (course_id == null || course_id == "") {
+                alert("请选择课程!")
+                return;
+            }
+            if (!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(phone))) {
+                alert("不是完整的11位手机号或者正确的手机号前七位");
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "{:U('register')}",
+                processData: true,
+                data: formData,
+                success: function (data) {
+                    if (data.status == "0") {
+                        alert(data.info);
+                    } else {
+                        $("#info_pop").popup("close");
+                        payMoney();
+                    }
+                }
+            });
+        });
+
+        /*点击弹出 活动信息*/
+        $("#gronpon_detail").click(function () {
+            $("#info_pop").popup("close");
+            $("#getCoupon_pop").popup("open");
+
+        })
+        /*点击弹出 填写信息*/
+        $('a[name="register"]').click(function () {
+            $("#getCoupon_pop").popup("close");
+            $("#info_pop").popup("open");
+        })
+
+        /*关闭弹出*/
+        $(".coupon_pop_close").click(function () {
+            $("#info_pop").popup("close");
+            $("#getCoupon_pop").popup("close");
+        })
+    });
+
+    /**
+     *  支付费用
+     */
+    function  payMoney(){
+//        $.post("{:U('payMoney')}", null, function (response) {
+//            if (response.status == 0) {
+//                alert(response.info);
+//            } else {
+//                payParameter = response;
+//                callpay(payParameter, function () {
+//                    join();
+//                });
+//            }
+//        });
+
+        join();
+
+    }
+
+    /**
+     * 加入团购
+     */
+    function join(){
+        var infoId = "{$groupbuy_info_id}";
+        $.ajax({
+            type: "POST",
+            url: "{:U('join')}",
+            processData: true,
+            data: {"groupBuyId":infoId},
+            success: function (data) {
+                if (data.status == "0") {
+                    alert(data.info);
+                } else {
+                    window.location = "{:U('show')}";
+                }
+            }
+        });
+    }
+</script>

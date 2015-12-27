@@ -26,9 +26,9 @@ var depFile = {
     list: new Array('../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
         '../assets/global/plugins/datatables/all.min.js',
         '../assets/global/scripts/datatable.js',
-        //'js/scripts/weixin-table-ajax.js',
         'js/controllers/common/Filter.js',
         'js/controllers/common/ListController.js'),
+
     info: new Array('../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
         '../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css',
         '../assets/global/plugins/jquery-tags-input/jquery.tagsinput.css',
@@ -215,7 +215,11 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         }, {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: $.merge(depFile.info, depFile.list)
+                            files: $.merge(depFile.info,  new Array('../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
+                                '../assets/global/plugins/datatables/all.min.js',
+                                '../assets/global/scripts/datatable.js',
+                                'js/controllers/common/Filter.js',
+                                'js/controllers/student/ListController.js'))
                         }]);
                 }]
             }
@@ -394,7 +398,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: $.merge($.merge(depFile.info, depFile.list), depFile.conf)
+                            files:$.merge(depFile.info, depFile.list)
                         }]);
                 }]
             }

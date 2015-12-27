@@ -1,12 +1,13 @@
 <?php
 
 namespace Addons\Student\Controller;
+
 use Addons\School\Controller\Common\Log\LogController;
 use Addons\School\Controller\Common\Log\LogMajorType;
 use Addons\EO2OPayment\Controller\EO2OPaymentController;
 
 
-define ('SCHOOL_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Public');
+define('SCHOOL_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Public');
 
 /**
  * student controller
@@ -46,6 +47,7 @@ class StudentController extends StudentBaseController
         $this->assign('sub_nav', $nav);
 
     }
+
 
     /**
      * show the liests
@@ -170,7 +172,14 @@ class StudentController extends StudentBaseController
             }
         }
 
-        $map = "t.token = '" . get_token() . "'" . $this->getPayOpenid();;
+        // 查询条件
+        $model_fields = M('attribute')->where('model_id=' . $model ['id'])->field('name')->select();
+        $mapField = Array();
+        foreach ($model_fields as $filed) {
+            array_push($mapField, $filed['name']);
+        }
+        $map = $this->_search_map($model, $mapField);
+        $map = $this->convertMap($map) . $this->getPayOpenid();;
         if (!empty($fieldValue)) {
             $ids = $this->getStudentOpenids($fieldValue, "id");
             $openids = $this->getFollowOpneids($fieldValue, "openid");
@@ -220,11 +229,34 @@ class StudentController extends StudentBaseController
             $list_data ['_page'] = $page->show();
         }
 
+        
+        // 配置其他字段
+        $list_data= $this->addListGroupBuyField($list_data);
 
         //反悔
         return $list_data;
     }
 
+
+    /**
+     * 数组转换成 字符串条件
+     */
+    private function  convertMap($map)
+    {
+        $mapSql = "";
+        if (is_array($map)) {
+            foreach ($map as $key => $value) {
+                if (!empty($mapSql)) {
+                    $mapSql .= " and ";
+                }
+                $mapSql .= $key . " = '" . $value . "'";
+            }
+        } else {
+            $mapSql = $map;
+        }
+
+        return $mapSql;
+    }
 
     /**
      * create the student execute sql
@@ -452,14 +484,14 @@ STR;
         //检查是否修改状态，并记录日志
         if (IS_POST) {
             $id = $_REQUEST['id'];
-            $student = M('student')->where('id = '.$id)->find();
-            if(!empty($student)){
+            $student = M('student')->where('id = ' . $id)->find();
+            if (!empty($student)) {
                 $status = $_REQUEST['status'];
-                if($status != $student['status']){
+                if ($status != $student['status']) {
                     $logController = new   LogController();
-                    $originalStatus = get_name_by_status($student['status'],'status',$this->model['id']);
-                    $currentStatus = get_name_by_status($status,'status',$this->model['id']);
-                    $logController->writeLog("学员状态发生变化，状态[".$originalStatus."]->状态[".$currentStatus."]",LogMajorType::STUDENT,$id);
+                    $originalStatus = get_name_by_status($student['status'], 'status', $this->model['id']);
+                    $currentStatus = get_name_by_status($status, 'status', $this->model['id']);
+                    $logController->writeLog("学员状态发生变化，状态[" . $originalStatus . "]->状态[" . $currentStatus . "]", LogMajorType::STUDENT, $id);
                 }
             }
         }
@@ -628,7 +660,8 @@ STR;
     /**
      * 查看学员的详情
      */
-    function detail(){
+    function detail()
+    {
 
         $param = array('student_id' => $_REQUEST['student_id']);
         $url = addons_url('Student://detail/log', $param);
@@ -652,9 +685,9 @@ STR;
         $Model->where('id=' . $_REQUEST['student_id'])->save($data);
 
         // show
-        if($this->isAdmin()){
+        if ($this->isAdmin()) {
             $this->success();
-        }else{
+        } else {
             $url = addons_url('Student://student/lists');
             redirect($url);
         }
@@ -670,9 +703,9 @@ STR;
         $Model->where('id=' . $_REQUEST['student_id'])->save($data);
 
         // show
-        if($this->isAdmin()){
+        if ($this->isAdmin()) {
             $this->success();
-        }else{
+        } else {
             $url = $_SERVER['HTTP_REFERER'];
             redirect($url);
         }
@@ -899,7 +932,7 @@ STR;
      * get the student info
      * @return student info
      */
-    private function getMyInfo()
+    public function getMyInfo()
     {
         $token = get_token();
         $openid = get_openid();
@@ -1081,7 +1114,8 @@ str;
     /**
      * 取得驾校的所有学员
      */
-    public function  getStudents(){
+    public function  getStudents()
+    {
         $list = M('student')->query('select id, name text from wp_student t where t.token="' . get_token() . '"');
         $this->ajaxReturn($list);
     }
@@ -1089,19 +1123,43 @@ str;
     /**
      * 增加学员的划款流水
      */
-    function  moneyLogAdd(){
-        $where = 'id  = ' .  $_REQUEST['student_id'] . '';
+    function  moneyLogAdd()
+    {
+        $where = 'id  = ' . $_REQUEST['student_id'] . '';
         $student = M("student")->where($where)->find();
         $_REQUEST['openid'] = $student['openid'];
 
         $paymentController = new EO2OPaymentController();
 
-        if($this->isAdmin()){
+        if ($this->isAdmin()) {
             $paymentController->addAdmin();
-        }else{
+        } else {
             $nav = $this->get('nav');
             $subNav = $this->get('sub_nav');
-            $paymentController->add($nav,$subNav);
+            $paymentController->add($nav, $subNav);
         }
+    }
+
+    /**
+     * 增加组团优惠字段
+     */
+    private function addListGroupBuyField($listData)
+    {
+        $result = array();
+        array_splice($listData['fields'],5,1,array("privilege"));
+        array_splice($listData['list_grids'],5,1,array(array(field=>array("privilege"),title=>"报名优惠")));
+
+        foreach ($listData['list_data'] as $item) {
+            $partyInfo = M('groupbuy_party')->where(array("token" => get_token(), "openid" => $item['openid']))->find();
+            if (!empty($partyInfo) ){
+                $groupBuyInfo = R('Addons://groupBuy/groupBuy/getGroupBuyInfo',array($partyInfo[groupbuy_info_id]));
+                $item['privilege'] = $groupBuyInfo["privilege"];
+            }
+            array_push($result,$item);
+        }
+        $listData["list_data"] = $result;
+
+        // 返回
+        return $listData;
     }
 }

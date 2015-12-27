@@ -2,8 +2,6 @@
 
 namespace Addons\EO2OPayment\Controller;
 
-use Home\Controller\AddonsController;
-
 include_once "WxPayPubHelper.php";
 
 class EO2OPaymentController extends EO2OBaseController
@@ -354,5 +352,17 @@ class EO2OPaymentController extends EO2OBaseController
     {
         $this->log(I('out_trade_no'));
         $this->log(I('result_code'));
+    }
+
+    /**
+     * 取得微信号划款流水
+     */
+    function  moneyLog($openid = null){
+        $map =   array();
+        $map['openid']= $openid;
+        $map['openid'] || $map['openid']= get_openid();
+        $map['token'] = get_token();
+        $map['result_code'] = "SUCCESS";
+        return M("eo2o_payment")->where($map)->select();
     }
 }

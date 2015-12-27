@@ -39,8 +39,6 @@ class ExtendAddonsController extends AddonsController
     }
 
 
-
-
     /**
      * 获取搜索条件
      * @param $model
@@ -242,6 +240,8 @@ class ExtendAddonsController extends AddonsController
             /* 查询记录总数 */
             $count = M($name)->where($map)->count();
         }
+
+        // 设置数据和数据
         $list_data ['list_data'] = $data;
         $list_data ['count'] = $count;
 
@@ -254,6 +254,8 @@ class ExtendAddonsController extends AddonsController
 
         return $list_data;
     }
+
+
 
 
 }

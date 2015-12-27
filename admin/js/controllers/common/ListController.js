@@ -1,4 +1,3 @@
-/* Setup general page controller */
 MetronicApp.controller('ListController', ['$rootScope', '$http', '$scope', function ($rootScope, $http, $scope) {
     // param
     $scope.rootData = $rootScope.$state.$current.data;

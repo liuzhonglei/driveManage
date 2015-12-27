@@ -30,13 +30,25 @@ class BaseController extends AdminController
     var $listsTable;
 
     /**
-     * get the school info
+     * 取得驾校信息
      * @return [type] [description]
      */
     protected function  getSchoolInfo()
     {
         $Model = M("school");
         $map = array('token' => get_token());
+        $info = $Model->where($map)->find();
+        return $info;
+    }
+
+    /**
+     * 取得学员信息
+     * @return mixed
+     */
+    protected function  getStudentInfo()
+    {
+        $Model = M("student");
+        $map = array('token' => get_token(),'openid' => get_openid());
         $info = $Model->where($map)->find();
         return $info;
     }
