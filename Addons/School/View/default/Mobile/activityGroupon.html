@@ -10,14 +10,10 @@
     <title></title>
     <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/jquery.mobile-1.4.4.css"/>
     <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/car.css">
-
     <style>
-
-
         .grouponBg {
             background: #E0F3FD;
         }
-
         .grouponBk {
             height: 100%;
             width: 100%;
@@ -25,7 +21,6 @@
             background-size: 100% auto;
             text-align: center;
         }
-
         .groupon_blank {
             width: 100%;
             height: 50%;
@@ -195,7 +190,7 @@
             padding: 10px 20px;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
-            overflow: hidden;
+            6 overflow: hidden;
             margin: 0 auto 10px;
         }
 
@@ -249,13 +244,10 @@
                         <div class="">填写个人信息</div>
                         <div class="x_blank"></div>
                         <input data-role="none" type="text" name="name" class="c_ipt" placeholder="请输入您的大名">
-
                         <div class="x_blank"></div>
                         <input data-role="none" type="text" name="phone" class="c_ipt" placeholder="请输入您的手机号">
-
                         <div class="x_blank"></div>
                         <input data-role="none" type="text" name="remark" class="c_ipt" placeholder="备注">
-
                         <div class="x_blank"></div>
                         <div class="x_radio">
                             <volist name="courseList" id="vo">
@@ -293,7 +285,6 @@
 
                 <p>&nbsp;</p>
             </div>
-            <!--             <a href="#" class="ui-btn x_btn shareBtn" name="register">开始组团</a> -->
         </div>
     </div>
     <!--//弹出层-->
@@ -303,8 +294,8 @@
             <img src="{:MOBILE_PUBLIC_PATH}/img/groupon_blank.png" class="groupon_blank">
             <!--团购-->
             <in name="groupbuyInfo.status" value="1">
-            <div class="g_total"><span>当前优惠</span>{$groupbuyInfo.privilege}元</div>
-                </in>
+                <div class="g_total"><span>当前优惠</span>{$groupbuyInfo.privilege}元</div>
+            </in>
             <empty name="myInfo.party">
                 <div class="g_start">
                     <in name="groupbuyInfo.status" value="0">
@@ -313,10 +304,6 @@
                     <in name="groupbuyInfo.status" value="1">
                         <a href="#" class="ui-btn ui-corner-all x_btn groupBtn1 gBtn2" name="register">加入团购</a>
                     </in>
-                    <else/>
-                    <!--<empty name="myInfo.payRecord">-->
-                        <!--<a href="#" class="ui-btn ui-corner-all x_btn groupBtn1 gBtn2" onclick="payMoney()">付款参团</a>-->
-                    <!--</empty>-->
                 </div>
             </empty>
             <in name="groupbuyInfo.status" value="1,2,3,4">
@@ -326,20 +313,13 @@
                             已有{$groupbuyInfo.current_num}个好友参团，活动结束!
                             <else/>
                             活动剩余{$groupbuyInfo.sub_day}天,已有{$groupbuyInfo.current_num}个好友参团,再邀请{$groupbuyInfo.sub_num}个好友,赢取最高折扣!
-                            </if>
-
-                        </h3>
+                        </if>
+                    </h3>
                     <ul>
                         <volist name="groupbuyInfo.partyList" id="party">
                             <li>
-                                <label><img src="img/nonePic.png">
+                                <label><img src="{:MOBILE_PUBLIC_PATH}/img/nonePic.png">
                                     {$party.name}</label><span>于{$party.time} 参团
-                                                    <!--<empty name="myInfo.payRecord">-->
-                                                        <!--未付款-->
-                                                        <!--<else/>-->
-                                                        <!--已付款-->
-                                                    <!--</empty>-->
-                            <!--</span>-->
                             </li>
                         </volist>
 
@@ -347,9 +327,7 @@
                 </div>
             </in>
             <a href="#" class="groupon_rule" id="gronpon_detail"><img src="{:MOBILE_PUBLIC_PATH}/img/group_info.png">活动详情</a>
-
             <div class="g_rule">
-
             </div>
             <!--//团购-->
         </div>
@@ -488,32 +466,29 @@
     /**
      *  支付费用
      */
-    function  payMoney(){
-//        $.post("{:U('payMoney')}", null, function (response) {
-//            if (response.status == 0) {
-//                alert(response.info);
-//            } else {
-//                payParameter = response;
-//                callpay(payParameter, function () {
-//                    join();
-//                });
-//            }
-//        });
-
-        join();
-
+    function payMoney() {
+        $.post("{:U('payMoney')}", null, function (response) {
+            if (response.status == 0) {
+                alert(response.info);
+            } else {
+                payParameter = response;
+                callpay(payParameter, function () {
+                    join();
+                });
+            }
+        });
     }
 
     /**
      * 加入团购
      */
-    function join(){
+    function join() {
         var infoId = "{$groupbuy_info_id}";
         $.ajax({
             type: "POST",
             url: "{:U('join')}",
             processData: true,
-            data: {"groupBuyId":infoId},
+            data: {"groupBuyId": infoId},
             success: function (data) {
                 if (data.status == "0") {
                     alert(data.info);
