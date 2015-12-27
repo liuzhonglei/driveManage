@@ -72,7 +72,7 @@ class CommonController extends ExtendAddonsController
         }
         if ($result || empty($Model->getError())) {
             $this->_saveKeyword($this->model, $id);
-            $result = array("status" => "1", "info" => '保存成功');
+            $result = array("status" => "1", "info" => '保存成功','id'=>$id);
         } else {
             $result = array("status" => "0", "info" => "保存失败！" . $Model->getError());
         }
@@ -83,7 +83,7 @@ class CommonController extends ExtendAddonsController
 
 
     /**
-     * get the model fileds config
+     * 取得字段列表（信息)）
      * @param $model the model name
      */
     public function getFieldList($fields)
@@ -163,7 +163,7 @@ class CommonController extends ExtendAddonsController
 
 
     /**
-     * get the model value
+     * 取得可选信息（查看信息)）
      * @param $modelName
      * @param $map
      * @param $showField 显示字段
@@ -299,7 +299,7 @@ class CommonController extends ExtendAddonsController
         // param
         $token = get_token();
         $model || $model = i("model");
-        $model = $this->getModel()['name'];
+        $model || $model = $this->getModel()['name'];
         $id || $id = i("id");
 
         // search
@@ -310,7 +310,7 @@ class CommonController extends ExtendAddonsController
             $info["photoUrl"] = "http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image";
         }
 
-        return $this->ajaxReturn($info);
+        return $info;
     }
 
 
@@ -384,5 +384,22 @@ class CommonController extends ExtendAddonsController
 
         // 反悔
         return M($model)->query($sql);
+    }
+
+    /**
+     * 转换外键信息为对应的栏位信息
+     * 在列表显示中使用
+     */
+    protected function  convertListField($list, $idField, $showField, $model,$modelId)
+    {
+        $result = array();
+        foreach ($list as $item) {
+            $info = M($model)->where(array("token" => get_token(), $modelId => $item[$idField]))->find();
+            $item[$showField] = $info[$showField];
+            array_push($result,$item);
+        }
+
+        // 反悔
+        return $result;
     }
 }
