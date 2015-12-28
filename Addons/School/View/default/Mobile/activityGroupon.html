@@ -468,14 +468,15 @@
      */
     function payMoney() {
         $.post("{:U('payMoney')}", null, function (response) {
-            if (response.status == 0) {
-                alert(response.info);
-            } else {
-                payParameter = response;
-                callpay(payParameter, function () {
-                    join();
-                });
-            }
+//            if (response.status == 0) {
+//                alert(response.info);
+//            } else {
+//                payParameter = response;
+//                callpay(payParameter, function () {
+//                    join();
+//                });
+//            }
+            join();
         });
     }
 

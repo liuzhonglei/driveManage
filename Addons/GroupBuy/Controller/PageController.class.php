@@ -101,7 +101,7 @@ class PageController extends BaseController
             }
             $_POST['type_id'] = $type["id"];
             $_POST['time'] = date("Y-m-d");
-            $groupbuyInfoId = $this->saveModel("groupbuy_info")['id'];
+            $groupBuyId = $this->saveModel("groupbuy_info")['id'];
         }
 
         // 创建参与人信息
