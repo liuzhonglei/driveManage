@@ -66,12 +66,15 @@ class GroupBuyController extends BaseController
     public function getGroupbuyInfo($groupBuyId = null)
     {
         $groupBuyId || $groupBuyId = $_REQUEST['groupbuyid'];
-        if (empty($groupBuyId)) {
-            return null;
+        if (!empty($groupBuyId)) {
+            $groupBuyInfo = $this->getDataById("groupbuy_info_all", $groupBuyId);
         }
 
         // 设置团购信息
-        $groupBuyInfo = $this->getDataById("groupbuy_info_all", $groupBuyId);
+//        $groupBuyInfo = $this->getDataById("groupbuy_info_all", $groupBuyId);
+        if(empty($groupBuyInfo)){
+            $groupBuyInfo = array();
+        }
         $groupBuyInfo["type"] = M('groupbuy_type')->where(array("token" => get_token()))->find();
         $groupBuyInfo["partyList"] = $this->getPartyList($groupBuyId);
         $groupBuyInfo["sub_num"] = $groupBuyInfo["people_num"] - count($groupBuyInfo["partyList"]);

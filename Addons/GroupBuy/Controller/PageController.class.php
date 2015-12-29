@@ -35,12 +35,9 @@ class PageController extends BaseController
         }
 
 
-        $groupbuyInfo = array();
+        $groupbuyInfo = R('Addons://GroupBuy/GroupBuy/getGroupbuyInfo', array($groupBuyId));
         if (empty($groupBuyId)) {
             $groupbuyInfo['status'] = 0;
-        } else {
-            // 取得参与人信息
-            $groupbuyInfo = R('Addons://GroupBuy/GroupBuy/getGroupbuyInfo', array($groupBuyId));
         }
         $this->assign('groupbuyInfo', $groupbuyInfo);
 
