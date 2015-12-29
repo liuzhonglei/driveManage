@@ -229,10 +229,6 @@ class StudentController extends StudentBaseController
             $list_data ['_page'] = $page->show();
         }
 
-        
-        // 配置其他字段
-        $list_data= $this->addListGroupBuyField($list_data);
-
         //反悔
         return $list_data;
     }
@@ -1138,28 +1134,5 @@ str;
             $subNav = $this->get('sub_nav');
             $paymentController->add($nav, $subNav);
         }
-    }
-
-    /**
-     * 增加组团优惠字段
-     */
-    private function addListGroupBuyField($listData)
-    {
-        $result = array();
-        array_splice($listData['fields'],5,1,array("privilege"));
-        array_splice($listData['list_grids'],5,1,array(array(field=>array("privilege"),title=>"报名优惠")));
-
-        foreach ($listData['list_data'] as $item) {
-            $partyInfo = M('groupbuy_party')->where(array("token" => get_token(), "openid" => $item['openid']))->find();
-            if (!empty($partyInfo) ){
-                $groupBuyInfo = R('Addons://groupBuy/groupBuy/getGroupBuyInfo',array($partyInfo[groupbuy_info_id]));
-                $item['privilege'] = $groupBuyInfo["privilege"];
-            }
-            array_push($result,$item);
-        }
-        $listData["list_data"] = $result;
-
-        // 返回
-        return $listData;
     }
 }

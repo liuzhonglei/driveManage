@@ -14,6 +14,7 @@
         .grouponBg {
             background: #E0F3FD;
         }
+
         .grouponBk {
             height: 100%;
             width: 100%;
@@ -21,6 +22,7 @@
             background-size: 100% auto;
             text-align: center;
         }
+
         .groupon_blank {
             width: 100%;
             height: 50%;
@@ -51,25 +53,11 @@
             background: #FF4526;
             border: none;
             color: #fff;
-            font-size: 1.4em;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            width: 210px;
+            font-size: 1em;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            width: 105px;
             margin: 0 auto;
-        }
-
-        .x_radio {
-            margin: 15px 0 12px;
-            color: #333;
-            font-size: 14px;
-        }
-
-        .x_radio > label {
-            display: inline-block;
-        }
-
-        .x_radio > label:first-child {
-            margin-right: 30px;
         }
 
         .gBtn2 {
@@ -114,9 +102,9 @@
 
         .groupon_footer {
             background: #EE3A17;
-            height: 40px;
+            height: 36px;
             color: #fff;
-            font-size: 1.6em;
+            font-size: 1em;
             position: fixed;
             bottom: 0;
             left: 0;
@@ -128,8 +116,8 @@
             display: block;
             width: 50%;
             text-align: center;
-            height: 40px;
-            line-height: 40px;
+            height: 36px;
+            line-height: 36px;
             color: #fff;
             text-decoration: none;
         }
@@ -183,6 +171,7 @@
             margin: 0 auto;
         }
 
+        /*update 12-25 已参团的*/
         .join_group {
             width: 300px;
             border: 1px solid #93d3ff;
@@ -190,34 +179,35 @@
             padding: 10px 20px;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
-            6 overflow: hidden;
+            overflow: hidden;
             margin: 0 auto 10px;
+            border-radius: 5px;
         }
 
         .join_group h3 {
-            font-size: 1.2em;
+            font-size: 1em;
             color: #e30707;
             font-weight: normal;
             text-align: center;
-            padding: 0 0 10px;;
+            padding: 8px 0 12px;;
             margin: 0;
         }
 
         .join_group li {
             color: #333;
             clear: both;
-            margin: 8px 0 0;
+            margin: 10px 0 0;
             height: 25px;
         }
 
         .join_group li span {
             float: right;
             color: #aaa;
-            font-size: .8em;
+            font-size: .7em;
         }
 
         .join_group li label {
-            font-size: .8em;
+            font-size: .9em;
             float: left;
             font-weight: normal;
         }
@@ -228,7 +218,38 @@
             width: 20px;
             height: 20px;
         }
+
+        /*注册表单*/
+        .info-content {
+            min-height: 100px;
+            margin-top: 30px;
+        }
+
+        .x_blank {
+            height: 12px;
+        }
+
+        .x_radio {
+            margin: 15px 0 12px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .x_radio > label {
+            display: inline-block;
+        }
+
+        .x_radio > label:first-child {
+            margin-right: 30px;
+        }
+
+        .c_ipt, .c_texta {
+            color: #333;
+            padding-left: 0.5em;
+            border-radius: 3px
+        }
     </style>
+
 </head>
 <body class="x_flowAuto grouponBg">
 <div id="pageGroupon" data-role="page" data-theme="none">
@@ -244,10 +265,13 @@
                         <div class="">填写个人信息</div>
                         <div class="x_blank"></div>
                         <input data-role="none" type="text" name="name" class="c_ipt" placeholder="请输入您的大名">
+
                         <div class="x_blank"></div>
                         <input data-role="none" type="text" name="phone" class="c_ipt" placeholder="请输入您的手机号">
+
                         <div class="x_blank"></div>
                         <input data-role="none" type="text" name="remark" class="c_ipt" placeholder="备注">
+
                         <div class="x_blank"></div>
                         <div class="x_radio">
                             <volist name="courseList" id="vo">
@@ -294,7 +318,11 @@
             <img src="{:MOBILE_PUBLIC_PATH}/img/groupon_blank.png" class="groupon_blank">
             <!--团购-->
             <in name="groupbuyInfo.status" value="1">
-                <div class="g_total"><span>当前优惠</span>{$groupbuyInfo.privilege}元</div>
+                <!--<div class="g_total"><span>当前优惠</span>{$groupbuyInfo.privilege}元</div>-->
+                <notempty name="myInfo.party">
+                    <div class="g_total">当前价<?php echo $myInfo["course"]["sign_charge"] - $groupbuyInfo["privilege"]  ; ?>元<span>满{$groupbuyInfo.current_num}人</span></div>
+                    <div class="g_origin">市场价{$myInfo.course.sign_charge}元</div>
+                </notempty>
             </in>
             <empty name="myInfo.party">
                 <div class="g_start">
@@ -327,6 +355,7 @@
                 </div>
             </in>
             <a href="#" class="groupon_rule" id="gronpon_detail"><img src="{:MOBILE_PUBLIC_PATH}/img/group_info.png">活动详情</a>
+
             <div class="g_rule">
             </div>
             <!--//团购-->
@@ -468,15 +497,15 @@
      */
     function payMoney() {
         $.post("{:U('payMoney')}", null, function (response) {
-//            if (response.status == 0) {
-//                alert(response.info);
-//            } else {
-//                payParameter = response;
-//                callpay(payParameter, function () {
-//                    join();
-//                });
-//            }
-            join();
+            if (response.status == 0) {
+                alert(response.info);
+            } else {
+                payParameter = response;
+                callpay(payParameter, function () {
+                    join();
+                });
+            }
+//            join();
         });
     }
 

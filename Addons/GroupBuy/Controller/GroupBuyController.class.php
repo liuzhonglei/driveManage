@@ -110,8 +110,6 @@ class GroupBuyController extends BaseController
             $partyList[$i]['time'] = day_format($partyList[$i]['time']);
         }
 
-
-
         $result = array();
         foreach ($partyList as $item) {
             if ($item["is_refund"] == "0" && count(R('Addons://EO2OPayment/EO2OPayment/moneyLog', array($item['openid']))) > 0) {

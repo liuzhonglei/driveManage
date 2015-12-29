@@ -38,7 +38,7 @@ class GroupBuyPartyController extends BaseController
      * @param string $order
      * @return mixed
      */
-    public function _get_model_list($model = null, $page = 0, $order = 'id desc')
+    public function _get_model_list($model = null, $page = 0, $order = 'id desc',$showPrivilege = false)
     {
         $model || $model= $this->model;
         unset($_GET["openid"]);
@@ -47,6 +47,7 @@ class GroupBuyPartyController extends BaseController
         $list_data ['list_data'] = $this->convertListField($list_data ['list_data'], 'openid', 'phone', 'student', 'openid');
         $list_data ['list_data'] = $this->convertListField($list_data ['list_data'], 'openid', 'name', 'student', 'openid');
 
+      
         return $list_data;
     }
 
@@ -71,5 +72,28 @@ class GroupBuyPartyController extends BaseController
         // 查询团购信息的参与人
         $partyList = M($this->model['name'])->where('token = "' . $token . '" and group_buy_id = ' . $groupBuyId)->select();
         $this->ajaxReturn($partyList);
+    }
+
+    /**
+     * 增加组团优惠字段
+     */
+    private function addListGroupBuyField($listData)
+    {
+        $result = array();
+        array_splice($listData['fields'],3,1,array("privilege"));
+        array_splice($listData['list_grids'],3,1,array(array(field=>array("privilege"),title=>"报名优惠")));
+
+        foreach ($listData['list_data'] as $item) {
+            $partyInfo = M('groupbuy_party')->where(array("token" => get_token(), "openid" => $item['openid']))->find();
+            if (!empty($partyInfo) ){
+                $groupBuyInfo = R('Addons://groupBuy/groupBuy/getGroupBuyInfo',array($partyInfo["groupbuy_info_id"]));
+                $item['privilege'] = $groupBuyInfo["privilege"];
+            }
+            array_push($result,$item);
+        }
+        $listData["list_data"] = $result;
+
+        // 返回
+        return $listData;
     }
 }

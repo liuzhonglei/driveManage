@@ -31,7 +31,7 @@ class PageController extends BaseController
         if (!empty($myInfo["party"])) {
             $groupBuyId = $myInfo["party"]['groupbuy_info_id'];
         } else {
-                $groupBuyId = $_REQUEST['groupbuyid'];
+            $groupBuyId = $_REQUEST['groupbuyid'];
         }
 
 
@@ -40,7 +40,7 @@ class PageController extends BaseController
             $groupbuyInfo['status'] = 0;
         } else {
             // 取得参与人信息
-            $groupbuyInfo =  R('Addons://GroupBuy/GroupBuy/getGroupbuyInfo',array($groupBuyId));
+            $groupbuyInfo = R('Addons://GroupBuy/GroupBuy/getGroupbuyInfo', array($groupBuyId));
         }
         $this->assign('groupbuyInfo', $groupbuyInfo);
 
@@ -61,15 +61,15 @@ class PageController extends BaseController
     public function register()
     {
 
-        $student = M('student')->where(array("token"=>get_token(),"openid"=>get_openid()))->find();
-        if(!empty($student)){
+        $student = M('student')->where(array("token" => get_token(), "openid" => get_openid()))->find();
+        if (!empty($student)) {
             $_POST['id'] = $student['id'];
         }
         $_POST['status'] = '-1';
         $_POST['intro_source'] = '0';
         $_POST['time_sign'] = date("Y-m-d");
         $_POST['openid'] = get_openid();
-        $this->ajaxReturn( $this->saveModel("student")) ;
+        $this->ajaxReturn($this->saveModel("student"));
     }
 
     /**
@@ -85,7 +85,7 @@ class PageController extends BaseController
 
         // 已存在团购
         if (!empty($groupBuyId)) {
-            $groupBuyInfo =  R('Addons://GroupBuy/GroupBuy/getGroupbuyInfo',array($groupBuyId));
+            $groupBuyInfo = R('Addons://GroupBuy/GroupBuy/getGroupbuyInfo', array($groupBuyId));
             if (empty($groupBuyInfo)) {
                 $this->error("找不到对应的团购信息!");
             }
@@ -107,22 +107,23 @@ class PageController extends BaseController
         // 创建参与人信息
         $_POST['groupbuy_info_id'] = $groupBuyId;
         $_POST['time'] = date("Y-m-d");
-        $this->ajaxReturn( $this->saveModel("groupbuy_party"));
+        $this->ajaxReturn($this->saveModel("groupbuy_party"));
     }
 
     /**
      * 进行付款
      */
-    public function  payMoney(){
-       $type = M('groupbuy_type')->where(array("token" => get_token()))->find();
-        if($type && $type["payitem_id"]){
-            $payItme = M("school_payitem")->where("id=". $type['payitem_id']." and token = '" . get_token() . "'")->find();
+    public function  payMoney()
+    {
+        $type = M('groupbuy_type')->where(array("token" => get_token()))->find();
+        if ($type && $type["payitem_id"]) {
+            $payItme = M("school_payitem")->where("id=" . $type['payitem_id'] . " and token = '" . get_token() . "'")->find();
             $_POST["payitem_id"] = $payItme["id"];
             $_POST["paytype"] = $payItme["type"];
             $_POST["total"] = $payItme["fee"];
             R('Addons://EO2OPayment/EO2OPayment/paymentData');
-        }else{
-            $this->ajaxReturn(array("status"=>0, "info" => "没有配置对应的支付项目!"));
+        } else {
+            $this->ajaxReturn(array("status" => 0, "info" => "没有配置对应的支付项目!"));
         }
     }
 
@@ -137,6 +138,11 @@ class PageController extends BaseController
         $info = $this->getStudentInfo();
         if (empty($info)) {
             return array();
+        }
+
+        // 取得报名项目,以及费用
+        if($info['course_id']){
+            $info['course']  =  $this->getCourseList($info['course_id'])[0];
         }
 
         // 取得团购信息
@@ -157,9 +163,12 @@ class PageController extends BaseController
      * 取得课程信息
      * @return mixed
      */
-    private function getCourseList()
+    private function getCourseList($courseId = null)
     {
         $params = array("token" => get_token());
+        if ($courseId) {
+            $params["id"] = $courseId;
+        }
         $info = M('school_course')->where($params)->select();
         return $info;
     }
