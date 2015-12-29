@@ -390,12 +390,13 @@ class CommonController extends ExtendAddonsController
      * 转换外键信息为对应的栏位信息
      * 在列表显示中使用
      */
-    protected function  convertListField($list, $idField, $showField, $model,$modelId)
+    protected function  convertListField($list, $idField, $showField, $model,$modelId,$fieldName = null)
     {
         $result = array();
+        $fieldName || $fieldName= $showField;
         foreach ($list as $item) {
             $info = M($model)->where(array("token" => get_token(), $modelId => $item[$idField]))->find();
-            $item[$showField] = $info[$showField];
+            $item[$showField] = $info[$fieldName];
             array_push($result,$item);
         }
 
