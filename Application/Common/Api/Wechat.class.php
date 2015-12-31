@@ -1066,8 +1066,12 @@ class Wechat
 	 */
 	public function getOauthAccessToken(){
 		$code = isset($_GET['code'])?$_GET['code']:'';
+		addWeixinLog('$code',$code);
+
 		if (!$code) return false;
 		$result = $this->http_get(self::OAUTH_TOKEN_PREFIX.self::OAUTH_TOKEN_URL.'appid='.$this->appid.'&secret='.$this->appsecret.'&code='.$code.'&grant_type=authorization_code');
+		addWeixinLog('$result',$result);
+
 		if ($result)
 		{
 			$json = json_decode($result,true);
