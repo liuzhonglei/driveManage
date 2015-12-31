@@ -23,10 +23,15 @@ class PageController extends BaseController
      */
     function  show()
     {
+        if (empty(M('follow')->where(array("token" => get_token(), "openid" => get_openid()))->find())) {
+            $requestUrl  = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+            redirect(createWeChat()->getOauthRedirect($requestUrl));
+        }
+
         // 增加粉丝数据
         $code = i('code');
         if (!empty($code)) {
-           D ( 'Common/Follow' )->updateOauthFollow ();
+            D('Common/Follow')->updateOauthFollow();
         }
 
 
@@ -53,7 +58,7 @@ class PageController extends BaseController
         $this->assign($_GET);
 
         // 设置刷新路径
-        $this->assign("refreshUrl", $this->getRefreshUrl());
+        $this->assign("shareUrl", $this->getShareUrl($groupbuyInfo));
 
         // 取得课程信息
         $this->assign("courseList", $this->getCourseList());
@@ -63,39 +68,6 @@ class PageController extends BaseController
         $this->display(T(MOBILE_PATH . "activityGroupon"));
     }
 
-    /**
-     * 获取刷新URL
-     * @return string
-     */
-    public function getRefreshUrl()
-    {
-        if (!empty(M('follow')->where(array("token" => get_token(), "openid" => get_openid()))->find())) {
-            $refreshUrl = U("show");
-        } else {
-            $this->getDataById("follow");
-            $refreshUrl = createWeChat()->getOauthRedirect(U("show",array("token"=>get_token())));
-        }
-        return $refreshUrl;
-    }
-
-
-
-    /**
-     * 注册学员
-     */
-    public function register()
-    {
-
-        $student = M('student')->where(array("token" => get_token(), "openid" => get_openid()))->find();
-        if (!empty($student)) {
-            $_POST['id'] = $student['id'];
-        }
-        $_POST['status'] = '-1';
-        $_POST['intro_source'] = '0';
-        $_POST['time_sign'] = date("Y-m-d");
-        $_POST['openid'] = get_openid();
-        $this->ajaxReturn($this->saveModel("student"));
-    }
 
     /**
      * 参与团购
@@ -138,7 +110,8 @@ class PageController extends BaseController
     /**
      * 进行付款
      */
-    public function  payMoney()
+    public
+    function  payMoney()
     {
         $type = M('groupbuy_type')->where(array("token" => get_token()))->find();
         if ($type && $type["payitem_id"]) {
@@ -157,7 +130,8 @@ class PageController extends BaseController
      * 取得当前用户数据
      * @return array|mixed
      */
-    private function getMyInfo()
+    private
+    function getMyInfo()
     {
         // 取的学员信息
         $info = $this->getStudentInfo();
@@ -188,7 +162,8 @@ class PageController extends BaseController
      * 取得课程信息
      * @return mixed
      */
-    private function getCourseList($courseId = null)
+    private
+    function getCourseList($courseId = null)
     {
         $params = array("token" => get_token());
         if ($courseId) {
