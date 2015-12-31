@@ -133,6 +133,8 @@ class FollowModel extends Model
     {
         $weChat = createWeChat();
         $accessToken = $weChat->getOauthAccessToken()['access_token'];
+        addWeixinLog('$accessToken',$accessToken);
+
         $winfo =  $weChat->getOauthUserinfo($accessToken, get_openid());
 
         if($winfo){
