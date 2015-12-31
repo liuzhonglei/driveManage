@@ -110,6 +110,12 @@ class FollowModel extends Model
             $uid = $this->get_uid_by_ucenter($data ['openid'], $data ['token']);
             if ($uid > 0) {
                 $data ['id'] = $uid;
+                $data ['nickname'] = $winfo ['nickname'];
+                $data ['sex'] = $winfo ['sex'];
+                $data ['city'] = $winfo ['city'];
+                $data ['province'] = $winfo ['province'];
+                $data ['country'] = $winfo ['country'];
+                $data ['headimgurl'] = $winfo ['headimgurl'];
                 $res = $this->add($data);
             }
 
@@ -129,11 +135,13 @@ class FollowModel extends Model
         $accessToken = $weChat->getOauthAccessToken()['access_token'];
         $winfo =  $weChat->getOauthUserinfo($accessToken, get_openid());
 
-        $data ['token'] = get_token();
-        $data ['openid'] = get_openid();
+        if($winfo){
+            $data ['token'] = get_token();
+            $data ['openid'] = get_openid();
 
-        $info = $this->updateFollow($data,$winfo);
-        return $info;
+            $info = $this->updateFollow($data,$winfo);
+            return $info;
+        }
     }
 }
 
