@@ -23,6 +23,13 @@ class PageController extends BaseController
      */
     function  show()
     {
+        // 增加粉丝数据
+        $code = i('code');
+        if (!empty($code)) {
+           D ( 'Common/Follow' )->updateOauthFollow ();
+        }
+
+
         // 取得本人数据
         $myInfo = $this->getMyInfo();
         $this->assign('myInfo', $this->getMyInfo());
@@ -45,6 +52,9 @@ class PageController extends BaseController
         // 设置传入信息
         $this->assign($_GET);
 
+        // 设置刷新路径
+        $this->assign("refreshUrl", $this->getRefreshUrl());
+
         // 取得课程信息
         $this->assign("courseList", $this->getCourseList());
         $this->assign('schoolInfo', $this->getSchoolInfo());
@@ -52,6 +62,23 @@ class PageController extends BaseController
         // show page
         $this->display(T(MOBILE_PATH . "activityGroupon"));
     }
+
+    /**
+     * 获取刷新URL
+     * @return string
+     */
+    public function getRefreshUrl()
+    {
+        if (!empty(M('follow')->where(array("token" => get_token(), "openid" => get_openid()))->find())) {
+            $refreshUrl = U("show");
+        } else {
+            $this->getDataById("follow");
+            $refreshUrl = createWeChat()->getOauthRedirect(U("show"));
+        }
+        return $refreshUrl;
+    }
+
+
 
     /**
      * 注册学员
@@ -139,8 +166,8 @@ class PageController extends BaseController
         }
 
         // 取得报名项目,以及费用
-        if($info['course_id']){
-            $info['course']  =  $this->getCourseList($info['course_id'])[0];
+        if ($info['course_id']) {
+            $info['course'] = $this->getCourseList($info['course_id'])[0];
         }
 
         // 取得团购信息

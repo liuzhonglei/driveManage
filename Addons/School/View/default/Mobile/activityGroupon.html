@@ -356,7 +356,7 @@
             <div class="c_merchant_pic"><img src="{:MOBILE_PUBLIC_PATH}/img/jx_logo.jpg"></div>
             <img src="{:MOBILE_PUBLIC_PATH}/img/groupon_blank.png" class="groupon_blank">
             <!--说明-->
-            <empty name="myInfo.party">
+            <in name="groupbuyInfo.status" value="0">
                 <div class="grounpon-intro">
                     <h1>{$groupbuyInfo.type.title}</h1>
 
@@ -365,7 +365,7 @@
                     <div class="detail-bk"><a href="#" class="groupon_rule" id="gronpon_detail"><img
                             src="{:MOBILE_PUBLIC_PATH}/img/group_info.png">活动详情</a></div>
                 </div>
-            </empty>
+            </in>
             <!--//说明-->
             <!--我的信息 开始-->
             <in name="groupbuyInfo.status" value="1">
@@ -397,19 +397,6 @@
                         </if>
                     </h3>
                     <ul>
-
-                        <!--<for start="0" end="$groupbuyInfo.partyLength">-->
-                            <!--<li>-->
-                            <!--<label>-->
-                                <!--{$groupbuyInfo.partyList['$i']}-->
-                                <!--<empty name="$groupbuyInfo.partyList[$i].photo">-->
-                                    <!--<img src="{:MOBILE_PUBLIC_PATH}/img/nonePic.png">-->
-                                    <!--<else/>-->
-                                    <!--<img src="{$partyList[$i].photo}">-->
-                                <!--</empty>-->
-                                <!--{$groupbuyInfo.partyList[$i].openid}</label><em>团长</em><span>于{$groupbuyInfo.partyList[$i].time} 参团</span>-->
-                            <!--</li>-->
-                        <!--</for>-->
                         <volist name="groupbuyInfo.partyList" id="party" offset="0" length="1">
                             <li>
                                 <label>
@@ -611,7 +598,7 @@
                 if (data.status == "0") {
                     alert(data.info);
                 } else {
-                    window.location = "{:U('show')}";
+                    window.location = "{$refreshUrl}";
                 }
             }
         });

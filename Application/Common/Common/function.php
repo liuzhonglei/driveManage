@@ -7,6 +7,8 @@
 // | Author: 麦当苗儿 <zuojiazi@vip.qq.com> <http://www.zjzit.cn>
 // +----------------------------------------------------------------------
 
+use  Common\Api\Wechat;
+
 // OneThink常量定义
 const ONETHINK_VERSION = '1.0.131218';
 const ONETHINK_ADDON_PATH = './Addons/';
@@ -2335,4 +2337,16 @@ function short_url($long_url) {
 	} else {
 		return $long_url;
 	}
+}
+
+
+/**
+ * 创建wechat对象
+ * @return Wechat
+ */
+function createWeChat()
+{
+	$tokenInfo = get_token_appinfo();
+	$weChat = new Wechat($tokenInfo);
+	return $weChat;
 }
