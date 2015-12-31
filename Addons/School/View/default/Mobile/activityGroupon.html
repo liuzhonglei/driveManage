@@ -14,7 +14,6 @@
         .grouponBg {
             background: #E0F3FD;
         }
-
         .grouponBk {
             height: 100%;
             width: 100%;
@@ -174,74 +173,64 @@
         }
 
         /*update 12-25 已参团的*/
-        .join_group {
-            width: 300px;
-            border: 1px solid #93d3ff;
-            background: #fff;
-            padding: 10px 20px;
+        .join_group{
+            width:300px;
+            border:1px solid #93d3ff;
+            background:#fff;
+            padding:10px 20px;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
-            overflow: hidden;
-            margin: 0 auto 10px;
-            border-radius: 5px;
+            overflow:hidden;
+            margin:0 auto 10px;
+            border-radius:5px;
         }
-
-        .join_group h3 {
-            font-size: 1em;
-            color: #e30707;
-            font-weight: normal;
-            text-align: center;
-            padding: 8px 0 12px;;
-            margin: 0;
+        .join_group h3{
+            font-size:1em;
+            color:#e30707;
+            font-weight:normal;
+            text-align:center;
+            padding:8px 0 12px;;
+            margin:0;
         }
-
-        .join_group li {
-            color: #333;
-            clear: both;
-            margin: 10px 0 0;
-            height: 25px;
+        .join_group li{
+            color:#333;
+            clear:both;
+            margin:10px 0 0;
+            height:25px;
         }
-
-        .join_group li span {
-            float: right;
-            color: #aaa;
-            font-size: .7em;
+        .join_group li span{
+            float:right;
+            color:#aaa;
+            font-size:.7em;
         }
-
-        .join_group li label {
-            font-size: .9em;
-            float: left;
-            font-weight: normal;
+        .join_group li label{
+            font-size:.9em;
+            text-align:left;
+            float:left;
+            font-weight:normal;
+            display:block;
         }
-
-        .join_group li img {
-            border: 1px solid #d0d0d0;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
+        .join_group li em{
+            margin:-5px 0 0 -2px;
+            float:left;
+            display:block;
+            background:#FA6701;
+            color:#fff;
+            padding:1px 3px;
+            height:13px;
+            line-height:13px;
+            font-size:.6em;
+            border-radius:10px;
+            font-style:normal;
         }
-
-        /*update 12-29 活动介绍*/
-        .grounpon-intro {
-            width: 300px;
-            padding: 10px;
-            border: 1px solid #93D3FF;
-            background: #fff;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            border-radius: 5px;
-            margin: 0 auto;
-            text-align: left;
+        .join_group li em.pcw{
+            background:#E9CB5C
         }
-
-        .grounpon-intro h1 {
-            color: #000;
-            font-size: .9em;
-        }
-
-        .grounpon-intro p {
-            color: #999;
-            font-size: .7em;
+        .join_group li img{
+            border:1px solid #d0d0d0;
+            border-radius:50%;
+            width:20px;
+            height:20px;
         }
 
         .detail-bk {
@@ -379,17 +368,29 @@
                 </div>
             </empty>
 
-            <in name="groupbuyInfo.status" value="1,2,3,4">
+            <in name="groupbuyInfo.status" value="1,2">
                 <div class="join_group">
                     <h3>
-                        <if condition="$groupbuyInfo.sub_num eq 0 OR $groupbuyInfo.sub_day eq 0">
+                        <if condition="$groupbuyInfo.status eq 2">
                             已有{$groupbuyInfo.current_num}个好友参团，活动结束!
                             <else/>
                             活动剩余{$groupbuyInfo.sub_day}天,已有{$groupbuyInfo.current_num}个好友参团,再邀请{$groupbuyInfo.sub_num}个好友,赢取最高折扣!
                         </if>
                     </h3>
                     <ul>
-                        <volist name="groupbuyInfo.partyList" id="party">
+                        <volist name="groupbuyInfo.partyList" id="party" offset = "0" length = "1">
+                            <li>
+                                <label><img src="{:MOBILE_PUBLIC_PATH}/img/nonePic.png">
+                                    {$party.openid}</label><em>团长</em><span>于{$party.time} 参团
+                            </li>
+                        </volist>
+                        <volist name="groupbuyInfo.partyList" id="party" offset = "1"  length = "1">
+                            <li>
+                                <label><img src="{:MOBILE_PUBLIC_PATH}/img/nonePic.png">
+                                    {$party.openid}</label><em class="pcw">捧场王</em><span>于{$party.time} 参团
+                            </li>
+                        </volist>
+                        <volist name="groupbuyInfo.partyList" id="party" offset = "2">
                             <li>
                                 <label><img src="{:MOBILE_PUBLIC_PATH}/img/nonePic.png">
                                     {$party.openid}</label><span>于{$party.time} 参团
@@ -526,7 +527,6 @@
             $("#getCoupon_pop").popup("close");
             $("#info_pop").popup("open");
         })
-
         /*关闭弹出*/
         $(".coupon_pop_close").click(function () {
             $("#info_pop").popup("close");
@@ -547,7 +547,6 @@
                     join();
                 });
             }
-//            join();
         });
     }
 

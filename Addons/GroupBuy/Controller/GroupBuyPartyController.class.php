@@ -45,6 +45,7 @@ class GroupBuyPartyController extends BaseController
         $model || $model = $this->model;
         unset($_GET["openid"]);
         unset($_REQUEST["openid"]);
+
         $list_data = parent::_get_model_list($model, $page, $order);
         $list_data ['list_data'] = $this->convertListField($list_data ['list_data'], 'openid', 'phone', 'student', 'openid');
         $list_data ['list_data'] = $this->convertListField($list_data ['list_data'], 'openid', 'openid', 'student', 'openid', "name");
@@ -56,6 +57,7 @@ class GroupBuyPartyController extends BaseController
         $this->assign('add_button', 0);
         $this->assign('del_button', 0);
         $this->assign('check_all', 0);
+
         // 修正其他查询
         return $list_data;
     }
@@ -97,6 +99,8 @@ class GroupBuyPartyController extends BaseController
             $item['privilege'] = $groupBuyInfo["privilege"];
             array_push($result, $item);
         }
+
+        $this->model = $this->getModel('groupbuy_party');
 
         // 返回
         return $result;

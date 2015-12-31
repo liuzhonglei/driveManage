@@ -16,10 +16,9 @@ class GroupBuyController extends BaseController
      */
     function _initialize()
     {
-        parent::_initialize();
-
         // 配置模型
         $this->model = $this->getModel('groupbuy_info');
+        parent::_initialize();
     }
 
 
@@ -28,6 +27,7 @@ class GroupBuyController extends BaseController
      */
     public function lists()
     {
+        // 配置模型
         $this->assign('add_button', 0);
         $this->assign('del_button', 0);
         $this->assign('check_all', 0);
@@ -158,7 +158,7 @@ class GroupBuyController extends BaseController
     private function getStatus($groupBuyInfo)
     {
         // 已经结束
-        if (count($groupBuyInfo["party_list"]) >= $groupBuyInfo["type"]['people_num']) {
+        if (intval($groupBuyInfo["sub_num"]) < 0 || intval($groupBuyInfo["sub_day"]) <= 0) {
             return "2";
         }
 

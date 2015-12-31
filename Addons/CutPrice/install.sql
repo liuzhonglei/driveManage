@@ -142,3 +142,30 @@ VALUES
     'MyISAM'
   );
 
+
+--  查询明细
+drop PROCEDURE test_proc_multi_select;
+CREATE PROCEDURE test_proc_multi_select()
+BEGIN
+    select * from wp_cut_price;
+END;
+
+-- 对学员进行模糊查询
+-- 返回OPENID
+drop FUNCTION studentFuzzyQuery;
+CREATE FUNCTION studentFuzzyQuery(token VARCHAR(50) ,text VARCHAR(50) )
+returns VARCHAR(60)
+BEGIN
+DECLARE openids         VARCHAR(60);
+ SET openids = (select openid from wp_student where token = token and name like '%'+text+'%')
+RETURN(openids);
+END ;
+
+
+
+-- 对粉丝进行模糊查询
+-- 返回OPENID
+create function searchFollow(token,text)
+BEGIN
+END;
+]
