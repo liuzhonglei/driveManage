@@ -50,7 +50,7 @@ class CutPriceController extends BaseController {
      */
     function listsDetail(){
         $this->model = $this->getModel ( 'cut_price' );
-        $this->listsTable = "cut_price_all";
+//        $this->listsTable = "cut_price";
         $_POST['token'] = get_token();
         $this->assign('add_button',0);
         parent::common_lists($this->model,0,"lists", $order = 'id desc');
@@ -67,7 +67,10 @@ class CutPriceController extends BaseController {
     public function _get_model_list($model = null, $page = 0, $order = 'id desc')
     {
         if($model['name'] == 'cut_price'){
-            return parent::_get_model_list($model,$page,$order);
+            $list_data = parent::_get_model_list($model,$page,$order);
+            $list_data ['list_data'] = $this->convertListField($list_data ['list_data'], 'openid', 'name', 'student', 'openid');
+            $list_data ['list_data'] = $this->convertListField($list_data ['list_data'], 'openid', 'nickname', 'follow', 'openid');
+            return $list_data;
         }
 
         // TODO 修改排序

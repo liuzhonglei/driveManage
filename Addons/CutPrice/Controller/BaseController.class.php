@@ -23,10 +23,10 @@ class BaseController extends \Addons\School\Controller\BaseController {
         $res ['class'] = $action == 'lists' ? 'current' : '';
         $nav [] = $res;
 
-        $res ['title'] = '砍价明细';
-        $res ['url'] = addons_url ( 'CutPrice://CutPrice/listsDetail' );
-        $res ['class'] = $action == 'listsdetail' ? 'current' : '';
-        $nav [] = $res;
+//        $res ['title'] = '砍价明细';
+//        $res ['url'] = addons_url ( 'CutPrice://CutPrice/listsDetail' );
+//        $res ['class'] = $action == 'listsdetail' ? 'current' : '';
+//        $nav [] = $res;
 
         $res ['title'] = '系统设置';
         $res ['url'] = addons_url ( 'CutPrice://CutPrice/config' );
