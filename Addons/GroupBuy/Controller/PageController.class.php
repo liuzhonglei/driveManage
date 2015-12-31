@@ -75,10 +75,7 @@ class PageController extends BaseController
     public function getShareUrl($groupbuyInfo)
     {
         $shareUrl = U('show', array("token" => get_token(), "groupBuyId" => $groupbuyInfo["id"]));
-        if (empty(M('follow')->where(array("token" => get_token(), "openid" => get_openid()))->find())) {
-            $this->getDataById("follow");
-            $shareUrl = createWeChat()->getOauthRedirect($shareUrl);
-        }
+        $shareUrl = createWeChat()->getOauthRedirect($shareUrl);
         return $shareUrl;
     }
 
