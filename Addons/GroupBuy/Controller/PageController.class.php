@@ -58,7 +58,7 @@ class PageController extends BaseController
         $this->assign($_GET);
 
         // 设置刷新路径
-        $this->assign("shareUrl", $this->getShareUrl($groupbuyInfo));
+//        $this->assign("shareUrl", $this->getShareUrl($groupbuyInfo));
 
         // 取得课程信息
         $this->assign("courseList", $this->getCourseList());
