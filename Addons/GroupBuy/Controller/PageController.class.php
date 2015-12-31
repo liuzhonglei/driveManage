@@ -73,7 +73,7 @@ class PageController extends BaseController
             $refreshUrl = U("show");
         } else {
             $this->getDataById("follow");
-            $refreshUrl = createWeChat()->getOauthRedirect(U("show"));
+            $refreshUrl = createWeChat()->getOauthRedirect(U("show",array("token"=>get_token())));
         }
         return $refreshUrl;
     }
