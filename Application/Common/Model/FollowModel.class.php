@@ -136,6 +136,8 @@ class FollowModel extends Model
         $winfo =  $weChat->getOauthUserinfo($accessToken, get_openid());
 
         if($winfo){
+            addWeixinLog('返回用户数据',$winfo);
+
             $data ['token'] = get_token();
             $data ['openid'] = get_openid();
 
