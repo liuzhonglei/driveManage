@@ -2347,6 +2347,7 @@ function short_url($long_url) {
 function createWeChat()
 {
 	$tokenInfo = get_token_appinfo();
+	$tokenInfo["serect"] = $tokenInfo["appsecret"];
 	$weChat = new Wechat($tokenInfo);
 	return $weChat;
 }
