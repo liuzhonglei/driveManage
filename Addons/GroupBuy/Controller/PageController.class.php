@@ -23,10 +23,10 @@ class PageController extends BaseController
      */
     function  show()
     {
-        if (empty(M('follow')->where(array("token" => get_token(), "openid" => get_openid()))->find())) {
-            $requestUrl  = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-            redirect(createWeChat()->getOauthRedirect($requestUrl));
-        }
+//        if (empty(M('follow')->where(array("token" => get_token(), "openid" => get_openid()))->find())) {
+//            $requestUrl  = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+//            redirect(createWeChat()->getOauthRedirect($requestUrl));
+//        }
 
         // 增加粉丝数据
         $code = i('code');
@@ -58,7 +58,7 @@ class PageController extends BaseController
         $this->assign($_GET);
 
         // 设置刷新路径
-//        $this->assign("shareUrl", $this->getShareUrl($groupbuyInfo));
+        $this->assign("shareUrl", $this->getShareUrl($groupbuyInfo));
 
         // 取得课程信息
         $this->assign("courseList", $this->getCourseList());
@@ -68,6 +68,38 @@ class PageController extends BaseController
         $this->display(T(MOBILE_PATH . "activityGroupon"));
     }
 
+    /**
+     * 获取刷新URL
+     * @return string
+     */
+    public function getShareUrl($groupbuyInfo)
+    {
+        $shareUrl = U('show', array("token" => get_token(), "groupBuyId" => $groupbuyInfo["id"]));
+        if (empty(M('follow')->where(array("token" => get_token(), "openid" => get_openid()))->find())) {
+            $this->getDataById("follow");
+            $shareUrl = createWeChat()->getOauthRedirect($shareUrl);
+        }
+        return $shareUrl;
+    }
+
+
+    /**
+     * 注册学员
+     */
+    public
+    function register()
+    {
+
+        $student = M('student')->where(array("token" => get_token(), "openid" => get_openid()))->find();
+        if (!empty($student)) {
+            $_POST['id'] = $student['id'];
+        }
+        $_POST['status'] = '-1';
+        $_POST['intro_source'] = '0';
+        $_POST['time_sign'] = date("Y-m-d");
+        $_POST['openid'] = get_openid();
+        $this->ajaxReturn($this->saveModel("student"));
+    }
 
     /**
      * 参与团购

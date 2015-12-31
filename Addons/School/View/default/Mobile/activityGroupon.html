@@ -481,7 +481,7 @@
                 title: '我在{$schoolInfo.name}学车，一起来加入团购,赢取优惠!',
                 // 分享标题
                 desc: '没有学不会的学员，只有不会教的教练，{$schoolInfo.name}报名,组团人数越多,越多优惠。',
-                link: "{:U('show',null,false)}/token/{:get_token()}/groupBuyId/{$groupbuyInfo.id}",
+                link: "{$shareUrl}",
                 // 分享链接
                 imgUrl: "http://{$_SERVER['HTTP_HOST']}/{:MOBILE_PUBLIC_PATH}/img/cut_price_activity.png",
                 // 分享图标
@@ -494,7 +494,7 @@
                 title: '我在{$schoolInfo.name}学车，一起来组成团购,赢取优惠!',
                 // 分享标题
                 desc: '没有学不会的学员，只有不会教的教练，{$schoolInfo.name}报名,组团人数越多,越多优惠。',
-                link: "{:U('show',null,false)}/token/{:get_token()}/groupBuyId/{$groupbuyInfo.id}",
+                link: "{$shareUrl}",
                 // 分享链接
                 imgUrl: "http://{$_SERVER['HTTP_HOST']}/{:MOBILE_PUBLIC_PATH}/img/grouponBg.png",
                 // 分享图标
