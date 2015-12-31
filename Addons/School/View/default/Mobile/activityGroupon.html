@@ -233,9 +233,29 @@
             height:20px;
         }
 
-        .detail-bk {
-            padding-top: 5px;
-            text-align: left
+        /*update 12-29 活动介绍*/
+        .grounpon-intro{
+            width:300px;
+            padding:10px;
+            border:1px solid #93D3FF;
+            background:#fff;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            border-radius:5px;
+            margin:0 auto;
+            text-align:left;
+        }
+        .grounpon-intro h1{
+            color:#000;
+            font-size:.9em;
+        }
+        .grounpon-intro p{
+            color:#999;
+            font-size:.7em;
+        }
+        .detail-bk{
+            padding-top:5px;
+            text-align:left
         }
 
         /*注册表单*/
@@ -347,7 +367,6 @@
                 </div>
             </empty>
             <!--//说明-->
-
             <!--我的信息 开始-->
             <in name="groupbuyInfo.status" value="1">
                 <notempty name="myInfo.party">
@@ -378,25 +397,53 @@
                         </if>
                     </h3>
                     <ul>
-                        <volist name="groupbuyInfo.partyList" id="party" offset = "0" length = "1">
-                            <li>
-                                <label><img src="{:MOBILE_PUBLIC_PATH}/img/nonePic.png">
-                                    {$party.openid}</label><em>团长</em><span>于{$party.time} 参团
-                            </li>
-                        </volist>
-                        <volist name="groupbuyInfo.partyList" id="party" offset = "1"  length = "1">
-                            <li>
-                                <label><img src="{:MOBILE_PUBLIC_PATH}/img/nonePic.png">
-                                    {$party.openid}</label><em class="pcw">捧场王</em><span>于{$party.time} 参团
-                            </li>
-                        </volist>
-                        <volist name="groupbuyInfo.partyList" id="party" offset = "2">
-                            <li>
-                                <label><img src="{:MOBILE_PUBLIC_PATH}/img/nonePic.png">
-                                    {$party.openid}</label><span>于{$party.time} 参团
-                            </li>
-                        </volist>
 
+                        <!--<for start="0" end="$groupbuyInfo.partyLength">-->
+                            <!--<li>-->
+                            <!--<label>-->
+                                <!--{$groupbuyInfo.partyList['$i']}-->
+                                <!--<empty name="$groupbuyInfo.partyList[$i].photo">-->
+                                    <!--<img src="{:MOBILE_PUBLIC_PATH}/img/nonePic.png">-->
+                                    <!--<else/>-->
+                                    <!--<img src="{$partyList[$i].photo}">-->
+                                <!--</empty>-->
+                                <!--{$groupbuyInfo.partyList[$i].openid}</label><em>团长</em><span>于{$groupbuyInfo.partyList[$i].time} 参团</span>-->
+                            <!--</li>-->
+                        <!--</for>-->
+                        <volist name="groupbuyInfo.partyList" id="party" offset="0" length="1">
+                            <li>
+                                <label>
+                                    <empty name="party.photo">
+                                        <img src="{:MOBILE_PUBLIC_PATH}/img/nonePic.png">
+                                        <else/>
+                                        <img src="{$party.photo}">
+                                    </empty>
+                                    {$party.openid}</label><em>团长</em><span>于{$party.time} 参团</span>
+                            </li>
+                        </volist>
+                        <volist name="groupbuyInfo.partyList" id="party" offset="1" length="1">
+                            <li>
+                                <label>
+                                    <empty name="party.photo">
+                                        <img src="{:MOBILE_PUBLIC_PATH}/img/nonePic.png">
+                                        <else/>
+                                        <img src="{$party.photo}">
+                                    </empty>
+                                    {$party.openid}</label><em class="pcw">捧场王</em><span>于{$party.time} 参团</span>
+                            </li>
+                        </volist>
+                        <volist name="groupbuyInfo.partyList" id="party" offset="2">
+                            <li>
+                                <label>
+                                    <empty name="party.photo">
+                                        <img src="{:MOBILE_PUBLIC_PATH}/img/nonePic.png">
+                                        <else/>
+                                        <img src="{$party.photo}">
+                                    </empty>
+                                    {$party.openid}
+                                </label><span>于{$party.time} 参团</span>
+                            </li>
+                        </volist>
                     </ul>
                 </div>
                 <a href="#" class="groupon_rule" id="gronpon_detail"><img src="{:MOBILE_PUBLIC_PATH}/img/group_info.png">活动详情</a>

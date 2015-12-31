@@ -47,6 +47,7 @@ class GroupBuyPartyController extends BaseController
         unset($_REQUEST["openid"]);
 
         $list_data = parent::_get_model_list($model, $page, $order);
+        $list_data ['list_data'] = $this->convertListField($list_data ['list_data'], 'openid', 'photo', 'follow', 'openid', "headimgurl");
         $list_data ['list_data'] = $this->convertListField($list_data ['list_data'], 'openid', 'phone', 'student', 'openid');
         $list_data ['list_data'] = $this->convertListField($list_data ['list_data'], 'openid', 'openid', 'student', 'openid', "name");
         if ($showPrivilege) {
@@ -73,19 +74,6 @@ class GroupBuyPartyController extends BaseController
         $this->lists();
     }
 
-    /**
-     *  团购的相关参与人
-     */
-    function getPartyList()
-    {
-        // 取得团购ID
-        $groupBuyId = $_REQUEST['groupBuyId'];
-        $token = get_token();
-
-        // 查询团购信息的参与人
-        $partyList = M($this->model['name'])->where('token = "' . $token . '" and group_buy_id = ' . $groupBuyId)->select();
-        $this->ajaxReturn($partyList);
-    }
 
     /**
      * 增加组团优惠字段

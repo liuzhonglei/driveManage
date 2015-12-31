@@ -36,6 +36,7 @@ class PageController extends BaseController
 
 
         $groupbuyInfo = R('Addons://GroupBuy/GroupBuy/getGroupbuyInfo', array($groupBuyId));
+        $groupbuyInfo["partyLength"] = count($groupbuyInfo["partyList"]);
         if (empty($groupBuyId)) {
             $groupbuyInfo['status'] = 0;
         }
