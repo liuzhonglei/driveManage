@@ -1,4 +1,4 @@
-MetronicApp.controller('ListController', ['$rootScope', '$http', '$scope', function ($rootScope, $http, $scope) {
+MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope', function ($rootScope, $http, $scope) {
     // param
     $scope.rootData = $rootScope.$state.$current.data;
 

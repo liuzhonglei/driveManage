@@ -201,25 +201,14 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                 action: "edit",
                 info: true
             },
-            controller: "ListController",
+            controller: "StudentListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
-                            name: 'ui.select',
-                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: [
-                                '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
-                                '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
-                            ]
-                        }, {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: $.merge(depFile.info,  new Array('../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
-                                '../assets/global/plugins/datatables/all.min.js',
-                                '../assets/global/scripts/datatable.js',
-                                'js/controllers/common/Filter.js',
-                                'js/controllers/student/ListController.js'))
+                            files: $.merge($.merge(depFile.info, depFile.list),new Array('js/controllers/student/ListController.js'))
                         }]);
                 }]
             }
