@@ -157,7 +157,7 @@ class GroupBuyController extends BaseController
     private function getStatus($groupBuyInfo)
     {
         // 已经结束
-        if (intval($groupBuyInfo["sub_num"]) < 0 || intval($groupBuyInfo["sub_day"]) <= 0) {
+        if (intval($groupBuyInfo["sub_num"]) <= 0 || intval($groupBuyInfo["sub_day"]) <= 0) {
             return "2";
         }
 
