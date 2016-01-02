@@ -474,7 +474,7 @@
                         /* 添加额外的GET参数 */
                         var params = utils.serializeParam(editor.queryCommandValue('serverparam')) || '',
                             url = utils.formatUrl(actionUrl + (actionUrl.indexOf('?') == -1 ? '?':'&') + 'encode=utf-8&' + params);
-                        uploader.option('server', url);
+                       uploader.option('server', editor.getOpt('imageUrl'));
                         setState('uploading', files);
                         break;
                     case 'stopUpload':
@@ -486,6 +486,18 @@
             uploader.on('uploadBeforeSend', function (file, data, header) {
                 //这里可以通过data对象添加POST参数
                 header['X_Requested_With'] = 'XMLHttpRequest';
+                data['key']= file.file.name;
+                var filename = file.file.name;
+                var token ="";
+                $.ajax({
+                            dataType:'text',
+                            async:false,
+                            url:"../../php/getToken.php?key="+filename,
+                            success:function(data) {
+                                token = data;
+                            }
+                });
+                data['token'] = token;
             });
 
             uploader.on('uploadProgress', function (file, percentage) {
