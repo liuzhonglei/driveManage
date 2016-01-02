@@ -589,7 +589,7 @@
      * 加入团购
      */
     function join() {
-        var infoId = "{$groupbuy_info_id}";
+        var infoId = "{$groupbuyInfo.id}";
         $.ajax({
             type: "POST",
             url: "{:U('join')}",
