@@ -99,7 +99,6 @@ class GroupBuyController extends BaseController
         // 得到缴费项目
         $groupBuyInfo["payItem"] = $this->getDataById("school_payitem", $groupBuyInfo["type"]["payitem_id"]);
 
-
         // 计算当前折扣
         $groupBuyInfo["privilege"] = 0;
         $strategy = array();
@@ -132,7 +131,7 @@ class GroupBuyController extends BaseController
      */
     private function getPartyList($groupBuyId = null)
     {
-        $_GET['groupbuy_info_id'] = $groupBuyId;
+        $_REQUEST['groupbuy_info_id'] = $groupBuyId;
         $partyList = R('Addons://GroupBuy/GroupBuyParty/_get_model_list',array(null,null,null,false))['list_data'];
         for ($i = 0; $i < count($partyList); $i++) {
             $partyList[$i]['time'] = day_format($partyList[$i]['time']);
