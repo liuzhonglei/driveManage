@@ -369,7 +369,7 @@
             </in>
             <!--//说明-->
             <!--我的信息 开始-->
-            <in name="groupbuyInfo.status" value="1">
+            <in name="groupbuyInfo.status" value="1,2">
                 <notempty name="myInfo.party">
                     <div class="g_total">
                         <span>当前价</span><?php echo $myInfo["course"]["sign_charge"] - $groupbuyInfo["privilege"]  ; ?>元<span>满{$groupbuyInfo.current_num}人</span>
