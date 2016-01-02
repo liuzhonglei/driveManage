@@ -184,9 +184,8 @@ MetronicApp.controller('FooterController', ['$scope', function ($scope) {
 
 /* Setup Rounting For All Pages */
 MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-
     // Redirect any unmatched url
-    $urlRouterProvider.otherwise("/school/list.html");
+    $urlRouterProvider.otherwise("/student/list.html");
 
     $stateProvider
     // student info
