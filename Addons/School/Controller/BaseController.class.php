@@ -79,7 +79,7 @@ class BaseController extends AdminController
      * get the
      * @return string
      */
-    private function getPayOpenid()
+    protected function getPayOpenid()
     {
         $payed = $_REQUEST['payed'];
         $result = "";
@@ -107,4 +107,50 @@ class BaseController extends AdminController
 
     }
 
+    /**
+     * search the students
+     * @param $text
+     * @param $fieldResult
+     * @return mixed
+     */
+    public function getStudentOpenids($text, $fieldResult)
+    {
+        $fields = array("name", "phone");
+        $sql = "select " . $fieldResult . " from wp_student t where t.token = '" . get_token() . "' and (";
+        $fieldMap = "";
+        foreach ($fields as $field) {
+            if (empty(!$fieldMap)) {
+                $fieldMap .= "or ";
+            }
+            $fieldMap .= $field . " like '%" . $text . "%' ";
+        };
+        $sql .= $fieldMap . " )";
+        return M('student')->query($sql);
+    }
+
+    /**
+     * convert  the records to condition str
+     * @param $array
+     * @return string
+     */
+    protected function  getArrayStr($array,$quotation = true)
+    {
+        $return = "";
+        foreach ($array as $record) {
+            if (!empty($return)) {
+                $return .= ",";
+            }
+            foreach ($record as $key => $value) {
+                if($quotation){
+                    $return .= "'" . $value . "'";
+                }else{
+                    $return .= $value;
+
+                }
+                break;
+            }
+
+        }
+        return $return;
+    }
 }

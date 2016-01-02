@@ -6,6 +6,8 @@ use Addons\School\Controller\Common\Log\LogController;
 use Addons\School\Controller\Common\Log\LogMajorType;
 use Addons\EO2OPayment\Controller\EO2OPaymentController;
 
+require_once ONETHINK_ADDON_PATH . '/Third/Controller/simple_html_dom.php';
+
 
 define('SCHOOL_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Public');
 
@@ -73,79 +75,7 @@ class StudentController extends StudentBaseController
         $this->display("lists");
     }
 
-    /**
-     * search the students
-     * @param $text
-     * @param $fieldResult
-     * @return mixed
-     */
-    public function getStudentOpenids($text, $fieldResult)
-    {
-        $fields = array("name", "phone");
-        $sql = "select " . $fieldResult . " from wp_student t where t.token = '" . get_token() . "' and (";
-        $fieldMap = "";
-        foreach ($fields as $field) {
-            if (empty(!$fieldMap)) {
-                $fieldMap .= "or ";
-            }
-            $fieldMap .= $field . " like '%" . $text . "%' ";
-        };
-        $sql .= $fieldMap . " )";
-        return M('student')->query($sql);
-    }
 
-    /**
-     * search the follow
-     * @param $text
-     * @param $fieldResult
-     * @return mixed
-     */
-    public function getFollowOpneids($text, $fieldResult)
-    {
-        $fields = array("nickname");
-        $sql = "select " . $fieldResult . " from wp_follow t where t.token = '" . get_token() . "' and ( ";
-        $fieldMap = "";
-        foreach ($fields as $field) {
-            if (empty(!$fieldMap)) {
-                $fieldMap .= "or ";
-            }
-            $fieldMap .= $field . " like '%" . $text . "%' ";
-        };
-        $sql .= $fieldMap . " )";
-        return M('follow')->query($sql);
-    }
-
-    /**
-     * get the
-     * @return string
-     */
-    private function getPayOpenid()
-    {
-        $payed = $_REQUEST['payed'];
-        $result = "";
-        if ($payed !== null) {
-            $sql = "select openid from wp_eo2o_payment_count t where t.token = '" . get_token() . "' and  total_fee is not null";
-            $records = M('eo2o_payment_count')->query($sql);
-            if (count($records) > 0) {
-                if ($payed) {
-                    $result = "and openid in ( " . $this->getArrayStr($records) . " )";
-                } else {
-                    $result = "and openid not in ( " . $this->getArrayStr($records) . " )";
-                }
-            } else {
-                if ($payed) {
-                    $result = "1 = 2";
-                } else {
-                    $result = " ";
-                }
-            }
-
-        }
-
-        // return
-        return $result;
-
-    }
 
 
     /**
@@ -1086,26 +1016,7 @@ str;
     }
 
 
-    /**
-     * convert  the records to condition str
-     * @param $array
-     * @return string
-     */
-    private function  getArrayStr($array)
-    {
-        $return = "";
-        foreach ($array as $record) {
-            if (!empty($return)) {
-                $return .= ",";
-            }
-            foreach ($record as $key => $value) {
-                $return .= "'" . $value . "'";
-                break;
-            }
 
-        }
-        return $return;
-    }
 
     /**
      * 取得驾校的所有学员
@@ -1135,4 +1046,101 @@ str;
             $paymentController->add($nav, $subNav);
         }
     }
+
+
+    /**
+     * 同步学员信息
+     * @param $status 学员状态
+     */
+    function syncStudent($status = null)
+    {
+        // 登录
+        $cookiePath = "./wudriver.cookie";
+        $this->login_post("http://fj.jppt.com.cn/xmjp/loginSubmit.do", $cookiePath, array("loginName" => "bhjx1", "password" => "987987", "loginFlag" => "pw"));
+
+        // 查询
+        $return = $this->get_content("http://fj.jppt.com.cn/xmjp/student/basic/main.do?pageIndex=2&pageSize=30", $cookiePath);
+
+        // 转换
+            $html = new \simple_html_dom($return);
+        $htmlDataList = $html->find('#table-1', 0)->find('tr');
+        $htmlDataList = array_shift($htmlDataList);
+        foreach ($htmlDataList as $value) {
+            $studentInfo = array();
+            $index = 2;
+            $studentInfo["name"] = trim($value->children($index)->plaintext);
+            $index++;
+//            $studentInfo["sex"] = trim($value->children($index)->plaintext);
+//            $index++;
+//            $studentInfo["course_id"] = trim($value->children($index)->plaintext);
+//            $index++;
+//            $studentInfo["time_sign"] = trim($value->children($index)->plaintext);
+//            $index++;
+//            $studentInfo["card_id"] = trim($value->children($index)->plaintext);
+//            $index++;
+//            $studentInfo["phone"] = trim($value->children($index)->plaintext);
+//            $index++;
+//            $studentInfo["teacher_k1"] = trim($value->children($index)->plaintext);
+//            $index++;
+//            $studentInfo["teacher_k2"] = trim($value->children($index)->plaintext);
+//            $index++;
+
+//            $studentInfo["time_k1"] = trim($value->children($index)->plaintext);
+//            $index++;
+//            $studentInfo["time_k2"] = trim($value->children($index)->plaintext);
+//            $index++;
+//            $studentInfo["time_k3"] = trim($value->children($index)->plaintext);
+//            $index++;
+
+//            $studentInfo["status"] = trim($value->children($index)->plaintext);
+            $this->insertStudent($studentInfo);
+        }
+    }
+
+
+    /**
+     * 插入同步学员信息
+     * @param $studentInfo
+     */
+    function insertStudent($studentInfo)
+    {
+        $model = M('student');
+        $info = $model->where(array("card_id" => $studentInfo))->find();
+        if (!empty($info)) {
+            $studentInfo['id'] = $info['id'];
+        }
+        $model->save($studentInfo);
+    }
+
+    /**
+     * 模拟登录
+     */
+    function login_post($url, $cookie, $post)
+    {
+        $curl = curl_init();//初始化curl模块
+        curl_setopt($curl, CURLOPT_URL, $url);//登录提交的地址
+        curl_setopt($curl, CURLOPT_HEADER, 0);//是否显示头信息
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 0);//是否自动显示返回的信息
+        curl_setopt($curl, CURLOPT_COOKIEJAR, $cookie); //设置Cookie信息保存在指定的文件中
+        curl_setopt($curl, CURLOPT_POST, 1);//post方式提交
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($post));//要提交的信息
+        curl_exec($curl);//执行cURL
+        curl_close($curl);//关闭cURL资源，并且释放系统资源
+    }
+
+    /**
+     * 登录成功后获取数据
+     */
+    function get_content($url, $cookie)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie); //读取cookie
+        $rs = curl_exec($ch); //执行cURL抓取页面内容
+        curl_close($ch);
+        return $rs;
+    }
+
 }

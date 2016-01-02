@@ -46,6 +46,8 @@ class GroupBuyPartyController extends BaseController
         unset($_GET["openid"]);
         unset($_REQUEST["openid"]);
 
+
+
         $list_data = parent::_get_model_list($model, $page, $order);
         $list_data ['list_data'] = $this->convertListField($list_data ['list_data'], 'openid', 'photo', 'follow', 'openid', "headimgurl");
         $list_data ['list_data'] = $this->convertListField($list_data ['list_data'], 'openid', 'phone', 'student', 'openid');
@@ -93,4 +95,8 @@ class GroupBuyPartyController extends BaseController
         // 返回
         return $result;
     }
+
+
+
+
 }
