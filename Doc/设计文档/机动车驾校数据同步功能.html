@@ -1,0 +1,79 @@
+<h1>机动车驾校数据同步功能</h1>
+
+<h2>学员同步</h2>
+
+<h3>学员列表同步</h3>
+
+<ol>
+	<li><p>在进行学员同步的时候，我们需要有多个纬度的同步机制。</p>
+
+		<ul>
+			<li>第一次初始化同步</li>
+			<li>不同状态数据同步 </li>
+			<li>不同日期数据同步</li>
+		</ul></li>
+	<li>自动脚本同步，每天晚上固定时间调用脚本进行自动任务运行。</li>
+	<li>我们提供当天数据同步，如果不是当天的数据，请每日的脚本同步操作。如果每日脚本同步操作出现问题，请联系<strong>管理员</strong>。</li>
+</ol>
+
+<h3>学员信息同步</h3>
+
+<p>学员按身份证号进行同步。但是由于学员人数较多，并且详细信息只能一条条去进行同步。考虑到对应服务器的稳定程度，以及任务的合理性。</p>
+
+<p>这一个步骤，我们不会自动触发，在<strong>学员信息</strong>提供按钮，进行手动同步操作。</p>
+
+<p>操作如下：</p>
+
+<ol>
+	<li>批量选择学员，点击<strong>数据同步</strong>进行同步操作。</li>
+	<li>学员<strong>详细菜单</strong>中点击<strong>同步数据</strong>进行同步操作。</li>
+</ol>
+
+<h2>教练同步</h2>
+
+<h3>教练列表同步</h3>
+
+<ol>
+	<li>教练的数据链在几百条左右，一般不需要分阶段同步。全量数据进行同步即可。</li>
+</ol>
+
+<h3>教练信息同步</h3>
+
+<p>操作如下：</p>
+
+<ol>
+	<li>批量选择教练，点击<strong>数据同步</strong>进行同步操作。</li>
+	<li>教练<strong>详细菜单</strong>中点击<strong>同步数据</strong>进行同步操作。</li>
+</ol>
+
+<h2>开发纪要</h2>
+
+<h3>发送方式</h3>
+
+<ol>
+	<li><p>有条件请求第一页</p>
+
+		<p>name:</p>
+
+		<p>identifyNum:</p>
+
+		<p>coachName:</p>
+
+		<p>theoryCoachName:</p>
+
+		<p>state:</p>
+
+		<p>applyStartTime:2016-01-03</p>
+
+		<p>applyEndTime:2016-01-03</p>
+
+		<p>schoolRegistPointInnerNum:</p>
+
+		<p>currentCanApply:-1</p>
+
+		<p>cardType:-1</p>
+
+		<p>telephone:</p></li>
+	<li>请求第二页使用GET方式，url后加入pageIndex=3&amp;pageSize=30。</li>
+</ol>
+
