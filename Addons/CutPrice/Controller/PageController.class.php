@@ -235,7 +235,15 @@ class PageController extends BaseController
         $openid || $openid = get_openid();
 
         $params = array("token" => get_token(), "openid" => $openid);
-        $result = M('cut_price_count')->where($params)->find();
+        $result = M('cut_price_count_detail')->where($params)->find();
+        if(!empty($result)){
+            $studentInfo =  M('student')->where($params)->find();
+            $result["name"] = $studentInfo["name"];
+            $result["phone"] = $studentInfo["phone"];
+            $result["remark"] = $studentInfo["remark"];
+            $result["time_sign"] = $studentInfo["time_sign"];
+        }
+
         if ($result) {
             return $result;
         } else {
