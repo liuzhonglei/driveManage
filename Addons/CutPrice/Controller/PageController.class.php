@@ -201,8 +201,9 @@ class PageController extends BaseController
         $openid || $openid = get_openid();
         $params = array("token" => get_token(), "openid" => $openid);
         $info = M('student')->where($params)->find();
+
         if (!empty($info)) {
-            $info["photo_url"] = get_cover($info["photo"]);
+            $info["photo_url"]  = M('follow')->where($params)->find()["headimgurl"];
             $info["photo_url"] || $info["photo_url"] = MOBILE_PUBLIC_PATH . "/img/yellow_kid.png";
         }
 

@@ -14,6 +14,8 @@
 !/sass
 !/ThinkPHP
 !/URLRewrite
+!/Doc
+
 
 /Application/Common/Conf/config.php
 /Application/User/Conf/config.php
