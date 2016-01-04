@@ -479,7 +479,7 @@
 
         wx.ready(function () {
             wx.onMenuShareTimeline({
-                title: '我在{$schoolInfo.name}学车，一起来加入团购,赢取优惠!',
+                title: '{$groupbuyInfo.type.title}',
                 // 分享标题
                 desc: '没有学不会的学员，只有不会教的教练，{$schoolInfo.name}报名,组团人数越多,越多优惠。',
                 link: "{$shareUrl}",
@@ -492,7 +492,7 @@
                 }
             });
             wx.onMenuShareAppMessage({
-                title: '我在{$schoolInfo.name}学车，一起来组成团购,赢取优惠!',
+                title: '{$groupbuyInfo.type.title}',
                 // 分享标题
                 desc: '没有学不会的学员，只有不会教的教练，{$schoolInfo.name}报名,组团人数越多,越多优惠。',
                 link: "{$shareUrl}",
