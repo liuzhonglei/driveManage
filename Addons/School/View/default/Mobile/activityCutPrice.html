@@ -516,7 +516,7 @@
                     var formData = $("#registerInfo").serialize();
                     var name = $("input[name='name']").val();
                     var phone = $("input[name='phone']").val();
-                    var course_id = $("input[name='course_id']").val();
+                    var course_id = $("input[name='course_id']:checked").val();
 
                     if (name == null || name == "") {
                         alert("请填写您的姓名!")

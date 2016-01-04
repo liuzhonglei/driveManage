@@ -10,6 +10,7 @@
     <title></title>
     <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/jquery.mobile-1.4.4.css"/>
     <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/car.css">
+
     <style>
         .grouponBg {
             background: #E0F3FD;
@@ -259,6 +260,31 @@
         }
 
         /*注册表单*/
+        .chk_2 {
+            display: none;
+        }
+
+        .chk_2 + label {
+            background: url({:MOBILE_PUBLIC_PATH}/img/radio_checked.png) no-repeat 0 0;;
+            background-size: 16px 32px;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            position: relative;
+            margin: 0 3px -3px 0;
+        }
+
+        .chk_2:checked + label:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0px;
+            display: block;
+            width: 16px;
+            height: 16px;
+            background: url({:MOBILE_PUBLIC_PATH}/img/radio_checked.png) no-repeat 0 -17px;
+            background-size: 16px 32px;
+        }
         .info-content {
             min-height: 100px;
             margin-top: 30px;
@@ -516,7 +542,7 @@
             var formData = $("#registerInfo").serialize();
             var name = $("input[name='name']").val();
             var phone = $("input[name='phone']").val();
-            var course_id = $("input[name='course_id']").val();
+            var course_id = $("input[name='course_id']:checked").val();
 
             if (name == null || name == "") {
                 alert("请填写您的姓名!")
