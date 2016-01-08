@@ -163,6 +163,7 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
                 }
             }
 
+            // 转换数据
             if ($scope.info[name] instanceof Array) {
                 for (var index = 0; index < $scope.info[name].length; index ++) {
                     if (params != "") {
@@ -173,6 +174,9 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
             } else {
                 if (params != "") {
                     params += "&";
+                }
+                if($scope.info[name] == null){
+                    $scope.info[name] = "";
                 }
                 params += name + "=" + $scope.info[name];
             }
@@ -191,8 +195,8 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
             if (data.status == "1") {
                 $scope.infoErrorShow = false;
                 $scope.infoErrorMsg = "";
-                TableAjax.reload('list');
                 $("#form_info").modal("hide");
+                TableAjax.reload('list');
             } else {
                 $scope.infoErrorShow = true;
                 $scope.infoErrorMsg = data.msg;
