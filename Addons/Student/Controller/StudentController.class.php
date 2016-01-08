@@ -7,6 +7,8 @@ use Addons\School\Controller\Common\Log\LogMajorType;
 use Addons\EO2OPayment\Controller\EO2OPaymentController;
 
 require_once ONETHINK_ADDON_PATH . '/Third/Controller/simple_html_dom.php';
+//require_once __ROOT__ . '/Application/Common/Common/weixinFunction.php';
+//require_once __ROOT__ . '/Application/Common/Common/syncFunction.php';
 
 
 define('SCHOOL_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Public');
@@ -76,8 +78,6 @@ class StudentController extends StudentBaseController
     }
 
 
-
-
     /**
      * 获取数据
      * @param null $model
@@ -92,7 +92,22 @@ class StudentController extends StudentBaseController
         // 解析列表规则
         $list_data = $this->_list_grid($model);
         $grids = $list_data ['list_grids'];
+
+        // 设置查询字段
         $fields = $list_data ['fields'];
+
+        $conf = M('field_display_conf')->where(array("token" => get_token(), "status" => $_REQUEST["status"], "model" => "student"))->find()["value"];
+        if (!empty($conf)) {
+            $confFieldList = explode(",", $conf);
+            $tempFields = array();
+            foreach ($fields as $key => $value) {
+                if (in_array($value, $confFieldList)) {
+                    array_push($tempFields, $value);
+                }
+            }
+            $fields = $tempFields;
+        }
+
 
         // 搜索条件
         $fieldValue = "";
@@ -1016,8 +1031,6 @@ str;
     }
 
 
-
-
     /**
      * 取得驾校的所有学员
      */
@@ -1052,49 +1065,59 @@ str;
      * 同步学员信息
      * @param $status 学员状态
      */
-    function syncStudent($status = null)
+    function syncStudent($status = null, $data = null)
     {
         // 登录
-        $cookiePath = "./wudriver.cookie";
+        $cookiePath = "./Runtime/School/wudriver.cookie";
         $this->login_post("http://fj.jppt.com.cn/xmjp/loginSubmit.do", $cookiePath, array("loginName" => "bhjx1", "password" => "987987", "loginFlag" => "pw"));
 
         // 查询
-        $return = $this->get_content("http://fj.jppt.com.cn/xmjp/student/basic/main.do?pageIndex=2&pageSize=30", $cookiePath);
+        $return = $this->get_post_content("http://fj.jppt.com.cn/xmjp/student/basic/main.do", $cookiePath, array("applyStartTime" => "2015-10-03", "applyEndTime" => "2016-01-03", "state" => $status));
+        $html = new \simple_html_dom($return);
+        $pageInfo = $html->find('.pleft', 0)->plaintext;
+        $pageNum = intval(substr($pageInfo, strpos($pageInfo, "共") + 3, strpos($pageInfo, "条") - strpos($pageInfo, "共") - 3));
 
-        // 转换
+        for ($pageIndex = 1, $totalNum = 0; $totalNum < $pageNum; $totalNum += 100, $pageIndex++) {
+            $return = $this->get_post_content("http://fj.jppt.com.cn/xmjp/student/basic/main.do?pageIndex=" . $pageIndex . "&pageSize=100", $cookiePath);
+
+            // 转换
             $html = new \simple_html_dom($return);
-        $htmlDataList = $html->find('#table-1', 0)->find('tr');
-        $htmlDataList = array_shift($htmlDataList);
-        foreach ($htmlDataList as $value) {
-            $studentInfo = array();
-            $index = 2;
-            $studentInfo["name"] = trim($value->children($index)->plaintext);
-            $index++;
-//            $studentInfo["sex"] = trim($value->children($index)->plaintext);
-//            $index++;
-//            $studentInfo["course_id"] = trim($value->children($index)->plaintext);
-//            $index++;
-//            $studentInfo["time_sign"] = trim($value->children($index)->plaintext);
-//            $index++;
-//            $studentInfo["card_id"] = trim($value->children($index)->plaintext);
-//            $index++;
-//            $studentInfo["phone"] = trim($value->children($index)->plaintext);
-//            $index++;
-//            $studentInfo["teacher_k1"] = trim($value->children($index)->plaintext);
-//            $index++;
-//            $studentInfo["teacher_k2"] = trim($value->children($index)->plaintext);
-//            $index++;
+            $htmlDataList = $html->find('#table-1', 0)->find('tr');
+            array_shift($htmlDataList);
+            foreach ($htmlDataList as $value) {
+                $studentInfo = array();
+                $index = 2;
+                $studentInfo["name"] = trim($value->children($index)->plaintext);
+                $index++;
+                $studentInfo["sex"] = trim($value->children($index)->plaintext);
+                $index++;
+                $studentInfo["course_id"] = trim($value->children($index)->plaintext);
+                $index++;
+                $studentInfo["time_sign"] = trim($value->children($index)->plaintext);
+                $index++;
+                $studentInfo["card_id"] = trim($value->children($index)->plaintext);
+                $index++;
+                $studentInfo["phone"] = trim($value->children($index)->plaintext);
+                $index++;
+                $studentInfo["teacher_k1"] = trim($value->children($index)->plaintext);
+                $index++;
+                $studentInfo["teacher_k2"] = trim($value->children($index)->plaintext);
+                $index++;
 
-//            $studentInfo["time_k1"] = trim($value->children($index)->plaintext);
-//            $index++;
-//            $studentInfo["time_k2"] = trim($value->children($index)->plaintext);
-//            $index++;
-//            $studentInfo["time_k3"] = trim($value->children($index)->plaintext);
-//            $index++;
+                $studentInfo["time_k1"] = trim($value->children($index)->plaintext);
+                $index += 5;
+                $studentInfo["time_k2"] = trim($value->children($index)->plaintext);
+                $index++;
+                $studentInfo["time_k3"] = trim($value->children($index)->plaintext);
+                $index++;
 
-//            $studentInfo["status"] = trim($value->children($index)->plaintext);
-            $this->insertStudent($studentInfo);
+                $studentInfo["status"] = trim($value->children($index)->plaintext);
+                $this->insertStudent($studentInfo);
+            }
         }
+
+
+        $this->success("成功同步");
     }
 
 
@@ -1104,12 +1127,49 @@ str;
      */
     function insertStudent($studentInfo)
     {
+        // 性别
+        switch ($studentInfo["sex"]) {
+            case "男":
+                $studentInfo["sex"] = "M";
+                break;
+            case "女":
+                $studentInfo["sex"] = "W";
+                break;
+            default:
+                $studentInfo["sex"] = "M";
+                break;
+        }
+
+        // 课程
+        $studentInfo["token"] = get_token();
+        $studentInfo["course_id"] = M('school_course')->where(array("token" => get_token(), "course" => array("like", "%" . $studentInfo["course_id"] . "%")))->find()['id'];
+
+        // 报名时间
+        $studentInfo["time_sign"] = strtotime($studentInfo["time_sign"]);
+
+        // 教练
+        $studentInfo["teacher_k1"] = M('teacher')->where(array("token" => get_token(), "name" => array("like", "%" . $studentInfo["teacher_k1"] . "%")))->find()['id'];
+        $studentInfo["teacher_k2"] = M('teacher')->where(array("token" => get_token(), "name" => array("like", "%" . $studentInfo["teacher_k2"] . "%")))->find()['id'];
+
+
+        //学时
+        $studentInfo["time_k1"] = $this->convertTimeToStamp($studentInfo["time_k1"]);
+        $studentInfo["time_k2"] = $this->convertTimeToStamp($studentInfo["time_k2"]);
+        $studentInfo["time_k3"] = $this->convertTimeToStamp($studentInfo["time_k3"]);
+
+        // 转换状态
+        $statusMap = array("录入" => "1", "科目一通过" => "2", "科目二通过" => "3", "科目三通过" => "4", "结业" => "99", "逾期" => "-1");
+        $studentInfo["status"] = $statusMap[$studentInfo["status"]];
+
+        // 保存
         $model = M('student');
-        $info = $model->where(array("card_id" => $studentInfo))->find();
+        $info = $model->where(array("card_id" => $studentInfo["card_id"]))->find();
         if (!empty($info)) {
             $studentInfo['id'] = $info['id'];
+            $model->save($studentInfo);
+        } else {
+            $model->add($studentInfo);
         }
-        $model->save($studentInfo);
     }
 
     /**
@@ -1129,6 +1189,27 @@ str;
     }
 
     /**
+     * 请求post页面
+     * @param $url
+     * @param $cookie
+     * @param $post
+     * @return mixed
+     */
+    function get_post_content($url, $cookie, $post)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie); //读取cookie
+        curl_setopt($ch, CURLOPT_POST, 1);//post方式提交
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));//要提交的信息
+        $rs = curl_exec($ch); //执行cURL抓取页面内容
+        curl_close($ch);
+        return $rs;
+    }
+
+    /**
      * 登录成功后获取数据
      */
     function get_content($url, $cookie)
@@ -1143,4 +1224,69 @@ str;
         return $rs;
     }
 
+    function convertTimeToStamp($time)
+    {
+        // 计算小时
+        $hour = 0;
+        $indexHour = strpos($time, "小时");
+        $indexMinuteBegin = 0;
+        if ($indexHour > 0) {
+            $hour = intval(substr($time, 0, $indexHour));
+            $indexMinuteBegin = $indexHour + 3;
+        }
+
+        // 计算分钟
+        $indexMinute = strpos($time, "分钟");
+        $minute = intval(substr($time, $indexMinuteBegin, $indexMinute - $indexMinuteBegin));
+
+
+        // 反悔
+        return ($hour * 60 + $minute) * 60 * 1000;
+    }
+
+    /**
+     * 取得信息
+     */
+    public function getModelInfo()
+    {
+        // 查询模型信息
+        $modelInfo = parent::getModelInfo(false);
+
+        // 查询配置
+        $conf = M('field_display_conf')->where(array("token" => get_token(), "status" => $_REQUEST["status"], "model" => "student"))->find()["value"];
+        if (!empty($conf)) {
+            $confFieldList = explode(",", $conf);
+
+            for ($key = 0; $key < count($modelInfo["list_data"]["fields"]);) {
+                $value = $modelInfo["list_data"]["fields"][$key];
+                if (in_array($value, $confFieldList)) {
+                    $key++;
+                    continue;
+                } else {
+                    array_splice($modelInfo["list_data"]["fields"], $key, 1);
+                    array_splice($modelInfo["list_data"]["list_grids"], $key, 1);
+                }
+            }
+        }
+
+        // 返回
+        $this->ajaxReturn($modelInfo);
+    }
+
+    public function getStudentNum()
+    {
+        $model = M('student');
+        $queryResult = $model->query("select status,count(*) as count from wp_student where token = '" . get_token() . "' group by status");
+
+        if (!empty($model->getError())) {
+            $this->error($model->getError());
+        } else {
+            $result = array();
+            foreach($queryResult as $item){
+                $result[$item['status']] = $item['count'];
+            }
+
+            $this->success("",null,null,$result);
+        }
+    }
 }

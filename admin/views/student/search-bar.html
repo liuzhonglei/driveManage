@@ -3,7 +3,7 @@
     <input type="searchText" class="form-control input-small input-inline  input-sm"
            placeholder=""
            aria-controls="sample_2" id="list-search-text">
-    <button class="btn btn-sm green" onclick="javascript:TableAjax.reload('list')">搜索 <i
+    <button class="btn btn-sm green" ng-click="searchStudent()">搜索 <i
             class="fa fa-search"></i>
     </button>
     <div class="btn-group">
@@ -17,6 +17,14 @@
             <li>
                 <a href="javascript:TableAjax.add()">
                     新增 </a>
+            </li>
+            <li>
+                <a href="javascript:TableAjax.add()">
+                    字段配置 </a>
+            </li>
+            <li>
+                <a href="#" ng-click="syncStudentInfo()">
+                    同步信息 </a>
             </li>
         </ul>
     </div>

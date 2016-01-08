@@ -317,7 +317,7 @@ class CommonController extends ExtendAddonsController
     /**
      * get the model info
      */
-    public function getModelInfo()
+    public function getModelInfo($ajaxReturn = true)
     {
         $model = $this->model;
         // get the  fields
@@ -341,7 +341,11 @@ class CommonController extends ExtendAddonsController
         $result['list_data'] = $list_data;
 
         // return
-        $this->ajaxReturn($result);
+        if($ajaxReturn){
+            $this->ajaxReturn($result);
+        }else{
+            return $result;
+        }
     }
 
 

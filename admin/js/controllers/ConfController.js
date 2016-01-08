@@ -8,6 +8,14 @@ MetronicApp.controller('ConfController', ['$rootScope', '$http', '$scope', funct
         },
         url: Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/configAdmin"
     }).success(function (data) {
+        for(var key in data.config){
+           var confItem =  data.config[key];
+            var tempOptions = new Array();
+            for(var index in confItem.options){
+                tempOptions.push({"value":index, "text": confItem.options[index]});
+            }
+            confItem.options = tempOptions;
+        }
         $scope.addon = data;
     });
 
@@ -16,7 +24,6 @@ MetronicApp.controller('ConfController', ['$rootScope', '$http', '$scope', funct
      */
     $scope.saveConf = function () {
         var config = {};
-        //var params = JSON.stringify(config).replace("{", "").replace("}", "").replace(/\,/g, "&").replace(/\"/g, "").replace(/\:/g, "=");
         for (var key in $scope.addon.config) {
             config[key] = $scope.addon.config[key].value;
         }

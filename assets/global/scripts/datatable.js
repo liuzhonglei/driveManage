@@ -181,7 +181,7 @@ var Datatable = function() {
             // build table group actions panel
             if ($('.table-actions-wrapper', tableContainer).size() === 1) {
                 $('.table-group-actions', tableWrapper).html($('.table-actions-wrapper', tableContainer).html()); // place the panel inside the wrapper
-                $('.table-actions-wrapper', tableContainer).remove(); // remove the template container
+                $('.table-actions-wrapper', tableContainer).hide(); // hide the template container
             }
             // handle group checkboxes check/uncheck
             $('.group-checkable', table).change(function() {

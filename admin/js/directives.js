@@ -66,17 +66,54 @@ MetronicApp.directive('dropdownMenuHover', function () {
 });
 
 
-// Handle Dropdown Hover Plugin Integration
+/**
+ * 编辑器
+ */
 MetronicApp.directive('summernote', function () {
     return {
         link: function (scope, elem, attrs) {
             elem.summernote({height: 300,onChange: function(contents, $editable) {
-                scope[attrs.name] = contents;
+                scope.info[attrs.name] = contents;
             }});
-            elem.code(scope[attrs.name]);
         }
     };
 });
+
+/**
+ * 日期选择
+ */
+MetronicApp.directive('datePicker', function () {
+    return {
+        restrict: "C",
+        link: function (scope, elem, attrs) {
+            elem.datepicker({
+                rtl: Metronic.isRTL(),
+                language:"zh-CN",
+                orientation: "left",
+                autoclose: true
+            });
+        }
+    };
+});
+
+/**
+ * 时间选择器
+ */
+MetronicApp.directive('dataTimePicker', function () {
+    return {
+        restrict: "C",
+        link: function (scope, elem, attrs) {
+            elem.datetimepicker({
+                autoclose: true,
+                language: "zh-CN",
+                isRTL: Metronic.isRTL(),
+                format: "yyyy-mm-dd hh:ii",
+                pickerPosition: (Metronic.isRTL() ? "bottom-right" : "bottom-left")
+            });
+        }
+    };
+});
+
 
 MetronicApp.directive('ngThumb', ['$window', function($window) {
         var helper = {

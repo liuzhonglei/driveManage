@@ -5,6 +5,8 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
     $scope.selected = {};
     $scope.info = {};
 
+
+    $scope.action = Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/saveAdmin";
     // init
     (function ($) {
         $.fn.datepicker.dates['zh-CN'] = {
@@ -40,7 +42,6 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
 
         //var fieldList = new Array();
         for (var i in data.fieldList) {
-            //fieldList[i] = new Array();
             for (var j in data.fieldList[i]) {
                 if (data.fieldList[i][j] === null || data.fieldList[i][j].length < 1) {
                     continue;
@@ -52,7 +53,10 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
                     for (var z in params) {
                         var map = params[z].split(":");
                         if (map.length == 2) {
-                            result.push({"value": map[0], "text": map[1]});
+                            result.push({
+                                "value": map[0],
+                                "text": map[1]
+                            });
                         }
                     }
                     $scope.metadata[data.fieldList[i][j].name] = result;
@@ -66,17 +70,19 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
         // todo
         $(".fileinput").fileinput('clear');
 
+        // 查询数据
         if ($scope.info["id"] != null && $scope.info["id"].length > 0) {
             $http({
                 method: "get",
-                url: Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/getDataById/id/" + $scope.info["id"]
+                url: Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/getModelDataById/id/" + $scope.info["id"]
             }).success(function (data) {
                 $scope.info = data;
                 for (var name in data) {
-                    if ($scope.info[name] == "null") {
+                    if ($scope.info[name] == null) {
                         $scope.info[name] = "";
                     }
 
+                    // 设置当前选中项
                     if ($scope.metadata[name] != null) {
                         var currentMetaData = $scope.metadata[name]
                         for (var fieldMetadata in currentMetaData) {
@@ -87,14 +93,52 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
                             }
                         }
                     }
+
+                    // 转换特殊情况数据
+                    var field = getField(name);
+                    if (field) {
+                        if (field.type.indexOf("time") > -1) {
+                            var newDate = new Date($scope.info[name] * 1000);
+                            $scope.info[name] = newDate.pattern("yyyy-MM-dd hh:mm:ss")
+                        }
+
+                        if (field.type.indexOf("day") > -1) {
+                            var newDate = new Date($scope.info[name] * 1000);
+                            $scope.info[name] = newDate.pattern("yyyy-MM-dd")
+                        }
+
+                        if (field.type.indexOf("editor") > -1) {
+                            var elem = $("[name='" + name + "']");
+                            elem.code($scope.info[name]);
+
+                        }
+                    }
                 }
 
             });
         } else {
-            $scope.info = {photoUrl: "http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image"};
+            $scope.info = {
+                photoUrl: "http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image"
+            };
             $scope.info["id"] = null;
         }
     });
+
+    /**
+     * 根据字段名称取得字段信息
+     * @param name 字段名称
+     * @returns {*}
+     */
+    function getField(name) {
+        for (var i in $scope.fieldList) {
+            for (var j in $scope.fieldList[i]) {
+                if ($scope.fieldList[i][j] && $scope.fieldList[i][j].name == name) {
+                    return $scope.fieldList[i][j];
+                }
+            }
+        }
+    }
+
 
     /**
      * upload the img
@@ -105,19 +149,43 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
      *  set the save method
      */
     $scope.save = function () {
+
+        var params = "";
         for (var name in $scope.info) {
-            if ($scope.metadata[name] && $scope.selected[name]) {
-                $scope.info[name] = $scope.selected[name].value;
+
+            // 转换特殊情况数据
+            var field = getField(name);
+            if (field) {
+                if (field.type == "time") {
+                    var timestamp = Date.parse(new Date($scope.info[name]));
+                    timestamp = timestamp / 1000;
+                    $scope.info[name] = timestamp;
+                }
+            }
+
+            if ($scope.info[name] instanceof Array) {
+                for (var index = 0; index < $scope.info[name].length; index ++) {
+                    if (params != "") {
+                        params += "&";
+                    }
+                    params += name + "[]" + "=" + $scope.info[name][index] + "";
+                }
+            } else {
+                if (params != "") {
+                    params += "&";
+                }
+                params += name + "=" + $scope.info[name];
             }
         }
 
-        var params = JSON.stringify($scope.info).replace("{", "").replace("}", "").replace(/\,/g, "&").replace(/\"/g, "").replace(/\:/g, "=");
+
         $http({
             method: "post",
             url: Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/saveAdmin",
             data: params,
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-Requested-With': 'XMLHttpRequest'
             }
         }).success(function (data) {
             if (data.status == "1") {
@@ -129,6 +197,9 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
                 $scope.infoErrorShow = true;
                 $scope.infoErrorMsg = data.msg;
             }
+            $scope.info["id"] = null;
         });
-    };
-}]);
+    }
+    ;
+}
+]);

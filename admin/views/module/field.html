@@ -4,55 +4,61 @@
         <input ng-switch-when="string" type="text" name="{{field.name}}"
                class="form-control  input-medium " ng-model="info[field.name]"/>
         <input ng-switch-when="num" class="form-control  input-medium "
-               id="mask_number"
                type="text" ng-model="info[field.name]">
+        <input ng-switch-when="textarea" type="text" name="{{field.name}}"
+               class="form-control  input-medium " ng-model="info[field.name]"/>
         <input ng-switch-when="date"
-               class="form-control form-control-inline input-medium date-picker"
-               size="16"
-               data-date-format="yyyy-mm-dd"
-               type="text" ng-model="info[field.name]"/>
-
+               class="form-control form-control-inline input-medium datePicker"
+               type="text" data-date-format="yyyy-mm-dd" name="{{field.name}}" ng-model="info[field.name]">
+        <div ng-switch-when="datetime" class="input-group  input-medium  date form_datetime dataTimePicker">
+            <input type="text" name="{{field.name}}" size="16" readonly class="form-control">
+												<span class="input-group-btn">
+												<button class="btn default date-set" type="button"><i
+                                                        class="fa fa-calendar"></i></button>
+												</span>
+        </div>
         <div ng-switch-when="radio">
-            <ui-select ng-model="person.selected" theme="bootstrap"
-                       name="{{field.name}}"
-                       ng-model="info[field.name]">
-                <ui-select-match placeholder="选择或搜索">
-                    {{$select.selected.name}}
+            <ui-select ng-model="info[field.name]" class="input-medium "
+                       theme="bootstrap" name="{{field.name}}" >
+                <ui-select-match
+                        placeholder="选择或搜索">
+                    {{$select.selected.text}}
                 </ui-select-match>
                 <ui-select-choices
-                        repeat="item in metadata[getText] | filter: $select.search">
-                    <!--<span ng-bind-html="item.name | highlight: $select.search"></span>-->
-                    <!--<small ng-bind-html="item.email | highlight: $select.search"></small>-->
+                        repeat=" item.value as item in metadata[field.name] | filter: $select.search">
+                    <span ng-bind-html="item.text | highlight: $select.search"></span>
                 </ui-select-choices>
             </ui-select>
         </div>
         <div ng-switch-when="select">
-            <ui-select ng-model="selected[field.name]" class="input-medium "
-                       theme="bootstrap">
+            <ui-select ng-model="info[field.name]" class="input-medium "
+                       theme="bootstrap" name="{{field.name}}" >
                 <ui-select-match
                         placeholder="选择或搜索">
-                    <!--{{$select.selected.text}}-->
                     {{$select.selected.text}}
                 </ui-select-match>
                 <ui-select-choices
-                        repeat="item in metadata[field.name] | filter: $select.search">
-                    <!--<span ng-bind-html="item.text | highlight: $select.search"></span>-->
-                    <!--<small ng-bind-html="item.email | highlight: $select.search"></small>-->
+                        repeat=" item.value as item in metadata[field.name] | filter: $select.search">
+                    <span ng-bind-html="item.text | highlight: $select.search"></span>
                 </ui-select-choices>
             </ui-select>
         </div>
-        <div ng-switch-when="checkbox" name="{{field.name}}"
-             class="input-medium ">
-            <ui-select multiple theme="bootstrap"
-                       ng-disabled="disabled" ng-model="multipleDemo"
-                       ng-model="info[field.name]">
-                <ui-select-match placeholder="Select person...">
-                    {{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match>
+        <div ng-switch-when="checkbox">
+            <ui-select multiple theme="bootstrap" class="input-medium "
+                       ng-disabled="disabled" ng-model="info[field.name]" name="{{field.name}}" >
+                <ui-select-match>
+                    {{$item.text}}
+                </ui-select-match>
                 <ui-select-choices
-                        repeat="person in people | propsFilter: {name: $select.search, age: $select.search}">
-                    {{person.name}} - {{person.email}}
+                        repeat="item.value as  item in metadata[field.name] | propsFilter: {text: $select.search}">
+                    {{item.text}}
                 </ui-select-choices>
             </ui-select>
+            <p>Selected: {{info[field.name]}}</p>
+        </div>
+        <div ng-switch-when="editor">
+            <summernote name="{{field.name}}" ng-model="info[field.name]" name="{{field.name}}" >
+            </summernote>
         </div>
         <div ng-switch-when="picture">
             <div class="fileinput fileinput-new"

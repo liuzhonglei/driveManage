@@ -8,12 +8,29 @@
                 <button class="close" data-close="alert"></button>
             </div>
             <div class="form-group" ng-repeat="(key, value) in addon.config">
+                <!--<div ng-include="'views/module/field.html'">-->
+                <!--</div>-->
+
                 <label class="control-label col-md-3">{{value.title}}</label>
                 <div class="col-md-4">
                     <div ng-switch="value.type">
                         <input ng-switch-when="text" type="text" name="{{key}}"
                                class="form-control  input-medium " ng-model="value.value"/>
+                        <div ng-switch-when="radio">
+                            <ui-select ng-model="value.value" class="input-medium "
+                                       theme="bootstrap">
+                                <ui-select-match
+                                        placeholder="选择或搜索">
+                                    {{$select.selected.text}}
+                                </ui-select-match>
+                                <ui-select-choices
+                                        repeat="item.value as item in value.options | filter: $select.search">
+                                    <span ng-bind-html="item.text | highlight: $select.search"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>

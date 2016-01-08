@@ -7,81 +7,92 @@ var TableAjax = function () {
      * @param module
      * @param handleController
      */
-    var init = function (name, module, controller, param) {
-        // 表格是否已经创建
-        if (tableMap[name] && tableMap[name].grid) {
-            var exitDataTable = tableMap[name].grid.getDataTable();
-            if(exitDataTable){
-                exitDataTable.destroy();
-            }
-        }
+    var init = function (name, module, controller, param,successCallback) {
 
-        // 管理表格
-        tableMap[name] = {};
-        tableMap[name].param = param;
-        tableMap[name].module = module;
-        tableMap[name].columns = new Array();
-        tableMap[name].controler = controller;
+            // 表格是否已经创建
+            if (tableMap[name] && tableMap[name].grid) {
+                var exitDataTable = tableMap[name].grid.getDataTable();
+                if (exitDataTable) {
+                    // 删除数据
+                    exitDataTable.destroy();
 
-        // 查询表格信息
-        var url = createUrl(name,"getModelInfo");
-        $.get(url, function (data) {
-            // 判断是否登录
-            if(data.result == "-1"){
-                window.location="/admin/login.html"
-            }
-
-            // set search name
-           var searchEle =  $("#"+name+"-search-name");
-            if(searchEle){
-                searchEle.val(data.model.search_key);
-
-            }
-
-
-            // init column
-            for (var i = 0; i < data.list_data.list_grids.length; i++) {
-                if (data.list_data.list_grids[i].title.indexOf('checkbox') > 0 || data.list_data.list_grids[i].title == "操作") {
-                    tableMap[name].columns.push({
-                        "sTitle": data.list_data.list_grids[i].title,
-                        "aTargets": [i],
-                        "bSortable": false
-                    });
+                    // 清空表头字段
+                    var head = $("#" + name + "-table");
+                    head.empty();
                 }
-                tableMap[name].columns.push({"sTitle": data.list_data.list_grids[i].title, "aTargets": [i]});
             }
 
-            //查询数据
-            initData(name, createUrl(name,"listsAdmin"));
-        });
-    };
+            // 管理表格
+            tableMap[name] = {};
+            tableMap[name].param = param;
+            tableMap[name].module = module;
+            tableMap[name].columns = new Array();
+            tableMap[name].controler = controller;
+
+            // 查询表格信息
+            var url = createUrl(name, "getModelInfo");
+            $.get(url, function (data) {
+                // 判断是否登录
+                if (data.result == "-1") {
+                    window.location = "/admin/login.html"
+                }
+
+                // set search name
+                var searchEle = $("#" + name + "-search-name");
+                if (searchEle) {
+                    searchEle.val(data.model.search_key);
+                }
+
+                // init column
+                for (var i = 0; i < data.list_data.list_grids.length; i++) {
+                    if (data.list_data.list_grids[i].title.indexOf('checkbox') > 0 || data.list_data.list_grids[i].title == "操作") {
+                        tableMap[name].columns.push({
+                            "sTitle": data.list_data.list_grids[i].title,
+                            "aTargets": [i],
+                            "bSortable": false
+                        });
+                    } else {
+                        tableMap[name].columns.push({
+                            "sTitle": data.list_data.list_grids[i].title,
+                            "aTargets": [i]
+                        });
+                    }
+                }
+
+                //查询数据
+                initData(name, createUrl(name, "listsAdmin"),successCallback);
+            });
+        }
+        ;
 
     /**
      * reload the table
      * @param searchName
      * @param serachText
      */
-    var reload = function (name) {
+    var reload = function (name, param) {
         var grid = tableMap[name].grid;
-        grid.getDataTable().ajax.url(createUrl(name,"listsAdmin")).load();
+        if (param) {
+            tableMap[name].param = param;
+        }
+        grid.getDataTable().ajax.url(createUrl(name, "listsAdmin")).load();
     }
 
     /**
      * create the  data url
      * @returns {string}
      */
-    var createUrl = function (name,method) {
+    var createUrl = function (name, method) {
         // get search info
-        var searchName = $("#"+name+"-search-name").val();
-        var searchText = $("#"+name+"-search-text").val();
+        var searchName = $("#" + name + "-search-name").val();
+        var searchText = $("#" + name + "-search-text").val();
 
-        // TODO set module
-        var url = Metronic.rootPath() + "/index.php?s=/addon/" + tableMap[name].module + "/" + tableMap[name].controler + "/"+method
+        var url = Metronic.rootPath() + "/index.php?s=/addon/" + tableMap[name].module + "/" + tableMap[name].controler + "/" + method
         if (searchName != null && searchText != null && searchName.length > 0 && searchText.length > 0) {
             url += "/" + searchName + "/" + searchText;
         }
-        if(tableMap[name].param){
-            for(var key in tableMap[name].param){
+        if (tableMap[name].param) {
+            for (var key in tableMap[name].param) {
                 url += "/" + key + "/" + tableMap[name].param[key];
             }
         }
@@ -95,29 +106,30 @@ var TableAjax = function () {
      * @param url
      */
     var initData = function (name, url) {
-        tableMap[name].grid = new Datatable();
+        // 表格对象已经初始化过一次
+        if (!tableMap[name].grid) {
+            tableMap[name].grid = new Datatable();
+        }
+
+        // 还未初始化表格对象
         tableMap[name].grid.init({
-            src: $("#"+name+"-table"),
+            src: $("#" + name + "-table"),
             onSuccess: function (grid) {
-                // execute some code after table records loaded
             },
             onError: function (grid) {
                 // execute some code on network or other general error
             },
             loadingMessage: '读取中...',
-            dataTable: { // here you can define a typical datatable settings from http://datatables.net/usage/options
+            dataTable: {
                 aoColumnDefs: tableMap[name].columns,
-                //"oLanguage": {
-                //    "sInfoEmpty": "没有数据"
-                //},
-                "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+                "bStateSave": true,
                 "lengthMenu": [
                     [10, 20, 50, 100, 150, -1],
-                    [10, 20, 50, 100, 150, "All"] // change per page values here
+                    [10, 20, 50, 100, 150, "All"]
                 ],
-                "pageLength": 10, // default record count per page
+                "pageLength": 10,
                 "ajax": {
-                    "url": url// ajax source
+                    "url": url
                 }
             }
         });
@@ -125,7 +137,7 @@ var TableAjax = function () {
         // handle group action submit button click
         tableMap[name].grid.getTableWrapper().on('click', '.table-group-action-submit', function (e) {
             e.preventDefault();
-            var grid =  tableMap[name].grid;
+            var grid = tableMap[name].grid;
             var action = $(".table-group-action-input", grid.getTableWrapper());
             if (action.val() != "" && grid.getSelectedRowsCount() > 0) {
                 grid.setAjaxParam("customActionType", "group_action");
@@ -154,9 +166,11 @@ var TableAjax = function () {
     }
 
     return {
-        //main function to initiate the module
-        init: function (name,module, handleController,param) {
-            init(name,module, handleController,param);
+        init: function (name, module, handleController, param) {
+            init(name, module, handleController, param);
+        },
+        reload: function (name, param) {
+            reload(name, param);
         },
         delete: function (id) {
             var grid = tableMap['list'].grid;
@@ -168,20 +182,14 @@ var TableAjax = function () {
         add: function () {
             $("#form_info_id").val(null);
             $("#form_info_id").trigger("change");
-            ComponentsPickers.init();
             ComponentsFormTools.init();
             $("#form_info").modal("show");
         },
         edit: function (id) {
             $("#form_info_id").val(id);
             $("#form_info_id").trigger("change");
-            ComponentsPickers.init();
             ComponentsFormTools.init();
             $("#form_info").modal("show");
-        },
-        reload: function (name) {
-            reload(name);
         }
-
     };
 }();
