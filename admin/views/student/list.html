@@ -1,5 +1,5 @@
 <div ng-include="'views/common/weixin-bind-modal.html'"/>
-<div ng-include="'views/student/detail.html'"/>
+<div ng-include="'views/student/detail.html'" ng-controller="InfoController"/>
 <div ng-include="'views/module/pageInfo.html'"/>
 
 <div class="row" ng-controller="StudentListController">
@@ -11,30 +11,36 @@
             <div class="portlet-title tabbable-line">
                 <ul class="nav nav-tabs ">
                     <li>
-                        <a href="#" data-ng-click="setStatus('-2')" data-target="#student-tab" data-toggle="tab">退出</a>
+                        <a href="#" data-ng-click="setStatus('-2')" data-target="#student-tab" data-toggle="tab">退出  </a>
                     </li>
                     <li class="active">
                         <a href="#" data-ng-click="setStatus('-1')" data-target="#student-tab"
-                           data-toggle="tab">报名 <span
-                                class="badge  badge-danger">{{studentNum['-1']}}</span></a>
+                           data-toggle="tab">报名  <span
+                                class="badge badge-roundless  badge-danger" ng-if="status == -1">{{studentNum['-1']}}</span></a>
                     </li>
                     <li>
-                        <a href="#" data-ng-click="setStatus('0')" data-target="#student-tab" data-toggle="tab">正式</a>
+                        <a href="#" data-ng-click="setStatus('1')" data-target="#student-tab"
+                           data-toggle="tab">科目一  <span
+                                class="badge   badge-danger" ng-if="status == 1">{{studentNum['1']}}</span></a>
                     </li>
                     <li>
-                        <a href="#" data-ng-click="setStatus('1')" data-target="#student-tab" data-toggle="tab">科目一</a>
+                        <a href="#" data-ng-click="setStatus('2')" data-target="#student-tab"
+                           data-toggle="tab">科目二  <span
+                                class="badge  badge-danger" ng-if="status == 2">{{studentNum['2']}}</span></a>
                     </li>
                     <li>
-                        <a href="#" data-ng-click="setStatus('2')" data-target="#student-tab" data-toggle="tab">科目二</a>
+                        <a href="#" data-ng-click="setStatus('3')" data-target="#student-tab"
+                           data-toggle="tab">科目三  <span
+                                class="badge  badge-danger" ng-if="status == 3">{{studentNum['3']}}</span></a>
                     </li>
                     <li>
-                        <a href="#" data-ng-click="setStatus('3')" data-target="#student-tab" data-toggle="tab">科目三</a>
+                        <a href="#" data-ng-click="setStatus('4')" data-target="#student-tab"
+                           data-toggle="tab">科目四  <span
+                                class="badge  badge-danger" ng-if="status == 4">{{studentNum['4']}}</span></a>
                     </li>
                     <li>
-                        <a href="#" data-ng-click="setStatus('4')" data-target="#student-tab" data-toggle="tab">科目四</a>
-                    </li>
-                    <li>
-                        <a href="#" data-ng-click="setStatus('5')" data-target="#student-tab" data-toggle="tab">毕业</a>
+                        <a href="#" data-ng-click="setStatus('5')" data-target="#student-tab" data-toggle="tab">毕业 <span
+                                class="badge  badge-danger" ng-if="status == 99">{{studentNum['99']}}</span></a>
                     </li>
                     <li>
                         <a href="#" data-ng-click="setStatus('6')" data-target="#tab_conf" data-toggle="tab">配置</a>
@@ -71,11 +77,31 @@
                         <div ng-include="'views/student/conf.html'" ng-controller="StudentListController"/>
                     </div>
                 </div>
+                <div class="modal fade bs-modal-sm" id="model-field-conf" tabindex="2" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <h4 class="modal-title">字段显示配置</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div id="tree_field-conf" class="tree-demo">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn default" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn blue" data-ng-click="saveFieldConf()">保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <div ng-if="rootData.info" ng-include="'views/common/info-modal.html'" ng-controller="InfoController"/>
+
+
 <script>
     /**
      * 设置推荐费支付
@@ -94,4 +120,5 @@
             }
         });
     }
+
 </script>

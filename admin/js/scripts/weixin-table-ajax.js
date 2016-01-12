@@ -7,7 +7,7 @@ var TableAjax = function () {
      * @param module
      * @param handleController
      */
-    var init = function (name, module, controller, param,successCallback) {
+    var init = function (name, module, controller, param, successCallback) {
 
             // 表格是否已经创建
             if (tableMap[name] && tableMap[name].grid) {
@@ -60,7 +60,7 @@ var TableAjax = function () {
                 }
 
                 //查询数据
-                initData(name, createUrl(name, "listsAdmin"),successCallback);
+                initData(name, createUrl(name, "listsAdmin"), successCallback);
             });
         }
         ;
@@ -105,7 +105,7 @@ var TableAjax = function () {
      * get the data and set
      * @param url
      */
-    var initData = function (name, url) {
+    var initData = function (name, url,successCallback) {
         // 表格对象已经初始化过一次
         if (!tableMap[name].grid) {
             tableMap[name].grid = new Datatable();
@@ -115,6 +115,9 @@ var TableAjax = function () {
         tableMap[name].grid.init({
             src: $("#" + name + "-table"),
             onSuccess: function (grid) {
+                if(successCallback){
+                    successCallback(grid);
+                }
             },
             onError: function (grid) {
                 // execute some code on network or other general error
@@ -166,11 +169,15 @@ var TableAjax = function () {
     }
 
     return {
-        init: function (name, module, handleController, param) {
-            init(name, module, handleController, param);
+        init: function (name, module, handleController, param,successCallback) {
+            init(name, module, handleController, param,successCallback);
         },
         reload: function (name, param) {
             reload(name, param);
+        },
+
+        get: function (name) {
+            return tableMap[name];
         },
         delete: function (id) {
             var grid = tableMap['list'].grid;

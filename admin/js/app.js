@@ -187,10 +187,39 @@ MetronicApp.controller('FooterController', ['$scope', function ($scope) {
 /* Setup Rounting For All Pages */
 MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     // Redirect any unmatched url
-    $urlRouterProvider.otherwise("/student/list.html");
+    $urlRouterProvider.otherwise("/dashboard.html");
 
     $stateProvider
-    // student info
+
+    // Dashboard
+        .state('dashboard', {
+            url: "/dashboard.html",
+            templateUrl: "views/dashboard.html",
+            data: {pageTitle: '监控台', pageSubTitle: '各种关键信息'},
+            controller: "DashboardController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                            '../../../assets/global/plugins/morris/morris.css',
+                            '../../../assets/admin/pages/css/tasks.css',
+
+                            '../../../assets/global/plugins/morris/morris.min.js',
+                            '../../../assets/global/plugins/morris/raphael-min.js',
+                            '../../../assets/global/plugins/jquery.sparkline.min.js',
+
+                            '../../../assets/admin/pages/scripts/index3.js',
+                            '../../../assets/admin/pages/scripts/tasks.js',
+
+                            'js/controllers/DashboardController.js'
+                        ]
+                    });
+                }]
+            }
+        })
+        // student info
         .state("studentList", {
             url: "/student/list.html",
             templateUrl: "views/student/list.html",
@@ -213,9 +242,9 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                                 '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
                                 '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
                             ]
-                        },  {
+                        }, {
                             name: 'MetronicApp',
-                            files: $.merge($.merge(depFile.info, depFile.list),new Array('js/controllers/student/ListController.js'))
+                            files: $.merge($.merge(depFile.info, depFile.list), new Array('js/controllers/student/ListController.js', "../assets/global/plugins/jstree/dist/themes/default/style.min.css", "../assets/global/plugins/jstree/dist/jstree.min.js"))
                         }]);
                 }]
             }
@@ -278,7 +307,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([ {
+                    return $ocLazyLoad.load([{
                         name: 'ui.select',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
@@ -303,7 +332,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([ {
+                    return $ocLazyLoad.load([{
                         name: 'ui.select',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
@@ -329,7 +358,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([ {
+                    return $ocLazyLoad.load([{
                         name: 'ui.select',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
@@ -354,7 +383,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([ {
+                    return $ocLazyLoad.load([{
                         name: 'ui.select',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
@@ -389,7 +418,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([ {
+                    return $ocLazyLoad.load([{
                         name: 'ui.select',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
@@ -414,7 +443,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([ {
+                    return $ocLazyLoad.load([{
                         name: 'ui.select',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
@@ -446,7 +475,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([ {
+                    return $ocLazyLoad.load([{
                         name: 'ui.select',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
@@ -471,7 +500,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([ {
+                    return $ocLazyLoad.load([{
                         name: 'ui.select',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
@@ -497,7 +526,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([ {
+                    return $ocLazyLoad.load([{
                         name: 'ui.select',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
@@ -518,7 +547,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("userCenterList", {
             url: "/userCener/list.html",
             templateUrl: "views/common/list.html",
-            data: {pageTitle: "粉丝信息", module: "UserCenter", handleController: "UserCenter",action: "show", conf: true},
+            data: {pageTitle: "粉丝信息", module: "UserCenter", handleController: "UserCenter", action: "show", conf: true},
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -540,7 +569,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([ {
+                    return $ocLazyLoad.load([{
                         name: 'ui.select',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
@@ -565,7 +594,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([ {
+                    return $ocLazyLoad.load([{
                         name: 'ui.select',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
@@ -615,7 +644,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             controller: "ChartController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([ {
+                    return $ocLazyLoad.load([{
                         name: 'ui.select',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
@@ -647,7 +676,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             controller: "ChartController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([ {
+                    return $ocLazyLoad.load([{
                         name: 'ui.select',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [

@@ -1,7 +1,7 @@
 <div class="row" ng-controller="ListController">
-    <div id="studnet-detail" class="modal fade bs-modal-lg" role="dialog" tabindex="-1" aria-labelledby="myModalLabel10"
+    <div id="student-detail" class="modal fade bs-modal-lg" role="dialog" tabindex="-1" aria-labelledby="myModalLabel10"
          aria-hidden="true">
-        <div class="modal-dialog  modal-full">
+        <div class="modal-dialog  modal-lg">
             <div class="modal-content">
                 <div class="col-md-12">
                     <div class="portlet light">
@@ -11,37 +11,86 @@
                             </div>
                             <ul class="nav nav-tabs ">
                                 <li class="active">
-                                    <a href="#" data-target="#studnet_detail_tab_1_1" data-toggle="tab">日志</a>
+                                    <a href="#" onmousemove="$(this).click()" data-target="#info_1" data-toggle="tab">{{fieldGroup[1]}}</a>
+                                </li>
+                                <li ng-repeat="(key,value) in fieldGroup track by $index" ng-if="key != '1'">
+                                    <a href="#" onmousemove="$(this).click()" data-target="#info_{{key}}"
+                                       data-toggle="tab">{{value}}</a>
                                 </li>
                                 <li>
-                                    <a href="#" data-target="#studnet_detail_tab_1_2" data-toggle="tab">划款信息</a>
+                                    <a href="#" onmousemove="$(this).click()" data-target="#studnet_detail_tab_1_1"
+                                       data-toggle="tab">日志</a>
+                                </li>
+                                <li>
+                                    <a href="#" onmousemove="$(this).click()" data-target="#studnet_detail_tab_1_2"
+                                       data-toggle="tab">划款信息</a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="portlet-body">
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="studnet_detail_tab_1_1">
-                                    <div class="table-container">
-                                        <table class="table table-striped table-bordered table-hover" id="student-log-table">
-                                            <thead>
-                                            <tr role="row" class="heading">
-                                            </tr>
-                                            </thead>
-                                        </table>
+                        <form enctype="multipart/form-data" method="post" action="{{action}}"
+                              class="form-horizontal form-row-seperated ng-pristine ng-valid"
+                              name="{{$state.$current.data.handleController}}-info">
+                            <div class="portlet-body">
+
+                                <input type="text" id="form_info_id" hidden="true" ng-model='info["id"]'/>
+
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="info_1">
+                                        <div ng-repeat="field in fieldList[1] track by $index"
+                                             ng-show="field.is_show == '1'"
+                                             class="form-group">
+                                            <div ng-include="'views/module/field.html'">
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane" id="studnet_detail_tab_1_2">
-                                    <div class="table-container">
-                                        <table class="table table-striped table-bordered table-hover" id="student-money-log-table">
-                                            <thead>
-                                            <tr role="row" class="heading">
-                                            </tr>
-                                            </thead>
-                                        </table>
+                                    <div ng-repeat="(key,value) in fieldGroup track by $index" ng-if="key != '1'"
+                                         class="tab-pane"
+                                         id="info_{{key}}">
+                                        <div ng-repeat="field in fieldList[key] track by $index"
+                                             ng-show="field.is_show == '1'"
+                                             class="form-group">
+                                            <div ng-include="'views/module/field.html'">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="studnet_detail_tab_1_1">
+                                        <div class="table-container">
+                                            <table class="table table-striped table-bordered table-hover"
+                                                   id="student-log-table">
+                                                <thead>
+                                                <tr role="row" class="heading">
+                                                </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="studnet_detail_tab_1_2">
+                                        <div class="table-container">
+                                            <table class="table table-striped table-bordered table-hover"
+                                                   id="student-money-log-table">
+                                                <thead>
+                                                <tr role="row" class="heading">
+                                                </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="modal-footer">
+                                <div class="form-actions margin-top-10">
+                                    <div class="row">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <button class="btn default" data-dismiss="modal" aria-hidden="true">取消
+                                            </button>
+                                            <button class="btn green" ng-click="save('student-detail','list')">保存
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -54,8 +103,10 @@
      * @param id 对象id
      */
     function studentDetailShow(id) {
-        $("#studnet-detail").modal("show");
-        TableAjax.init('student-log','Student', 'Detail',{"info": "log","student_id":id});
-        TableAjax.init('student-money-log','Student', 'Detail',{"info": "moneyLog","student_id":id});
+        $("#form_info_id").val(id);
+        $("#form_info_id").trigger("change");
+        TableAjax.init('student-log', 'Student', 'Detail', {"info": "log", "student_id": id});
+        TableAjax.init('student-money-log', 'Student', 'Detail', {"info": "moneyLog", "student_id": id});
+        $("#student-detail").modal("show");
     }
 </script>

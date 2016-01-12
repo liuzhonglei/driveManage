@@ -69,6 +69,46 @@
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
                 <li class="separator hide"></li>
+                <!-- BEGIN NOTIFICATION DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="icon-bell"></i>
+					<span class="badge badge-success">
+					2 </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="external">
+                            <h3><span class="bold">2 未读</span> 通知</h3>
+                            <a href="#/profile/dashboard">查看所有</a>
+                        </li>
+                        <li>
+                            <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="time">刚刚</span>
+									<span class="details">
+									<span class="label label-sm label-icon label-success">
+									<i class="fa fa-bolt"></i>
+									</span>
+									同步任务失败 </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="time">3 分钟前</span>
+									<span class="details">
+									<span class="label label-sm label-icon label-danger">
+									<i class="fa fa-plus"></i>
+									</span>
+									需要进行通知学员考试. </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="separator hide"></li>
 
                 <!-- BEGIN USER LOGIN DROPDOWN -->
                 <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->

@@ -77,6 +77,44 @@ class StudentController extends StudentBaseController
         $this->display("lists");
     }
 
+    /**
+     * 查找当前字段配置
+     */
+    public function getFieldConf()
+    {
+        $list_data = $this->_list_grid($this->model);
+        $conf = M('field_display_conf')->where(array("token" => get_token(), "status" => $_REQUEST["status"], "model" => "student"))->find()["value"];
+        if (!empty($conf)) {
+            $confFieldList = explode(",", $conf);
+            for ($index = 0; $index < count($list_data ['fields']);) {
+                if (!in_array($list_data ['fields'][$index], $confFieldList)) {
+                    $list_data ['list_grids'][$index]["show"] = false;
+                }
+                $index++;
+            }
+        }
+
+        // 返回
+        $this->success("显示对应信息", null, null, $list_data ['list_grids']);
+    }
+
+    /**
+     *
+     * 保存当前字段显示配置
+     * @return mixed
+     */
+    public function saveFieldConf()
+    {
+        $model = M('field_display_conf');
+        $info = $model->where(array("token" => get_token(), "status" => intval($_REQUEST["status"]), "model" => "student"))->find();
+        if ($info) {
+            $info["value"] = i("value");
+            $result = $model->save($info);
+        } else {
+            $result = $model->add(array("token" => get_token(), "status" => intval($_REQUEST["status"]), "model" => "student", "value" => i("value")));
+        }
+        return $this->success($result);
+    }
 
     /**
      * 获取数据
@@ -91,23 +129,21 @@ class StudentController extends StudentBaseController
 
         // 解析列表规则
         $list_data = $this->_list_grid($model);
-        $grids = $list_data ['list_grids'];
-
-        // 设置查询字段
-        $fields = $list_data ['fields'];
-
         $conf = M('field_display_conf')->where(array("token" => get_token(), "status" => $_REQUEST["status"], "model" => "student"))->find()["value"];
         if (!empty($conf)) {
             $confFieldList = explode(",", $conf);
-            $tempFields = array();
-            foreach ($fields as $key => $value) {
-                if (in_array($value, $confFieldList)) {
-                    array_push($tempFields, $value);
+            for ($index = 0; $index < count($list_data ['fields']);) {
+                if (!in_array($list_data ['fields'][$index], $confFieldList)) {
+                    array_splice($list_data ['fields'], $index, 1);
+                    array_splice($list_data ['list_grids'], $index, 1);
+                    continue;
                 }
+                $index++;
             }
-            $fields = $tempFields;
         }
 
+        // 设置查询字段
+        $fields = $list_data ['fields'];
 
         // 搜索条件
         $fieldValue = "";
@@ -1062,17 +1098,28 @@ str;
 
 
     /**
+     * TODO 配置对应的账户 要系统配置当中
      * 同步学员信息
      * @param $status 学员状态
      */
-    function syncStudent($status = null, $data = null)
+    function syncStudent($account = null, $password = null, $status = null, $data = null)
     {
         // 登录
+        $status || $status = i("status");
+        $statusMap = array("1" => "录入", "2" => "科目一通过", "3" => "科目二通过", "4" => "科目三通过", "99" => "结业");
+        if ($status) {
+            $status = $statusMap[$status];
+            if (empty($status)) {
+                return;
+            }
+        }
+
         $cookiePath = "./Runtime/School/wudriver.cookie";
         $this->login_post("http://fj.jppt.com.cn/xmjp/loginSubmit.do", $cookiePath, array("loginName" => "bhjx1", "password" => "987987", "loginFlag" => "pw"));
 
         // 查询
-        $return = $this->get_post_content("http://fj.jppt.com.cn/xmjp/student/basic/main.do", $cookiePath, array("applyStartTime" => "2015-10-03", "applyEndTime" => "2016-01-03", "state" => $status));
+        $today = date("Y-m-d");
+        $return = $this->get_post_content("http://fj.jppt.com.cn/xmjp/student/basic/main.do", $cookiePath, array("applyStartTime" => $today, "applyEndTime" => $today, "state" => $status));
         $html = new \simple_html_dom($return);
         $pageInfo = $html->find('.pleft', 0)->plaintext;
         $pageNum = intval(substr($pageInfo, strpos($pageInfo, "共") + 3, strpos($pageInfo, "条") - strpos($pageInfo, "共") - 3));
@@ -1259,7 +1306,7 @@ str;
 
             for ($key = 0; $key < count($modelInfo["list_data"]["fields"]);) {
                 $value = $modelInfo["list_data"]["fields"][$key];
-                if (in_array($value, $confFieldList)) {
+                if ($value == "select" || in_array($value, $confFieldList)) {
                     $key++;
                     continue;
                 } else {
@@ -1273,6 +1320,9 @@ str;
         $this->ajaxReturn($modelInfo);
     }
 
+    /**
+     * 取得学员数目
+     */
     public function getStudentNum()
     {
         $model = M('student');
@@ -1282,11 +1332,33 @@ str;
             $this->error($model->getError());
         } else {
             $result = array();
-            foreach($queryResult as $item){
+            foreach ($queryResult as $item) {
                 $result[$item['status']] = $item['count'];
             }
 
-            $this->success("",null,null,$result);
+            $this->success("", null, null, $result);
         }
+    }
+
+    /**
+     * 判断操作是否出现
+     * @param data 数据
+     * @param opertaon 操作名称
+     */
+    protected function operationIsShow($data, $operation)
+    {
+        if ($operation == "绑定微信" && !empty($data["openid"])) {
+            return false;
+        }
+
+        if ($operation == "解绑微信" && empty($data["openid"])) {
+            return false;
+        }
+
+        if ($operation == "推荐费已支付" && (empty($data["in_student_openid"]) || (!empty($data["in_student_openid"] && $data["is_in_payed"] == "0")))) {
+            return false;
+        }
+
+        return true;
     }
 }

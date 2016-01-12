@@ -80,7 +80,7 @@ class AdminController extends CommonController
      * @param int $page
      * @param string $order
      */
-    public function listsAdmin()
+    public function listsAdmin($ajaxReturn = true)
     {
         // 设置操作栏
         $this->setAdminModel();
@@ -123,7 +123,7 @@ class AdminController extends CommonController
         }
         foreach ($orderList as $orderItem) {
             // 字段名称为空
-            if(empty($fields[$orderItem["column"]])){
+            if (empty($fields[$orderItem["column"]])) {
                 continue;
             }
 
@@ -132,8 +132,6 @@ class AdminController extends CommonController
                 $order .= ", ";
             }
             $order .= $fields[$orderItem["column"]] . " " . $orderItem["dir"];
-
-//            $order .= $grids[$orderItem["column"]]["field"][0] . " " . $orderItem["dir"];
         }
 
         // list data
@@ -147,11 +145,11 @@ class AdminController extends CommonController
             $convertRecord = array_values($record);
             // 配置操作栏显示
             $show = true;
-            if($index < $length/2){
+            if ($index < $length / 2) {
                 $show = false;
             }
             for ($i = 0; $i < count($record); $i++) {
-                $convertRecord[$i] = $this->get_list_field($record, $list_data ['list_grids'][$i], $model,$show);
+                $convertRecord[$i] = $this->get_list_field($record, $list_data ['list_grids'][$i], $model, $show);
             }
             if ($this->dataMultiEdit) {
                 array_unshift($convertRecord, '<input type="checkbox" name="id[]" value="' . $record['id'] . '">');
@@ -165,7 +163,11 @@ class AdminController extends CommonController
         $list_data["draw"] = i("draw");
 
         // return
-        $this->ajaxReturn($list_data);
+        if ($ajaxReturn) {
+            $this->ajaxReturn($list_data);
+        } else {
+            return $list_data;
+        }
     }
 
 
@@ -223,7 +225,8 @@ class AdminController extends CommonController
      */
     public function  saveAdmin()
     {
-        $this->ajaxReturn($this->saveModel());
+        $this->saveModel();
+        $this->success();
     }
 
     /**
@@ -260,7 +263,7 @@ class AdminController extends CommonController
      * @param string $jumpUrl
      * @param bool $ajax
      */
-    protected function success($message = '', $jumpUrl = '', $ajax = false,$data=null)
+    protected function success($message = '', $jumpUrl = '', $ajax = false, $data = null)
     {
         if ($this->isAdmin()) {
             $this->adminReturn(1, $message, $data);
@@ -298,7 +301,7 @@ class AdminController extends CommonController
      * @param $model
      * @return mixed|string
      */
-    function get_list_field($data, $grid, $model,$dropup=false)
+    function get_list_field($data, $grid, $model, $dropup = false)
     {
         // 获取当前字段数据
         foreach ($grid ['field'] as $field) {
@@ -360,29 +363,51 @@ class AdminController extends CommonController
                     if (strpos($href, '?') === false && strpos($href, '&') !== false) {
                         $href = preg_replace("/&/i", "?", $href, 1);
                     }
-                    if (strpos($href, "javascript_") === 0) {
-                        $val [] = '<a  target="' . $target . '" href="' . str_replace("javascript_", "javascript:", $href) . '"> ' . $show . ' </a>';
-                    } else if ($show == '删除') {
-                        $val [] = '<a class="confirm"   href="' . urldecode(U($href, $GLOBALS ['get_param'])) . '"> ' . $show . ' </a>';
-                    } else if (strpos($href, "#") === 0) {
-                        $val [] = '<a  data-target="' . $href . '" data-toggle="modal">' . $show . '</a>';
+                    if (strpos($href, "link_") === 0) {
+                        $val [] = '<a  target="' . $target . '" href="' . str_replace("javascript_", "javascript:", str_replace("link_", "", $href)) . '"> ' . $value . ' </a>';
                     } else {
-                        $val [] = '<a  target="' . $target . '" href="' . urldecode(U($href, $GLOBALS ['get_param'])) . '"> ' . $show . ' </a>';
+                        if (strpos($href, "javascript_") === 0) {
+                            $colors = array("blue");
+                            $color = $colors[array_rand($colors, 1)];
+                            $val [] = '<button type="button" class="btn ' . $color . ' btn-xs" target="' . $target . '" href="' . str_replace("javascript_", "javascript:", $href) . '"> ' . $show . ' </button>';
+                        } else if ($show == '删除') {
+                            $val [] = '<a class="confirm"   href="' . urldecode(U($href, $GLOBALS ['get_param'])) . '"> ' . $show . ' </a>';
+                        } else if (strpos($href, "#") === 0) {
+                            $val [] = '<a  data-target="' . $href . '" data-toggle="modal">' . $show . '</a>';
+                        } else {
+                            $val [] = '<a  target="' . $target . '" href="' . urldecode(U($href, $GLOBALS ['get_param'])) . '"> ' . $show . ' </a>';
+                        }
+                        if (!$this->operationIsShow($data, $show)) {
+                            array_pop($val);
+                        }
                     }
                 }
             }
             $value = implode('', $val);
             $class = "";
 
-            if(count($val) > 5){
-                if($dropup){
+            // 根据数据判断操作是否实现
+
+            // 超过组合成一个下拉框
+            if (count($val) > 5) {
+                if ($dropup) {
                     $class = "dropup";
                 }
                 $value = implode('</li><li>', $val);
-                $value = "<div class=\"btn-group ".$class."\"> <button class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\">相关操作</button> <ul class=\"dropdown-menu\" role=\"menu\"><li>".$value."</li></ul></div>";
+                $value = "<div class=\"btn-group " . $class . "\"> <button class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\">相关操作</button> <ul class=\"dropdown-menu\" role=\"menu\"><li>" . $value . "</li></ul></div>";
             }
         }
         return $value;
+    }
+
+    /**
+     * 判断操作是否出现
+     * @param data 数据
+     * @param opertaon 操作名称
+     */
+    protected function operationIsShow($data, $operation)
+    {
+        return true;
     }
 
     /**
@@ -394,5 +419,4 @@ class AdminController extends CommonController
     {
         $this->ajaxReturn($this->getDataById($this->model["name"]));
     }
-
 }
