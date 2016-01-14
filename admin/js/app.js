@@ -219,6 +219,32 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                 }]
             }
         })
+
+        // school info
+        .state("teacherList", {
+            url: "/teacher/list.html",
+            templateUrl: "views/common/list.html",
+            data: {pageTitle: "教练信息", module: "Teacher", handleController: "Teacher", action: "edit", info: true},
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([{
+                        name: 'ui.select',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
+                        ]
+                    },
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: $.merge(depFile.info, depFile.list)
+                        }]);
+                }]
+            }
+        })
+
         // student info
         .state("studentList", {
             url: "/student/list.html",
@@ -518,30 +544,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         })
 
 
-        // school info
-        .state("teacherList", {
-            url: "/teacher/list.html",
-            templateUrl: "views/common/list.html",
-            data: {pageTitle: "教练信息", module: "Teacher", handleController: "Teacher", action: "edit", info: true},
-            controller: "ListController",
-            resolve: {
-                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([{
-                        name: 'ui.select',
-                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                        files: [
-                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
-                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
-                        ]
-                    },
-                        {
-                            name: 'MetronicApp',
-                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: $.merge(depFile.info, depFile.list)
-                        }]);
-                }]
-            }
-        })
+
 
         // school info
         .state("userCenterList", {
