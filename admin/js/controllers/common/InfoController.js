@@ -97,12 +97,12 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
                     // 转换特殊情况数据
                     var field = getField(name);
                     if (field) {
-                        if (field.type.indexOf("time") > -1) {
+                        if (field.type == "datetime") {
                             var newDate = new Date($scope.info[name] * 1000);
                             $scope.info[name] = newDate.pattern("yyyy-MM-dd hh:mm:ss")
                         }
 
-                        if (field.type.indexOf("date") > -1) {
+                        if (field.type == "time") {
                             var newDate = new Date($scope.info[name] * 1000);
                             $scope.info[name] = newDate.pattern("yyyy-MM-dd")
                         }

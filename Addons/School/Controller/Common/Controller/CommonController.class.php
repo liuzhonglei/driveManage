@@ -319,6 +319,10 @@ class CommonController extends ExtendAddonsController
      */
     public function getModelInfo($ajaxReturn = true)
     {
+        //设置扩展
+        $this->setAdminModel();
+
+        // 得到model
         $model = $this->model;
         // get the  fields
         $model || $model = $this->getModel($_GET['model']); // 默认显示第一页数据

@@ -27,7 +27,6 @@ MetronicApp.filter('propsFilter', function () {
 
         return out;
     }
-        ;
 });
 
 
@@ -37,7 +36,7 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
     $scope.status = "-1";
 
     // 默认为报名
-    $scope.studentNum;
+    $scope.studentNum = {};
     // 学员数目
 
     // init ajax
@@ -46,11 +45,7 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
         Metronic.initAjax();
 
         // init the table
-        TableAjax.init('list', $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, {
-            status: $scope.status
-        });
-
-
+        $scope.setStatus("-1");
     });
 
     // 模块配置数据
@@ -61,7 +56,8 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
      */
     $scope.confSave = function () {
 
-    };
+    }
+    ;
 
     /**
      * 同步信息
@@ -83,7 +79,6 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
             alert(response);
         });
     }
-    ;
 
 
     /**
@@ -92,26 +87,52 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
      */
     $scope.setStatus = function (status) {
         $scope.status = status;
-        $scope.loadStudentNum();
-        TableAjax.init('list', $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, {
-            status: $scope.status
-        });
+        $scope.loadTable();
     }
+
+
+    $scope.loadTable = function () {
+        $scope.loadStudentNum();
+        TableAjax.init('list', $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, getSearchParam());
+    }
+
+    /**
+     * 获取查询参数
+     * @returns {{}}
+     */
+    function getSearchParam() {
+        var param = {};
+        $('#search_form').serializeArray().forEach(function (element, index, array) {
+            param[element.name] = element.value;
+            if (param[element.name] && element.name == "sign_begin_date") {
+                var timestamp = Date.parse(param[element.name] + " 00:00:00");
+                timestamp = timestamp / 1000;
+                param[element.name] = timestamp;
+            } else if (param[element.name] && element.name == "sign_end_date") {
+                var timestamp = Date.parse(param[element.name]+ " 23:59:59");
+                timestamp = timestamp / 1000;
+                param[element.name] = timestamp;
+            }
+        });
+        param.status = $scope.status;
+        return param;
+    }
+
 
     /**
      * 取得学员数目
      */
-    $scope.loadStudentNum = function () {
+    $scope.loadStudentNum = function (grid) {
         // 读取标签
-        $url = Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/getStudentNum";
-        $http.get($url).then(function successCallback(response) {
-            $scope.studentNum = response.data.data;
+        $scope.studentNum = "";
+        var url = Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/getStudentNum";
+        $http.get(url).then(function successCallback(response) {
+            $scope.studentNum = response.data.data[$scope.status];
         }, function errorCallback(response) {
 
         });
     }
     ;
-
 
     /**
      * 保存字段配置

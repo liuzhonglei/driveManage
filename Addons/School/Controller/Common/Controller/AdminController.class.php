@@ -19,6 +19,12 @@ class AdminController extends CommonController
         parent::_initialize();
         if ($this->isAdmin() && !is_login()) {
             $this->adminReturn(-1, "未登录");
+
+
+        }
+        if ($this->isAdmin()) {
+            // 设置操作栏
+            $this->setAdminModel();
         }
     }
 
@@ -369,7 +375,7 @@ class AdminController extends CommonController
                         if (strpos($href, "javascript_") === 0) {
                             $colors = array("blue");
                             $color = $colors[array_rand($colors, 1)];
-                            $val [] = '<button type="button" class="btn ' . $color . ' btn-xs" target="' . $target . '" href="' . str_replace("javascript_", "javascript:", $href) . '"> ' . $show . ' </button>';
+                            $val [] = '<button type="button" class="btn ' . $color . ' btn-xs" target="' . $target . '" onclick="' . str_replace("javascript_", "javascript:", $href) . '"> ' . $show . ' </button>';
                         } else if ($show == '删除') {
                             $val [] = '<a class="confirm"   href="' . urldecode(U($href, $GLOBALS ['get_param'])) . '"> ' . $show . ' </a>';
                         } else if (strpos($href, "#") === 0) {

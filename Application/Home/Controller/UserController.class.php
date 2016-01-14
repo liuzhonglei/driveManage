@@ -144,7 +144,9 @@ class UserController extends HomeController {
 
                     session ( 'is_follow_login', null );
 
-                    $this->success ( '登录成功！', $url );
+//                    $this->success ( '登录成功！', $url );
+
+					redirect($url);
                 } else {
                     $this->error ( $Member->getError () );
                 }
@@ -177,7 +179,8 @@ class UserController extends HomeController {
 
 		}
 
-		$this->success ( '退出成功！', $url);
+		redirect($url);
+//		$this->success ( '退出成功！', $url);
 	}
 	
 	/* 退出登录 */

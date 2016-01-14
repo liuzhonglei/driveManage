@@ -341,7 +341,7 @@ str;
         $select_data = M('teacher')->query($sql);
         // add url
         foreach ($select_data as &$vo) {
-            $vo[info_url] = U('teacherPage', 'teacher_id=' . $vo[id]);
+            $vo["info_url"] = U('teacherPage', 'teacher_id=' . $vo[id]);
         }
 
         // return

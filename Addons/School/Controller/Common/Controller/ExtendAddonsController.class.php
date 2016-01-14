@@ -129,6 +129,11 @@ class ExtendAddonsController extends AddonsController
                 $value ['title'] = str_replace($matches [0], '', $value ['title']);
                 $value ['width'] = $matches [1];
             }
+            if(strpos( $value ['title'],"_no_order") > -1){
+                $value['order'] = "0";
+                $value ['title'] = str_replace("_no_order", '', $value ['title']);
+            }
+
             if (isset ($val [2])) {
                 // 链接信息
                 $value ['href'] = $val [2];

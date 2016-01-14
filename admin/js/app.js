@@ -244,7 +244,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             ]
                         }, {
                             name: 'MetronicApp',
-                            files: $.merge($.merge(depFile.info, depFile.list), new Array('js/controllers/student/ListController.js', "../assets/global/plugins/jstree/dist/themes/default/style.min.css", "../assets/global/plugins/jstree/dist/jstree.min.js"))
+                            files: $.merge($.merge(depFile.info, depFile.list), new Array('js/controllers/student/ListController.js', "../assets/global/plugins/jstree/dist/themes/default/style.min.css", "../assets/global/plugins/jstree/dist/jstree.min.js")).concat(depFile.conf)
                         }]);
                 }]
             }
@@ -561,6 +561,34 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             }
         })
 
+
+
+        // 划款模块
+        .state("payList", {
+            url: "/pay/list.html",
+            templateUrl: "views/common/list.html",
+            data: {pageTitle: "自动回复", module: "EO2OPayment", handleController: "EO2OPayment", action: "edit", info: true},
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([{
+                        name: 'ui.select',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
+                        ]
+                    },
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: $.merge(depFile.info, depFile.list)
+                        }]);
+                }]
+            }
+        })
+
+
         // 微信自动回复
         .state("customReplyList", {
             url: "/customReply/list.html",
@@ -610,26 +638,23 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                 }]
             }
         })
-
-        // 团购活动
-        //.state("customReplyList", {
-        //    url: "/customReply/list.html",
-        //    templateUrl: "views/common/list.html",
-        //    data: {pageTitle: "自动回复", module: "CustomReply", handleController: "CustomReply"},
-        //    controller: "ListController",
-        //    resolve: {
-        //        deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-        //            return $ocLazyLoad.load([
-        //                {
-        //                    name: 'MetronicApp',
-        //                    insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-        //                    files: $.merge(depFile.info, depFile.list)
-        //                }]);
-        //        }]
-        //    }
-        //})
-
-
+        //  团购活动
+        .state("groupBuyList", {
+            url: "/groupBuy/list.html",
+            templateUrl: "views/common/list.html",
+            data: {pageTitle: "自动回复", module: "GroupBuy", handleController: "GroupBuy"},
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: $.merge(depFile.info, depFile.list)
+                        }]);
+                }]
+            }
+        })
         // 教练统计
         .state("teacherTop", {
             url: "/statistics/teacherTop.html",

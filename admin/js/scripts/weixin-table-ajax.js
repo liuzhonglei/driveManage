@@ -45,18 +45,16 @@ var TableAjax = function () {
 
                 // init column
                 for (var i = 0; i < data.list_data.list_grids.length; i++) {
-                    if (data.list_data.list_grids[i].title.indexOf('checkbox') > 0 || data.list_data.list_grids[i].title == "操作") {
-                        tableMap[name].columns.push({
-                            "sTitle": data.list_data.list_grids[i].title,
-                            "aTargets": [i],
-                            "bSortable": false
-                        });
-                    } else {
-                        tableMap[name].columns.push({
-                            "sTitle": data.list_data.list_grids[i].title,
-                            "aTargets": [i]
-                        });
+                    var idOrder = true;
+                    if (data.list_data.list_grids[i].title.indexOf('checkbox') > 0 || data.list_data.list_grids[i].title == "操作" || data.list_data.list_grids[i].order == "0") {
+                        idOrder = false;
                     }
+
+                    tableMap[name].columns.push({
+                        "sTitle": data.list_data.list_grids[i].title,
+                        "aTargets": [i],
+                        "bSortable": idOrder
+                    });
                 }
 
                 //查询数据

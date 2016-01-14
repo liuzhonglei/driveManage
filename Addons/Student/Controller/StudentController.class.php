@@ -161,6 +161,15 @@ class StudentController extends StudentBaseController
         }
         $map = $this->_search_map($model, $mapField);
         $map = $this->convertMap($map) . $this->getPayOpenid();;
+
+        // 增加日期限制
+        if(!empty($_REQUEST["sign_begin_date"])){
+            $map .=" and time_sign >= " . $_REQUEST["sign_begin_date"];
+        }
+        if(!empty($_REQUEST["sign_end_date"])){
+            $map .=" and time_sign <= " . $_REQUEST["sign_end_date"];
+        }
+
         if (!empty($fieldValue)) {
             $ids = $this->getStudentOpenids($fieldValue, "id");
             $openids = $this->getFollowOpneids($fieldValue, "openid");
@@ -226,7 +235,11 @@ class StudentController extends StudentBaseController
                 if (!empty($mapSql)) {
                     $mapSql .= " and ";
                 }
-                $mapSql .= $key . " = '" . $value . "'";
+                if(in_array($key, array("phone","name","card_id"))){
+                    $mapSql .= $key . " like '%" . $value . "%' ";
+                }else{
+                    $mapSql .= $key . " = '" . $value . "'";
+                }
             }
         } else {
             $mapSql = $map;
@@ -1098,12 +1111,20 @@ str;
 
 
     /**
-     * TODO 配置对应的账户 要系统配置当中
+     *  配置对应的账户 要系统配置当中
      * 同步学员信息
      * @param $status 学员状态
      */
     function syncStudent($account = null, $password = null, $status = null, $data = null)
     {
+
+        // 取得账户密码
+
+        $db_config = D ( 'Common/AddonConfig' )->get ( _ADDONS );
+        $account= $db_config["sync_account"];
+        $password = $db_config["sync_password"];
+
+
         // 登录
         $status || $status = i("status");
         $statusMap = array("1" => "录入", "2" => "科目一通过", "3" => "科目二通过", "4" => "科目三通过", "99" => "结业");
@@ -1115,7 +1136,7 @@ str;
         }
 
         $cookiePath = "./Runtime/School/wudriver.cookie";
-        $this->login_post("http://fj.jppt.com.cn/xmjp/loginSubmit.do", $cookiePath, array("loginName" => "bhjx1", "password" => "987987", "loginFlag" => "pw"));
+        $this->login_post("http://fj.jppt.com.cn/xmjp/loginSubmit.do", $cookiePath, array("loginName" => $account, "password" => $password, "loginFlag" => "pw"));
 
         // 查询
         $today = date("Y-m-d");
@@ -1200,9 +1221,9 @@ str;
 
 
         //学时
-        $studentInfo["time_k1"] = $this->convertTimeToStamp($studentInfo["time_k1"]);
-        $studentInfo["time_k2"] = $this->convertTimeToStamp($studentInfo["time_k2"]);
-        $studentInfo["time_k3"] = $this->convertTimeToStamp($studentInfo["time_k3"]);
+//        $studentInfo["time_k1"] = $studentInfo["time_k1"]);
+//        $studentInfo["time_k2"] = $studentInfo["time_k2"]);
+//        $studentInfo["time_k3"] = $studentInfo["time_k3"]);
 
         // 转换状态
         $statusMap = array("录入" => "1", "科目一通过" => "2", "科目二通过" => "3", "科目三通过" => "4", "结业" => "99", "逾期" => "-1");
@@ -1279,7 +1300,7 @@ str;
         $indexMinuteBegin = 0;
         if ($indexHour > 0) {
             $hour = intval(substr($time, 0, $indexHour));
-            $indexMinuteBegin = $indexHour + 3;
+            $indexMinuteBegin = $indexHour + 7;
         }
 
         // 计算分钟
@@ -1288,8 +1309,10 @@ str;
 
 
         // 反悔
-        return ($hour * 60 + $minute) * 60 * 1000;
+        return ($hour * 60 + $minute) * 60;
     }
+
+
 
     /**
      * 取得信息
@@ -1304,13 +1327,13 @@ str;
         if (!empty($conf)) {
             $confFieldList = explode(",", $conf);
 
-            for ($key = 0; $key < count($modelInfo["list_data"]["fields"]);) {
-                $value = $modelInfo["list_data"]["fields"][$key];
-                if ($value == "select" || in_array($value, $confFieldList)) {
+            for ($key = 0; $key < count($modelInfo["list_data"]["list_grids"]);) {
+                $value = $modelInfo["list_data"]["list_grids"][$key]["field"][0];
+                if (empty($value) || in_array(explode("|",$value)[0], $confFieldList)) {
                     $key++;
                     continue;
                 } else {
-                    array_splice($modelInfo["list_data"]["fields"], $key, 1);
+//                    array_splice($modelInfo["list_data"]["fields"], $key, 1);
                     array_splice($modelInfo["list_data"]["list_grids"], $key, 1);
                 }
             }
@@ -1347,15 +1370,15 @@ str;
      */
     protected function operationIsShow($data, $operation)
     {
-        if ($operation == "绑定微信" && !empty($data["openid"])) {
+        if ($operation == "绑定微信" && !empty($data["weixin_name"])) {
             return false;
         }
 
-        if ($operation == "解绑微信" && empty($data["openid"])) {
+        if ($operation == "解绑微信" && empty($data["weixin_name"])) {
             return false;
         }
 
-        if ($operation == "推荐费已支付" && (empty($data["in_student_openid"]) || (!empty($data["in_student_openid"] && $data["is_in_payed"] == "0")))) {
+        if ($operation == "推荐费已支付" && (empty($data["in_name"]) || (!empty($data["in_name"] && $data["is_in_payed"] == "0")))) {
             return false;
         }
 
