@@ -28,6 +28,24 @@ class WeixinController extends BaseController{
         $this->assign ( 'nav', $nav );
     }
 
+    /**
+     * 新界面显示的界面
+     */
+    protected function  setAdminModel(){
+        // 调用父类
+        parent::setAdminModel();
+
+        // 设置操作栏
+        $list_grids = $this->model['list_grid'];
+        $position = strpos($list_grids,"ids");
+        if($position > -1){
+            $list_grids = substr($list_grids,0,$position);
+        }
+        $list_grids.= "\r\nopenid:15%操作:javascript_followBind('[openid]')|绑定";
+        $this->model['list_grid'] = $list_grids;
+    }
+
+
     function lists(){
         // data
         $list_data = $this->_get_model_list ($this->model);

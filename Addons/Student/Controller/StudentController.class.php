@@ -77,6 +77,20 @@ class StudentController extends StudentBaseController
         $this->display("lists");
     }
 
+
+    /**
+     * 增加划款事项
+     * @param $fields
+     * @return \Addons\School\Controller\Common\Controller\当前的字段
+     */
+    public function getFieldList($fields)
+    {
+        $fields = parent::getFieldList($fields);
+        $fields = $this->setFiledExtra($fields, "sign_place_id", 'school_place', 'name');
+
+        return $fields;
+    }
+
     /**
      * 查找当前字段配置
      */
@@ -86,8 +100,8 @@ class StudentController extends StudentBaseController
         $conf = M('field_display_conf')->where(array("token" => get_token(), "status" => $_REQUEST["status"], "model" => "student"))->find()["value"];
         if (!empty($conf)) {
             $confFieldList = explode(",", $conf);
-            for ($index = 0; $index < count($list_data ['fields']);) {
-                if (!in_array($list_data ['fields'][$index], $confFieldList)) {
+            for ($index = 0; $index < count($list_data ['list_grids']);) {
+                if (!in_array($list_data ['list_grids'][$index]["field"][0], $confFieldList)) {
                     $list_data ['list_grids'][$index]["show"] = false;
                 }
                 $index++;

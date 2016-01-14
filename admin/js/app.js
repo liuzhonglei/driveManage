@@ -223,7 +223,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         // school info
         .state("teacherList", {
             url: "/teacher/list.html",
-            templateUrl: "views/common/list.html",
+            templateUrl: "views/teacher/list.html",
             data: {pageTitle: "教练信息", module: "Teacher", handleController: "Teacher", action: "edit", info: true},
             controller: "ListController",
             resolve: {

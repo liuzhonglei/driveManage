@@ -1,0 +1,109 @@
+<link href="../assets/admin/pages/css/portfolio.css" rel="stylesheet" type="text/css"/>
+<link href="../assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css"/>
+
+
+
+<div id="picture-list" class="modal fade bs-modal-lg" role="dialog" tabindex="0" aria-labelledby="myModalLabel10"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="portlet-title tabbable-line">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">微信粉丝信息</h4>
+                </div>
+            </div>
+            <div class="modal-body ">
+                <div class="filter-v1 margin-top-10">
+
+                    <div class="col-md-6 col-sm-6 mix category_1">
+                        <div class="mix-inner">
+                            <img class="img-responsive" src=s"../../assets/admin/pages/media/works/img1.jpg" alt="">
+
+                            <div class="mix-details">
+                                <h4>Cascusamus et iusto odio</h4>
+
+                                <p>
+                                    At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint
+                                    blanditiis prae
+                                    sentium.
+                                </p>
+                                <a class="mix-link">
+                                    <i class="fa fa-link"></i>
+                                </a>
+                                <a class="mix-preview fancybox-button"
+                                   href="../../assets/admin/pages/media/works/img1.jpg"
+                                   title="Project Name" data-rel="fancybox-button">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 mix category_2">
+                        <div class="mix-inner">
+                            <img class="img-responsive" src="../../assets/admin/pages/media/works/img2.jpg" alt="">
+
+                            <div class="mix-details">
+                                <h4>Cascusamus et iusto odio</h4>
+
+                                <p>
+                                    At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint
+                                    blanditiis prae
+                                    sentium voluptatum.
+                                </p>
+                                <a class="mix-link">
+                                    <i class="fa fa-link"></i>
+                                </a>
+                                <a class="mix-preview fancybox-button"
+                                   href="../../assets/admin/pages/media/works/img2.jpg"
+                                   title="Project Name" data-rel="fancybox-button">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 mix category_3">
+                        <div class="mix-inner">
+                            <img class="img-responsive" src="../../assets/admin/pages/media/works/img3.jpg" alt="">
+
+                            <div class="mix-details">
+                                <h4>Cascusamus et iusto odio</h4>
+
+                                <p>
+                                    At vero eos et accusamus et iusto odio digniss imos duc sasdimus qui sint
+                                    blanditiis prae
+                                    sentium.
+                                </p>
+                                <a class="mix-link">
+                                    <i class="fa fa-link"></i>
+                                </a>
+                                <a class="mix-preview fancybox-button"
+                                   href="../../assets/admin/pages/media/works/img3.jpg"
+                                   title="Project Name" data-rel="fancybox-button">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script type="text/javascript" src="../assets/global/plugins/jquery-mixitup/jquery.mixitup.min.js"></script>
+<script type="text/javascript" src="../assets/global/plugins/fancybox/source/jquery.fancybox.pack.js"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<script>
+    $('.mix-grid').mixitup();
+    /**
+     * 显示微信绑定界面
+     * @param id 对象id
+     */
+    function pictureListShow(id) {
+        $("#picture-list").modal("show");
+    }
+</script>

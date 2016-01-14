@@ -83,6 +83,8 @@ class EO2OPaymentController extends EO2OBaseController
         $fields = parent::getFieldList($fields);
         $fields = $this->setFiledExtra($fields, "payitem_id", 'school_payitem', 'name');
         $fields = $this->setFiledExtra($fields, "student_id", 'student', 'name');
+        $fields = $this->setFiledExtra($fields, "school_place_id", 'school_place', 'name');
+
 
         return $fields;
     }
@@ -365,4 +367,6 @@ class EO2OPaymentController extends EO2OBaseController
         $map['result_code'] = "SUCCESS";
         return M("eo2o_payment")->where($map)->select();
     }
+
+
 }

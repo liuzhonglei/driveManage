@@ -37,19 +37,11 @@ class AdminController extends CommonController
      */
     protected function setAdminModel()
     {
-        if ($this->model['list_grid_admin']) {
+        if (!empty($this->model['list_grid_admin'])) {
             $this->model['list_grid'] = $this->model['list_grid_admin'];
         }
     }
 
-//    /**
-//     * 取得模型信息
-//     */
-//    public function getModelInfo()
-//    {
-//        $this->setAdminModel();
-//        return parent::getModelInfo();
-//    }
 
 
     public function add()

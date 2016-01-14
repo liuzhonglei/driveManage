@@ -44,7 +44,11 @@ class WeixinController extends StudentBaseController{
 
         // 设置操作栏
         $list_grids = $this->model['list_grid'];
-        $list_grids = substr($list_grids,0,strpos($list_grids,"ids"))."openid:15%操作:javascript_followBind('[openid]')|绑定";
+        $position = strpos($list_grids,"ids");
+        if($position > -1){
+            $list_grids = substr($list_grids,0,$position);
+        }
+        $list_grids.= "\r\nopenid:15%操作:javascript_followBind('[openid]')|绑定";
         $this->model['list_grid'] = $list_grids;
     }
 
