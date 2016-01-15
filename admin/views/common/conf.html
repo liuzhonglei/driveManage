@@ -29,6 +29,18 @@
                                 </ui-select-choices>
                             </ui-select>
                         </div>
+                        <div ng-switch-when="checkbox">
+                            <ui-select multiple theme="bootstrap" class="input-medium "
+                                       ng-disabled="disabled"  ng-model="value.value" >
+                                <ui-select-match>
+                                    {{$item.text}}
+                                </ui-select-match>
+                                <ui-select-choices
+                                        repeat="item.value as  item in value.options | propsFilter: {text: $select.search}">
+                                    {{item.text}}
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
                     </div>
 
                 </div>

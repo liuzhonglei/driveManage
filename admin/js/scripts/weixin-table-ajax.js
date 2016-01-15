@@ -86,13 +86,15 @@ var TableAjax = function () {
         var searchText = $("#" + name + "-search-text").val();
 
         var url = Metronic.rootPath() + "/index.php?s=/addon/" + tableMap[name].module + "/" + tableMap[name].controler + "/" + method
-        if (searchName != null && searchText != null && searchName.length > 0 && searchText.length > 0) {
-            url += "/" + searchName + "/" + searchText;
-        }
+
         if (tableMap[name].param) {
             for (var key in tableMap[name].param) {
                 url += "/" + key + "/" + tableMap[name].param[key];
             }
+        }
+
+        if (searchName != null && searchText != null && searchName.length > 0 && searchText.length > 0) {
+            url += "&" + searchName + "=" + searchText;
         }
 
         // return

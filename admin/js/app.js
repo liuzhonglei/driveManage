@@ -621,7 +621,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("cutPriceList", {
             url: "/cutPrice/list.html",
             templateUrl: "views/common/list.html",
-            data: {pageTitle: "砍价活动", module: "CutPrice", handleController: "CutPrice"},
+            data: {pageTitle: "砍价活动", module: "CutPrice", handleController: "CutPrice", action: "show",conf: true},
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -636,7 +636,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: depFile.list
+                            files: $.merge($.merge(depFile.info, depFile.list), depFile.conf)
                         }]);
                 }]
             }
@@ -644,16 +644,23 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         //  团购活动
         .state("groupBuyList", {
             url: "/groupBuy/list.html",
-            templateUrl: "views/common/list.html",
-            data: {pageTitle: "自动回复", module: "GroupBuy", handleController: "GroupBuy"},
-            controller: "ListController",
+            templateUrl: "views/activity/groupBuy/list.html",
+            data: {pageTitle: "自动回复", module: "GroupBuy", handleController: "GroupBuyType"},
+            controller: "GroupBuyListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
+                    return $ocLazyLoad.load([{
+                        name: 'ui.select',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
+                        ]
+                    },
                         {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: $.merge(depFile.info, depFile.list)
+                            files: $.merge(depFile.info, depFile.list).concat(new Array('js/controllers/activity/groupBuy/ListController.js'))
                         }]);
                 }]
             }
