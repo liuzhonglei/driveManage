@@ -55,12 +55,13 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
                     // 转换特殊情况数据
                     var field = getField(name);
                     if (field) {
+
                         if (field.type == "datetime") {
                             var newDate = new Date($scope.info[name] * 1000);
                             $scope.info[name] = newDate.pattern("yyyy-MM-dd hh:mm:ss")
                         }
 
-                        if (field.type == "time") {
+                        if (field.type == "time" || field.type == "date") {
                             var newDate = new Date($scope.info[name] * 1000);
                             $scope.info[name] = newDate.pattern("yyyy-MM-dd")
                         }
@@ -157,7 +158,7 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
             // 转换特殊情况数据
             var field = getField(name);
             if (field) {
-                if (field.type == "time") {
+                if (field.type == "time" || field.type == "datetime" || field.type == "date") {
                     var timestamp = Date.parse(new Date($scope.info[name]));
                     timestamp = timestamp / 1000;
                     $scope.info[name] = timestamp;
