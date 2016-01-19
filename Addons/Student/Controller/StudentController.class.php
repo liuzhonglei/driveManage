@@ -528,6 +528,7 @@ STR;
         // param
         $token = get_token();
 
+        $Model = D(parse_name(get_table_name($this->model['id']), 1));
 
         if (!empty ($_FILES ['file_stu'] ['name'])) {
             $tmp_file = $_FILES ['file_stu'] ['tmp_name'];
@@ -554,7 +555,6 @@ STR;
             $objWorksheet = $objPHPExcel->getSheet(0);
             $colNum = $objWorksheet->getHighestColumn();
             $rowNum = $objWorksheet->getHighestRow();
-            $Model = D(parse_name(get_table_name($this->model['id']), 1));
             // 取得字段
             $fields = array();
             for ($j = 'A'; $j <= $colNum; $j++) {
@@ -1407,7 +1407,7 @@ str;
             return false;
         }
 
-        if ($operation == "推荐费已支付" && (empty($data["in_name"]) || (!empty($data["in_name"] && $data["is_in_payed"] == "0")))) {
+        if ($operation == "推荐费已支付" && (empty($data["in_name"]) || (!empty($data["in_name"] && $data["is_in_payed"] != "1")))) {
             return false;
         }
 
