@@ -5,13 +5,14 @@
                class="form-control  input-medium " ng-model="info[field.name]"/>
         <input ng-switch-when="num" class="form-control  input-medium "
                type="text" ng-model="info[field.name]">
-        <input ng-switch-when="textarea" type="text" name="{{field.name}}"
-               class="form-control  input-medium " ng-model="info[field.name]"/>
+        <textarea ng-switch-when="textarea"  class="form-control input-medium" maxlength="500" rows="5"></textarea>
+
         <input ng-switch-when="date"
                class="form-control form-control-inline input-medium datePicker"
                type="text" data-date-format="yyyy-mm-dd" name="{{field.name}}" ng-model="info[field.name]">
+
         <div ng-switch-when="datetime" class="input-group  input-medium  date form_datetime dataTimePicker">
-            <input type="text" name="{{field.name}}" size="16"  class="form-control"  ng-model="info[field.name]">
+            <input type="text" name="{{field.name}}" size="16" class="form-control" ng-model="info[field.name]">
 												<span class="input-group-btn">
 												<button class="btn default date-set" type="button"><i
                                                         class="fa fa-calendar"></i></button>
@@ -19,7 +20,7 @@
         </div>
         <div ng-switch-when="radio">
             <ui-select ng-model="info[field.name]" class="input-medium "
-                       theme="bootstrap" name="{{field.name}}" >
+                       theme="bootstrap" name="{{field.name}}">
                 <ui-select-match
                         placeholder="选择或搜索">
                     {{$select.selected.text}}
@@ -32,7 +33,7 @@
         </div>
         <div ng-switch-when="select">
             <ui-select ng-model="info[field.name]" class="input-medium "
-                       theme="bootstrap" name="{{field.name}}" >
+                       theme="bootstrap" name="{{field.name}}">
                 <ui-select-match
                         placeholder="选择或搜索">
                     {{$select.selected.text}}
@@ -45,7 +46,7 @@
         </div>
         <div ng-switch-when="checkbox">
             <ui-select multiple theme="bootstrap" class="input-medium "
-                       ng-disabled="disabled" ng-model="info[field.name]" name="{{field.name}}" >
+                       ng-disabled="disabled" ng-model="info[field.name]" name="{{field.name}}">
                 <ui-select-match>
                     {{$item.text}}
                 </ui-select-match>
@@ -55,8 +56,10 @@
                 </ui-select-choices>
             </ui-select>
         </div>
+
+
         <div ng-switch-when="editor">
-            <summernote name="{{field.name}}" ng-model="info[field.name]" name="{{field.name}}" >
+            <summernote name="{{field.name}}" ng-model="info[field.name]" name="{{field.name}}">
             </summernote>
         </div>
         <div ng-switch-when="picture">

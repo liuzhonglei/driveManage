@@ -145,36 +145,24 @@ document.addEventListener('touchmove', function (e) { e.preventDefault(); }, fal
             <div class="scroller_zone">
                 <div class="c_panel" id="allType">
                     <div class="c_popupList">
+                        <h3><span></span>报名费</h3>
+                        <ul style="display:none">
+                            <volist name="payitemList" id="vo">
+                                <if condition="($vo.type eq sign)">
+                                    <li alt="{$vo.fee}" value="{$vo.id}" title="{$vo.remark}"><img
+                                            src="{:MOBILE_PUBLIC_PATH}/img/radio.png">{$vo.name}
+                                    </li>
+                                </if>
+                            </volist>
+                        </ul>
+                    </div>
+                    <div class="c_popupList">
                         <h3><span></span>补考费</h3>
                         <ul style="display:none">
                             <volist name="payitemList" id="vo">
                                 <if condition="($vo.type eq supplementary)">
                                     <li alt="{$vo.fee}" value="{$vo.id}" title="{$vo.remark}"><img
                                         src="{:MOBILE_PUBLIC_PATH}/img/radio.png">{$vo.name}
-                                    </li>
-                                </if>
-                            </volist>
-                        </ul>
-                    </div>
-                    <div class="c_popupList">
-                        <h3><span></span>报名费</h3>
-                        <ul style="display:none">
-                            <volist name="payitemList" id="vo">
-                                <if condition="($vo.type eq sign)">
-                                    <li alt="{$vo.fee}" value="{$vo.id}" title="{$vo.remark}"><img
-                                        src="{:MOBILE_PUBLIC_PATH}/img/radio.png">{$vo.name}
-                                    </li>
-                                </if>
-                            </volist>
-                        </ul>
-                    </div>
-                    <div class="c_popupList">
-                        <h3><span></span>报名预约费</h3>
-                        <ul style="display:none">
-                            <volist name="payitemList" id="vo">
-                                <if condition="($vo.type eq activity)">
-                                    <li alt="{$vo.fee}" value="{$vo.id}" title="{$vo.remark}"><img
-                                            src="{:MOBILE_PUBLIC_PATH}/img/radio.png">{$vo.name}
                                     </li>
                                 </if>
                             </volist>

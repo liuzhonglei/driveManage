@@ -32,7 +32,7 @@
                               name="{{$state.$current.data.handleController}}-info">
                             <div class="portlet-body">
 
-                                <input type="text" id="form_info_id" hidden="true" ng-model='info["id"]'/>
+                                <input type="text" id="student_id" hidden="true" ng-model='info["id"]'/>
 
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="student_detail_info_1">
@@ -105,8 +105,8 @@
      * @param id 对象id
      */
     function studentDetailShow(id) {
-        $("#form_info_id").val(id);
-        $("#form_info_id").trigger("change");
+        $("#student_id").val(id);
+        $("#student_id").trigger("change");
         TableAjax.init('student-log', 'Student', 'Detail', {"info": "log", "student_id": id});
         TableAjax.init('student-money-log', 'Student', 'Detail', {"info": "moneyLog", "student_id": id});
         $("#student-detail").modal("show");

@@ -117,14 +117,18 @@ class CommonController extends ExtendAddonsController
      * @param $fieldName 要修改的字段名
      * @param $model 要查询的模型名称
      * @param $showFiled 要显示的模型字段
+     * @param @map 查询条件
      */
-    protected function setFiledExtra($fields, $fieldName, $model, $showFiled)
+    protected function setFiledExtra($fields, $fieldName, $model, $showFiled, $map = null)
     {
+        if(empty($map)){
+            array('token' => get_token());
+        }
+
         for ($i = 1; $i <= count($fields); $i++) {
             for ($j = 0; $j < count($fields[$i]); $j++) {
                 if ($fields[$i][$j]['name'] == $fieldName) {
-//                    $fields[$i][$j] ['extra'] = null;
-                    $extraData = $this->getFieldData($model, array('token' => get_token()),$showFiled);
+                    $extraData = $this->getFieldData($model,$map,$showFiled);
                     $fields[$i][$j] ['extra'] = $extraData;
                     return $fields;
                 }

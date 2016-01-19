@@ -128,6 +128,9 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
         var url = Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/getStudentNum";
         $http.get(url).then(function successCallback(response) {
             $scope.studentNum = response.data.data[$scope.status];
+            if(!$scope.studentNum){
+                $scope.studentNum = 0;
+            }
         }, function errorCallback(response) {
 
         });
