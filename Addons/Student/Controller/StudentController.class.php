@@ -1407,7 +1407,7 @@ str;
             return false;
         }
 
-        if ($operation == "推荐费已支付" && (empty($data["in_name"]) || (!empty($data["in_name"] && $data["is_in_payed"] != "1")))) {
+        if ($operation == "推荐费已支付" && (empty($data["in_name"]) || (!empty($data["in_name"] && $data["is_in_payed"] == "1")))) {
             return false;
         }
 
