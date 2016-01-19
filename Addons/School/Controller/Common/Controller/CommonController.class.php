@@ -72,7 +72,7 @@ class CommonController extends ExtendAddonsController
         }
         if ($result || empty($Model->getError())) {
             $this->_saveKeyword($this->model, $id);
-            $result = array("status" => "1", "info" => '保存成功','id'=>$id);
+            $result = array("status" => "1", "info" => '保存成功', 'id' => $id);
         } else {
             $result = array("status" => "0", "info" => "保存失败！" . $Model->getError());
         }
@@ -117,19 +117,25 @@ class CommonController extends ExtendAddonsController
      * @param $fieldName 要修改的字段名
      * @param $model 要查询的模型名称
      * @param $showFiled 要显示的模型字段
+     * @param $selectd 是否默认选中第一个数据
      * @param @map 查询条件
      */
-    protected function setFiledExtra($fields, $fieldName, $model, $showFiled, $map = null)
+    protected function setFiledExtra($fields, $fieldName, $model, $showFiled, $map = null,$selected = false)
     {
-        if(empty($map)){
+        if (empty($map)) {
             array('token' => get_token());
         }
 
         for ($i = 1; $i <= count($fields); $i++) {
             for ($j = 0; $j < count($fields[$i]); $j++) {
-                if ($fields[$i][$j]['name'] == $fieldName) {
-                    $extraData = $this->getFieldData($model,$map,$showFiled);
-                    $fields[$i][$j] ['extra'] = $extraData;
+               $fieldInfo =   $fields[$i][$j];
+                if ($fieldInfo['name'] == $fieldName) {
+                    $extraData = $this->getFieldData($model, $map, $showFiled,$fieldInfo['is_must']=="1");
+                    $fieldInfo ['extra'] = $extraData;
+                    if($selected && empty($fieldInfo["value"])){
+                        $fieldInfo["value"]  = explode(":",explode(",",$extraData)[0])[0];
+                    }
+                    $fields[$i][$j] = $fieldInfo;
                     return $fields;
                 }
             }
@@ -173,9 +179,13 @@ class CommonController extends ExtendAddonsController
      * @param $showField 显示字段
      * @return string id:value
      */
-    private function getFieldData($modelName, $map, $showField = 'name')
+    private function getFieldData($modelName, $map, $showField = 'name', $allowNull = true)
     {
-        $extra = "'':空\r\n";
+        $extra = "";
+        if ($allowNull) {
+            $extra += "'':空\r\n";
+        }
+
         $list = M($modelName)->where($map)->select();
 
         foreach ($list as $v) {
@@ -349,9 +359,9 @@ class CommonController extends ExtendAddonsController
         $result['list_data'] = $list_data;
 
         // return
-        if($ajaxReturn){
+        if ($ajaxReturn) {
             $this->ajaxReturn($result);
-        }else{
+        } else {
             return $result;
         }
     }
@@ -384,7 +394,7 @@ class CommonController extends ExtendAddonsController
      */
     public function getModelDataList($model, $getFields, $searchFieldList, $text)
     {
-        $sql = "select " . $getFields . " from wp_".$model." t where t.token = '" . get_token() . "' and (";
+        $sql = "select " . $getFields . " from wp_" . $model . " t where t.token = '" . get_token() . "' and (";
         $fieldMap = "";
         foreach ($searchFieldList as $field) {
             if (empty(!$fieldMap)) {
@@ -402,14 +412,14 @@ class CommonController extends ExtendAddonsController
      * 转换外键信息为对应的栏位信息
      * 在列表显示中使用
      */
-    protected function  convertListField($list, $idField, $showField, $model,$modelId,$fieldName = null)
+    protected function  convertListField($list, $idField, $showField, $model, $modelId, $fieldName = null)
     {
         $result = array();
-        $fieldName || $fieldName= $showField;
+        $fieldName || $fieldName = $showField;
         foreach ($list as $item) {
             $info = M($model)->where(array("token" => get_token(), $modelId => $item[$idField]))->find();
             $item[$showField] = $info[$fieldName];
-            array_push($result,$item);
+            array_push($result, $item);
         }
 
         // 反悔

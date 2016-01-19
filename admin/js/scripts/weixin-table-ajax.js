@@ -187,7 +187,7 @@ var TableAjax = function () {
             grid.getDataTable().ajax.reload();
         },
         add: function () {
-            $("#form_info_id").val();
+            $("#form_info_id").val("");
             $("#form_info_id").trigger("change");
             ComponentsFormTools.init();
             $("#form_info").modal("show");

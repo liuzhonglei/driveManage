@@ -40,7 +40,9 @@
                 </ui-select-match>
                 <ui-select-choices
                         repeat=" item.value as item in metadata[field.name] | filter: $select.search">
-                    <span ng-bind-html="item.text | highlight: $select.search"></span>
+                    <ng-if>
+                        <span ng-bind-html="item.text | highlight: $select.search"></span>
+                    </ng-if>
                 </ui-select-choices>
             </ui-select>
         </div>

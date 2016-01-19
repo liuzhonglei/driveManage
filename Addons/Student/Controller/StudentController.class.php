@@ -149,10 +149,24 @@ class StudentController extends StudentBaseController
             for ($index = 0; $index < count($list_data ['fields']);) {
                 if (!in_array($list_data ['fields'][$index], $confFieldList)) {
                     array_splice($list_data ['fields'], $index, 1);
-                    array_splice($list_data ['list_grids'], $index, 1);
                     continue;
                 }
                 $index++;
+            }
+        }
+
+        $conf = M('field_display_conf')->where(array("token" => get_token(), "status" => $_REQUEST["status"], "model" => "student"))->find()["value"];
+        if (!empty($conf)) {
+            $confFieldList = explode(",", $conf);
+
+            for ($key = 0; $key < count($list_data["list_grids"]);) {
+                $value = $list_data["list_grids"][$key]["field"][0];
+                if (empty($value) || in_array(explode("|",$value)[0], $confFieldList)) {
+                    $key++;
+                    continue;
+                } else {
+                    array_splice($list_data["list_grids"], $key, 1);
+                }
             }
         }
 
@@ -1230,17 +1244,18 @@ str;
         $studentInfo["time_sign"] = strtotime($studentInfo["time_sign"]);
 
         // 教练
-        $studentInfo["teacher_k1"] = M('teacher')->where(array("token" => get_token(), "name" => array("like", "%" . $studentInfo["teacher_k1"] . "%")))->find()['id'];
-        $studentInfo["teacher_k2"] = M('teacher')->where(array("token" => get_token(), "name" => array("like", "%" . $studentInfo["teacher_k2"] . "%")))->find()['id'];
+//        $studentInfo["teacher_k1"] = M('teacher')->where(array("token" => get_token(), "name" => array("like", "%" . $studentInfo["teacher_k1"] . "%")))->find()['id'];
+//        $studentInfo["teacher_k2"] = M('teacher')->where(array("token" => get_token(), "name" => array("like", "%" . $studentInfo["teacher_k2"] . "%")))->find()['id'];
 
 
         //学时
-//        $studentInfo["time_k1"] = $studentInfo["time_k1"]);
-//        $studentInfo["time_k2"] = $studentInfo["time_k2"]);
-//        $studentInfo["time_k3"] = $studentInfo["time_k3"]);
+        $studentInfo["time_k1"] = $this->convertTimeToStamp($studentInfo["time_k1"]);
+        $studentInfo["time_k2"] = $this->convertTimeToStamp($studentInfo["time_k2"]);
+        $studentInfo["time_k3"] = $this->convertTimeToStamp($studentInfo["time_k3"]);
+
 
         // 转换状态
-        $statusMap = array("录入" => "1", "科目一通过" => "2", "科目二通过" => "3", "科目三通过" => "4", "结业" => "99", "逾期" => "-1");
+        $statusMap = array("录入" => "1", "科目一通过" => "1", "科目二通过" => "2", "科目三通过" => "3", "结业" => "99", "逾期" => "-1");
         $studentInfo["status"] = $statusMap[$studentInfo["status"]];
 
         // 保存
