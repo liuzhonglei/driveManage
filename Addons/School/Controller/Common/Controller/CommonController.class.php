@@ -123,7 +123,7 @@ class CommonController extends ExtendAddonsController
     protected function setFiledExtra($fields, $fieldName, $model, $showFiled, $map = null,$selected = false)
     {
         if (empty($map)) {
-            array('token' => get_token());
+            $map = array('token' => get_token());
         }
 
         for ($i = 1; $i <= count($fields); $i++) {
