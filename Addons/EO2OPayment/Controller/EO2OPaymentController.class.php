@@ -119,9 +119,9 @@ class EO2OPaymentController extends EO2OBaseController
      * 需要修改
      * 获取模型列表数据
      */
-    public function _get_model_list($model = null, $page = 0, $order = 'id desc')
+    public function _get_model_list($model = null, $page = 0, $order = 'id desc',$map)
     {
-        $list_data = parent::_get_model_list($model, $page, $order);
+        $list_data = parent::_get_model_list($model, $page, $order,$map);
 
         // if referrer is student set in_name
         foreach ($list_data['list_data'] as &$data) {
