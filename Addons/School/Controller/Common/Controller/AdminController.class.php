@@ -413,8 +413,14 @@ class AdminController extends CommonController
      * @param null $model
      * @param int $id
      */
-    public function getModelDataById()
+    public function getModelDataById($ajaxReturn = true)
     {
-        $this->ajaxReturn($this->getDataById($this->model["name"]));
+        if($ajaxReturn){
+            $this->ajaxReturn($this->getDataById($this->model["name"]));
+        }else{
+            return $this->getDataById($this->model["name"]);
+        }
     }
+
+
 }

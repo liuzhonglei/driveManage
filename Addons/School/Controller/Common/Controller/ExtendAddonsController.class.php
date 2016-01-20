@@ -17,6 +17,8 @@ class ExtendAddonsController extends AddonsController
     // 需要修改查询的表
     public static $tableNames = array('student', 'student_question', 'student_banner', 'teacher', 'student_notification', 'qingqing_coupon', 'eo2o_payment');
 
+    var $fields = array();
+
     /**
      * 模板变量赋值
      *
@@ -114,7 +116,7 @@ class ExtendAddonsController extends AddonsController
      */
     public function _list_grid($model)
     {
-        $fields = array();
+        $fields = $this->fields;
         $grids = preg_split('/[;\r\n]+/s', htmlspecialchars_decode($model ['list_grid']));
         foreach ($grids as &$value) {
             // 字段:标题:链接

@@ -1255,8 +1255,8 @@ str;
 
 
         // 转换状态
-        $statusMap = array("录入" => "1", "科目一通过" => "1", "科目二通过" => "2", "科目三通过" => "3", "结业" => "99", "逾期" => "-1");
-        $studentInfo["status"] = $statusMap[$studentInfo["status"]];
+//        $statusMap = array("录入" => "1", "科目一通过" => "1", "科目二通过" => "2", "科目三通过" => "3", "结业" => "99", "逾期" => "-1");
+//        $studentInfo["status"] = $statusMap[$studentInfo["status"]];
 
         // 保存
         $model = M('student');
