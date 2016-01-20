@@ -107,13 +107,20 @@ class DetailController extends StudentBaseController{
     function  moneyLog(){
         $where = 'id  = ' .  $_REQUEST['student_id'] . '';
         $student = M("student")->where($where)->find();
-        $_REQUEST['openid'] = $student['openid'];
+
 
         $paymentController = new EO2OPaymentController();
 
         if($this->isAdmin()){
-            $paymentController->listsAdmin();
+            $map = "token = '".get_token()."' and result_code = 'SUCCESS' and (student_id = ".$student['id'];
+            if(!empty($student['openid'])){
+                $map .=" or openid = '".$student['openid']."')";
+            }else{
+                $map .=")";
+            }
+            $paymentController->listsAdmin(true,$map);
         }else{
+            $_REQUEST['openid'] = $student['openid'];
             $nav = $this->get('nav');
             $subNav = $this->get('sub_nav');
             $paymentController->lists($nav,$subNav);

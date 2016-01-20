@@ -186,26 +186,26 @@ class ExtendAddonsController extends AddonsController
      *
      * @return mixed
      */
-    public function _get_model_list($model = null, $page = 0, $order = 'id desc')
+    public function _get_model_list($model = null, $page = 0, $order = 'id desc',$map = null)
     {
         $page || $page = I('p', 1, 'intval'); // 默认显示第一页数据
 
         // 解析列表规则
         $list_data = $this->_list_grid($model);
-        $grids = $list_data ['list_grids'];
         $fields = $list_data ['fields'];
 
         // 搜索条件
-        $model_fields = M('attribute')->where('model_id=' . $model ['id'])->field('name')->select();
-        $mapField = Array();
-        foreach ($model_fields as $filed) {
-            array_push($mapField, $filed['name']);
+        if(empty($map)){
+            $model_fields = M('attribute')->where('model_id=' . $model ['id'])->field('name')->select();
+            $mapField = Array();
+            foreach ($model_fields as $filed) {
+                array_push($mapField, $filed['name']);
+            }
+            $map = $this->_search_map($model, $mapField);
         }
-        $map = $this->_search_map($model, $mapField);
 
         // 关键字搜索
         $row = empty ($model ['list_row']) ? 20 : $model ['list_row'];
-
 
         // 读取模型数据列表
         if ($model ['extend']) {

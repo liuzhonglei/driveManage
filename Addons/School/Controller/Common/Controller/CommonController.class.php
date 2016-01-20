@@ -120,20 +120,18 @@ class CommonController extends ExtendAddonsController
      * @param $selectd 是否默认选中第一个数据
      * @param @map 查询条件
      */
-    protected function setFiledExtra($fields, $fieldName, $model, $showFiled, $map = null,$selected = false)
+    protected function setFiledExtra($fields, $fieldName, $model, $showFiled, $map = null, $selected = false)
     {
-        if (empty($map)) {
-            $map = array('token' => get_token());
-        }
+        $map || $map = array('token' => get_token());
 
         for ($i = 1; $i <= count($fields); $i++) {
             for ($j = 0; $j < count($fields[$i]); $j++) {
-               $fieldInfo =   $fields[$i][$j];
+                $fieldInfo = $fields[$i][$j];
                 if ($fieldInfo['name'] == $fieldName) {
-                    $extraData = $this->getFieldData($model, $map, $showFiled,$fieldInfo['is_must']=="1");
+                    $extraData = $this->getFieldData($model, $map, $showFiled, $fieldInfo['is_must'] == "1");
                     $fieldInfo ['extra'] = $extraData;
-                    if($selected && empty($fieldInfo["value"])){
-                        $fieldInfo["value"]  = explode(":",explode(",",$extraData)[0])[0];
+                    if ($selected && empty($fieldInfo["value"])) {
+                        $fieldInfo["value"] = explode(":", explode(",", $extraData)[0])[0];
                     }
                     $fields[$i][$j] = $fieldInfo;
                     return $fields;

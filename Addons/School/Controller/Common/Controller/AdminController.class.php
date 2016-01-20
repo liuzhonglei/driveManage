@@ -78,7 +78,7 @@ class AdminController extends CommonController
      * @param int $page
      * @param string $order
      */
-    public function listsAdmin($ajaxReturn = true)
+    public function listsAdmin($ajaxReturn = true,$map = null)
     {
         // 设置操作栏
         $this->setAdminModel();
@@ -133,7 +133,7 @@ class AdminController extends CommonController
         }
 
         // list data
-        $list_data = $this->_get_model_list($model, $page, $order);
+        $list_data = $this->_get_model_list($model, $page, $order,$map);
 
         // convert
         $list_data ['data'] = array();

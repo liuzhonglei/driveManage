@@ -350,10 +350,16 @@ class EO2OPaymentController extends EO2OBaseController
     /**
      * 取得微信号划款流水
      */
-    function  moneyLog($openid = null)
+    function  moneyLog($openid = null,$studentId = null)
     {
         $map = array();
-        $map['openid'] = $openid;
+        if(!empty($openid)) {
+            $map['openid'] = $openid;
+        }
+        if(!empty($studentId)){
+            $map['student_id'] = $studentId;
+        }
+
         $map['openid'] || $map['openid'] = get_openid();
         $map['token'] = get_token();
         $map['result_code'] = "SUCCESS";

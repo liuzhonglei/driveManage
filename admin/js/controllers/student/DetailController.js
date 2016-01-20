@@ -219,8 +219,6 @@ MetronicApp.controller('StudentDetailController', ['$rootScope', '$http', '$scop
             }
         }
 
-
-
         $http({
             method: "post",
             url: Metronic.rootPath() + "/index.php?s=/addon/Student/Student/saveAdmin",
@@ -245,6 +243,5 @@ MetronicApp.controller('StudentDetailController', ['$rootScope', '$http', '$scop
              //or server returns response with an error status.
         });
     }
-
 }
 ]);
