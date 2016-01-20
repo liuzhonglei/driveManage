@@ -83,7 +83,7 @@ class EO2OPaymentController extends EO2OBaseController
         $fields = parent::getFieldList($fields);
         $fields = $this->setFiledExtra($fields, "payitem_id", 'school_payitem', 'name');
         $fields = $this->setFiledExtra($fields, "student_id", 'student', 'name');
-        $fields = $this->setFiledExtra($fields, "school_place_id", 'school_place', 'name',array("token"=>get_token(),"can_pay"=>"1"),true);
+        $fields = $this->setFiledExtra($fields, "school_place_id", 'school_place', 'name', array("token" => get_token(), "can_pay" => "1"), true);
 
         return $fields;
     }
@@ -358,14 +358,28 @@ class EO2OPaymentController extends EO2OBaseController
     /**
      * 取得微信号划款流水
      */
-    function  moneyLog($openid = null){
-        $map =   array();
-        $map['openid']= $openid;
-        $map['openid'] || $map['openid']= get_openid();
+    function  moneyLog($openid = null)
+    {
+        $map = array();
+        $map['openid'] = $openid;
+        $map['openid'] || $map['openid'] = get_openid();
         $map['token'] = get_token();
         $map['result_code'] = "SUCCESS";
         return M("eo2o_payment")->where($map)->select();
     }
 
-
+    /**
+     * get the data by id
+     * @param null $model
+     * @param int $id
+     */
+    public function getModelDataById($ajaxReturn = true)
+    {
+        $info = parent::getModelDataById();
+        if (!empty($info["openid"]) && empty($info["student_id"])) {
+            $studentInfo = M('student')->where(array("token" => get_token(), "openid" => $info["openid"]))->find();
+            $info["student_id"] = $studentInfo["id"];
+        }
+        $this->ajaxReturn($info);
+    }
 }
