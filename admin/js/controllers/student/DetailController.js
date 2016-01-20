@@ -62,7 +62,7 @@ MetronicApp.controller('StudentDetailController', ['$rootScope', '$http', '$scop
         if ($scope.info["id"] != null && $scope.info["id"].length > 0) {
             $http({
                 method: "get",
-                url: Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/getModelDataById/id/" + $scope.info["id"]
+                url: Metronic.rootPath() + "/index.php?s=/addon/Student/Student/getModelDataById/id/" + $scope.info["id"]
             }).success(function (data) {
                 $scope.info = data;
                 for (var name in data) {
@@ -111,7 +111,7 @@ MetronicApp.controller('StudentDetailController', ['$rootScope', '$http', '$scop
                 headers: function ($httpProvider) {
                     $httpProvider.defaults.withCredentials = true;
                 },
-                url: Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/getModelInfo"
+                url: Metronic.rootPath() + "/index.php?s=/addon/Student/Student/getModelInfo"
             }).success(function (data) {
                 // set the fieldGroup
                 $scope.fieldGroup = {};
