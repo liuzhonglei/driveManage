@@ -124,7 +124,6 @@ MetronicApp.controller('StudentDetailController', ['$rootScope', '$http', '$scop
                 // set fieldList
                 $scope.fieldList = data.fieldList;
 
-                //var fieldList = new Array();
                 for (var i in data.fieldList) {
                     for (var j in data.fieldList[i]) {
                         if (data.fieldList[i][j] === null || data.fieldList[i][j].length < 1) {
