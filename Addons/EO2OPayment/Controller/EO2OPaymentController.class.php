@@ -375,11 +375,23 @@ class EO2OPaymentController extends EO2OBaseController
      */
     public function getModelDataById($ajaxReturn = true)
     {
-        $info = parent::getModelDataById();
+        $info = parent::getModelDataById(false);
         if (!empty($info["openid"]) && empty($info["student_id"])) {
             $studentInfo = M('student')->where(array("token" => get_token(), "openid" => $info["openid"]))->find();
             $info["student_id"] = $studentInfo["id"];
         }
+        $info["total_fee"] = number_format(intval($info["total_fee"]) / 100, 2,".","");
         $this->ajaxReturn($info);
+    }
+
+
+    /**
+     * admin save
+     */
+    public function  saveAdmin()
+    {
+        $_POST["total_fee"] = strval($_POST["total_fee"] * 100);
+        $_REQUEST["total_fee"] =  $_POST["total_fee"] ;
+        parent::saveAdmin();
     }
 }
