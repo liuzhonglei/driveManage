@@ -145,6 +145,12 @@
                             ng-if="status == -1">{{studentNum}}</span></a>
                 </li>
                 <li>
+                    <a href="#" data-ng-click="setStatus('0')" data-target="#student-tab"
+                       data-toggle="tab">录入  <span
+                            class="badge   badge-roundless badge-danger"
+                            ng-if="status == 0">{{studentNum}}</span></a>
+                </li>
+                <li>
                     <a href="#" data-ng-click="setStatus('1')" data-target="#student-tab"
                        data-toggle="tab">科目一  <span
                             class="badge   badge-roundless badge-danger"

@@ -76,11 +76,13 @@ class FollowModel extends Model
     /**
      * 用户中心模块特殊处理
      * @param $openid
+     * @param $token
      * @return mixed
      */
-    function update_follow($openid)
+    function update_follow($openid,$token = null)
     {
-        $data ['token'] = get_token();
+        $data ['token'] = $token;
+        $data ['token'] || $data ['token'] = get_token();
         $data ['openid'] = $openid;
         $winfo = getWeixinUserInfo($openid, $data ['token']); //获取用户所有信息
 

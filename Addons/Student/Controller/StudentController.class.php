@@ -1008,38 +1008,58 @@ str;
         }
     }
 
+    /**
+     * 同步所有驾校学员信息
+     */
+    function syncAllStudentInfo()
+    {
+        $data = M("member_public")->where()->select();
+        foreach ($data as $item) {
+            if (!empty($item["token"])) {
+                $this->syncStudent(null, $item["token"],true,false);
+            }
+        }
+    }
 
     /**
      *  配置对应的账户 要系统配置当中
      * 同步学员信息
      * @param $status 学员状态
+     * @param $token 驾校token
+     * @param $isAll 是否全同步
      */
-    function syncStudent($status = null)
+    function syncStudent($status = null, $token = null, $isAll = false,$ajaxReturn = true)
     {
 
         // 取得账户密码
-
         $db_config = D('Common/AddonConfig')->get(_ADDONS);
         $account = $db_config["sync_account"];
         $password = $db_config["sync_password"];
 
 
-        // 登录
-        $status || $status = i("status");
-        $statusMap = array("1" => "录入", "2" => "科目一通过", "3" => "科目二通过", "4" => "科目三通过", "99" => "结业");
-        if ($status) {
-            $status = $statusMap[$status];
-            if (empty($status)) {
-                return;
+        // 组装查询条件
+        if ($isAll) {
+            $map = array();
+        } else {
+            $status || $status = i("status");
+            $statusMap = array("1" => "录入", "2" => "科目一通过", "3" => "科目二通过", "4" => "科目三通过", "99" => "结业");
+            if ($status) {
+                $status = $statusMap[$status];
+                if (empty($status)) {
+                    return;
+                }
             }
+            $today = date("Y-m-d");
+            $map = array("applyStartTime" => $today, "applyEndTime" => $today, "state" => $status);
         }
 
+
+        // 登录
         $cookiePath = "./Runtime/School/wudriver.cookie";
         $this->login_post("http://fj.jppt.com.cn/xmjp/loginSubmit.do", $cookiePath, array("loginName" => $account, "password" => $password, "loginFlag" => "pw"));
 
         // 查询
-        $today = date("Y-m-d");
-        $return = $this->get_post_content("http://fj.jppt.com.cn/xmjp/student/basic/main.do", $cookiePath, array("applyStartTime" => $today, "applyEndTime" => $today, "state" => $status));
+        $return = $this->get_post_content("http://fj.jppt.com.cn/xmjp/student/basic/main.do", $cookiePath, $map);
         $html = new \simple_html_dom($return);
         $pageInfo = $html->find('.pleft', 0)->plaintext;
         $pageNum = intval(substr($pageInfo, strpos($pageInfo, "共") + 3, strpos($pageInfo, "条") - strpos($pageInfo, "共") - 3));
@@ -1079,12 +1099,13 @@ str;
                 $index++;
 
                 $studentInfo["status"] = trim($value->children($index)->plaintext);
-                $this->insertStudent($studentInfo);
+                $this->insertStudent($studentInfo, $token);
             }
         }
 
-
-        $this->success("成功同步");
+        if($ajaxReturn){
+            $this->success("成功同步");
+        }
     }
 
 
@@ -1092,7 +1113,7 @@ str;
      * 插入同步学员信息
      * @param $studentInfo
      */
-    function insertStudent($studentInfo)
+    function insertStudent($studentInfo, $token = null)
     {
         // 性别
         switch ($studentInfo["sex"]) {
@@ -1107,9 +1128,15 @@ str;
                 break;
         }
 
+        // 查找已存在学员
+        $model = M('student');
+        $info = $model->where(array("card_id" => $studentInfo["card_id"]))->find();
+
+
         // 课程
-        $studentInfo["token"] = get_token();
-        $studentInfo["course_id"] = M('school_course')->where(array("token" => get_token(), "course" => array("like", "%" . $studentInfo["course_id"] . "%")))->find()['id'];
+        $token || $token = get_token();
+        $studentInfo["token"] = $token;
+        $studentInfo["course_id"] = M('school_course')->where(array("token" => $token, "course" => array("like", "%" . $studentInfo["course_id"] . "%")))->find()['id'];
 
         // 报名时间
         $studentInfo["time_sign"] = strtotime($studentInfo["time_sign"]);
@@ -1126,16 +1153,18 @@ str;
 
 
         // 转换状态
-//        $statusMap = array("录入" => "1", "科目一通过" => "1", "科目二通过" => "2", "科目三通过" => "3", "结业" => "99", "逾期" => "-1");
+//        $statusMap = array("录入" => "0", "科目一通过" => "1", "科目二通过" => "2", "科目三通过" => "3", "结业" => "4", "逾期" => "-1");
 //        $studentInfo["status"] = $statusMap[$studentInfo["status"]];
+//        if (intval($info["status"]) > intval($studentInfo["status"])) {
+//            unset($studentInfo["status"]);
+//        }
 
         // 保存
-        $model = M('student');
-        $info = $model->where(array("card_id" => $studentInfo["card_id"]))->find();
         if (!empty($info)) {
             $studentInfo['id'] = $info['id'];
             $model->save($studentInfo);
         } else {
+            $studentInfo["status"] = "0";
             $model->add($studentInfo);
         }
     }
@@ -1348,10 +1377,10 @@ str;
 
                 // find and save
                 $exist_student = $Model->where('card_id="' . $modelData['card_id'] . '"')->find();
-                if(!empty($exist_student)){
-                    $notifyField =  "exam_notify_".$modelData["status"];
-                    $dateField =  "exam_date_" . $modelData["status"];
-                    if($exist_student[$dateField] < $modelData[$dateField]){
+                if (!empty($exist_student)) {
+                    $notifyField = "exam_notify_" . $modelData["status"];
+                    $dateField = "exam_date_" . $modelData["status"];
+                    if ($exist_student[$dateField] < $modelData[$dateField]) {
                         $modelData[$notifyField] = "0";
                     }
                     unset($modelData["status"]);
