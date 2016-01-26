@@ -19,7 +19,8 @@ var Metronic = function() {
 
     var globalCssPath = 'global/css/';
 
-    var rootPath = "";
+    // TODO 修改成空路径
+    var rootPath = "http://localhost:8891";
 
     // theme layout color set
 

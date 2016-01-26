@@ -51,6 +51,13 @@ class UserCenterController extends BaseController {
 			$this->error('订阅号无拉取粉丝接口');
 		}
 	}
+
+	/**
+	 * 同步所有驾校信息
+	 */
+	public function SyncAllListsInfo(){
+
+	}
 	// 用户绑定
 	public function edit() {
 		$is_admin_edit = false;

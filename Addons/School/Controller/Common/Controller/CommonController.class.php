@@ -423,4 +423,26 @@ class CommonController extends ExtendAddonsController
         // 反悔
         return $result;
     }
+
+    /**
+     * 调用存储过程并返回
+     */
+    public function procedureQuery($procedureName,$param)
+    {
+
+        // search
+        $procedureName  || $procedureName = i("procedure_name");
+        $param || $param  = i("param");
+
+        $Model = M("");
+        if(!empty($param)){
+            $sql = "call ".$procedureName."('" . get_token() . "'," . $param . ");";
+        }else{
+            $sql = "call ".$procedureName."('" . get_token() . ");";
+        }
+        $result= $Model->query($sql);
+
+        // return
+        $this->success("成功", null, null, $result);
+    }
 }

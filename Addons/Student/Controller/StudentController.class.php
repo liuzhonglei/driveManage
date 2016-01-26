@@ -57,7 +57,7 @@ class StudentController extends StudentBaseController
      * show the liests
      * @param null $id_teacher
      */
-    public function lists($id_teacher = null)
+    public function  lists($id_teacher = null)
     {
         // tips
         $normal_tips = '一般情况下请不要删除数据，会影响对应的与评价等相关数据。';
@@ -161,7 +161,7 @@ class StudentController extends StudentBaseController
 
             for ($key = 0; $key < count($list_data["list_grids"]);) {
                 $value = $list_data["list_grids"][$key]["field"][0];
-                if (empty($value) || in_array(explode("|",$value)[0], $confFieldList)) {
+                if (empty($value) || in_array(explode("|", $value)[0], $confFieldList)) {
                     $key++;
                     continue;
                 } else {
@@ -191,11 +191,11 @@ class StudentController extends StudentBaseController
         $map = $this->convertMap($map) . $this->getPayOpenid();;
 
         // 增加日期限制
-        if(!empty($_REQUEST["sign_begin_date"])){
-            $map .=" and time_sign >= " . $_REQUEST["sign_begin_date"];
+        if (!empty($_REQUEST["sign_begin_date"])) {
+            $map .= " and time_sign >= " . $_REQUEST["sign_begin_date"];
         }
-        if(!empty($_REQUEST["sign_end_date"])){
-            $map .=" and time_sign <= " . $_REQUEST["sign_end_date"];
+        if (!empty($_REQUEST["sign_end_date"])) {
+            $map .= " and time_sign <= " . $_REQUEST["sign_end_date"];
         }
 
         if (!empty($fieldValue)) {
@@ -263,9 +263,9 @@ class StudentController extends StudentBaseController
                 if (!empty($mapSql)) {
                     $mapSql .= " and ";
                 }
-                if(in_array($key, array("phone","name","card_id"))){
+                if (in_array($key, array("phone", "name", "card_id"))) {
                     $mapSql .= $key . " like '%" . $value . "%' ";
-                }else{
+                } else {
                     $mapSql .= $key . " = '" . $value . "'";
                 }
             }
@@ -514,142 +514,10 @@ STR;
             }
         }
 
-
         //修改
         parent::edit();
     }
 
-
-    /**
-     * upload the excel
-     */
-    public function upload()
-    {
-        // param
-        $token = get_token();
-
-        $Model = D(parse_name(get_table_name($this->model['id']), 1));
-
-        if (!empty ($_FILES ['file_stu'] ['name'])) {
-            $tmp_file = $_FILES ['file_stu'] ['tmp_name'];
-            $file_types = explode(".", $_FILES ['file_stu'] ['name']);
-            $file_type = $file_types [count($file_types) - 1];
-            /*判别是不是.xls文件，判别是不是excel文件*/
-            if (strtolower($file_type) != "xls") {
-                $this->error('不是Excel文件，重新上传');
-            }
-            /*设置上传路径*/
-            $savePath = SITE_PATH . '/Uploads';
-            /*以时间来命名上传的文件*/
-
-            $file_name = "_xueyuan_" . get_token() . "." . $file_type;
-            /*是否上传成功*/
-            if (!copy($tmp_file, $savePath . $file_name)) {
-                $this->error('上传失败');
-            }
-
-
-            $objReader = \PHPExcel_IOFactory::createReader('Excel5');
-            $objReader->setReadDataOnly(true);
-            $objPHPExcel = $objReader->load($savePath . $file_name);
-            $objWorksheet = $objPHPExcel->getSheet(0);
-            $colNum = $objWorksheet->getHighestColumn();
-            $rowNum = $objWorksheet->getHighestRow();
-            // 取得字段
-            $fields = array();
-            for ($j = 'A'; $j <= $colNum; $j++) {
-                $value = $objWorksheet->getCell($j . '1')->getValue();
-                if (!empty($value)) {
-                    $fields[$j] = $value;
-                }
-            }
-
-            // get the field map
-            $fieldMap = $this->getFieldMap();
-
-            // 批量插入
-            for ($i = 3; $i <= $objWorksheet->getHighestRow(); $i++) {
-                $modelData = array();
-                $modelData['token'] = $token;
-                for ($j = 'A'; $j <= $objWorksheet->getHighestColumn(); $j++) {
-                    $value = $objWorksheet->getCell($j . $i)->getValue();
-                    if (!empty($fields[$j]) && !empty($value)) {
-                        $modelData[$fields[$j]] = $this->convertField($fieldMap, $fields[$j], $value);
-                    }
-                }
-
-                $exist_student = $Model->where('card_id="' . $modelData['card_id'] . '"')->find();
-                if (empty($exist_student)) {
-                    $Model->add($modelData);
-                } else {
-                    $modelData['id'] = $exist_student[id];
-                    $Model->save($modelData);
-                }
-            }
-        }
-
-        if (!empty($Model->getError())) {
-            $this->error($Model->getError());
-        } else {
-            $num = $colNum;
-            if ($num == null) {
-                $num = 0;
-            } else {
-                $num = $rowNum - 2;
-            }
-            $this->success('添加' . $num . '个' . $this->model ['title'] . '成功！', U('lists?model=' . $this->model ['name'], $this->get_param));
-        }
-    }
-
-    /**
-     *
-     * convert the file value
-     * @param $map
-     * @param $field_name
-     * @param $field_value
-     */
-    private function convertField($map, $field_name, $field_value)
-    {
-        // convert the value
-        if (empty($map) || empty($field_name)) {
-            return $field_value;
-        }
-
-        // change the date
-        if (in_array($field_name, array('time_sign', 'time_begin'))) {
-            if (!empty($field_value)) {
-                $field_value = (intval($field_value) - 70 * 365 - 19) * 86400 - 8 * 3600;
-            }
-        }
-
-        // change the teacher
-        if (in_array($field_name, array('id_teacher_k2', 'id_teacher_k3', 'id_in_teacher'))) {
-            $teacher = M('teacher')->where("name=\"" . $field_value . "\"")->find();
-            if (empty($teacher)) {
-                $field_value = null;
-            } else {
-                $field_value = $teacher['id'];
-            }
-        }
-
-        // change the course
-        if (in_array($field_name, array('course_id'))) {
-            $course = M('school_course')->where("name=\"" . $field_value . "\"")->find();
-            if (empty($course)) {
-                $field_value = null;
-            } else {
-                $field_value = $course['id'];
-            }
-        }
-
-        // convert the value
-        $convertValue = $map[$field_name][$field_value];
-        if ($convertValue != "0" && empty($convertValue)) {
-            return $field_value;
-        } else {
-            return $convertValue;
-        }
-    }
 
     /**
      * create the student conf map
@@ -724,6 +592,8 @@ STR;
         if ($this->isAdmin()) {
             $this->success();
         } else {
+
+
             $url = $_SERVER['HTTP_REFERER'];
             redirect($url);
         }
@@ -796,6 +666,7 @@ STR;
         // show
         $this->display(T(MOBILE_PATH . 'studentCenterTeacherList'));
     }
+
 
     /**
      * show comment teacher page
@@ -1143,13 +1014,13 @@ str;
      * 同步学员信息
      * @param $status 学员状态
      */
-    function syncStudent($account = null, $password = null, $status = null, $data = null)
+    function syncStudent($status = null)
     {
 
         // 取得账户密码
 
-        $db_config = D ( 'Common/AddonConfig' )->get ( _ADDONS );
-        $account= $db_config["sync_account"];
+        $db_config = D('Common/AddonConfig')->get(_ADDONS);
+        $account = $db_config["sync_account"];
         $password = $db_config["sync_password"];
 
 
@@ -1342,7 +1213,6 @@ str;
     }
 
 
-
     /**
      * 取得信息
      */
@@ -1358,11 +1228,10 @@ str;
 
             for ($key = 0; $key < count($modelInfo["list_data"]["list_grids"]);) {
                 $value = $modelInfo["list_data"]["list_grids"][$key]["field"][0];
-                if (empty($value) || in_array(explode("|",$value)[0], $confFieldList)) {
+                if (empty($value) || in_array(explode("|", $value)[0], $confFieldList)) {
                     $key++;
                     continue;
                 } else {
-//                    array_splice($modelInfo["list_data"]["fields"], $key, 1);
                     array_splice($modelInfo["list_data"]["list_grids"], $key, 1);
                 }
             }
@@ -1413,4 +1282,238 @@ str;
 
         return true;
     }
+
+    /**
+     * 文件导入
+     */
+    function fileImport()
+    {
+        $token = get_token();
+        $Model = D(parse_name(get_table_name($this->model['id']), 1));
+        if (!empty ($_FILES ['file_stu'] ['name'])) {
+
+            $tmp_file = $_FILES ['file_stu'] ['tmp_name'];
+            $file_types = explode(".", $_FILES ['file_stu'] ['name']);
+            $file_type = $file_types [count($file_types) - 1];
+            /*判别是不是.xls文件，判别是不是excel文件*/
+            if (strtolower($file_type) != "xls") {
+                $this->error('不是Excel文件，重新上传');
+            }
+            /*设置上传路径*/
+            $savePath = SITE_PATH . '/Uploads';
+            /*以时间来命名上传的文件*/
+
+            $file_name = "_xueyuan_" . get_token() . "." . $file_type;
+            /*是否上传成功*/
+            if (!copy($tmp_file, $savePath . $file_name)) {
+                $this->error('上传失败');
+            }
+
+            $objReader = \PHPExcel_IOFactory::createReader('Excel5');
+            $objReader->setReadDataOnly(true);
+            $objPHPExcel = $objReader->load($savePath . $file_name);
+            $objWorksheet = $objPHPExcel->getSheet(0);
+            $colNum = $objWorksheet->getHighestColumn();
+            $rowNum = $objWorksheet->getHighestRow();
+            // 取得字段
+            $fields = array();
+            $fieldMap = array("学员姓名" => "name", "准考证明编号" => "exam_serial", "身份证明号码" => "card_id", "考试科目" => "status", "考试车型" => "course_id", "预约日期" => "subscribe_date", "约考日期" => "exam_date", "考试场地" => "exam_place", "考试场次" => "exam_round");
+            for ($j = 'A'; $j <= $colNum; $j++) {
+                $value = $objWorksheet->getCell($j . '1')->getValue();
+                if (!empty($value)) {
+                    $fields[$j] = $fieldMap[$value];
+
+                }
+            }
+
+            // 批量插入
+            for ($i = 2; $i <= $objWorksheet->getHighestRow(); $i++) {
+                $modelData = array();
+                $modelData['token'] = $token;
+                for ($j = 'A'; $j <= $colNum; $j++) {
+                    $value = $objWorksheet->getCell($j . $i)->getValue();
+                    if (!empty($fields[$j]) && !empty($value) && in_array($fields[$j], array("status", "exam_serial", "card_id", "exam_date", "exam_place", "exam_round"))) {
+                        $modelData[$fields[$j]] = $this->convertField($fieldMap, $fields[$j], $value);
+                    }
+                }
+
+                // add the status prefix
+                foreach ($modelData as $key => $value) {
+                    if (strpos($key, "exam") > -1) {
+                        $modelData[$key . "_" . $modelData["status"]] = $value;
+                        unset($modelData[$key]);
+
+                    }
+                }
+
+                // find and save
+                $exist_student = $Model->where('card_id="' . $modelData['card_id'] . '"')->find();
+                if(!empty($exist_student)){
+                    $notifyField =  "exam_notify_".$modelData["status"];
+                    $dateField =  "exam_date_" . $modelData["status"];
+                    if($exist_student[$dateField] < $modelData[$dateField]){
+                        $modelData[$notifyField] = "0";
+                    }
+                    unset($modelData["status"]);
+
+                    $modelData['id'] = $exist_student[id];
+                    $Model->save($modelData);
+                }
+            }
+        }
+
+        $this->success();
+    }
+
+    /**
+     *
+     * 转换对应的栏位信息
+     * @param $map
+     * @param $field_name
+     * @param $field_value
+     */
+    private function convertField($map, $field_name, $field_value)
+    {
+        // convert the value
+        if (empty($map) || empty($field_name)) {
+            return $field_value;
+        }
+        if (strpos($field_name, "date") > -1) {
+            $field_value = strtotime($field_value);
+        } else if ($field_name == "status") {
+            $field_value = array("科目一" => 1, "科目二" => 2, "科目三" => 3, "科目四" => 4)[$field_value];
+        } else if (in_array($field_name, array('time_sign', 'time_begin'))) {
+            if (!empty($field_value)) {
+                $field_value = (intval($field_value) - 70 * 365 - 19) * 86400 - 8 * 3600;
+            }
+        } else if (in_array($field_name, array('id_teacher_k2', 'id_teacher_k3', 'id_in_teacher'))) {
+            $teacher = M('teacher')->where("name=\"" . $field_value . "\"")->find();
+            if (empty($teacher)) {
+                $field_value = null;
+            } else {
+                $field_value = $teacher['id'];
+            }
+        } else if (in_array($field_name, array('course_id'))) {
+            $course = M('school_course')->where("name=\"" . $field_value . "\"")->find();
+            if (empty($course)) {
+                $field_value = null;
+            } else {
+                $field_value = $course['id'];
+            }
+        }
+
+        // convert the value
+        $convertValue = $map[$field_name][$field_value];
+        if ($convertValue != "0" && empty($convertValue)) {
+            return $field_value;
+        } else {
+            return $convertValue;
+        }
+    }
+
+    /**
+     * upload the excel
+     */
+    public function upload()
+    {
+        // param
+        $token = get_token();
+
+        $Model = D(parse_name(get_table_name($this->model['id']), 1));
+
+        if (!empty ($_FILES ['file_stu'] ['name'])) {
+            $tmp_file = $_FILES ['file_stu'] ['tmp_name'];
+            $file_types = explode(".", $_FILES ['file_stu'] ['name']);
+            $file_type = $file_types [count($file_types) - 1];
+            /*判别是不是.xls文件，判别是不是excel文件*/
+            if (strtolower($file_type) != "xls") {
+                $this->error('不是Excel文件，重新上传');
+            }
+            /*设置上传路径*/
+            $savePath = SITE_PATH . '/Uploads';
+            /*以时间来命名上传的文件*/
+
+            $file_name = "_xueyuan_" . get_token() . "." . $file_type;
+            /*是否上传成功*/
+            if (!copy($tmp_file, $savePath . $file_name)) {
+                $this->error('上传失败');
+            }
+
+
+            $objReader = \PHPExcel_IOFactory::createReader('Excel5');
+            $objReader->setReadDataOnly(true);
+            $objPHPExcel = $objReader->load($savePath . $file_name);
+            $objWorksheet = $objPHPExcel->getSheet(0);
+            $colNum = $objWorksheet->getHighestColumn();
+            $rowNum = $objWorksheet->getHighestRow();
+            // 取得字段
+            $fields = array();
+            for ($j = 'A'; $j <= $colNum; $j++) {
+                $value = $objWorksheet->getCell($j . '1')->getValue();
+                if (!empty($value)) {
+                    $fields[$j] = $value;
+                }
+            }
+
+            // get the field map
+            $fieldMap = $this->getFieldMap();
+
+            // 批量插入
+            for ($i = 3; $i <= $objWorksheet->getHighestRow(); $i++) {
+                $modelData = array();
+                $modelData['token'] = $token;
+                for ($j = 'A'; $j <= $objWorksheet->getHighestColumn(); $j++) {
+                    $value = $objWorksheet->getCell($j . $i)->getValue();
+                    if (!empty($fields[$j]) && !empty($value)) {
+                        $modelData[$fields[$j]] = $this->convertField($fieldMap, $fields[$j], $value);
+                    }
+                }
+
+                $exist_student = $Model->where('card_id="' . $modelData['card_id'] . '"')->find();
+                if (empty($exist_student)) {
+                    $Model->add($modelData);
+                } else {
+                    $modelData['id'] = $exist_student[id];
+                    $Model->save($modelData);
+                }
+            }
+        }
+
+        if (!empty($Model->getError())) {
+            $this->error($Model->getError());
+        } else {
+            $num = $colNum;
+            if ($num == null) {
+                $num = 0;
+            } else {
+                $num = $rowNum - 2;
+            }
+            $this->success('添加' . $num . '个' . $this->model ['title'] . '成功！', U('lists?model=' . $this->model ['name'], $this->get_param));
+        }
+    }
+
+    /**
+     * 查询
+     * @param bool|true $ajaxReturn
+     * @param null $map
+     * @return mixed
+     */
+    public function listsAdmin($ajaxReturn = true, $map = null)
+    {
+        // page and length
+        $customActionName = i("customActionName");
+        $model = $this->model;
+
+        // if remove some data
+        if ($customActionName == "notify") {
+            $_POST['ids'] = $_POST['id'];
+            unset($_REQUEST['id']);
+            unset($_POST['id']);
+            R('Addons://Student/Notification/notifcation');
+        }
+
+        return parent::listsAdmin($ajaxReturn, $map); // TODO: Change the autogenerated stub
+    }
+
+
 }

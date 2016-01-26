@@ -35,6 +35,8 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
     $scope.rootData = $rootScope.$state.$current.data;
     $scope.status = "-1";
 
+
+
     // 默认为报名
     $scope.studentNum = {};
     // 学员数目
@@ -46,6 +48,10 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
 
         // init the table
         $scope.setStatus("-1");
+
+        //$scope.importUrl = Metronic.rootPath()+"/index.php?s=/addon/Student/Student/fileImport.html";
+        //$("#file-import-from").attr("action",$scope.importUrl);
+        //console.log($scope.importUrl);
     });
 
     // 模块配置数据
@@ -70,7 +76,7 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
 
         $http({
             method: 'GET',
-            url: '/index.php?s=/addon/Student/Student/syncStudent/status/' + $scope.status + '.html'
+            url: Metronic.rootPath()+'/index.php?s=/addon/Student/Student/syncStudent/status/' + $scope.status + '.html'
         }).then(function successCallback(response) {
             Metronic.stopPageLoading();
             TableAjax.reload('list');
@@ -147,7 +153,7 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
         // 保存
         $http({
             method: 'GET',
-            url: '/index.php?s=/addon/Student/Student/saveFieldConf/status/' + $scope.status + '/value/' + conf.join() + '.html'
+            url: Metronic.rootPath()+'/index.php?s=/addon/Student/Student/saveFieldConf/status/' + $scope.status + '/value/' + conf.join() + '.html'
         }).then(function successCallback(response) {
             TableAjax.init('list', $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, {
                 status: $scope.status
@@ -167,7 +173,7 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
 
         $http({
             method: 'GET',
-            url: '/index.php?s=/addon/Student/Student/getFieldConf/status/' + $scope.status + '.html'
+            url: Metronic.rootPath()+'/index.php?s=/addon/Student/Student/getFieldConf/status/' + $scope.status + '.html'
         }).then(function successCallback(response) {
             var treeData = {
                 "text": "显示字段",

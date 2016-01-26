@@ -8,7 +8,7 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
 
 
 
-    $scope.action = Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/saveAdmin";
+    //$scope.action = Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/saveAdmin";
     // init
     (function ($) {
         $.fn.datepicker.dates['zh-CN'] = {
@@ -161,13 +161,13 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
 
             // 转换特殊情况数据
             var field = getField(name);
-            if (field) {
-                if (field.type == "time" || field.type == "datetime" || field.type == "date") {
-                    var timestamp = Date.parse(new Date($scope.info[name]));
-                    timestamp = timestamp / 1000;
-                    $scope.info[name] = timestamp;
-                }
-            }
+            //if (field) {
+            //    if (field.type == "time" || field.type == "datetime" || field.type == "date") {
+            //        var timestamp = Date.parse(new Date($scope.info[name]));
+            //        timestamp = timestamp / 1000;
+            //        $scope.info[name] = timestamp;
+            //    }
+            //}
 
             // 转换数据
             if ($scope.info[name] instanceof Array) {

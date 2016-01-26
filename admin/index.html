@@ -155,6 +155,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="../assets/global/plugins/excanvas.min.js"></script>
 <![endif]-->
 <script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/jquery.form.min.js" type="text/javascript"></script>
 <script src="../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
 <script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
@@ -206,12 +207,20 @@ License: You must have a valid license purchased only from themeforest(the above
 </html>
 
 <script type="text/javascript">
+    // 判断是否已经等路
+    $.get(Metronic.rootPath()+"/index.php?s=/addon/School/School/isLogin", function (data) {
+        // 判断是否登录
+        if(data.result == "-1"){
+            window.location = "./login.html"
+        }
+    });
+
     /* Init Metronic's core jquery plugins and layout scripts */
     $(document).ready(function () {
         console.log('document');
         Metronic.init(); // Run metronic theme
         Metronic.setAssetsPath('../assets/'); // Set the assets folder path
-        $.get("/index.php?s=/Home/Home/login.html");
+        $.get(Metronic.rootPath()+"/index.php?s=/Home/Home/login.html");
     });
 
     Date.prototype.pattern=function(fmt) {

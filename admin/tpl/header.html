@@ -127,7 +127,7 @@
                                 <i class="icon-lock"></i> 修改密码 </a>
                         </li>
                         <li>
-                            <a href="/index.php?s=/Home/User/logoutAdmin.html">
+                            <a href="/index.php?s=/Home/User/logoutAdmin.html" id="logout-href">
                                 <i class="icon-key"></i> 登出 </a>
                         </li>
                     </ul>
@@ -140,3 +140,9 @@
     <!-- END PAGE TOP -->
 </div>
 <!-- END HEADER INNER -->
+<script>
+    jQuery(document).ready(function() {
+        $("#logout-href").attr("href",Metronic.rootPath()+"/index.php?s=/Home/User/logoutAdmin.html");
+    });
+
+</script>

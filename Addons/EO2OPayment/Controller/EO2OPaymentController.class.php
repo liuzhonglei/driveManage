@@ -119,9 +119,9 @@ class EO2OPaymentController extends EO2OBaseController
      * 需要修改
      * 获取模型列表数据
      */
-    public function _get_model_list($model = null, $page = 0, $order = 'id desc',$map)
+    public function _get_model_list($model = null, $page = 0, $order = 'id desc', $map)
     {
-        $list_data = parent::_get_model_list($model, $page, $order,$map);
+        $list_data = parent::_get_model_list($model, $page, $order, $map);
 
         // if referrer is student set in_name
         foreach ($list_data['list_data'] as &$data) {
@@ -350,13 +350,13 @@ class EO2OPaymentController extends EO2OBaseController
     /**
      * 取得微信号划款流水
      */
-    function  moneyLog($openid = null,$studentId = null)
+    function  moneyLog($openid = null, $studentId = null)
     {
         $map = array();
-        if(!empty($openid)) {
+        if (!empty($openid)) {
             $map['openid'] = $openid;
         }
-        if(!empty($studentId)){
+        if (!empty($studentId)) {
             $map['student_id'] = $studentId;
         }
 
@@ -392,4 +392,30 @@ class EO2OPaymentController extends EO2OBaseController
         $_REQUEST["total_fee"] = $_POST["total_fee"];
         parent::saveAdmin();
     }
+
+    /**
+     * 首页资金统计
+     */
+    public function payStatics()
+    {
+        $result = array();
+        $Model = M("eo2o_payment");
+
+        // search
+        $timeType = i("timetype");
+
+        $sql = "call statics_type_pay('" . get_token() . "','" . $timeType . "');";
+        $result["typePay"] = $Model->query($sql);
+        $db = $Model->db();
+//        $result["typePay"]->close();
+//        $db->queryID -> close();
+//        $db->free();
+//        $db->next_result();
+        $sql = "call statics_date_pay('" . get_token() . "','" . $timeType . "');";
+        $result["datePay"] = M("eo2o_payment")->query($sql);
+
+        // return
+            $this->success("成功", null, null, $result);
+    }
+
 }

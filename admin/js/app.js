@@ -63,14 +63,14 @@ MetronicApp.config(['$ocLazyLoadProvider', function ($ocLazyLoadProvider) {
     });
 }]);
 
-/**
- * define metadata
- */
-MetronicApp.constant('metadata',
-    {
-        "sex": [{"name": "男", value: "M"}, {"name": "女", value: "M"}],
-        "intro_source": []
-    });    //方法3定义全局变量
+///**
+// * define metadata
+// */
+//MetronicApp.constant('metadata',
+//    {
+//        "sex": [{"name": "男", value: "M"}, {"name": "女", value: "M"}],
+//        "intro_source": []
+//    });    //方法3定义全局变量
 
 
 /********************************************
@@ -203,15 +203,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         name: 'MetronicApp',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
-                            '../../../assets/global/plugins/morris/morris.css',
-                            '../../../assets/admin/pages/css/tasks.css',
+                            '../assets/global/plugins/morris/morris.css',
+                            //'../assets/admin/pages/css/tasks.css',
 
-                            '../../../assets/global/plugins/morris/morris.min.js',
-                            '../../../assets/global/plugins/morris/raphael-min.js',
-                            '../../../assets/global/plugins/jquery.sparkline.min.js',
-
-                            '../../../assets/admin/pages/scripts/index3.js',
-                            '../../../assets/admin/pages/scripts/tasks.js',
+                            '../assets/global/plugins/morris/morris.min.js',
+                            '../assets/global/plugins/morris/raphael-min.js',
+                            '../assets/global/plugins/jquery.sparkline.min.js',
+                            //
+                            //'../assets/admin/pages/scripts/index3.js',
+                            //'../assets/admin/pages/scripts/tasks.js',
 
                             'js/controllers/DashboardController.js'
                         ]

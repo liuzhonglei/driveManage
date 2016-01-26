@@ -6,7 +6,7 @@ MetronicApp.controller('StudentDetailController', ['$rootScope', '$http', '$scop
     $scope.info = {};
 
 
-    $scope.action = Metronic.rootPath() + "/index.php?s=/addon/Student/Student/saveAdmin";
+    //$scope.action = Metronic.rootPath() + "/index.php?s=/addon/Student/Student/saveAdmin";
 
     // init the field
     $http({

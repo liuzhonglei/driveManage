@@ -19,12 +19,21 @@ class AdminController extends CommonController
         parent::_initialize();
         if ($this->isAdmin() && !is_login()) {
             $this->adminReturn(-1, "未登录");
-
-
         }
         if ($this->isAdmin()) {
             // 设置操作栏
             $this->setAdminModel();
+        }
+    }
+
+    /**
+     * 是否登录
+     */
+    function isLogin(){
+        if ($this->isAdmin() && !is_login()) {
+            $this->success("已登录");
+        }else{
+            $this->error("未登录");
         }
     }
 

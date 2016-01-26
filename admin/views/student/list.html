@@ -1,4 +1,5 @@
 <div ng-include="'views/common/weixin-bind-modal.html'"/>
+<div ng-include="'views/student/import.html'" ng-controller="StudentListController"/>
 <div ng-include="'views/student/detail.html'" ng-controller="InfoController"/>
 <!--<div ng-include="'views/module/pageInfo.html'"/>-->
 
@@ -10,11 +11,11 @@
 <div class="col-md-12">
     <!-- BEGIN BLOCK BUTTONS PORTLET-->
     <div class="portlet light">
-        <div class="portlet-title">
-            <div class="caption">
+        <div class="portlet-title" style="height: 20px">
+            <div class="caption" style="height: 20px">
                 搜索条件
             </div>
-            <div class="tools">
+            <div class="tools" style="height: 20px">
                 <a href="javascript:;" class="expand" id="search-expand">
                 </a>
             </div>
@@ -42,7 +43,6 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label col-md-3">付款情况</label>
-
                                 <div class="col-md-9">
                                     <select name="pay_status" class="select2me form-control">
                                         <option value="">所有</option>
@@ -56,7 +56,6 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label col-md-3">报名来源</label>
-
                                 <div class="col-md-9">
                                     <select name="intro_source" class="select2me form-control">
                                         <option value="">所有</option>
@@ -66,6 +65,31 @@
                                         <option value="3">网站</option>
                                         <option value="4">门店介绍</option>
                                         <option value="5">轻轻平台</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">最近考试</label>
+                                <div class="col-md-9">
+                                    <select name="recent_exam" class="select2me form-control">
+                                        <option value="">所有</option>
+                                        <option value="1">是</option>
+                                        <option value="0">否</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">考试通知</label>
+                                <div class="col-md-9">
+                                    <select name="recent_exam" class="select2me form-control">
+                                        <option value="">所有</option>
+                                        <option value="1">未通知</option>
+                                        <option value="0">已通知</option>
                                     </select>
                                 </div>
                             </div>
@@ -99,11 +123,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-actions right">
+                    <button ng-click="loadTable()" class="btn green">搜索</button>
+                </div>
             </form>
-
-            <div class="form-actions right">
-                <button ng-click="loadTable()" class="btn green">搜索</button>
-            </div>
         </div>
     </div>
 </div>
@@ -171,6 +194,7 @@
                                 <select class="table-group-action-input form-control input-inline input-small input-sm">
                                     <option value="">批量操作</option>
                                     <option value="delete">删除</option>
+                                    <option value="notify">通知</option>
                                 </select>
                                 <button class="btn btn-sm yellow table-group-action-submit">提交 <i
                                         class="fa fa-check"></i>
@@ -178,9 +202,9 @@
                             </div>
                         </div>
                         <div class="row pull-right" style="margin-right: 5px">
-
                             <div class="btn-group btn-group-sm btn-group-solid">
                                 <button onclick="TableAjax.add()" type="button" class="btn red">新增</button>
+                                <button onclick="showFileImport()" type="button" class="btn yellow">导入</button>
                                 <button ng-click="showFieldConf()" type="button" class="btn green">字段配置</button>
                                 <button ng-click="syncStudentInfo()" type="button" class="btn blue">同步信息</button>
                             </div>

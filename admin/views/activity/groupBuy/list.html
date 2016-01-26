@@ -14,7 +14,7 @@
                         <a href="#" data-target="#tab_1_1" data-toggle="tab">团购信息</a>
                     </li>
                     <li >
-                        <a href="#" data-target="#tab_1_2" data-toggle="tab" id="nav-party" onclick="TableAjax.reload('group-buy-party',{})">组团人员</a>
+                        <a href="#" data-target="#tab_1_2" data-toggle="tab" id="nav-party" >组团人员</a>
                     </li>
                     <li>
                         <a href="#" data-target="#tab_1_3" data-toggle="tab">团购类型</a>
@@ -79,7 +79,7 @@
 <div ng-include="'views/common/info-modal.html'" ng-controller="InfoController"/>
 <script>
     function getParty(id){
-        TableAjax.reload('group-buy-party', {groupbuy_info_id:id});
+        TableAjax.reload('group-buy-party', {"groupbuy_info_id":id});
         $("#nav-party").click();
     }
 
