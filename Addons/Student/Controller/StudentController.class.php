@@ -1016,7 +1016,7 @@ str;
         $data = M("member_public")->select();
         foreach ($data as $item) {
             if (!empty($item["token"])) {
-                $this->syncStudent(null, $item["token"],true,false);
+                $this->syncStudent(null, $item["token"], true, false);
             }
         }
 
@@ -1030,15 +1030,19 @@ str;
      * @param $token 驾校token
      * @param $isAll 是否全同步
      */
-    function syncStudent($status = null, $token = null, $isAll = false,$ajaxReturn = true)
+    function syncStudent($status = null, $token = null, $isAll = false, $ajaxReturn = true)
     {
 
         // 取得账户密码
-        $token || $token= get_token();
-        $db_config = D('Common/AddonConfig')->get(_ADDONS,$token);
+        $token || $token = get_token();
+        $db_config = D('Common/AddonConfig')->get(_ADDONS, $token);
         $account = $db_config["sync_account"];
         $password = $db_config["sync_password"];
-        if(empty($account) || empty($password)){
+        $taskSign = $db_config["sync_task"];
+
+
+        //判读是否执行同步
+        if (empty($account) || empty($password) || ($isAll && $taskSign == "0")) {
             return;
         }
 
@@ -1070,10 +1074,10 @@ str;
         $pageInfo = $html->find('.pleft', 0)->plaintext;
         $pageNum = intval(substr($pageInfo, strpos($pageInfo, "共") + 3, strpos($pageInfo, "条") - strpos($pageInfo, "共") - 3));
 
-        $everyPageNum  = 1000;
+        $everyPageNum = 300;
         $htmlDom = new \simple_html_dom();
         for ($pageIndex = 1, $totalNum = 0; $totalNum < $pageNum; $totalNum += $everyPageNum, $pageIndex++) {
-            $return = $this->get_post_content("http://fj.jppt.com.cn/xmjp/student/basic/main.do?pageIndex=" . $pageIndex . "&pageSize=".$everyPageNum, $cookiePath);
+            $return = $this->get_post_content("http://fj.jppt.com.cn/xmjp/student/basic/main.do?pageIndex=" . $pageIndex . "&pageSize=" . $everyPageNum, $cookiePath);
 
             // 转换
             $htmlDom->load($return);
@@ -1111,7 +1115,7 @@ str;
             }
         }
 
-        if($ajaxReturn){
+        if ($ajaxReturn) {
             $this->success("成功同步");
         }
     }
@@ -1138,7 +1142,7 @@ str;
 
         // 查找已存在学员
         $model = M('student');
-        $info = $model->where(array("token"=>$token,"card_id" => $studentInfo["card_id"]))->find();
+        $info = $model->where(array("token" => $token, "card_id" => $studentInfo["card_id"]))->find();
 
 
         // 课程
@@ -1392,7 +1396,7 @@ str;
                         $modelData[$notifyField] = "0";
                     }
 
-                    if($modelData["status"] > intval($exist_student["status"] )){
+                    if ($modelData["status"] > intval($exist_student["status"])) {
                         $modelData['id'] = $exist_student[id];
                         $Model->save($modelData);
                     }
