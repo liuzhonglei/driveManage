@@ -1,27 +1,14 @@
 /* Setup general page controller */
 MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', function ($rootScope, $http, $scope) {
     // param
+    $scope.rootData = $rootScope.$state.$current.data;
+
+    // param
     $scope.metadata = {};
     $scope.selected = {};
     $scope.info = {};
     $scope.defaultInfo = {};
 
-
-
-    //$scope.action = Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/saveAdmin";
-    // init
-    (function ($) {
-        $.fn.datepicker.dates['zh-CN'] = {
-            days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
-            daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
-            daysMin: ["日", "一", "二", "三", "四", "五", "六", "日"],
-            months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
-            monthsShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
-            today: "今日",
-            format: "yyyy年mm月dd日",
-            weekStart: 1
-        };
-    }(jQuery));
 
     // init the field
     $http({
@@ -101,7 +88,6 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
                     // 转换特殊情况数据
                     var field = getField(name);
                     if (field) {
-
                         if (field.type == "datetime") {
                             var newDate = new Date($scope.info[name] * 1000);
                             $scope.info[name] = newDate.pattern("yyyy-MM-dd hh:mm:ss")
@@ -115,15 +101,13 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
                         if (field.type.indexOf("editor") > -1) {
                             var elem = $("[name='" + name + "']");
                             elem.code($scope.info[name]);
-
                         }
                     }
                 }
 
             });
         } else {
-            $.extend( $scope.info ,  $scope.defaultInfo);
-
+            $.extend($scope.info, $scope.defaultInfo);
         }
     });
 
@@ -159,16 +143,6 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
         var params = "";
         for (var name in $scope.info) {
 
-            // 转换特殊情况数据
-            var field = getField(name);
-            //if (field) {
-            //    if (field.type == "time" || field.type == "datetime" || field.type == "date") {
-            //        var timestamp = Date.parse(new Date($scope.info[name]));
-            //        timestamp = timestamp / 1000;
-            //        $scope.info[name] = timestamp;
-            //    }
-            //}
-
             // 转换数据
             if ($scope.info[name] instanceof Array) {
 
@@ -196,7 +170,6 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
         }
 
 
-
         $http({
             method: "post",
             url: Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/saveAdmin",
@@ -217,8 +190,8 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
             }
             $scope.info["id"] = null;
         }, function errorCallback(response) {
-             //called asynchronously if an error occurs
-             //or server returns response with an error status.
+            //called asynchronously if an error occurs
+            //or server returns response with an error status.
         });
     }
 

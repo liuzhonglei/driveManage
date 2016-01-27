@@ -34,10 +34,12 @@ var depFile = {
         '../assets/global/plugins/jquery-tags-input/jquery.tagsinput.css',
         '../assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css',
         '../assets/global/plugins/typeahead/typeahead.css',
+
         '../assets/global/plugins/bootstrap-datepicker/css/datepicker3.css',
-        '../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js',
+        '../assets/global/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js',
+
         '../assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
-        '../assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js',
+        '../assets/global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js',
 
         '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js',
         '../assets/global/plugins/fuelux/js/spinner.min.js',
@@ -62,15 +64,6 @@ MetronicApp.config(['$ocLazyLoadProvider', function ($ocLazyLoadProvider) {
         cssFilesInsertBefore: 'ng_load_plugins_before' // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
     });
 }]);
-
-///**
-// * define metadata
-// */
-//MetronicApp.constant('metadata',
-//    {
-//        "sex": [{"name": "男", value: "M"}, {"name": "女", value: "M"}],
-//        "intro_source": []
-//    });    //方法3定义全局变量
 
 
 /********************************************

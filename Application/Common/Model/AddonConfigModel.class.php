@@ -130,9 +130,10 @@ class AddonConfigModel extends Model {
 	 * 获取插件配置
 	 * 获取的优先级：当前公众号设置》后台默认配置》安装文件上的配置
 	 */
-	function get($addon) {
+	function get($addon,$token = null) {
 		// 当前公众号的设置
-		$map ['token'] = get_token ();
+		$map ['token'] = $token;
+		$map ['token'] || $map ['token'] = get_token ();
 		$token_config = M ( 'member_public' )->where ( $map )->getField ( 'addon_config' );
 		$token_config = json_decode ( $token_config, true );
 		$token_config = ( array ) $token_config [$addon];

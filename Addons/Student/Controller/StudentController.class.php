@@ -1013,12 +1013,14 @@ str;
      */
     function syncAllStudentInfo()
     {
-        $data = M("member_public")->where()->select();
+        $data = M("member_public")->select();
         foreach ($data as $item) {
             if (!empty($item["token"])) {
                 $this->syncStudent(null, $item["token"],true,false);
             }
         }
+
+        $this->success("成功同步");
     }
 
     /**
@@ -1032,9 +1034,13 @@ str;
     {
 
         // 取得账户密码
-        $db_config = D('Common/AddonConfig')->get(_ADDONS);
+        $token || $token= get_token();
+        $db_config = D('Common/AddonConfig')->get(_ADDONS,$token);
         $account = $db_config["sync_account"];
         $password = $db_config["sync_password"];
+        if(empty($account) || empty($password)){
+            return;
+        }
 
 
         // 组装查询条件
@@ -1064,12 +1070,14 @@ str;
         $pageInfo = $html->find('.pleft', 0)->plaintext;
         $pageNum = intval(substr($pageInfo, strpos($pageInfo, "共") + 3, strpos($pageInfo, "条") - strpos($pageInfo, "共") - 3));
 
-        for ($pageIndex = 1, $totalNum = 0; $totalNum < $pageNum; $totalNum += 100, $pageIndex++) {
-            $return = $this->get_post_content("http://fj.jppt.com.cn/xmjp/student/basic/main.do?pageIndex=" . $pageIndex . "&pageSize=100", $cookiePath);
+        $everyPageNum  = 1000;
+        $htmlDom = new \simple_html_dom();
+        for ($pageIndex = 1, $totalNum = 0; $totalNum < $pageNum; $totalNum += $everyPageNum, $pageIndex++) {
+            $return = $this->get_post_content("http://fj.jppt.com.cn/xmjp/student/basic/main.do?pageIndex=" . $pageIndex . "&pageSize=".$everyPageNum, $cookiePath);
 
             // 转换
-            $html = new \simple_html_dom($return);
-            $htmlDataList = $html->find('#table-1', 0)->find('tr');
+            $htmlDom->load($return);
+            $htmlDataList = $htmlDom->find('#table-1', 0)->find('tr');
             array_shift($htmlDataList);
             foreach ($htmlDataList as $value) {
                 $studentInfo = array();
@@ -1130,7 +1138,7 @@ str;
 
         // 查找已存在学员
         $model = M('student');
-        $info = $model->where(array("card_id" => $studentInfo["card_id"]))->find();
+        $info = $model->where(array("token"=>$token,"card_id" => $studentInfo["card_id"]))->find();
 
 
         // 课程
@@ -1147,9 +1155,9 @@ str;
 
 
         //学时
-        $studentInfo["time_k1"] = $this->convertTimeToStamp($studentInfo["time_k1"]);
-        $studentInfo["time_k2"] = $this->convertTimeToStamp($studentInfo["time_k2"]);
-        $studentInfo["time_k3"] = $this->convertTimeToStamp($studentInfo["time_k3"]);
+//        $studentInfo["time_k1"] = $this->convertTimeToStamp($studentInfo["time_k1"]);
+//        $studentInfo["time_k2"] = $this->convertTimeToStamp($studentInfo["time_k2"]);
+//        $studentInfo["time_k3"] = $this->convertTimeToStamp($studentInfo["time_k3"]);
 
 
         // 转换状态
@@ -1164,7 +1172,7 @@ str;
             $studentInfo['id'] = $info['id'];
             $model->save($studentInfo);
         } else {
-            $studentInfo["status"] = "0";
+            $studentInfo["status"] = "1";
             $model->add($studentInfo);
         }
     }
@@ -1192,7 +1200,7 @@ str;
      * @param $post
      * @return mixed
      */
-    function get_post_content($url, $cookie, $post)
+    function get_post_content($url, $cookie, $post = array())
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -1383,10 +1391,11 @@ str;
                     if ($exist_student[$dateField] < $modelData[$dateField]) {
                         $modelData[$notifyField] = "0";
                     }
-                    unset($modelData["status"]);
 
-                    $modelData['id'] = $exist_student[id];
-                    $Model->save($modelData);
+                    if($modelData["status"] > intval($exist_student["status"] )){
+                        $modelData['id'] = $exist_student[id];
+                        $Model->save($modelData);
+                    }
                 }
             }
         }

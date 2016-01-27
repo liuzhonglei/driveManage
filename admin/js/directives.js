@@ -80,7 +80,7 @@ MetronicApp.directive('summernote', function () {
 });
 
 /**
- * 日期选择
+ * 日期选择器
  */
 MetronicApp.directive('datePicker', function () {
     return {
@@ -90,7 +90,8 @@ MetronicApp.directive('datePicker', function () {
                 rtl: Metronic.isRTL(),
                 language:"zh-CN",
                 orientation: "left",
-                autoclose: true
+                autoclose: true,
+                initialDate : new Date()
             });
         }
     };
@@ -109,7 +110,8 @@ MetronicApp.directive('dataTimePicker', function () {
                 language: "zh-CN",
                 isRTL: Metronic.isRTL(),
                 format: "yyyy-mm-dd hh:ii",
-                pickerPosition: (Metronic.isRTL() ? "bottom-right" : "bottom-left")
+                pickerPosition: (Metronic.isRTL() ? "bottom-right" : "bottom-left"),
+                initialDate : new Date()
             });
         }
     };

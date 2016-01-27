@@ -66,7 +66,7 @@ class UserCenterController extends BaseController
      */
     public function syncWeixinFollow()
     {
-        $data = M("member_public")->where()->select();
+        $data = M("member_public")->select();
         foreach ($data as $item) {
             if(!empty($item["token"])){
                 $this->Alllistsinfo($item["token"]);

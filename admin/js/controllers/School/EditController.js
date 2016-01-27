@@ -46,12 +46,12 @@ MetronicApp.controller('EditController', ['$rootScope', '$http', '$scope', 'sett
 
     // photo
     var photo = $scope.photo = new FileUploader({
-        url: 'http://localhost:8891/index.php?s=/home/File/uploadPicture'
+        url: Metronic.rootPath()+'/index.php?s=/home/File/uploadPicture'
     });
 
     // images
     var uploader = $scope.uploader = new FileUploader({
-        url: 'http://localhost:8891/index.php?s=/home/File/uploadPicture'
+        url: Metronic.rootPath()+'index.php?s=/home/File/uploadPicture'
     });
 
     // FILTERS
