@@ -69,9 +69,10 @@ class UserCenterController extends BaseController
         $data = M("member_public")->select();
         foreach ($data as $item) {
             if(!empty($item["token"])){
-                $this->Alllistsinfo($item["token"]);
+                $this->Alllistsinfo($item["token"],false);
             }
         }
+        $this->success();
     }
 
     // 用户绑定
