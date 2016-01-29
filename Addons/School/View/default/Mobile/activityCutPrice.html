@@ -474,8 +474,8 @@
 
         wx.ready(function () {
             wx.onMenuShareTimeline({
-                title: '我在{$schoolInfo.name}学车，快来帮我砍价！谢啦！', // 分享标题
-                desc: '没有学不会的学员，只有不会教的教练,时间有限,赶紧报名!。',
+                title: '我在{$schoolInfo.name}学车，快来帮我砍价！朋友们！', // 分享标题
+                desc: '感情深不深，就看这回啦！为期一个月，时间不多啦!',
                 link: "{:U('show',null,false)}/token/{:get_token()}/activityopenid/{:get_openid()}", // 分享链接
                 imgUrl: "http://{$_SERVER['HTTP_HOST']}/{:MOBILE_PUBLIC_PATH}/img/cut_price_activity.png", // 分享图标
                 success: function (res) {
@@ -489,8 +489,8 @@
                 }
             });
             wx.onMenuShareAppMessage({
-                title: '我在{$schoolInfo.name}学车，快来帮我砍价！谢啦！', // 分享标题
-                desc: '没有学不会的学员，只有不会教的教练,时间有限,赶紧报名!',
+                title: '我在{$schoolInfo.name}学车，快来帮我砍价！朋友们！', // 分享标题
+                desc: '感情深不深，就看这回啦！为期一个月，时间不多啦!',
                 link: "{:U('show',null,false)}/token/{:get_token()}/activityopenid/{:get_openid()}", // 分享链接
                 imgUrl: "http://{$_SERVER['HTTP_HOST']}/{:MOBILE_PUBLIC_PATH}/img/cut_price_activity.png", // 分享图标
                 success: function (res) {
