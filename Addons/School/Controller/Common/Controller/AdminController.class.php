@@ -93,7 +93,6 @@ class AdminController extends CommonController
         $this->setAdminModel();
 
         // page and length
-        $custromActionType = i("custromActionType");
         $customActionName = i("customActionName");
         $start = I('start', 0, 'intval');
         $row = I('length', 1, 'intval');
@@ -125,12 +124,14 @@ class AdminController extends CommonController
 
         // order
         $orderList = i('order');
+        $columns = i("columns");
         if (!empty($orderList)) {
             $order = "";
         }
         foreach ($orderList as $orderItem) {
             // 字段名称为空
-            if (empty($fields[$orderItem["column"]])) {
+           $orderFieldName = explode("|",$columns[$orderItem["column"]]["name"])[0];
+            if (empty($orderFieldName)) {
                 continue;
             }
 
@@ -138,7 +139,7 @@ class AdminController extends CommonController
             if (!empty($order)) {
                 $order .= ", ";
             }
-            $order .= $fields[$orderItem["column"]] . " " . $orderItem["dir"];
+            $order .= $orderFieldName . " " . $orderItem["dir"];
         }
 
         // list data

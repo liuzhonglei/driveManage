@@ -52,6 +52,7 @@ var TableAjax = function () {
 
                     tableMap[name].columns.push({
                         "sTitle": data.list_data.list_grids[i].title,
+                        "sName": data.list_data.list_grids[i].field[0],
                         "aTargets": [i],
                         "bSortable": idOrder
                     });
