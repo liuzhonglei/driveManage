@@ -116,12 +116,6 @@ class AdminController extends CommonController
         // max row
         $model ['list_row'] = $row;
 
-        // model and  fields
-        $list_data = $this->_list_grid($model);
-        $grids = $list_data ['list_grids'];
-        $fields = $list_data ['fields'];
-
-
         // order
         $orderList = i('order');
         $columns = i("columns");
@@ -140,6 +134,9 @@ class AdminController extends CommonController
                 $order .= ", ";
             }
             $order .= $orderFieldName . " " . $orderItem["dir"];
+        }
+        if(empty($order)){
+            $order = null;
         }
 
         // list data

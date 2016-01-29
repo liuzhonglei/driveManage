@@ -83,6 +83,23 @@ class CommonController extends ExtendAddonsController
 
 
     /**
+     * 获取表名（不含表前缀）
+     *
+     * @param string $model_id
+     * @return string 表名
+     * @author huajie <banhuajie@163.com>
+     */
+    function get_table_name($model_id = null) {
+        $tableName = get_table_name($model_id);
+        // 判断是否有自定义模型
+        $class      =   '\\Addons\\'.ONETHINK_ADDON_PATH.'\\'.$name.$layer;
+
+        // 返回
+        return $tableName;
+    }
+
+
+    /**
      * 取得字段列表（信息)）
      * @param $model the model name
      */

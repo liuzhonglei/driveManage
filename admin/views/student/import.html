@@ -18,7 +18,8 @@
 
                                         <div class="col-md-6">
                                             <select class="form-control" name="fileType">
-                                                <option value="subResult">预约文件</option>
+                                                <option value="examSubscribe">考试预约</option>
+                                                <option value="examResult">考试成绩</option>
                                             </select>
                                         </div>
                                     </div>
@@ -54,7 +55,6 @@
         </div>
     </div>
 </div>
-<iframe id="id_iframe" name="id_iframe" style="display:none;"></iframe>
 <script type="text/javascript">
     /**
      * 显示微信绑定界面
@@ -66,8 +66,8 @@
 
     $(document).ready(function () {
         var options = {
-            target: '#output1',
             success: function (responseText, statusText, xhr, $form) {
+                TableAjax.reload('list');
                 $("#file-import").modal("hide");
             },
             url: Metronic.rootPath() + "/index.php?s=/addon/Student/Student/fileImport.html",

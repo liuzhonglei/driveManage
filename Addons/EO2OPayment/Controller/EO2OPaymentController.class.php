@@ -59,7 +59,6 @@ class EO2OPaymentController extends EO2OBaseController
             $_POST["result_code"] = "SUCCESS";
             $_POST["pay_channel"] = "human";
         } else {
-
             if (!empty($nav)) {
                 $this->assign('nav', $nav);
             }
