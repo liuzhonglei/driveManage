@@ -45,14 +45,19 @@ var TableAjax = function () {
 
                 // init column
                 for (var i = 0; i < data.list_data.list_grids.length; i++) {
+                    // 排序
                     var idOrder = true;
                     if (data.list_data.list_grids[i].title.indexOf('checkbox') > 0 || data.list_data.list_grids[i].title == "操作" || data.list_data.list_grids[i].order == "0") {
                         idOrder = false;
                     }
 
+                    var columnName = "name";
+                    if(data.list_data.list_grids[i].field){
+                        columnName = data.list_data.list_grids[i].field[0];
+                    }
                     tableMap[name].columns.push({
                         "sTitle": data.list_data.list_grids[i].title,
-                        "sName": data.list_data.list_grids[i].field[0],
+                        "sName": columnName,
                         "aTargets": [i],
                         "bSortable": idOrder
                     });
