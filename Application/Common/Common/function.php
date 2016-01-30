@@ -961,7 +961,7 @@ function get_table_name($model_id = null) {
 	if ($info ['extend'] != 0) {
 		$name = $Model->getFieldById ( $info ['extend'], 'name' ) . '_';
 	}
-	$name .= $info['class_path'].$info ['name'];
+	$name .= $info ['name'];
 	return $name;
 }
 

@@ -131,7 +131,7 @@ class ExtendAddonsController extends AddonsController
                 $value ['title'] = str_replace($matches [0], '', $value ['title']);
                 $value ['width'] = $matches [1];
             }
-            if(strpos( $value ['title'],"_no_order") > -1){
+            if (strpos($value ['title'], "_no_order") > -1) {
                 $value['order'] = "0";
                 $value ['title'] = str_replace("_no_order", '', $value ['title']);
             }
@@ -186,7 +186,7 @@ class ExtendAddonsController extends AddonsController
      *
      * @return mixed
      */
-    public function _get_model_list($model = null, $page = 0, $order = 'id desc',$map = null)
+    public function _get_model_list($model = null, $page = 0, $order = 'id desc', $map = null)
     {
         $page || $page = I('p', 1, 'intval'); // 默认显示第一页数据
 
@@ -195,7 +195,7 @@ class ExtendAddonsController extends AddonsController
         $fields = $list_data ['fields'];
 
         // 搜索条件
-        if(empty($map)){
+        if (empty($map)) {
             $model_fields = M('attribute')->where('model_id=' . $model ['id'])->field('name')->select();
             $mapField = Array();
             foreach ($model_fields as $filed) {
@@ -208,45 +208,28 @@ class ExtendAddonsController extends AddonsController
         $row = empty ($model ['list_row']) ? 20 : $model ['list_row'];
 
         // 读取模型数据列表
-        if ($model ['extend']) {
-            $name = get_table_name($model ['id']);
-            $parent = get_table_name($model ['extend']);
-            $fix = C("DB_PREFIX");
 
-            $key = array_search('id', $fields);
-            if (false === $key) {
-                array_push($fields, "{$fix}{$parent}.id as id");
-            } else {
-                $fields [$key] = "{$fix}{$parent}.id as id";
-            }
+        empty ($fields) || in_array('id', $fields) || array_push($fields, 'id');
 
-            /* 查询记录数 */
-            $count = M($parent)->join("INNER JOIN {$fix}{$name} ON {$fix}{$parent}.id = {$fix}{$name}.id")->where($map)->count();
-
-            // 查询数据
-            $data = M($parent)->join("INNER JOIN {$fix}{$name} ON {$fix}{$parent}.id = {$fix}{$name}.id")->field(empty ($fields) ? true : $fields)->where($map)->order("{$fix}{$parent}.{$order}")->page($page, $row)->select();
+        // special handle
+        if (!empty($this->listsTable)) {
+            $name = $this->listsTable;
         } else {
-            empty ($fields) || in_array('id', $fields) || array_push($fields, 'id');
-
-            // special handle
-            if (!empty($this->listsTable)) {
-                $name = $this->listsTable;
-            } else {
-                $name = get_table_name($model ['id']);
-                foreach (self::$tableNames as $handleName) {
-                    if (!strcmp($handleName, $name)) {
-                        $name .= '_all';
-                        break;
-                    }
+            $name = get_table_name($model ['id']);
+            foreach (self::$tableNames as $handleName) {
+                if (!strcmp($handleName, $name)) {
+                    $name .= '_all';
+                    break;
                 }
             }
-
-            //$name = parse_name ($name, true );
-            $data = M($name)->field(empty ($fields) ? true : $fields)->where($map)->order($order)->page($page, $row)->select();
-
-            /* 查询记录总数 */
-            $count = M($name)->where($map)->count();
         }
+
+        //$name = parse_name ($name, true );
+        $data = M($name)->field(empty ($fields) ? true : $fields)->where($map)->order($order)->page($page, $row)->select();
+
+        /* 查询记录总数 */
+        $count = M($name)->where($map)->count();
+
 
         // 设置数据和数据
         $list_data ['list_data'] = $data;
@@ -261,8 +244,6 @@ class ExtendAddonsController extends AddonsController
 
         return $list_data;
     }
-
-
 
 
 }

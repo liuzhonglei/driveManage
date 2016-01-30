@@ -63,7 +63,7 @@ class CommonController extends ExtendAddonsController
         $id = i('id');
 
         // process
-        $Model = D(parse_name(get_table_name($model ['id']), 1));
+        $Model = D($model ['class_path'].parse_name(get_table_name($model ['id']), 1));
         $Model = $this->checkAttr($Model, $model['id']);
         if (empty(i('id'))) {
             $result = $Model->create() && $id = $Model->add();
