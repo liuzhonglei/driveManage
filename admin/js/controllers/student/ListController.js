@@ -36,7 +36,6 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
     $scope.status = "-1";
 
 
-
     // 默认为报名
     $scope.studentNum = {};
     // 学员数目
@@ -76,7 +75,7 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
 
         $http({
             method: 'GET',
-            url: Metronic.rootPath()+'/index.php?s=/addon/Student/Student/syncStudent/status/' + $scope.status + '.html'
+            url: Metronic.rootPath() + '/index.php?s=/addon/Student/Student/syncStudent/status/' + $scope.status + '.html'
         }).then(function successCallback(response) {
             Metronic.stopPageLoading();
             TableAjax.reload('list');
@@ -109,16 +108,19 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
     function getSearchParam() {
         var param = {};
         $('#search_form').serializeArray().forEach(function (element, index, array) {
-            param[element.name] = element.value;
-            if (param[element.name] && element.name == "sign_begin_date") {
-                var timestamp = Date.parse(param[element.name] + " 00:00:00");
-                timestamp = timestamp / 1000;
-                param[element.name] = timestamp;
-            } else if (param[element.name] && element.name == "sign_end_date") {
-                var timestamp = Date.parse(param[element.name]+ " 23:59:59");
-                timestamp = timestamp / 1000;
-                param[element.name] = timestamp;
+            if (element.value != "") {
+                param[element.name] = element.value;
+                if (param[element.name] && element.name == "sign_begin_date") {
+                    var timestamp = Date.parse(param[element.name] + " 00:00:00");
+                    timestamp = timestamp / 1000;
+                    param[element.name] = timestamp;
+                } else if (param[element.name] && element.name == "sign_end_date") {
+                    var timestamp = Date.parse(param[element.name] + " 23:59:59");
+                    timestamp = timestamp / 1000;
+                    param[element.name] = timestamp;
+                }
             }
+
         });
         param.status = $scope.status;
         return param;
@@ -128,20 +130,25 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
     /**
      * 取得学员数目
      */
-    $scope.loadStudentNum = function (grid) {
+    $scope.loadStudentNum = function () {
         // 读取标签
         $scope.studentNum = "";
-        var url = Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/getStudentNum";
-        $http.get(url).then(function successCallback(response) {
-            $scope.studentNum = response.data.data[$scope.status];
-            if(!$scope.studentNum){
+        var param = getSearchParam();
+        var url = Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/getStudentNum"
+        for (var key in param) {
+            url += "/" + key + "/" + param[key];
+        }
+
+        $http({
+            method: 'GET',
+            url:url
+        }).then(function successCallback(response) {
+            $scope.studentNum = response.data.data;
+            if (!$scope.studentNum) {
                 $scope.studentNum = 0;
             }
-        }, function errorCallback(response) {
-
         });
     }
-    ;
 
     /**
      * 保存字段配置
@@ -153,7 +160,7 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
         // 保存
         $http({
             method: 'GET',
-            url: Metronic.rootPath()+'/index.php?s=/addon/Student/Student/saveFieldConf/status/' + $scope.status + '/value/' + conf.join() + '.html'
+            url: Metronic.rootPath() + '/index.php?s=/addon/Student/Student/saveFieldConf/status/' + $scope.status + '/value/' + conf.join() + '.html'
         }).then(function successCallback(response) {
             TableAjax.init('list', $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, {
                 status: $scope.status
@@ -173,7 +180,7 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
 
         $http({
             method: 'GET',
-            url: Metronic.rootPath()+'/index.php?s=/addon/Student/Student/getFieldConf/status/' + $scope.status + '.html'
+            url: Metronic.rootPath() + '/index.php?s=/addon/Student/Student/getFieldConf/status/' + $scope.status + '.html'
         }).then(function successCallback(response) {
             var treeData = {
                 "text": "显示字段",

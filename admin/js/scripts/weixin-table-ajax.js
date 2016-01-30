@@ -127,6 +127,9 @@ var TableAjax = function() {
         tableMap[name].grid.init({
             src: $("#" + name + "-table"),
             onSuccess: function(grid) {
+                console.log(grid.getTable());
+               var info = $(grid.getTable()).find("#list-table_info")
+               info.text();
                 if (successCallback) {
                     successCallback(grid);
                 }

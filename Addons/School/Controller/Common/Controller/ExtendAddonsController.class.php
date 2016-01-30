@@ -65,7 +65,7 @@ class ExtendAddonsController extends AddonsController
 
             unset($map['token']);
             unset($map[$fieldName]);
-            // converth map
+            // convert map
             foreach ($map as $mapMame => $mapValue) {
                 $where_str = $where_str . " and " . $mapMame . ' = "' . $mapValue . '" ';
             }

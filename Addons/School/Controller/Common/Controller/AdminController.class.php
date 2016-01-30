@@ -108,8 +108,6 @@ class AdminController extends CommonController
             }
         }
 
-        // 设置操作列表
-
         // page
         $page = floor($start / $row) + 1;
 
@@ -428,6 +426,4 @@ class AdminController extends CommonController
             return $this->getDataById($this->model["name"]);
         }
     }
-
-
 }
