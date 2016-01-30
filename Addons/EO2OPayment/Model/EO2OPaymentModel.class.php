@@ -9,7 +9,6 @@ use Think\Model;
 class Eo2oPaymentModel extends Model{
     protected function _before_insert(&$data, $options)
     {
-        $user = session('user_auth');
-        $data["user_id"] = $user["uid"];
+
     }
 }
