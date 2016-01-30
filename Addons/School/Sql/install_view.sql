@@ -172,13 +172,13 @@ DISTINCT
 		ELSE
 			"划款中"
 		END
-	) pay_result
+	) pay_result,
+	t3.username as user_name
 FROM
 	wp_eo2o_payment t
 LEFT JOIN wp_school_payitem t1 ON t.payitem_id = t1.id
 LEFT JOIN wp_school t2 ON t.token = t2.token
--- left join wp_student t3 on  t.token = t3.token and t.openid = t3.openid
--- left join wp_follow t4 on t.token = t4.token and t.openid = t4.openid
+LEFT JOIN wp_ucenter_member t3 ON t.user_id = t3.id
 WHERE   LENGTH(trim(transaction_id))>0 or pay_channel = "human";
 
 

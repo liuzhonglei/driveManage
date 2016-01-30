@@ -40,7 +40,9 @@ class EO2OPaymentController extends EO2OBaseController
     }
 
 
-    // 通用插件的删除模型
+    /**
+     * 通用插件的删除模型
+     */
     public function del()
     {
         $info = M('eo2o_payment')->where('id=' . $_REQUEST['id'])->find();
@@ -92,7 +94,6 @@ class EO2OPaymentController extends EO2OBaseController
                 if($fieldInfo["name"] == "time_end"){
                     $fields[$i][$j]["value"] = date("Y-m-d h:i");
                 }
-
             }
         }
 
@@ -258,7 +259,6 @@ class EO2OPaymentController extends EO2OBaseController
 
         //使用jsapi接口,返回请求支付
         $jsApi = new \JsApi_pub($wxconfig);
-//       Log::write('调试的支付API：'$jsApi, Log::SQL);
         $jsApi->setPrepayId($prepay_id);
         $jsApiParameters = $jsApi->getParameters();
         return $jsApiParameters;
@@ -399,34 +399,37 @@ class EO2OPaymentController extends EO2OBaseController
      */
     public function  saveAdmin()
     {
+        $user = session('user_auth');
+        $_POST["user_id"] = $user["uid"];
         $_POST["total_fee"] = strval($_POST["total_fee"] * 100);
-        $_REQUEST["total_fee"] = $_POST["total_fee"];
+        $_POST["result_code"] = "SUCCESS";
+        $_POST["pay_channel"] = "human";
         parent::saveAdmin();
     }
 
-    /**
-     * 首页资金统计
-     */
-    public function payStatics()
-    {
-        $result = array();
-        $Model = M("eo2o_payment");
-
-        // search
-        $timeType = i("timetype");
-
-        $sql = "call statics_type_pay('" . get_token() . "','" . $timeType . "');";
-        $result["typePay"] = $Model->query($sql);
-        $db = $Model->db();
-//        $result["typePay"]->close();
-//        $db->queryID -> close();
-//        $db->free();
-//        $db->next_result();
-        $sql = "call statics_date_pay('" . get_token() . "','" . $timeType . "');";
-        $result["datePay"] = M("eo2o_payment")->query($sql);
-
-        // return
-            $this->success("成功", null, null, $result);
-    }
+//    /**
+//     * 首页资金统计
+//     */
+//    public function payStatics()
+//    {
+//        $result = array();
+//        $Model = M("eo2o_payment");
+//
+//        // search
+//        $timeType = i("timetype");
+//
+//        $sql = "call statics_type_pay('" . get_token() . "','" . $timeType . "');";
+//        $result["typePay"] = $Model->query($sql);
+//        $db = $Model->db();
+////        $result["typePay"]->close();
+////        $db->queryID -> close();
+////        $db->free();
+////        $db->next_result();
+//        $sql = "call statics_date_pay('" . get_token() . "','" . $timeType . "');";
+//        $result["datePay"] = M("eo2o_payment")->query($sql);
+//
+//        // return
+//            $this->success("成功", null, null, $result);
+//    }
 
 }
