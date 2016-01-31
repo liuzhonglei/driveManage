@@ -1570,7 +1570,7 @@ str;
     {
         $map = parent::_search_map($model, $fields);
 
-        $where_str = "1 = 1";
+        $where_str = "1 = 1 ";
         foreach ($map as $mapMame => $mapValue) {
             $where_str = $where_str . " and " . $mapMame . ' = "' . $mapValue . '" ';
         }
