@@ -658,50 +658,51 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                 }]
             }
         })
-        // 教练统计
-        .state("teacherTop", {
-            url: "/statistics/teacherTop.html",
-            templateUrl: "views/chart/teacherTop.html",
-            data: {
-                pageTitle: "教练统计",
-                module: "Teacher",
-                handleController: "Teacher",
-                action: "teacher_rank",
-                type: "BarChart"
-            },
-            controller: "ChartController",
-            resolve: {
-                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([{
-                        name: 'ui.select',
-                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                        files: [
-                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
-                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
-                        ]
-                    },
-                        {
-                            name: 'MetronicApp',
-                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: depFile.chart
-                        }]);
-                }]
-            }
-        })
+        //// 教练统计
+        //.state("teacherTop", {
+        //    url: "/statistics/teacherTop.html",
+        //    templateUrl: "views/chart/teacherTop.html",
+        //    data: {
+        //        pageTitle: "教练统计",
+        //        module: "Teacher",
+        //        handleController: "Teacher",
+        //        action: "teacher_rank",
+        //        type: "BarChart"
+        //    },
+        //    controller: "ChartController",
+        //    resolve: {
+        //        deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+        //            return $ocLazyLoad.load([{
+        //                name: 'ui.select',
+        //                insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+        //                files: [
+        //                    '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+        //                    '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
+        //                ]
+        //            },
+        //                {
+        //                    name: 'MetronicApp',
+        //                    insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+        //                    files: depFile.chart
+        //                }]);
+        //        }]
+        //    }
+        //})
 
 
         // 资金流入统计
         .state("balanceStatistics", {
             url: "/statistics/balanceStatistics.html",
-            templateUrl: "views/chart/teacherTop.html",
+            templateUrl: "views/chart/balanceStatistics.html",
             data: {
                 pageTitle: "资金统计",
                 module: "EO2OPayment",
                 handleController: "EO2OPayment",
-                action: "balanceConsist",
-                type: "ComposeBarChart"
+                action: "statics_complex_type_pay",
+                param: "'month',null,null,null",
+                type: "ComplexPayChart"
             },
-            controller: "ChartController",
+            controller: "BalanceParamController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load([{
@@ -715,13 +716,11 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: depFile.chart
+                            files: $.merge(depFile.chart,new Array('js/controllers/pay/BalanceParamController.js'))
                         }]);
                 }]
             }
         })
-
-
 }]);
 
 /* Init global settings and run the app */

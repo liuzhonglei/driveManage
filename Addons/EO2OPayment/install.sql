@@ -117,7 +117,8 @@ CREATE PROCEDURE test(IN duration VARCHAR(26))
     SET pResult := 'test';
   END;
 
-
+# 获取当前日期
+# 的日期格式
 DROP FUNCTION getDateFormat;
 CREATE FUNCTION getDateFormat(date_type VARCHAR(50))
   RETURNS VARCHAR(50)
@@ -136,7 +137,7 @@ CREATE FUNCTION getDateFormat(date_type VARCHAR(50))
     RETURN (date_type_format);
   END;
 
-
+# 首页:资金图:流水数据
 DROP PROCEDURE IF EXISTS statics_date_pay;
 DELIMITER //
 CREATE PROCEDURE statics_date_pay(
@@ -160,7 +161,7 @@ CREATE PROCEDURE statics_date_pay(
       wp_eo2o_payment t
     WHERE
       t.token = token AND
-      t.time_end IS NOT NULL AND t.time_end != "" and
+      t.time_end IS NOT NULL AND t.time_end != "" AND
       t.result_code = "SUCCESS"
     GROUP BY
       FROM_UNIXTIME(t.time_end, date_type_format)
@@ -170,6 +171,7 @@ CREATE PROCEDURE statics_date_pay(
 //
 CALL statics_date_pay('gh_36a5c6958de0', 'year');
 
+# 首页:资金图:支付类型数据
 DROP PROCEDURE IF EXISTS statics_type_pay;
 DELIMITER //
 CREATE PROCEDURE statics_type_pay(
@@ -194,6 +196,64 @@ CREATE PROCEDURE statics_type_pay(
 //
 CALL statics_type_pay('gh_36a5c6958de0', 'year');
 
-SELECT *
-FROM wp_eo2o_payment t
-WHERE t.total_fee = 123;
+#获取资金流水,分支出和流入,根据时间和机构
+DROP PROCEDURE IF EXISTS statics_complex_type_pay;
+DELIMITER //
+CREATE PROCEDURE statics_complex_type_pay(
+  IN token      VARCHAR(50),
+  IN date_type  VARCHAR(50),
+  IN limitNum  VARCHAR(50),
+  IN begin_date VARCHAR(50),
+  IN end_date   VARCHAR(50),
+  IN pay_place  INT
+)
+  BEGIN
+    DECLARE
+    date_type_format VARCHAR(50);
+    DECLARE
+    externalMap VARCHAR(500);
+
+    -- 设置格式
+    SET date_type_format = getDateFormat(date_type);
+    SET externalMap = "";
+    IF !isnull(begin_date)
+    THEN
+      SET externalMap = concat(externalMap," and  time_end >=", UNIX_TIMESTAMP(begin_date));
+    END IF;
+    IF !isnull(end_date)
+    THEN
+      SET externalMap = concat(externalMap, " and time_end <=",UNIX_TIMESTAMP(end_date));
+    END IF;
+    IF !isnull(pay_place)
+    THEN
+      SET externalMap = concat(externalMap,  " and school_place_id = ",pay_place);
+    END IF;
+
+
+
+    set @sql = '';
+    set @sql = concat(' SELECT',
+     ' FROM_UNIXTIME(t.time_end, \'',date_type_format,'\') time,',
+      ' SUM(CASE WHEN t.paytype = "sign" THEN pay_fee  ELSE 0 END)  AS                    "sign_fee",',
+      ' SUM(CASE WHEN t.paytype = "banner"  THEN pay_fee ELSE 0 END)  AS                    banner_fee,',
+      ' SUM(CASE WHEN t.in_or_out = "supplementary"  THEN pay_fee    ELSE 0 END)  AS        supplementary_fee,',
+      ' SUM(CASE WHEN t.paytype = "activity" THEN pay_fee    ELSE 0 END)  AS                    activity_fee,',
+      ' SUM(CASE WHEN t.paytype = "wage" THEN pay_fee    ELSE 0 END)  AS                    wage_fee,',
+      ' SUM(CASE WHEN t.paytype = "reward" THEN pay_fee ELSE 0 END)  AS                    reward_fee,',
+      ' SUM(CASE WHEN t.paytype = "car"   THEN pay_fee   ELSE 0 END)  AS                    car_fee',
+    ' FROM  wp_eo2o_payment_all t',
+    ' WHERE t.token = token AND  FROM_UNIXTIME(t.time_end, \'', date_type_format, '\') IS NOT NULL AND  t.result_code = "SUCCESS"',externalMap,
+    ' GROUP BY FROM_UNIXTIME(t.time_end,  \'',date_type_format,' \') ',
+    ' ORDER BY FROM_UNIXTIME(t.time_end, \'',date_type_format,'\')',
+    ' LIMIT 0, ',limitNum,';');
+
+    PREPARE stmt FROM @sql;         -- 预处理动态sql语句
+    EXECUTE stmt ;                        -- 执行sql语句
+    deallocate prepare stmt;      -- 释放prepare
+  END;
+//
+
+call statics_complex_type_pay('gh_36a5c6958de0','month',10,"2014-12-31","2016-02-01",null);
+
+select getDateFormat("day");
+select t.* from wp_eo2o_payment_all t where t.result_code = "SUCCESS"

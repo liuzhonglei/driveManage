@@ -4,6 +4,11 @@
  * the background tool
  */
 MetronicApp.factory('dataTool', ['$http', function ($http) {
+    /**
+     * 保存数据
+     * @param model
+     * @param info
+     */
     var saveData = function (model,info) {
         var params = JSON.stringify(info).replace("{", "").replace("}", "").replace(/\,/g, "&").replace(/\"/g, "").replace(/\:/g, "=");
         $http({
@@ -34,32 +39,23 @@ MetronicApp.factory('dataTool', ['$http', function ($http) {
         });
     }
 
-    var getData = function (model,id){
-
-    }
-
-    var getDataByCon = function(model,condition){
-
-    }
-
-    var getDataList = function(model,id){
-
-    }
-
-    var getDataListByCon = function(model,condition){
-
-    }
-
-    // delete the data
-    var dataDel = function(model,id){
+    /**
+     * 根据参数查询数据
+     * @param model 模型名称
+     * @param param 参数名称
+     * @param callBack 回调函数
+     */
+    var getDataByParam = function (model,param,callBack){
+        var url = Metronic.rootPath() + "/index.php?s=/addon/School/School/getDataByParam/model/" + model+"/param/"+param;
         $http({
             method: "get",
-            url: Metronic.rootPath() + "/index.php?s=/addon/School/School/modelDel/model/" + model+"id/"+id
-
-        }).success(function (data) {
-            return data;
+            url: url
+        }).success(function (data, status, headers, config) {
+            callBack(data);
         });
     }
 
-    return {save: saveData,delete:dataDel,getFieldList:getFieldList};
+
+    // 返回
+    return {save: saveData,getDataByParam:getDataByParam,getFieldList:getFieldList};
 }]);

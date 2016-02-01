@@ -29,10 +29,11 @@ class AdminController extends CommonController
     /**
      * 是否登录
      */
-    function isLogin(){
+    function isLogin()
+    {
         if ($this->isAdmin() && !is_login()) {
             $this->success("已登录");
-        }else{
+        } else {
             $this->error("未登录");
         }
     }
@@ -50,7 +51,6 @@ class AdminController extends CommonController
             $this->model['list_grid'] = $this->model['list_grid_admin'];
         }
     }
-
 
 
     public function add()
@@ -87,7 +87,7 @@ class AdminController extends CommonController
      * @param int $page
      * @param string $order
      */
-    public function listsAdmin($ajaxReturn = true,$map = null)
+    public function listsAdmin($ajaxReturn = true, $map = null)
     {
         // 设置操作栏
         $this->setAdminModel();
@@ -122,7 +122,7 @@ class AdminController extends CommonController
         }
         foreach ($orderList as $orderItem) {
             // 字段名称为空
-           $orderFieldName = explode("|",$columns[$orderItem["column"]]["name"])[0];
+            $orderFieldName = explode("|", $columns[$orderItem["column"]]["name"])[0];
             if (empty($orderFieldName)) {
                 continue;
             }
@@ -133,12 +133,12 @@ class AdminController extends CommonController
             }
             $order .= $orderFieldName . " " . $orderItem["dir"];
         }
-        if(empty($order)){
+        if (empty($order)) {
             $order = null;
         }
 
         // list data
-        $list_data = $this->_get_model_list($model, $page, $order,$map);
+        $list_data = $this->_get_model_list($model, $page, $order, $map);
 
         // convert
         $list_data ['data'] = array();
@@ -420,10 +420,40 @@ class AdminController extends CommonController
      */
     public function getModelDataById($ajaxReturn = true)
     {
-        if($ajaxReturn){
+        if ($ajaxReturn) {
             $this->ajaxReturn($this->getDataById($this->model["name"]));
-        }else{
+        } else {
             return $this->getDataById($this->model["name"]);
+        }
+    }
+
+    /**
+     * 根据条件获取数据,并返回
+     * @param null $model
+     * @param null $param
+     */
+    public function getDataByParam($model = null, $param = null, $ajaxReturn = true)
+    {
+        $model || $model = i("model");
+        $param || $param = i("param") || $param = "";
+        if(!empty($param)){
+            $param .= " and ";
+        }
+        $param.="token = '".get_token()."'";
+
+        if(!empty($model)){
+            $data = M($model)->where($param)->select();
+            if($ajaxReturn){
+                $this->success("查询成功", null, null, $data);
+            }else{
+                return $data;
+            }
+        }else{
+            if($ajaxReturn) {
+                $this->error("查询失败,model为空!");
+            }else{
+                return null;
+            }
         }
     }
 }

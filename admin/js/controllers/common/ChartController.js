@@ -1,7 +1,7 @@
 /* 先·Setup general page controller */
 MetronicApp.controller('ChartController', ['$rootScope', '$http', '$scope', function ($rootScope, $http, $scope) {
 
-    var url = Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/" + $rootScope.$state.$current.data.action + "/openid/gh_36a5c6958de0/groupField/pay_day";
+    var url = Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/procedureQuery/procedure_name/" + $rootScope.$state.$current.data.action+"/param/"+ $rootScope.$state.$current.data.param;
     // init ajax
     $scope.$on('$viewContentLoaded', function () {
         $http({
@@ -12,10 +12,11 @@ MetronicApp.controller('ChartController', ['$rootScope', '$http', '$scope', func
             url: url
         }).success(function (data) {
             //init
-            window["create" + $rootScope.$state.$current.data.type](data);
+            window["create" + $rootScope.$state.$current.data.type](data.data);
         });
     });
 }]);
+
 
 /**
  * 创建基础柱状图

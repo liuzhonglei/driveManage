@@ -9,7 +9,7 @@
     <ul class="page-sidebar-menu" data-keep-expanded="true" data-auto-scroll="true" data-slide-speed="200"
         ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
         <!--<li class="heading">-->
-            <!--<h3>菜单</h3>-->
+        <!--<h3>菜单</h3>-->
         <!--</li>-->
         <li class="start">
             <a href="#/dashboard.html">
@@ -91,9 +91,23 @@
         </li>
 
         <li>
-            <a href="#/pay/list.html">
+            <a href="javascript:;">
                 <i class="fa fa-cny"></i> <span class="title">划款管理</span>
+                <span class="arrow "></span>
+
             </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="#/pay/list.html">
+                        <i class="fa fa-money"></i> 资金流水
+                    </a>
+                </li>
+                <li>
+                    <a href="#/statistics/balanceStatistics.html">
+                        <i class="fa icon-graph"></i> 资金统计
+                    </a>
+                </li>
+            </ul>
         </li>
 
         <li>
@@ -156,25 +170,21 @@
                 </li>
             </ul>
         </li>
-        <li>
-            <a href="javascript:;">
-                <i class="icon-graph"></i>
-                <span class="title">信息统计</span>
-                <span class="arrow "></span>
-            </a>
-            <ul class="sub-menu">
-                <li>
-                    <a href="#/statistics/teacherTop.html">
-                        <i class="fa fa-cut"></i> 砍价统计
-                    </a>
-                </li>
-                <li>
-                    <a href="#/statistics/balanceStatistics.html">
-                        <i class="fa fa-money"></i> 资金统计
-                    </a>
-                </li>
-            </ul>
-        </li>
+        <!--<li>-->
+            <!--<a href="javascript:;">-->
+                <!--<i class="icon-graph"></i>-->
+                <!--<span class="title">信息统计</span>-->
+                <!--<span class="arrow "></span>-->
+            <!--</a>-->
+            <!--<ul class="sub-menu">-->
+                <!--&lt;!&ndash;<li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<a href="#/statistics/teacherTop.html">&ndash;&gt;-->
+                <!--&lt;!&ndash;<i class="fa fa-cut"></i> 砍价统计&ndash;&gt;-->
+                <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+
+            <!--</ul>-->
+        <!--</li>-->
     </ul>
     <!-- END SIDEBAR MENU -->
 </div>
