@@ -79,7 +79,7 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
 
             });
         } else {
-            $scope.info = {photoUrl: "http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image"};
+            $scope.info = {photoUrl: "./resource/no-image.png"};
             $scope.info["id"] = null;
         }
     });

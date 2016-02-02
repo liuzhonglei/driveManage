@@ -48,9 +48,6 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
         // init the table
         $scope.setStatus("-1");
 
-        //$scope.importUrl = Metronic.rootPath()+"/index.php?s=/addon/Student/Student/fileImport.html";
-        //$("#file-import-from").attr("action",$scope.importUrl);
-        //console.log($scope.importUrl);
     });
 
     // 模块配置数据

@@ -29,7 +29,7 @@ MetronicApp.controller('EditController', ['$rootScope', '$http', '$scope', 'sett
         "value": "翔安区"
     }];
     $scope.array = [1, 2];
-    $scope.photo = "http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image";
+    $scope.photo = "./resource/no-image.png";
 
 
     // get the model data

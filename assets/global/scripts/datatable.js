@@ -64,11 +64,11 @@ var Datatable = function() {
                         }
                     },
 
-                    "orderCellsTop": true,
-                    "columnDefs": [{ // define columns sorting options(by default all columns are sortable extept the first checkbox column)
-                        'orderable': false,
-                        'targets': [0]
-                    }],
+                    //"orderCellsTop": true,
+                    //"columnDefs": [{ // define columns sorting options(by default all columns are sortable extept the first checkbox column)
+                    //    'orderable': false,
+                    //    'targets': 0
+                    //}],
 
                     "pagingType": "bootstrap_extended", // pagination type(bootstrap, bootstrap_full_number or bootstrap_extended)
                     "autoWidth": false, // disable fixed width and enable fluid table

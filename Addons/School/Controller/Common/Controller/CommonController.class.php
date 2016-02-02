@@ -336,7 +336,7 @@ class CommonController extends ExtendAddonsController
         if (!empty($info["photo"])) {
             $info["photoUrl"] = get_cover($info["photo"])['path'];
         } else {
-            $info["photoUrl"] = "http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image";
+            $info["photoUrl"] = "./resource/no-image.png";
         }
 
         return $info;

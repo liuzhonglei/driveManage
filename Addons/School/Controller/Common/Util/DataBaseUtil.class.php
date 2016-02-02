@@ -58,7 +58,7 @@ class DataBaseUtil {
      * @return false|int 数目
      */
     public static function getDataCount($tableName, $map){
-        $count = M($tableName)->execute("select count(*) from wp_" . $tableName . " t  where " . $map);
+        $count = M($tableName)->execute("select * from wp_" . $tableName . " t  where " . $map);
         return $count;
     }
 
