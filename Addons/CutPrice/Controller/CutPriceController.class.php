@@ -74,7 +74,7 @@ class CutPriceController extends BaseController {
         }
 
         // TODO 修改排序
-        $order = "";
+//        $order = "";
 
         // 返回数据
         $list_data = $this->_list_grid($model);
