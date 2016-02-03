@@ -50,17 +50,6 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
 
     });
 
-    // 模块配置数据
-    $scope.confData = new Array();
-
-    /**
-     * TODO  模块信息方法
-     */
-    $scope.confSave = function () {
-
-    }
-    ;
-
     /**
      * 同步信息
      */
@@ -89,14 +78,11 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
      */
     $scope.setStatus = function (status) {
         $scope.status = status;
-        $scope.loadTable();
-    }
-
-
-    $scope.loadTable = function () {
+        TableAjax.modelMap[$rootScope.$state.$current.data.module + "_" + $rootScope.$state.$current.data.handleController] = null;
         $scope.loadStudentNum();
         TableAjax.init('list', $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, getSearchParam());
     }
+
 
     /**
      * 获取查询参数

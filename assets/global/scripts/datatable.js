@@ -65,7 +65,7 @@ var Datatable = function() {
                     },
 
                     //"orderCellsTop": true,
-                    //"columnDefs": [{ // define columns sorting options(by default all columns are sortable extept the first checkbox column)
+                        //"columnDefs": [{ // define columns sorting options(by default all columns are sortable extept the first checkbox column)
                     //    'orderable': false,
                     //    'targets': 0
                     //}],

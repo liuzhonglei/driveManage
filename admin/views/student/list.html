@@ -1,9 +1,9 @@
 <div ng-include="'views/common/weixin-bind-modal.html'"/>
-<div ng-include="'views/student/import.html'" ng-controller="StudentListController"/>
+<div ng-include="'views/student/import.html'"/>
 <div ng-include="'views/student/detail.html'" ng-controller="InfoController"/>
 <!--<div ng-include="'views/module/pageInfo.html'"/>-->
 
-<div class="row" ng-controller="StudentListController">
+<div class="row">
     <input id="model" hidden="true"
            value="{{$state.$current.data.model}}">
 </div>

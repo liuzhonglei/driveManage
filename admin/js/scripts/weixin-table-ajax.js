@@ -1,14 +1,16 @@
 var TableAjax = function() {
     // 存储表格
     var tableMap = {};
-    
+
+    // 模型数据
+    var modelMap = {};
+
     /**
      * init the table
      * @param module
      * @param handleController
      */
     var init = function(name, module, controller, param, successCallback) {
-        
         // 表格是否已经创建
         if (tableMap[name] && tableMap[name].grid) {
             var exitDataTable = tableMap[name].grid.getDataTable();
@@ -30,50 +32,73 @@ var TableAjax = function() {
         tableMap[name].controler = controller;
         
         // 查询表格信息
-        var url = createUrl(name, "getModelInfo");
-        $.get(url, function(data) {
-            // 判断是否登录
-            if (data.result == "-1") {
-                window.location = "/admin/login.html"
-            }
-            
-            // set search name
-            var searchEle = $("#" + name + "-search-name");
-            if (searchEle) {
-                searchEle.val(data.model.search_key);
-            }
-            
-            // init column
-            for (var i = 0; i < data.list_data.list_grids.length; i++) {
-                // 字段名
-                if(!data.list_data.list_grids[i].title){
-                    continue;
+        if(!modelMap[tableMap[name].module+"_"+tableMap[name].controler]){
+            var url = createUrl(name, "getModelInfo");
+            $.get(url, function(data) {
+                // 判断是否登录
+                if (data.result == "-1") {
+                    window.location = "/admin/login.html"
                 }
-                var column = {
-                    "sTitle": data.list_data.list_grids[i].title,
-                    "aTargets": [i],
-                    "bSortable": true
-                };
+
+                // 设置全局模型变量
+                modelMap[tableMap[name].module+"_"+tableMap[name].controler] = data;
                 
-                // 字段名
-                if (data.list_data.list_grids[i].field) {
-                    column.sName = data.list_data.list_grids[i].field[0];
-                } 
-                
-                // 排序
-                if (!data.list_data.list_grids[i].field || data.list_data.list_grids[i].title == "操作" || data.list_data.list_grids[i].order == "0") {
-                    column.bSortable = false;
-                }
-                
-                // 增加字段
-                tableMap[name].columns.push(column);
-            }
-            
+                // 加载模型
+                loadModel(name);
+
+                //查询数据
+                createTable(name, createUrl(name, "listsAdmin"), successCallback);
+
+            });
+        }else{
+             // 加载模型
+            loadModel(name);
+
             //查询数据
-            initData(name, createUrl(name, "listsAdmin"), successCallback);
-        });
+            createTable(name, createUrl(name, "listsAdmin"), successCallback);
+        }
     }
-    ;
+
+    /**
+     * 加载模型信息
+     * @param name 模型名称
+     */
+    var loadModel = function(name){
+        // 取得数据
+        var data = modelMap[tableMap[name].module+"_"+tableMap[name].controler];
+
+        // set search name
+        var searchEle = $("#" + name + "-search-name");
+        if (searchEle) {
+            searchEle.val(data.model.search_key);
+        }
+
+        // init column
+        for (var i = 0; i < data.list_data.list_grids.length; i++) {
+            // 字段名
+            if(!data.list_data.list_grids[i].title){
+                continue;
+            }
+            var column = {
+                "sTitle": data.list_data.list_grids[i].title,
+                "aTargets": [i],
+                "bSortable": true
+            };
+
+            // 字段名
+            if (data.list_data.list_grids[i].field) {
+                column.sName = data.list_data.list_grids[i].field[0];
+            }
+
+            // 排序
+            if (!data.list_data.list_grids[i].field || data.list_data.list_grids[i].title == "操作" || data.list_data.list_grids[i].order == "0") {
+                column.bSortable = false;
+            }
+
+            // 增加字段
+            tableMap[name].columns.push(column);
+        }
+    }
     
     /**
      * reload the table
@@ -117,7 +142,7 @@ var TableAjax = function() {
      * get the data and set
      * @param url
      */
-    var initData = function(name, url, successCallback) {
+    var createTable = function(name, url, successCallback) {
         // 表格对象已经初始化过一次
         if (!tableMap[name].grid) {
             tableMap[name].grid = new Datatable();
@@ -127,7 +152,7 @@ var TableAjax = function() {
         tableMap[name].grid.init({
             src: $("#" + name + "-table"),
             onSuccess: function(grid) {
-                console.log(grid.getTable());
+               console.log(grid.getTable());
                var info = $(grid.getTable()).find("#list-table_info")
                info.text();
                 if (successCallback) {
@@ -135,7 +160,7 @@ var TableAjax = function() {
                 }
             },
             onError: function(grid) {
-            // execute some code on network or other general error
+                alert("错误",grid);
             },
             loadingMessage: '读取中...',
             dataTable: {
@@ -204,14 +229,15 @@ var TableAjax = function() {
         add: function() {
             $("#form_info_id").val("");
             $("#form_info_id").trigger("change");
-            ComponentsFormTools.init();
+//             ComponentsFormTools.init();
             $("#form_info").modal("show");
         },
         edit: function(id) {
             $("#form_info_id").val(id);
             $("#form_info_id").trigger("change");
-            ComponentsFormTools.init();
+//             ComponentsFormTools.init();
             $("#form_info").modal("show");
-        }
+        },
+        modelMap:modelMap
     };
 }();

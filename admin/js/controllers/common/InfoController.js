@@ -9,15 +9,11 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
     $scope.info = {};
     $scope.defaultInfo = {};
 
-
-    // init the field
-    $http({
-        method: "post",
-        headers: function ($httpProvider) {
-            $httpProvider.defaults.withCredentials = true;
-        },
-        url: Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/getModelInfo"
-    }).success(function (data) {
+    /**
+     * 设置对象信息
+     */
+    $scope.setInfoData = function () {
+        var data = TableAjax.modelMap[$rootScope.$state.$current.data.module + "_" + $rootScope.$state.$current.data.handleController];
         // set the fieldGroup
         $scope.fieldGroup = {};
         var groups = data.model.field_group.split(";");
@@ -53,7 +49,23 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
                 $scope.defaultInfo[data.fieldList[i][j].name] = data.fieldList[i][j].value;
             }
         }
-    });
+    }
+
+    // init the field
+    if (TableAjax.modelMap[$rootScope.$state.$current.data.module + "_" + $rootScope.$state.$current.data.handleController]) {
+        $scope.setInfoData();
+    } else {
+        $http({
+            method: "get",
+            headers: function ($httpProvider) {
+                $httpProvider.defaults.withCredentials = true;
+            },
+            url: Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/getModelInfo"
+        }).success(function (data) {
+            TableAjax.modelMap[$rootScope.$state.$current.data.module + "_" + $rootScope.$state.$current.data.handleController] = data;
+            $scope.setInfoData();
+        });
+    }
 
 
     // get edit info
@@ -111,89 +123,90 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', funct
         }
     });
 
-    /**
-     * 根据字段名称取得字段信息
-     * @param name 字段名称
-     * @returns {*}
-     */
-    function getField(name) {
-        for (var i in $scope.fieldList) {
-            for (var j in $scope.fieldList[i]) {
-                if ($scope.fieldList[i][j] && $scope.fieldList[i][j].name == name) {
-                    return $scope.fieldList[i][j];
-                }
+/**
+ * 根据字段名称取得字段信息
+ * @param name 字段名称
+ * @returns {*}
+ */
+function getField(name) {
+    for (var i in $scope.fieldList) {
+        for (var j in $scope.fieldList[i]) {
+            if ($scope.fieldList[i][j] && $scope.fieldList[i][j].name == name) {
+                return $scope.fieldList[i][j];
             }
+        }
+    }
+}
+
+
+/**
+ * upload the img
+ */
+$scope.file = "";
+
+/**
+ *  set the save method
+ */
+$scope.save = function (modalName, tableName) {
+    modalName = modalName || "form_info";
+    tableName = tableName || "list";
+
+
+    var params = "";
+    for (var name in $scope.info) {
+
+        // 转换数据
+        if ($scope.info[name] instanceof Array) {
+
+            for (var index = 0; index < $scope.info[name].length; index++) {
+                if (params != "") {
+                    params += "&";
+                }
+                params += name + "[]" + "=" + $scope.info[name][index] + "";
+            }
+        } else if ($scope.info[name] instanceof Object) {
+            if (params != "") {
+                params += "&";
+            }
+            params += name + "[]" + "=" + $scope.info[name]["value"] + "";
+        }
+        else {
+            if (params != "") {
+                params += "&";
+            }
+            if ($scope.info[name] == null) {
+                $scope.info[name] = "";
+            }
+            params += name + "=" + $scope.info[name];
         }
     }
 
 
-    /**
-     * upload the img
-     */
-    $scope.file = "";
-
-    /**
-     *  set the save method
-     */
-    $scope.save = function (modalName, tableName) {
-        modalName = modalName || "form_info";
-        tableName = tableName || "list";
-
-
-        var params = "";
-        for (var name in $scope.info) {
-
-            // 转换数据
-            if ($scope.info[name] instanceof Array) {
-
-                for (var index = 0; index < $scope.info[name].length; index++) {
-                    if (params != "") {
-                        params += "&";
-                    }
-                    params += name + "[]" + "=" + $scope.info[name][index] + "";
-                }
-            } else if ($scope.info[name] instanceof Object) {
-                if (params != "") {
-                    params += "&";
-                }
-                params += name + "[]" + "=" + $scope.info[name]["value"] + "";
-            }
-            else {
-                if (params != "") {
-                    params += "&";
-                }
-                if ($scope.info[name] == null) {
-                    $scope.info[name] = "";
-                }
-                params += name + "=" + $scope.info[name];
-            }
+    $http({
+        method: "post",
+        url: Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/saveAdmin",
+        data: params,
+        headers: {
+            'Accept': "application/json",
+            'Content-Type': 'application/x-www-form-urlencoded'
         }
-
-
-        $http({
-            method: "post",
-            url: Metronic.rootPath() + "/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/saveAdmin",
-            data: params,
-            headers: {
-                'Accept': "application/json",
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }).then(function successCallback(response) {
-            if (response.data.result == "1") {
-                $scope.infoErrorShow = false;
-                $scope.infoErrorMsg = "";
-                $("#" + modalName).modal("hide");
-                TableAjax.reload(tableName);
-            } else {
-                $scope.infoErrorShow = true;
-                $scope.infoErrorMsg = response.msg;
-            }
-            $scope.info["id"] = null;
-        }, function errorCallback(response) {
-            //called asynchronously if an error occurs
-            //or server returns response with an error status.
-        });
-    }
+    }).then(function successCallback(response) {
+        if (response.data.result == "1") {
+            $scope.infoErrorShow = false;
+            $scope.infoErrorMsg = "";
+            $("#" + modalName).modal("hide");
+            TableAjax.reload(tableName);
+        } else {
+            $scope.infoErrorShow = true;
+            $scope.infoErrorMsg = response.msg;
+        }
+        $scope.info["id"] = null;
+    }, function errorCallback(response) {
+        //called asynchronously if an error occurs
+        //or server returns response with an error status.
+    });
+}
 
 }
-]);
+])
+;

@@ -6,16 +6,8 @@ MetronicApp.controller('StudentDetailController', ['$rootScope', '$http', '$scop
     $scope.info = {};
 
 
-    //$scope.action = Metronic.rootPath() + "/index.php?s=/addon/Student/Student/saveAdmin";
-
-    // init the field
-    $http({
-        method: "post",
-        headers: function ($httpProvider) {
-            $httpProvider.defaults.withCredentials = true;
-        },
-        url: Metronic.rootPath() + "/index.php?s=/addon/Student/Student/getModelInfo"
-    }).success(function (data) {
+    $scope.setInfoData = function () {
+        var data = TableAjax.modelMap["Student_Student"];
         // set the fieldGroup
         $scope.fieldGroup = {};
         var groups = data.model.field_group.split(";");
@@ -47,11 +39,27 @@ MetronicApp.controller('StudentDetailController', ['$rootScope', '$http', '$scop
                         }
                     }
                     $scope.metadata[data.fieldList[i][j].name] = result;
-                    //$scope.info[data.fieldList[i][j].name] =
                 }
+                $scope.info[data.fieldList[i][j].name] = data.fieldList[i][j].value;
             }
         }
-    });
+    }
+
+    // init the field
+    if (TableAjax.modelMap["Student_Student"]) {
+        $scope.setInfoData();
+    } else {
+        $http({
+            method: "get",
+            headers: function ($httpProvider) {
+                $httpProvider.defaults.withCredentials = true;
+            },
+            url: Metronic.rootPath() + "/index.php?s=/addon/Student/Student/getModelInfo"
+        }).success(function (data) {
+            TableAjax.modelMap["Student_Student"] = data;
+            $scope.setInfoData();
+        });
+    }
 
     // get edit info
     $scope.$watch('info["id"]', function () {
@@ -104,50 +112,6 @@ MetronicApp.controller('StudentDetailController', ['$rootScope', '$http', '$scop
                 }
 
             });
-        } else {
-            // init the field
-            $http({
-                method: "post",
-                headers: function ($httpProvider) {
-                    $httpProvider.defaults.withCredentials = true;
-                },
-                url: Metronic.rootPath() + "/index.php?s=/addon/Student/Student/getModelInfo"
-            }).success(function (data) {
-                // set the fieldGroup
-                $scope.fieldGroup = {};
-                var groups = data.model.field_group.split(";");
-                for (var i in groups) {
-                    var param = groups[i].split(":");
-                    $scope.fieldGroup[param[0]] = param[1];
-                }
-
-                // set fieldList
-                $scope.fieldList = data.fieldList;
-
-                for (var i in data.fieldList) {
-                    for (var j in data.fieldList[i]) {
-                        if (data.fieldList[i][j] === null || data.fieldList[i][j].length < 1) {
-                            continue;
-                        }
-                        var extra = data.fieldList[i][j].extra;
-                        if (extra !== undefined && extra !== null && extra.length > 0) {
-                            var result = [];
-                            var params = extra.split("\r\n");
-                            for (var z in params) {
-                                var map = params[z].split(":");
-                                if (map.length == 2) {
-                                    result.push({
-                                        "value": map[0],
-                                        "text": map[1]
-                                    });
-                                }
-                            }
-                            $scope.metadata[data.fieldList[i][j].name] = result;
-                            $scope.info[data.fieldList[i][j].name] = data.fieldList[i][j].value;
-                        }
-                    }
-                }
-            });
         }
     });
 
@@ -164,84 +128,6 @@ MetronicApp.controller('StudentDetailController', ['$rootScope', '$http', '$scop
                 }
             }
         }
-    }
-
-
-    /**
-     * upload the img
-     */
-    $scope.file = "";
-
-    /**
-     *  set the save method
-     */
-    $scope.save = function (modalName, tableName) {
-        modalName = modalName || "form_info";
-        tableName = tableName || "list";
-
-
-        var params = "";
-        for (var name in $scope.info) {
-
-            // 转换特殊情况数据
-            var field = getField(name);
-            if (field) {
-                if (field.type == "time" || field.type == "datetime" || field.type == "date") {
-                    var timestamp = Date.parse(new Date($scope.info[name]));
-                    timestamp = timestamp / 1000;
-                    $scope.info[name] = timestamp;
-                }
-            }
-
-            // 转换数据
-            if ($scope.info[name] instanceof Array) {
-
-                for (var index = 0; index < $scope.info[name].length; index++) {
-                    if (params != "") {
-                        params += "&";
-                    }
-                    params += name + "[]" + "=" + $scope.info[name][index] + "";
-                }
-            } else if ($scope.info[name] instanceof Object) {
-                if (params != "") {
-                    params += "&";
-                }
-                params += name + "[]" + "=" + $scope.info[name]["value"] + "";
-            }
-            else {
-                if (params != "") {
-                    params += "&";
-                }
-                if ($scope.info[name] == null) {
-                    $scope.info[name] = "";
-                }
-                params += name + "=" + $scope.info[name];
-            }
-        }
-
-        $http({
-            method: "post",
-            url: Metronic.rootPath() + "/index.php?s=/addon/Student/Student/saveAdmin",
-            data: params,
-            headers: {
-                'Accept': "application/json",
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }).then(function successCallback(response) {
-            if (response.data.result == "1") {
-                $scope.infoErrorShow = false;
-                $scope.infoErrorMsg = "";
-                $("#" + modalName).modal("hide");
-                TableAjax.reload(tableName);
-            } else {
-                $scope.infoErrorShow = true;
-                $scope.infoErrorMsg = response.msg;
-            }
-            $scope.info["id"] = null;
-        }, function errorCallback(response) {
-             //called asynchronously if an error occurs
-             //or server returns response with an error status.
-        });
     }
 }
 ]);

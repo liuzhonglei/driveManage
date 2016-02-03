@@ -13,47 +13,41 @@ var MetronicApp = angular.module("MetronicApp", [
 
 var depFile = {
     chart: new Array(
-        "../assets/global/plugins/amcharts/amcharts/serial.js",
-        "../assets/global/plugins/amcharts/amcharts/pie.js",
-        "../assets/global/plugins/amcharts/amcharts/radar.js",
-        "../assets/global/plugins/amcharts/amcharts/themes/light.js",
-        "../assets/global/plugins/amcharts/amcharts/themes/patterns.js",
-        "../assets/global/plugins/amcharts/amcharts/themes/chalk.js",
-        "../assets/global/plugins/amcharts/ammap/ammap.js",
-        "../assets/global/plugins/amcharts/ammap/maps/js/worldLow.js",
-        "../assets/global/plugins/amcharts/amstockcharts/amstock.js",
         "js/controllers/common/ChartController.js"),
-    list: new Array('../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
-        '../assets/global/plugins/datatables/all.min.js',
-        '../assets/global/scripts/datatable.js',
+    list: new Array(
+        //'../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
+        //'../assets/global/plugins/datatables/all.min.js',
+        //'../assets/global/scripts/datatable.js',
         'js/controllers/common/Filter.js',
         'js/controllers/common/ListController.js'),
 
-    info: new Array('../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
-        '../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css',
-        '../assets/global/plugins/jquery-tags-input/jquery.tagsinput.css',
-        '../assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css',
-        '../assets/global/plugins/typeahead/typeahead.css',
+    info: new Array(
+        //'../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
+        //'../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css',
+        //'../assets/global/plugins/jquery-tags-input/jquery.tagsinput.css',
+        //'../assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css',
+        //'../assets/global/plugins/typeahead/typeahead.css',
+        //
+        //'../assets/global/plugins/bootstrap-datepicker/css/datepicker3.css',
+        //
+        //'../assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
 
-        '../assets/global/plugins/bootstrap-datepicker/css/datepicker3.css',
-        '../assets/global/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js',
-
-        '../assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
-        '../assets/global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js',
-
-        '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js',
-        '../assets/global/plugins/fuelux/js/spinner.min.js',
-        '../assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
-        '../assets/global/plugins/jquery.input-ip-address-control-1.0.min.js',
-        '../assets/global/plugins/bootstrap-pwstrength/pwstrength-bootstrap.min.js',
-        '../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js',
-        '../assets/global/plugins/jquery-tags-input/jquery.tagsinput.min.js',
-        '../assets/global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js',
-        '../assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js',
-        '../assets/global/plugins/typeahead/handlebars.min.js',
-        '../assets/global/plugins/typeahead/typeahead.bundle.min.js',
-        '../assets/admin/pages/scripts/components-pickers.js',
-        '../assets/admin/pages/scripts/components-form-tools.js',
+        //'../assets/global/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js',
+        //'../assets/global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js',
+        //
+        //'../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js',
+        //'../assets/global/plugins/fuelux/js/spinner.min.js',
+        //'../assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
+        //'../assets/global/plugins/jquery.input-ip-address-control-1.0.min.js',
+        //'../assets/global/plugins/bootstrap-pwstrength/pwstrength-bootstrap.min.js',
+        //'../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js',
+        //'../assets/global/plugins/jquery-tags-input/jquery.tagsinput.min.js',
+        //'../assets/global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js',
+        //'../assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js',
+        //'../assets/global/plugins/typeahead/handlebars.min.js',
+        //'../assets/global/plugins/typeahead/typeahead.bundle.min.js',
+        //'../assets/admin/pages/scripts/components-pickers.js',
+        //'../assets/admin/pages/scripts/components-form-tools.js',
         'js/controllers/common/InfoController.js'),
     conf: new Array('js/controllers/ConfController.js')
 };
@@ -238,6 +232,33 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             }
         })
 
+
+        // 划款模块
+        .state("payList", {
+            url: "/pay/list.html",
+            templateUrl: "views/pay/list.html",
+            data: {pageTitle: "划款信息", module: "EO2OPayment", handleController: "EO2OPayment", action: "edit", info: true},
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([{
+                        name: 'ui.select',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
+                        ]
+                    },
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: $.merge(depFile.info, depFile.list).concat(new Array("js/controllers/student/DetailController.js"))
+                        }]);
+                }]
+            }
+        })
+
+
         // student info
         .state("studentList", {
             url: "/student/list.html",
@@ -263,7 +284,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             ]
                         }, {
                             name: 'MetronicApp',
-                            files: $.merge($.merge(depFile.info, depFile.list), new Array('js/controllers/student/ListController.js', "../assets/global/plugins/jstree/dist/themes/default/style.min.css", "../assets/global/plugins/jstree/dist/jstree.min.js")).concat(depFile.conf)
+                            files: $.merge( depFile.info, new Array('js/controllers/student/ListController.js')).concat(depFile.conf)
                         }]);
                 }]
             }
@@ -420,8 +441,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         })
 
 
-
-
         // student info
         .state("messagetQuestionList", {
             url: "/message/questionList.html",
@@ -557,32 +576,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             }
         })
 
-
-
-        // 划款模块
-        .state("payList", {
-            url: "/pay/list.html",
-            templateUrl: "views/pay/list.html",
-            data: {pageTitle: "自动回复", module: "EO2OPayment", handleController: "EO2OPayment", action: "edit", info: true},
-            controller: "ListController",
-            resolve: {
-                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([{
-                        name: 'ui.select',
-                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                        files: [
-                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
-                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
-                        ]
-                    },
-                        {
-                            name: 'MetronicApp',
-                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: $.merge(depFile.info, depFile.list).concat(new Array("js/controllers/student/DetailController.js"))
-                        }]);
-                }]
-            }
-        })
 
 
         // 微信自动回复

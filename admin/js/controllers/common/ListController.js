@@ -8,6 +8,10 @@ MetronicApp.controller('ListController', ['$rootScope', '$http', '$scope', funct
         Metronic.initAjax();
 
         // init the table
-        TableAjax.init('list',$rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController);
+        setTimeout(function(){
+            // 等待DOM回来，黑科技，哈哈哈
+            TableAjax.init('list',$rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController);
+        }, 1);
+
     });
 }]);
