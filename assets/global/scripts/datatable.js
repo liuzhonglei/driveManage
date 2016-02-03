@@ -64,7 +64,10 @@ var Datatable = function() {
                         }
                     },
 
-                    //"orderCellsTop": true,
+                    // 默认排序字段
+                    aaSorting: [[ 0, "desc" ]],
+
+            //"orderCellsTop": true,
                         //"columnDefs": [{ // define columns sorting options(by default all columns are sortable extept the first checkbox column)
                     //    'orderable': false,
                     //    'targets': 0
