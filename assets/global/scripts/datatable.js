@@ -64,8 +64,8 @@ var Datatable = function() {
                         }
                     },
 
-                    // 默认排序字段
-                    aaSorting: [[ 0, "desc" ]],
+                    // 默认排序字段,在后台进行排序
+                    aaSorting: [],
                     "pagingType": "bootstrap_extended", // pagination type(bootstrap, bootstrap_full_number or bootstrap_extended)
                     "autoWidth": true, // disable fixed width and enable fluid table
                     "processing": false, // enable/disable display message box on record load

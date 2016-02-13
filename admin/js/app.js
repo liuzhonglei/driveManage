@@ -438,7 +438,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("schoolPrivilegeList", {
             url: "/schoolPrivilege/list.html",
             templateUrl: "views/common/list.html",
-            data: {pageTitle: "驾校优惠", module: "School", handleController: "Privilege", action: "edit", info: true},
+            data: {pageTitle: "驾校优惠", module: "School", handleController: "Privilege", action: "edit", info: true, extendClass: "modal-lg"},
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -463,7 +463,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("payitemList", {
             url: "/payitem/list.html",
             templateUrl: "views/common/list.html",
-            data: {pageTitle: "相关资料", module: "School", handleController: "Payitem", action: "edit", info: true},
+            data: {pageTitle: "相关资料", module: "School", handleController: "Payitem", action: "edit", info: true, extendClass: "modal-lg"},
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -606,7 +606,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("userCenterList", {
             url: "/userCener/list.html",
             templateUrl: "views/common/list.html",
-            data: {pageTitle: "粉丝信息", module: "UserCenter", handleController: "UserCenter", action: "show", conf: true},
+            data: {pageTitle: "粉丝信息", module: "UserCenter", handleController: "UserCenter", action: "show"},
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {

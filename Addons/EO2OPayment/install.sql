@@ -162,6 +162,8 @@ CREATE VIEW wp_eo2o_payment_all AS
   WHERE   LENGTH(trim(transaction_id))>0 or pay_channel = "human" or result_code  = "WAIT";
 
 
+create view wp_eo2o_pay_list AS
+  select * from wp_eo2o_payment_all;
 
 /**
  * 划款统计
