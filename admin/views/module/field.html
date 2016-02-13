@@ -3,25 +3,25 @@
 <div class="col-sm-8">
     <div ng-switch="field.type">
         <input ng-switch-when="string" type="text" name="{{field.name}}"
-               class="form-control  input-medium " ng-model="info[field.name]"/>
+               class="form-control  input-medium " ng-model="info[field.name]" ng-disabled="infoDisabled"/>
         <input ng-switch-when="num" class="form-control  input-medium "
-               type="text" ng-model="info[field.name]">
-        <textarea ng-switch-when="textarea" class="form-control input-medium" maxlength="500" rows="5"></textarea>
+               type="text" ng-model="info[field.name]" ng-disabled="infoDisabled">
+        <textarea ng-switch-when="textarea" class="form-control input-medium" maxlength="500" rows="5" ng-disabled="infoDisabled"></textarea>
 
         <input ng-switch-when="date"
                class="form-control form-control-inline input-medium datePicker"
-               type="text" data-date-format="yyyy-mm-dd" name="{{field.name}}" ng-model="info[field.name]">
+               type="text" data-date-format="yyyy-mm-dd" name="{{field.name}}" ng-model="info[field.name]" ng-disabled="infoDisabled">
 
         <div ng-switch-when="datetime" class="input-group  input-medium  date form_datetime dataTimePicker">
-            <input type="text" name="{{field.name}}" size="16" class="form-control" ng-model="info[field.name]">
+            <input type="text" name="{{field.name}}" size="16" class="form-control" ng-model="info[field.name]" ng-disabled="infoDisabled">
 												<span class="input-group-btn">
-												<button class="btn default date-set" type="button"><i
+												<button class="btn default date-set" type="button" ng-disabled="infoDisabled"><i
                                                         class="fa fa-calendar"></i></button>
 												</span>
         </div>
         <div ng-switch-when="radio">
             <ui-select ng-model="info[field.name]" class="input-medium "
-                       theme="bootstrap" name="{{field.name}}">
+                       theme="bootstrap" name="{{field.name}}" ng-disabled="infoDisabled">
                 <ui-select-match
                         placeholder="选择或搜索">
                     {{$select.selected.text}}
@@ -34,7 +34,7 @@
         </div>
         <div ng-switch-when="select">
             <ui-select ng-model="info[field.name]" class="input-medium "
-                       theme="bootstrap" name="{{field.name}}">
+                       theme="bootstrap" name="{{field.name}}" ng-disabled="infoDisabled">
                 <ui-select-match
                         placeholder="选择或搜索">
                     {{$select.selected.text}}
@@ -49,7 +49,7 @@
         </div>
         <div ng-switch-when="checkbox">
             <ui-select multiple theme="bootstrap" class="input-medium "
-                       ng-disabled="disabled" ng-model="info[field.name]" name="{{field.name}}">
+                       ng-disabled="disabled" ng-model="info[field.name]" name="{{field.name}}" ng-disabled="infoDisabled">
                 <ui-select-match>
                     {{$item.text}}
                 </ui-select-match>
@@ -60,10 +60,10 @@
             </ui-select>
         </div>
         <div ng-switch-when="editor">
-            <summernote name="{{field.name}}" ng-model="info[field.name]" name="{{field.name}}">
+            <summernote name="{{field.name}}" ng-model="info[field.name]" name="{{field.name}}" ng-disabled="infoDisabled">
             </summernote>
         </div>
-        <div ng-switch-when="picture">
+        <div ng-switch-when="picture" ng-disabled="infoDisabled">
             <div class="fileinput fileinput-new"
                  data-provides="fileinput">
                 <div class="fileinput-new thumbnail">

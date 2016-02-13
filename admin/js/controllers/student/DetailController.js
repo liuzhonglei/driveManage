@@ -4,6 +4,7 @@ MetronicApp.controller('StudentDetailController', ['$rootScope', '$http', '$scop
     $scope.metadata = {};
     $scope.selected = {};
     $scope.info = {};
+    $scope.infoDisabled = "true";
 
 
     $scope.setInfoData = function () {

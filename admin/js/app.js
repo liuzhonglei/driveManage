@@ -328,7 +328,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             ]
                         }, {
                             name: 'MetronicApp',
-                            files: $.merge(depFile.info, new Array('js/controllers/student/ListController.js', 'js/controllers/student/PayInfoController.js')).concat(depFile.conf)
+                            files: $.merge(depFile.info, new Array('js/controllers/student/ListController.js', 'js/controllers/student/PayInfoController.js',"js/controllers/student/DetailController.js")).concat(depFile.conf)
                         }]);
                 }]
             }

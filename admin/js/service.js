@@ -132,7 +132,8 @@ MetronicApp.factory('infoTool', ['$http', 'dataTool', '$q', function ($http, dat
                             if (map.length == 2) {
                                 result.push({
                                     "value": map[0],
-                                    "text": map[1]
+                                    "text": map[1],
+                                    "disabled": true
                                 });
                             }
                         }
