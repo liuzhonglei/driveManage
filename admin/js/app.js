@@ -353,7 +353,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before',
-                            files: $.merge(depFile.info, depFile.list).concat(new Array("js/controllers/School/PictureController.js"))
+                            files: $.merge(depFile.info, depFile.list).concat(new Array("js/controllers/school/PictureController.js"))
                         }]);
                 }]
             }
