@@ -55,10 +55,10 @@ var Datatable = function() {
                         "emptyTable": "表中无数据",
                         "zeroRecords": "没有数据",
                         "paginate": {
-                            "previous": "Prev",
-                            "next": "Next",
-                            "last": "Last",
-                            "first": "First",
+                            "previous": "上一个",
+                            "next": "下一条",
+                            "last": "最后一条",
+                            "first": "地一条",
                             "page": "当前",
                             "pageOf": "在"
                         }
@@ -66,18 +66,10 @@ var Datatable = function() {
 
                     // 默认排序字段
                     aaSorting: [[ 0, "desc" ]],
-
-            //"orderCellsTop": true,
-                        //"columnDefs": [{ // define columns sorting options(by default all columns are sortable extept the first checkbox column)
-                    //    'orderable': false,
-                    //    'targets': 0
-                    //}],
-
                     "pagingType": "bootstrap_extended", // pagination type(bootstrap, bootstrap_full_number or bootstrap_extended)
-                    "autoWidth": false, // disable fixed width and enable fluid table
+                    "autoWidth": true, // disable fixed width and enable fluid table
                     "processing": false, // enable/disable display message box on record load
                     "serverSide": true, // enable/disable server side ajax loading
-
                     "ajax": { // define ajax settings
                         "url": "", // ajax URL
                         "type": "POST", // request type

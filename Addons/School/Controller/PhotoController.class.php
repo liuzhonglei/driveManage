@@ -52,6 +52,16 @@ class PhotoController extends SchoolBaseController{
         $this->display ( $templateFile );
     }
 
+    public function listsAdmin($ajaxReturn = true, $map = null)
+    {
+        $result =  parent::listsAdmin(false, $map);
+        foreach ( $result ['data'] as &$vo ) {
+            $vo [0] = '<img src="' . get_cover_url ( $vo [0] ) . '" width="50px" >';
+        }
+        $this->ajaxReturn($result);
+    }
+
+
     function add(){
         $this->assign('type',i('get.type'));
         $this->assign('object_id',i('get.object_id'));

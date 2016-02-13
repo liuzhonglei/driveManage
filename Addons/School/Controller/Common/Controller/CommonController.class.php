@@ -70,7 +70,7 @@ class CommonController extends ExtendAddonsController
         } else {
             $result = $Model->create() && $id = $Model->save();
         }
-        if ($result || empty($Model->getError())) {
+        if ($result && empty($Model->getError())) {
             $this->_saveKeyword($this->model, $id);
             $result = array("status" => "1", "info" => '保存成功', 'id' => $id);
         } else {

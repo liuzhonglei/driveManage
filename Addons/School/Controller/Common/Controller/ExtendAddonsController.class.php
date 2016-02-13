@@ -169,10 +169,10 @@ class ExtendAddonsController extends AddonsController
             $model_fields = M('attribute')->where('model_id=' . $model ['id'])->field('name')->select();
             $model_fields = getSubByKey($model_fields, 'name');
             in_array('id', $model_fields) || array_push($model_fields, 'id');
-            $fields = array_intersect($fields, $model_fields);
+            // 可能存在使用视图进行查询的情况
+            // $fields = array_intersect($fields, $model_fields);
         }
         $res ['fields'] = array_unique($fields);
-
         $res ['list_grids'] = $grids;
         return $res;
     }

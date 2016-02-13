@@ -1,15 +1,17 @@
-<label class="col-sm-4 control-label">{{field.title}}</label>
+<label class="col-sm-3 control-label">{{field.title}} <span ng-if="field.is_must  == '1'"
+        class="required">*</span></label>
 <div class="col-sm-8">
     <div ng-switch="field.type">
         <input ng-switch-when="string" type="text" name="{{field.name}}"
                class="form-control  input-medium " ng-model="info[field.name]"/>
         <input ng-switch-when="num" class="form-control  input-medium "
                type="text" ng-model="info[field.name]">
-        <textarea ng-switch-when="textarea"  class="form-control input-medium" maxlength="500" rows="5"></textarea>
+        <textarea ng-switch-when="textarea" class="form-control input-medium" maxlength="500" rows="5"></textarea>
 
         <input ng-switch-when="date"
                class="form-control form-control-inline input-medium datePicker"
                type="text" data-date-format="yyyy-mm-dd" name="{{field.name}}" ng-model="info[field.name]">
+
         <div ng-switch-when="datetime" class="input-group  input-medium  date form_datetime dataTimePicker">
             <input type="text" name="{{field.name}}" size="16" class="form-control" ng-model="info[field.name]">
 												<span class="input-group-btn">
@@ -57,8 +59,6 @@
                 </ui-select-choices>
             </ui-select>
         </div>
-
-
         <div ng-switch-when="editor">
             <summernote name="{{field.name}}" ng-model="info[field.name]" name="{{field.name}}">
             </summernote>
@@ -92,6 +92,6 @@
         </div>
     </div>
     <p class="help-block">
-        {{field.reamrk}}
+        {{field.remark}}
     </p>
 </div>

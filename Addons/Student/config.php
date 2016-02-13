@@ -1,21 +1,5 @@
 <?php
 return array(
-    'notification_address_km1' => array(
-        'title' => '科目一考试地点:',
-        'type' => 'text'
-    ),
-    'notification_address_km2' => array(
-        'title' => '科目二考试地点:',
-        'type' => 'text'
-    ),
-    'notification_address_km3' => array(
-        'title' => '科目三考试地点:',
-        'type' => 'text'
-    ),
-    'notification_address_km4' => array(
-        'title' => '科目四考试地点:',
-        'type' => 'text'
-    ),
     'temp_id' => array(
         'title' => '消息模板ID:',
         'type' => 'text'

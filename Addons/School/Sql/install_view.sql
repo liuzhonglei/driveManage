@@ -131,57 +131,6 @@ drop view wp_qingqing_coupon_all;
 create view wp_qingqing_coupon_all as
 select t.*,t1.nickname from wp_qingqing_coupon t left join wp_follow t1 on t1.token = t.token and t1.openid = t.openid;
 
-#wp_eo2o_payment_all
-DROP VIEW wp_eo2o_payment_all;
-CREATE VIEW wp_eo2o_payment_all AS
-SELECT
-DISTINCT
-	t.*,
-	t.openid  student_name,
-	t.openid nickname,
-	FROM_UNIXTIME(t.time_end, "%Y-%m-%d %H:%i:%S") pay_time,
-	ROUND(t.total_fee / 100, 2) pay_fee,
-	(
-		CASE t.pay_channel
-		WHEN "human" THEN
-			"人工"
-			WHEN "weixin" THEN
-			"微信"
-			WHEN "alipay" THEN
-			"支付宝"
-		ELSE
-			t1. NAME
-		END
-	) pay_channel_name,
-	(
-		CASE t.paytype
-		WHEN "banner" THEN
-			"锦旗支付"
-		ELSE
-			t1. NAME
-		END
-	) pay_item_name,
-	t2. NAME school_name,
-	(
-		CASE t.result_code
-		WHEN "SUCCESS"
-		THEN
-			"支付成功"
-		WHEN "FAIL" THEN
-			"支付失败"
-		ELSE
-			"划款中"
-		END
-	) pay_result,
-	t3.username as user_name
-FROM
-	wp_eo2o_payment t
-LEFT JOIN wp_school_payitem t1 ON t.payitem_id = t1.id
-LEFT JOIN wp_school t2 ON t.token = t2.token
-LEFT JOIN wp_ucenter_member t3 ON t.user_id = t3.id
-WHERE   LENGTH(trim(transaction_id))>0 or pay_channel = "human";
-
-
 #wp_eo2o_payment_count
 drop view wp_eo2o_payment_count;
 create view wp_eo2o_payment_count as

@@ -1,16 +1,16 @@
 var TableAjax = function() {
     // 存储表格
     var tableMap = {};
-
+    
     // 模型数据
     var modelMap = {};
-
+    
     /**
      * init the table
      * @param module
      * @param handleController
      */
-    var init = function(name, module, controller, param, successCallback) {
+    var init = function(name, module, controller, param, extendClass,successCallback) {
         // 表格是否已经创建
         if (tableMap[name] && tableMap[name].grid) {
             var exitDataTable = tableMap[name].grid.getDataTable();
@@ -23,7 +23,9 @@ var TableAjax = function() {
                 head.empty();
             }
         }
-        
+
+      
+
         // 管理表格
         tableMap[name] = {};
         tableMap[name].param = param;
@@ -32,51 +34,50 @@ var TableAjax = function() {
         tableMap[name].controler = controller;
         
         // 查询表格信息
-        if(!modelMap[tableMap[name].module+"_"+tableMap[name].controler]){
+        if (!modelMap[tableMap[name].module + "_" + tableMap[name].controler]) {
             var url = createUrl(name, "getModelInfo");
             $.get(url, function(data) {
                 // 判断是否登录
                 if (data.result == "-1") {
                     window.location = "/admin/login.html"
                 }
-
+                
                 // 设置全局模型变量
-                modelMap[tableMap[name].module+"_"+tableMap[name].controler] = data;
+                modelMap[tableMap[name].module + "_" + tableMap[name].controler] = data;
                 
                 // 加载模型
                 loadModel(name);
-
+                
                 //查询数据
                 createTable(name, createUrl(name, "listsAdmin"), successCallback);
-
             });
-        }else{
-             // 加载模型
+        } else {
+            // 加载模型
             loadModel(name);
-
+            
             //查询数据
             createTable(name, createUrl(name, "listsAdmin"), successCallback);
         }
     }
-
+    
     /**
      * 加载模型信息
      * @param name 模型名称
      */
-    var loadModel = function(name){
+    var loadModel = function(name) {
         // 取得数据
-        var data = modelMap[tableMap[name].module+"_"+tableMap[name].controler];
-
+        var data = modelMap[tableMap[name].module + "_" + tableMap[name].controler];
+        
         // set search name
         var searchEle = $("#" + name + "-search-name");
         if (searchEle) {
             searchEle.val(data.model.search_key);
         }
-
+        
         // init column
         for (var i = 0; i < data.list_data.list_grids.length; i++) {
             // 字段名
-            if(!data.list_data.list_grids[i].title){
+            if (!data.list_data.list_grids[i].title) {
                 continue;
             }
             var column = {
@@ -84,17 +85,17 @@ var TableAjax = function() {
                 "aTargets": [i],
                 "bSortable": true
             };
-
+            
             // 字段名
             if (data.list_data.list_grids[i].field) {
                 column.sName = data.list_data.list_grids[i].field[0];
             }
-
+            
             // 排序
             if (!data.list_data.list_grids[i].field || data.list_data.list_grids[i].title == "操作" || data.list_data.list_grids[i].order == "0") {
                 column.bSortable = false;
             }
-
+            
             // 增加字段
             tableMap[name].columns.push(column);
         }
@@ -152,15 +153,15 @@ var TableAjax = function() {
         tableMap[name].grid.init({
             src: $("#" + name + "-table"),
             onSuccess: function(grid) {
-               console.log(grid.getTable());
-               var info = $(grid.getTable()).find("#list-table_info")
-               info.text();
+                console.log(grid.getTable());
+                var info = $(grid.getTable()).find("#list-table_info")
+                info.text();
                 if (successCallback) {
                     successCallback(grid);
                 }
             },
             onError: function(grid) {
-                alert("错误",grid);
+                alert("错误", grid);
             },
             loadingMessage: '读取中...',
             dataTable: {
@@ -208,6 +209,9 @@ var TableAjax = function() {
         });
     }
     
+    /**
+     * 返回
+     */
     return {
         init: function(name, module, handleController, param, successCallback) {
             init(name, module, handleController, param, successCallback);
@@ -219,25 +223,37 @@ var TableAjax = function() {
         get: function(name) {
             return tableMap[name];
         },
-        delete: function(id) {
-            var grid = tableMap['list'].grid;
-            grid.setAjaxParam("customActionType", "action");
-            grid.setAjaxParam("customActionName", "delete");
-            grid.setAjaxParam("id", id);
-            grid.getDataTable().ajax.reload();
+        delete: function(id,tableName) {
+            tableName = tableName|| 'list';
+            bootbox.confirm("确认删除选中数据?", function(result) {
+                if (result) {
+                    var grid = tableMap[tableName].grid;
+                    grid.setAjaxParam("customActionType", "action");
+                    grid.setAjaxParam("customActionName", "delete");
+                    grid.setAjaxParam("id", id);
+                    grid.getDataTable().ajax.reload();
+                }
+            });
         },
-        add: function() {
-            $("#form_info_id").val("");
-            $("#form_info_id").trigger("change");
-//             ComponentsFormTools.init();
-            $("#form_info").modal("show");
+        add: function(formName) {
+            formName = formName || 'form-info';
+            $("input[name='"+formName+"-id']").val("");
+            $("input[name='"+formName+"-id']").trigger("change");
+
+            $("div[name='"+formName+"']").modal("show");
+            var nav = $("a[name='form-info-nav-1']");
+            nav.click();
         },
-        edit: function(id) {
-            $("#form_info_id").val(id);
-            $("#form_info_id").trigger("change");
-//             ComponentsFormTools.init();
-            $("#form_info").modal("show");
+        edit: function(id,formName) {
+            formName = formName || 'form-info';
+
+            $("input[name='"+formName+"-id']").val(id);
+            $("input[name='"+formName+"-id']").trigger("change");
+            $("div[name='"+formName+"']").modal("show");
+            var nav = $("a[name='"+formName+"-nav-1']");
+            nav.click();
         },
-        modelMap:modelMap
+        modelMap: modelMap,
+        tableMap: tableMap
     };
 }();

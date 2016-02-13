@@ -24,4 +24,22 @@ class CourseController extends SchoolBaseController{
 
         return $info;
     }
+
+    /**
+     * 修改可选择下拉框
+     * @param $fields
+     * @return Common\Controller\当前的字段
+     */
+    public function getFieldList($fields)
+    {
+        $fields =  parent::getFieldList($fields);
+        $fields = $this->setFiledExtra($fields, "learn_pay_item_id", 'school_payitem', 'name',array("token"=>get_token(),"type"=>"sign"));
+        $fields = $this->setFiledExtra($fields, "learn_stage_pay_item_id", 'school_payitem', 'name',array("token"=>get_token(),"type"=>"sign"));
+        $fields = $this->setFiledExtra($fields, "km1_make_up_pay_item_id", 'school_payitem', 'name',array("token"=>get_token(),"type"=>"supplementary"));
+        $fields = $this->setFiledExtra($fields, "km1_twice_make_up_pay_item_id", 'school_payitem', 'name',array("token"=>get_token(),"type"=>"supplementary"));
+
+
+        // 返回
+        return $fields;
+    }
 }

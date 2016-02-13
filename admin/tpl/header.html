@@ -1,9 +1,61 @@
 <!-- BEGIN HEADER INNER -->
+<div id="alter-password" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="myModalLabel10"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="portlet-title tabbable-line">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">密码修改</h4>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="portlet-body">
+                    <form action="javascript:;" class="form-horizontal">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">原密码 <span
+                                        class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <input type="password"
+                                           class="form-control  input-medium " ng-model="info.old"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">新密码 <span
+                                        class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <input type="password"
+                                           class="form-control  input-medium " ng-model="info.password"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">确认密码 <span
+                                        class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <input type="password"
+                                           class="form-control  input-medium " ng-model="info.repassword"/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="alert alert-danger" ng-show="infoErrorShow" ng-bind="infoErrorMsg">
+                    <button class="close" data-close="alert"></button>
+                </div>
+                <button class="btn default" data-dismiss="modal" aria-hidden="true">取消</button>
+                <button class="btn green" ng-click="savePassword()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="page-header-top">
     <!-- BEGIN LOGO -->
-    <div class="page-logo" >
+    <div class="page-logo">
         <a href="index.html">
-            <img src="./resource/top-logo.png"   alt="logo" class="logo-default"/>
+            <img src="./resource/top-logo.png" alt="logo" class="logo-default"/>
         </a>
 
         <div class="menu-toggler sidebar-toggler">
@@ -72,7 +124,8 @@
                 <!-- BEGIN NOTIFICATION DROPDOWN -->
                 <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                 <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                       data-close-others="true">
                         <i class="icon-bell"></i>
 					<span class="badge badge-success">
 					2 </span>
@@ -115,17 +168,24 @@
                 <li class="dropdown dropdown-user dropdown-dark">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                        data-close-others="true">
-						<span class="username username-hide-on-mobile">
-						操作
-						</span>
+                        <!--<span class="username username-hide-on-mobile">-->
+                        <!--操作-->
+                        <!--</span>-->
                         <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
                         <img alt="" class="img-circle" src="../assets/admin/layout4/img/avatar9.jpg"/>
+                        <span class="username username-hide-mobile">{{userInfo.name}}</span>
+
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
                         <li>
-                            <a href="#">
+                            <a  ng-click="showPassword()">
                                 <i class="icon-lock"></i> 修改密码 </a>
                         </li>
+                        <!--<li>-->
+                            <!--<a href="extra_lock.html">-->
+                                <!--<i class="icon-lock"></i> 锁住屏幕-->
+                            <!--</a>-->
+                        <!--</li>-->
                         <li>
                             <a href="/index.php?s=/Home/User/logoutAdmin.html" id="logout-href">
                                 <i class="icon-key"></i> 登出 </a>
@@ -141,8 +201,8 @@
 </div>
 <!-- END HEADER INNER -->
 <script>
-    jQuery(document).ready(function() {
-        $("#logout-href").attr("href",Metronic.rootPath()+"/index.php?s=/Home/User/logoutAdmin.html");
-    });
 
+    jQuery(document).ready(function () {
+        $("#logout-href").attr("href", Metronic.rootPath() + "/index.php?s=/Home/User/logoutAdmin.html");
+    });
 </script>

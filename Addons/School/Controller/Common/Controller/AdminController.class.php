@@ -31,8 +31,10 @@ class AdminController extends CommonController
      */
     function isLogin()
     {
-        if ($this->isAdmin() && !is_login()) {
-            $this->success("已登录");
+        $user = is_login();
+        if ($this->isAdmin() && !empty($user)) {
+            $userInfo = array("id"=>$user, "name"=>get_username($user));
+            $this->success("已登录", null, null, $userInfo);
         } else {
             $this->error("未登录");
         }
@@ -228,8 +230,11 @@ class AdminController extends CommonController
      */
     public function  saveAdmin()
     {
-        $this->saveModel();
-        $this->success();
+        $result = $this->saveModel();
+        if($result["status"] == "1"){
+            $this->success();
+        }
+        $this->error($result["info"]);
     }
 
     /**
@@ -436,22 +441,22 @@ class AdminController extends CommonController
     {
         $model || $model = i("model");
         $param || $param = i("param") || $param = "";
-        if(!empty($param)){
+        if (!empty($param)) {
             $param .= " and ";
         }
-        $param.="token = '".get_token()."'";
+        $param .= "token = '" . get_token() . "'";
 
-        if(!empty($model)){
+        if (!empty($model)) {
             $data = M($model)->where($param)->select();
-            if($ajaxReturn){
+            if ($ajaxReturn) {
                 $this->success("查询成功", null, null, $data);
-            }else{
+            } else {
                 return $data;
             }
-        }else{
-            if($ajaxReturn) {
+        } else {
+            if ($ajaxReturn) {
                 $this->error("查询失败,model为空!");
-            }else{
+            } else {
                 return null;
             }
         }

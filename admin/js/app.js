@@ -141,10 +141,48 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope', function ($scop
  ***/
 
 /* Setup Layout Part - Header */
-MetronicApp.controller('HeaderController', ['$scope', function ($scope) {
+MetronicApp.controller('HeaderController', ['$scope', 'infoTool', function ($scope, infoTool) {
+     $scope.info = {
+        "old": "",
+        "password": "",
+        "repassword": ""
+    };
+
+
     $scope.$on('$includeContentLoaded', function () {
         Layout.initHeader(); // init header
+
+        // 判断是否已经等路
+        $.get(Metronic.rootPath() + "/index.php?s=/addon/School/School/isLogin", function (data) {
+            // 判断是否登录
+            if (data.result == "-1") {
+                window.location = "./login.html"
+            } else {
+                $scope.userInfo = data.data;
+            }
+        });
     });
+
+   
+    /**
+     * 显示界面
+     */
+    $scope.showPassword = function () {
+        $scope.info.old = "";
+        $scope.info.password = "";
+        $scope.info.repassword = "";
+        $("#alter-password").modal("show");       
+    }
+
+    /**
+     * 保存界面
+     */
+    $scope.savePassword = function () {
+        var deffer = infoTool.saveInfoData($scope.info, "User", "profile", null, "Home");
+        deffer.then(function () {
+            $("#alter-password").modal("hide");
+        })
+    }
 }]);
 
 /* Setup Layout Part - Sidebar */
@@ -226,7 +264,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: $.merge(depFile.info, depFile.list)
+                            files: $.merge(depFile.info, depFile.list).concat(new Array("js/controllers/teacher/PictureController.js"))
                         }]);
                 }]
             }
@@ -237,7 +275,13 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("payList", {
             url: "/pay/list.html",
             templateUrl: "views/pay/list.html",
-            data: {pageTitle: "划款信息", module: "EO2OPayment", handleController: "EO2OPayment", action: "edit", info: true},
+            data: {
+                pageTitle: "划款信息",
+                module: "EO2OPayment",
+                handleController: "EO2OPayment",
+                //action: "edit",
+                info: true
+            },
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -252,7 +296,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: $.merge(depFile.info, depFile.list).concat(new Array("js/controllers/student/DetailController.js"))
+                            files: $.merge(new Array("js/controllers/student/DetailController.js"), depFile.list)
                         }]);
                 }]
             }
@@ -284,7 +328,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             ]
                         }, {
                             name: 'MetronicApp',
-                            files: $.merge( depFile.info, new Array('js/controllers/student/ListController.js')).concat(depFile.conf)
+                            files: $.merge(depFile.info, new Array('js/controllers/student/ListController.js', 'js/controllers/student/PayInfoController.js')).concat(depFile.conf)
                         }]);
                 }]
             }
@@ -309,7 +353,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before',
-                            files: $.merge(depFile.info, depFile.list)
+                            files: $.merge(depFile.info, depFile.list).concat(new Array("js/controllers/School/PictureController.js"))
                         }]);
                 }]
             }
@@ -318,7 +362,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("schoolInfoList", {
             url: "/schoolInfo/list.html",
             templateUrl: "views/common/list.html",
-            data: {pageTitle: "相关资料", module: "School", handleController: "Info", action: "edit", info: true},
+            data: {pageTitle: "相关资料", module: "School", handleController: "Info", action: "edit", info: true, extendClass: "modal-lg"},
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -607,7 +651,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("cutPriceList", {
             url: "/cutPrice/list.html",
             templateUrl: "views/common/list.html",
-            data: {pageTitle: "砍价活动", module: "CutPrice", handleController: "CutPrice", action: "show",conf: true},
+            data: {pageTitle: "砍价活动", module: "CutPrice", handleController: "CutPrice", action: "show", conf: true},
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -709,7 +753,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: $.merge(depFile.chart,new Array('js/controllers/pay/BalanceParamController.js'))
+                            files: $.merge(depFile.chart, new Array('js/controllers/pay/BalanceParamController.js'))
                         }]);
                 }]
             }

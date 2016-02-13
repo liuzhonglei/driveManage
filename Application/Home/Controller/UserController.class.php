@@ -141,10 +141,11 @@ class UserController extends HomeController {
                 $Member = D ( 'Member' );
                 if ($Member->login ( $uid )) { // 登录用户
 					$position = strrpos($_SERVER["HTTP_REFERER"],"/");
-					$url = substr($_SERVER["HTTP_REFERER"],0,$position+1)."index.html";
+//					$url = substr($_SERVER["HTTP_REFERER"],0,$position+1)."index.html";
 
                     session ( 'is_follow_login', null );
-					redirect($url);
+					$this->success("登录成功!");
+//					redirect($url);
                 } else {
                     $this->error ( $Member->getError () );
                 }
@@ -170,18 +171,18 @@ class UserController extends HomeController {
         }
     }
 
+	/**
+	 * 登出
+	 */
 	public function logoutAdmin(){
 		if (is_login ()) {
 
 			D ( 'Member' )->logout ();
 			$position = strrpos($_SERVER["HTTP_REFERER"],"/");
 			$url = substr($_SERVER["HTTP_REFERER"],0,$position+1)."login.html";
-//			$url = "admin/login.html";
-//
 		}
 
 		redirect($url);
-//		$this->success ( '退出成功！', $url);
 	}
 	
 	/* 退出登录 */

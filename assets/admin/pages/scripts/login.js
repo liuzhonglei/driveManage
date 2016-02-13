@@ -1,7 +1,30 @@
 var Login = function() {
 
     var handleLogin = function() {
+//   		$('.login-form').ajaxForm(function() { 
+//                 alert("Thank you for your comment!"); 
+//         });
 
+        var options = {
+            success: function (response, statusText, xhr, $form) {
+            	if(response.result == "1"){
+location.href= "./index.html";
+            	}else{
+            		bootbox.alert(response.message);
+            		return false;
+            	}
+
+//                 TableAjax.reload('list');
+//                 $("# file-import").modal("hide");
+            },
+//             url: Metronic.rootPath() + "/index.php?s=/addon/Student/Student/fileImport.html",
+            type: "post",
+            dataType: "json"
+//             resetForm: true
+        };
+
+        $('.login-form').ajaxForm(options);
+            
         $('.login-form').validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block', // default input error message class
@@ -44,9 +67,8 @@ var Login = function() {
             errorPlacement: function(error, element) {
                 error.insertAfter(element.closest('.input-icon'));
             },
-
             submitHandler: function(form) {
-                form.submit(); // form validation success, call ajax form submit
+				 // form validation success, call ajax form submit
             }
         });
 
