@@ -12,7 +12,7 @@ namespace Home\Controller;
  * 公众号管理
  */
 class MemberPublicController extends HomeController {
-	protected $addon, $model;
+	public $addon, $model;
 	public function _initialize() {
 		parent::_initialize ();
 		
