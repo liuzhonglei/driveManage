@@ -186,8 +186,9 @@ class ExtendAddonsController extends AddonsController
      *
      * @return mixed
      */
-    public function _get_model_list($model = null, $page = 0, $order = 'id desc', $map = null)
+    public function _get_model_list($model = null, $page = 0, $order = null, $map = null)
     {
+        $order || $order = 'id desc';
         $page || $page = I('p', 1, 'intval'); // 默认显示第一页数据
 
         // 解析列表规则
