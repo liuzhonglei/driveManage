@@ -4,6 +4,15 @@ var TableAjax = function() {
     
     // 模型数据
     var modelMap = {};
+
+    /**
+     * 清空模型信息
+     * @param module
+     * @param controller
+     */
+    var removeModelInfo = function(module, controller){
+        modelMap[module + "_" + controller] = null;
+    }
     
     /**
      * init the table
@@ -168,8 +177,8 @@ var TableAjax = function() {
                 aoColumnDefs: tableMap[name].columns,
                 "bStateSave": true,
                 "lengthMenu": [
-                [10, 20, 50, 100, 150, -1], 
-                [10, 20, 50, 100, 150, "All"]
+                [10, 20, 50, 100, 150],
+                [10, 20, 50, 100, 150]
                 ],
                 "pageLength": 10,
                 "ajax": {
@@ -254,6 +263,7 @@ var TableAjax = function() {
             nav.click();
         },
         modelMap: modelMap,
-        tableMap: tableMap
+        tableMap: tableMap,
+        removeModelInfo: removeModelInfo
     };
 }();
