@@ -31,7 +31,7 @@ class CutPriceController extends BaseController {
      * list the data
      */
     function lists(){
-        $this->model = $this->getModel ( 'cut_price_count' );
+//        $this->model = $this->getModel ( 'cut_price_count_detail' );
         $this->assign('add_button',0);
         $this->assign('del_button',0);
 
@@ -49,8 +49,7 @@ class CutPriceController extends BaseController {
      * list the data count
      */
     function listsDetail(){
-        $this->model = $this->getModel ( 'cut_price' );
-//        $this->listsTable = "cut_price";
+//        $this->model = $this->getModel ( 'cut_price' );
         $_POST['token'] = get_token();
         $this->assign('add_button',0);
         parent::common_lists($this->model,0,"lists", $order = 'id desc');
@@ -73,12 +72,8 @@ class CutPriceController extends BaseController {
             return $list_data;
         }
 
-        // TODO 修改排序
-//        $order = "";
-
         // 返回数据
         $list_data = $this->_list_grid($model);
-
 
         // 生成查询条件
         $map = "token = '" . get_token()."'";
@@ -99,21 +94,17 @@ class CutPriceController extends BaseController {
         $row = empty ($model ['list_row']) ? 20 : $model ['list_row'];
 
         // 查询数目
-        $count = DataBaseUtil::getDataCount( $this->getTableName(),$map);
+        $count = DataBaseUtil::getDataCount( "cut_price_count_detail",$map);
         $list_data ['count'] = $count;
         if($count < $row){
             $page = 1;
         }
-
-
 
         // 查询数据
         $tableName = $this->getTableName();
         $sql = $this->createSql($map, $page, $row, $order);
         $data = M($tableName)->query($sql);
         $list_data ['list_data'] = $data;
-
-
 
         // 分页
         if ($count > $row) {
