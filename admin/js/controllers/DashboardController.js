@@ -1,13 +1,13 @@
 MetronicApp.controller('DashboardController', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
 
-
-
-        // 收费统计数据
+    // 收费统计数据
     $scope.payData = {};
     $scope.payData.payType = "day";
     $scope.payData.payNum = {sign: 0, supplementary: 0, activity: 0, total: 0};
     $scope.payData.payRecord = {};
     //$scope.payData.graph = null;
+
+    $scope.toDoTimer;
 
     /**
      * 同步信息
@@ -17,9 +17,29 @@ MetronicApp.controller('DashboardController', ['$rootScope', '$scope', '$http', 
         Metronic.initAjax();
         $scope.getPayStatics();
 
+        // 刷新待办事项
+        $scope.getDoList();
+        setTimeout($scope.getDoList(), 1000);
     });
 
+    /**
+     * 获取待办事项
+     */
+    $scope.getDoList = function () {
+        // 清空计时器
+        if ($scope.toDoTimer) {
+            window.clearTimeout($scope.toDoTimer);
+        }
 
+        // 查询
+
+        // 1分钟后 ,进行下一次查询
+        $scope.toDoTimer = setTimeout($scope.getDoList, 60000);
+    }
+
+    /**
+     * 获取图形信息
+     */
     $scope.getPayStatics = function () {
         // 统计数据
         $http({
@@ -79,7 +99,7 @@ MetronicApp.controller('DashboardController', ['$rootScope', '$scope', '$http', 
                     resize: true
                 });
                 console.log("init");
-            }else{
+            } else {
                 $scope.payData.graph.setData(data);
             }
         }, function errorCallback(response) {

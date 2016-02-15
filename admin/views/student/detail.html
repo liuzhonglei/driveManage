@@ -11,7 +11,7 @@
                             </div>
                             <ul class="nav nav-tabs ">
                                 <li class="active">
-                                    <a href="#" onmousemove="$(this).click()" data-target="#student_detail_info_1" data-toggle="tab">{{fieldGroup[1]}}</a>
+                                    <a href="#" name="student-detail-nav-1" onmousemove="$(this).click()" data-target="#student_detail_info_1" data-toggle="tab">{{fieldGroup[1]}}</a>
                                 </li>
                                 <li ng-repeat="(key,value) in fieldGroup track by $index" ng-if="key != '1'">
                                     <a href="#" onmousemove="$(this).click()" data-target="#student_detail_info_{{key}}"
@@ -103,8 +103,16 @@
      * @param id 对象id
      */
     function studentDetailShow(id) {
+        // 点击标签1
+        var nav = $("a[name='student-detail-nav-1']");
+        nav.click();
+
+        // 修改数据
         $("#student_id").val(id);
         $("#student_id").trigger("change");
+
+        // 刷新数据
+        TableAjax.removeModelInfo('Student', 'Detail');
         TableAjax.init('student-log', 'Student', 'Detail', {"info": "log", "student_id": id});
         TableAjax.init('student-money-log', 'Student', 'Detail', {"info": "moneyLog", "student_id": id});
         $("#student-detail").modal("show");

@@ -148,7 +148,6 @@ MetronicApp.controller('HeaderController', ['$scope', 'infoTool', function ($sco
         "repassword": ""
     };
 
-
     $scope.$on('$includeContentLoaded', function () {
         Layout.initHeader(); // init header
 

@@ -188,7 +188,7 @@ class NotificationController extends StudentBaseController
         foreach ($dataList as &$data) {
             $tempData = array(
                 'first' => array('value' => $data['name'] . '您好，您的考试已安排成功！', 'color' => '#173177'),
-                'keyword1' => array('value' => '科目' . $data['sync_course'], 'color' => "#173177"),
+                'keyword1' => array('value' => '科目' . $data['status'], 'color' => "#173177"),
                 'keyword2' => array('value' => $data['date'] . ' ' . $data['time'], 'color' => '#173177'),
                 'keyword3' => array('value' => $exam_address, 'color' => '#173177'),
                 'keyword4' => array('value' => $school_info['phone'], 'color' => '#173177'),

@@ -47,7 +47,6 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
 
         // init the table
         $scope.setStatus("-1");
-
     });
 
     /**
@@ -78,6 +77,13 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
      */
     $scope.setStatus = function (status) {
         $scope.status = status;
+        $scope.loadTable();
+    }
+
+    /**
+     * 重新加载表哥
+     */
+    $scope.loadTable = function(){
         TableAjax.modelMap[$rootScope.$state.$current.data.module + "_" + $rootScope.$state.$current.data.handleController] = null;
         $scope.loadStudentNum();
         TableAjax.init('list', $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, getSearchParam());
@@ -145,6 +151,7 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
             method: 'GET',
             url: Metronic.rootPath() + '/index.php?s=/addon/Student/Student/saveFieldConf/status/' + $scope.status + '/value/' + conf.join() + '.html'
         }).then(function successCallback(response) {
+            TableAjax.modelMap[$rootScope.$state.$current.data.module + "_" + $rootScope.$state.$current.data.handleController] = null;
             TableAjax.init('list', $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, {
                 status: $scope.status
             });
