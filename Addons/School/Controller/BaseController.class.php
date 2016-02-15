@@ -12,8 +12,8 @@ require_once dirname(__FILE__) . "/" . 'Excel/PHPExcel.php';
 require_once dirname(__FILE__) . "/" . 'Excel/PHPExcel/Reader/Excel2007.php';
 require_once dirname(__FILE__) . "/" . 'Excel/PHPExcel/Reader/Excel5.php';
 include_once dirname(__FILE__) . "/" . 'Excel/PHPExcel/IOFactory.php';
-include_once dirname(__FILE__) . "/" . 'Excel/PHPExcel/style/Alignment.php';
-include_once dirname(__FILE__) . "/" . 'Excel/PHPExcel/style/NumberFormat.php';
+include_once dirname(__FILE__) . "/" . 'Excel/PHPExcel/Style/Alignment.php';
+include_once dirname(__FILE__) . "/" . 'Excel/PHPExcel/Style/NumberFormat.php';
 require_once(dirname(__FILE__) . '/../../QingQing/Public/Weixin/JSSDK.php');
 
 use Addons\School\Controller\Common\Controller\AdminController;
