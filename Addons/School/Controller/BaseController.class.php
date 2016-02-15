@@ -8,21 +8,21 @@
 
 namespace Addons\School\Controller;
 
-require_once 'Excel/PHPExcel.php';
-require_once 'Excel/PHPExcel/Reader/Excel2007.php';
-require_once 'Excel/PHPExcel/Reader/Excel5.php';
-include_once 'Excel/PHPExcel/IOFactory.php';
-include_once 'Excel/PHPExcel/style/Alignment.php';
-include_once 'Excel/PHPExcel/style/NumberFormat.php';
+require_once dirname(__FILE__) . "/" . 'Excel/PHPExcel.php';
+require_once dirname(__FILE__) . "/" . 'Excel/PHPExcel/Reader/Excel2007.php';
+require_once dirname(__FILE__) . "/" . 'Excel/PHPExcel/Reader/Excel5.php';
+include_once dirname(__FILE__) . "/" . 'Excel/PHPExcel/IOFactory.php';
+include_once dirname(__FILE__) . "/" . 'Excel/PHPExcel/style/Alignment.php';
+include_once dirname(__FILE__) . "/" . 'Excel/PHPExcel/style/NumberFormat.php';
 require_once(dirname(__FILE__) . '/../../QingQing/Public/Weixin/JSSDK.php');
 
 use Addons\School\Controller\Common\Controller\AdminController;
 use Think\Model;
 
-define ('MOBILE_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Mobile');
-define ('MOBILE_PATH', "Addons://School@Mobile/");
+define('MOBILE_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Mobile');
+define('MOBILE_PATH', "Addons://School@Mobile/");
 
-define ('QINGQING_TOKEN', "gh_94ecad95d624");
+define('QINGQING_TOKEN', "gh_94ecad95d624");
 
 class BaseController extends AdminController
 {
@@ -48,7 +48,7 @@ class BaseController extends AdminController
     protected function  getStudentInfo()
     {
         $Model = M("student");
-        $map = array('token' => get_token(),'openid' => get_openid());
+        $map = array('token' => get_token(), 'openid' => get_openid());
         $info = $Model->where($map)->find();
         return $info;
     }
@@ -133,7 +133,7 @@ class BaseController extends AdminController
      * @param $array
      * @return string
      */
-    protected function  getArrayStr($array,$quotation = true)
+    protected function  getArrayStr($array, $quotation = true)
     {
         $return = "";
         foreach ($array as $record) {
@@ -141,9 +141,9 @@ class BaseController extends AdminController
                 $return .= ",";
             }
             foreach ($record as $key => $value) {
-                if($quotation){
+                if ($quotation) {
                     $return .= "'" . $value . "'";
-                }else{
+                } else {
                     $return .= $value;
 
                 }
