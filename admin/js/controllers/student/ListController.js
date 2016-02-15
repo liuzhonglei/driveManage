@@ -63,7 +63,7 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
             url: Metronic.rootPath() + '/index.php?s=/addon/Student/Student/syncStudent/status/' + $scope.status + '.html'
         }).then(function successCallback(response) {
             Metronic.stopPageLoading();
-            TableAjax.reload('list');
+            $scope.loadTable();
         }, function errorCallback(response) {
             Metronic.stopPageLoading();
             alert(response);

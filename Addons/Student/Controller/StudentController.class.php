@@ -1038,7 +1038,7 @@ str;
 
         // 取得账户密码
         $token || $token = get_token();
-        $db_config = D('Common/AddonConfig')->get(_ADDONS, $token);
+        $db_config = D('Common/AddonConfig')->get("Student", $token);
         $account = $db_config["sync_account"];
         $password = $db_config["sync_password"];
         $taskSign = $db_config["sync_task"];
