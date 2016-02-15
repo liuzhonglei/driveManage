@@ -1578,7 +1578,11 @@ str;
 
         $where_str = "1 = 1 ";
         foreach ($map as $mapMame => $mapValue) {
-            $where_str = $where_str . " and " . $mapMame . ' = "' . $mapValue . '" ';
+            if(in_array($mapMame,array("name","card_id","phone"))){
+                $where_str = $where_str . " and " . $mapMame . ' like "%' . $mapValue . '%" ';
+            }else{
+                $where_str = $where_str . " and " . $mapMame . ' = "' . $mapValue . '" ';
+            }
         }
         $map = $where_str;
 
