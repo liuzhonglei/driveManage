@@ -60,7 +60,7 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
 
         $http({
             method: 'GET',
-            url: Metronic.rootPath() + '/index.php?s=/addon/Student/Student/syncStudent/status/' + $scope.status + '.html'
+            url: Metronic.rootPath() + '/index.php?s=/addon/Student/Student/syncStudent/status/' + $scope.status
         }).then(function successCallback(response) {
             Metronic.stopPageLoading();
             $scope.loadTable();
