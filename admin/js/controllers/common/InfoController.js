@@ -9,7 +9,7 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', 'info
      * 加载信息
      */
     setTimeout(function () {
-        infoTool.getInfoModel("student", "student").then(function (data) {
+        infoTool.getInfoModel($rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController).then(function (data) {
             $.extend($scope, data);
             if ($rootScope.$state.$current.data.extendClass) {
                 $("div[name='form-info']").children(".modal-dialog").addClass($rootScope.$state.$current.data.extendClass);
