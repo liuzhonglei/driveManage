@@ -28,7 +28,7 @@ RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
 #RewriteCond %{HTTP_HOST} ^admin.iqqxc.com$ [NC]
 
 RewriteCond %{HTTP_HOST} ^admin.iqqxc.com$
-RewriteRule ^(.*)$ http://www.iqqxc.com/adin/$1 [R=301,L]
+RewriteRule ^(.*)$ http://www.iqqxc.com/admin/$1 [R=301,L]
 
 #RewriteRule ^(.*)/ad/(.*?)/(.*).html$ $1/home/addons/execute/_addons/$2/_action/$3 [L]
 #RewriteRule ^(.*)/ad/(.*?)/(.*?)/(.*).html$ $1/home/addons/execute/_addons/$2/_controller/$3/_action/$4 [L]
