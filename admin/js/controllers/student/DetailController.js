@@ -11,7 +11,7 @@ MetronicApp.controller('StudentDetailController', ['$rootScope', '$http', '$scop
      * 加载信息
      */
     setTimeout(function () {
-        infoTool.getInfoModel("student", "student").then(function (data) {
+        infoTool.getInfoModel("Student", "Student").then(function (data) {
             $.extend($scope, data);
             if ($rootScope.$state.$current.data.extendClass) {
                 $("div[name='form-info']").children(".modal-dialog").addClass($rootScope.$state.$current.data.extendClass);
@@ -25,7 +25,7 @@ MetronicApp.controller('StudentDetailController', ['$rootScope', '$http', '$scop
     $scope.$watch('info["id"]', function () {
         // 查询数据
         if ($scope.info["id"] != null && $scope.info["id"].length > 0) {
-            infoTool.getInfoData($scope, "student", "student", $scope.info["id"]).then(function (data) {
+            infoTool.getInfoData($scope, "Student", "Student", $scope.info["id"]).then(function (data) {
                 $scope.info = data;
             });
         } else {
