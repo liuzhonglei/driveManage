@@ -15,9 +15,14 @@ MetronicApp.controller('PayInfoController', ['$rootScope', '$http', '$scope','in
     /**
      * 设置对象信息
      */
-    infoTool.getInfoModel($scope.module, $scope.controller).then(function (data) {
-        $.extend($scope, data);
-    });
+    /**
+     * 加载信息
+     */
+    setTimeout(function () {
+        infoTool.getInfoModel($scope.module, $scope.controller).then(function (data) {
+            $.extend($scope, data);
+        });
+    }, 500);
 
 
     /**

@@ -30,14 +30,18 @@ MetronicApp.filter('propsFilter', function () {
 });
 
 
+/**
+ * 创建controller
+ */
 MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope', function ($rootScope, $http, $scope) {
+
     // param
     $scope.rootData = $rootScope.$state.$current.data;
     $scope.status = "-1";
 
 
     // 默认为报名
-    $scope.studentNum = {};
+    $scope.studentNum = "";
     // 学员数目
 
     // init ajax
@@ -83,9 +87,9 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
     /**
      * 重新加载表哥
      */
-    $scope.loadTable = function(){
+    $scope.loadTable = function () {
         TableAjax.modelMap[$rootScope.$state.$current.data.module + "_" + $rootScope.$state.$current.data.handleController] = null;
-        $scope.loadStudentNum();
+        //$scope.loadStudentNum();
         TableAjax.init('list', $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, getSearchParam());
     }
 
@@ -130,7 +134,7 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
 
         $http({
             method: 'GET',
-            url:url
+            url: url
         }).then(function successCallback(response) {
             $scope.studentNum = response.data.data;
             if (!$scope.studentNum) {
@@ -216,10 +220,27 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
                 }
             });
 
-
             Metronic.stopPageLoading();
             $("#model-field-conf").modal("show");
         });
     }
 }
 ]);
+
+/**
+ * 设置推荐费支付
+ */
+function inPay(id) {
+    // 发送费推荐
+    $.get(Metronic.rootPath() + "/index.php?s=/addon/Student/Student/inPay/student_id/" + id, function (data) {
+        // 返回成功，关闭当前窗口，刷新列表
+        if (data.result) {
+            TableAjax.reload('list');
+        }
+
+        // 返回失败，显示错误信息
+        else {
+            alert(data.message);
+        }
+    });
+}

@@ -6,23 +6,21 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', 'info
     $scope.formName = "form-info";
 
     /**
-     * 设置对象信息
+     * 加载信息
      */
-
-    infoTool.getInfoModel($rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController).then(function (data) {
-        $.extend($scope, data);
-        if($rootScope.$state.$current.data.extendClass){
-                    $("div[name='form-info']").children(".modal-dialog").addClass($rootScope.$state.$current.data.extendClass);
-        }
-    });
-
+    setTimeout(function () {
+        infoTool.getInfoModel("student", "student").then(function (data) {
+            $.extend($scope, data);
+            if ($rootScope.$state.$current.data.extendClass) {
+                $("div[name='form-info']").children(".modal-dialog").addClass($rootScope.$state.$current.data.extendClass);
+            }
+        });
+    }, 500);
 
     /**
      * 更新信息
      */
     $scope.$watch('info["id"]', function () {
-       
-
         // 查询数据
         if ($scope.info["id"] != null && $scope.info["id"].length > 0) {
             infoTool.getInfoData($scope, $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, $scope.info["id"]).then(function (data) {
@@ -31,10 +29,6 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', 'info
         } else {
             $.extend($scope.info, $scope.defaultInfo);
         }
-          // todo
-//         $(".fileinput").fileinput('clear');
-//         var navName = ;
-       
     });
 
     /**

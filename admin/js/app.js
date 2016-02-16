@@ -15,39 +15,9 @@ var depFile = {
     chart: new Array(
         "js/controllers/common/ChartController.js"),
     list: new Array(
-        //'../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
-        //'../assets/global/plugins/datatables/all.min.js',
-        //'../assets/global/scripts/datatable.js',
         'js/controllers/common/Filter.js',
         'js/controllers/common/ListController.js'),
-
     info: new Array(
-        //'../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
-        //'../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css',
-        //'../assets/global/plugins/jquery-tags-input/jquery.tagsinput.css',
-        //'../assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css',
-        //'../assets/global/plugins/typeahead/typeahead.css',
-        //
-        //'../assets/global/plugins/bootstrap-datepicker/css/datepicker3.css',
-        //
-        //'../assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
-
-        //'../assets/global/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js',
-        //'../assets/global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js',
-        //
-        //'../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js',
-        //'../assets/global/plugins/fuelux/js/spinner.min.js',
-        //'../assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
-        //'../assets/global/plugins/jquery.input-ip-address-control-1.0.min.js',
-        //'../assets/global/plugins/bootstrap-pwstrength/pwstrength-bootstrap.min.js',
-        //'../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js',
-        //'../assets/global/plugins/jquery-tags-input/jquery.tagsinput.min.js',
-        //'../assets/global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js',
-        //'../assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js',
-        //'../assets/global/plugins/typeahead/handlebars.min.js',
-        //'../assets/global/plugins/typeahead/typeahead.bundle.min.js',
-        //'../assets/admin/pages/scripts/components-pickers.js',
-        //'../assets/admin/pages/scripts/components-form-tools.js',
         'js/controllers/common/InfoController.js'),
     conf: new Array('js/controllers/ConfController.js')
 };
@@ -142,7 +112,7 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope', function ($scop
 
 /* Setup Layout Part - Header */
 MetronicApp.controller('HeaderController', ['$scope', 'infoTool', function ($scope, infoTool) {
-     $scope.info = {
+    $scope.info = {
         "old": "",
         "password": "",
         "repassword": ""
@@ -162,7 +132,6 @@ MetronicApp.controller('HeaderController', ['$scope', 'infoTool', function ($sco
         });
     });
 
-   
     /**
      * 显示界面
      */
@@ -170,7 +139,7 @@ MetronicApp.controller('HeaderController', ['$scope', 'infoTool', function ($sco
         $scope.info.old = "";
         $scope.info.password = "";
         $scope.info.repassword = "";
-        $("#alter-password").modal("show");       
+        $("#alter-password").modal("show");
     }
 
     /**
@@ -277,9 +246,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             data: {
                 pageTitle: "划款信息",
                 module: "EO2OPayment",
-                handleController: "EO2OPayment",
-                //action: "edit",
-                info: true
+                handleController: "EO2OPayment"
             },
             controller: "ListController",
             resolve: {
@@ -295,7 +262,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: $.merge(new Array("js/controllers/student/DetailController.js"), depFile.list)
+                            files: ["js/controllers/student/DetailController.js",'js/controllers/pay/ListController.js']
                         }]);
                 }]
             }
@@ -327,7 +294,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             ]
                         }, {
                             name: 'MetronicApp',
-                            files: $.merge(depFile.info, new Array('js/controllers/student/ListController.js', 'js/controllers/student/PayInfoController.js',"js/controllers/student/DetailController.js")).concat(depFile.conf)
+                            files: $.merge(depFile.info, new Array('js/controllers/student/ListController.js', 'js/controllers/student/PayInfoController.js', "js/controllers/student/DetailController.js")).concat(depFile.conf)
                         }]);
                 }]
             }
@@ -361,7 +328,14 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("schoolInfoList", {
             url: "/schoolInfo/list.html",
             templateUrl: "views/common/list.html",
-            data: {pageTitle: "相关资料", module: "School", handleController: "Info", action: "edit", info: true, extendClass: "modal-lg"},
+            data: {
+                pageTitle: "相关资料",
+                module: "School",
+                handleController: "Info",
+                action: "edit",
+                info: true,
+                extendClass: "modal-lg"
+            },
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -437,7 +411,14 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("schoolPrivilegeList", {
             url: "/schoolPrivilege/list.html",
             templateUrl: "views/common/list.html",
-            data: {pageTitle: "驾校优惠", module: "School", handleController: "Privilege", action: "edit", info: true, extendClass: "modal-lg"},
+            data: {
+                pageTitle: "驾校优惠",
+                module: "School",
+                handleController: "Privilege",
+                action: "edit",
+                info: true,
+                extendClass: "modal-lg"
+            },
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -462,7 +443,14 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("payitemList", {
             url: "/payitem/list.html",
             templateUrl: "views/common/list.html",
-            data: {pageTitle: "相关资料", module: "School", handleController: "Payitem", action: "edit", info: true, extendClass: "modal-lg"},
+            data: {
+                pageTitle: "相关资料",
+                module: "School",
+                handleController: "Payitem",
+                action: "edit",
+                info: true,
+                extendClass: "modal-lg"
+            },
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -599,8 +587,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         })
 
 
-
-
         // school info
         .state("userCenterList", {
             url: "/userCener/list.html",
@@ -618,8 +604,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                 }]
             }
         })
-
-
 
         // 微信自动回复
         .state("customReplyList", {
@@ -694,38 +678,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                 }]
             }
         })
-        //// 教练统计
-        //.state("teacherTop", {
-        //    url: "/statistics/teacherTop.html",
-        //    templateUrl: "views/chart/teacherTop.html",
-        //    data: {
-        //        pageTitle: "教练统计",
-        //        module: "Teacher",
-        //        handleController: "Teacher",
-        //        action: "teacher_rank",
-        //        type: "BarChart"
-        //    },
-        //    controller: "ChartController",
-        //    resolve: {
-        //        deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-        //            return $ocLazyLoad.load([{
-        //                name: 'ui.select',
-        //                insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-        //                files: [
-        //                    '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
-        //                    '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
-        //                ]
-        //            },
-        //                {
-        //                    name: 'MetronicApp',
-        //                    insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-        //                    files: depFile.chart
-        //                }]);
-        //        }]
-        //    }
-        //})
-
-
         // 资金流入统计
         .state("balanceStatistics", {
             url: "/statistics/balanceStatistics.html",
