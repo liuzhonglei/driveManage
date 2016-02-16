@@ -19,11 +19,16 @@ RewriteEngine on
 # 如果您的站点地址为：http://abc.com，那么请将“/weiphp/”替换为"/"
 # 如果您的站点地址为：http://abc.com/d/e/f，那么请将“/weiphp/”替换为"/d/e/f/"
 
-RewriteBase /wp/
+RewriteBase /
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+
+#RewriteCond %{HTTP_HOST} ^admin.iqqxc.com$ [NC]
+
+RewriteCond %{HTTP_HOST} ^admin.iqqxc.com$
+RewriteRule ^(.*)$ http://www.iqqxc.com/adin/$1 [R=301,L]
 
 #RewriteRule ^(.*)/ad/(.*?)/(.*).html$ $1/home/addons/execute/_addons/$2/_action/$3 [L]
 #RewriteRule ^(.*)/ad/(.*?)/(.*?)/(.*).html$ $1/home/addons/execute/_addons/$2/_controller/$3/_action/$4 [L]
