@@ -105,13 +105,13 @@ class FollowModel extends Model
         // 还是关注的
         $info = $this->where($data)->find();
         if ($info) {  // 如果数据库已经有该用户信息 则更新用户资料
-            $save ['subscribe_time'] = $winfo ['subscribe_time'];
             $save ['nickname'] = $winfo ['nickname'];
             $save ['sex'] = $winfo ['sex'];
             $save ['city'] = $winfo ['city'];
             $save ['province'] = $winfo ['province'];
             $save ['country'] = $winfo ['country'];
             $save ['headimgurl'] = $winfo ['headimgurl'];
+            $save ['subscribe_time'] = $winfo ['subscribe_time'];
             $res = $this->where($data)->save($save);
         } else {
             $data ['subscribe_time'] = time();
@@ -126,7 +126,6 @@ class FollowModel extends Model
                 $data ['headimgurl'] = $winfo ['headimgurl'];
                 $res = $this->add($data);
             }
-
             $info = $data;
         }
 
