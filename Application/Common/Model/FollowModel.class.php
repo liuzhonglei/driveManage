@@ -91,6 +91,56 @@ class FollowModel extends Model
     }
 
     /**
+     * 批量更新
+     * @param $openid
+     * @param null $token
+     */
+    function update_follow_batch($openidList,$token = null){
+        $data ['token'] = $token;
+        $data ['token'] || $data ['token'] = get_token();
+
+        $num = 0;
+        $lastOpenid = $openidList[count($openidList)-1];
+        foreach ( $openidList as $vo ) {
+            // 查询条件
+            $param ['user_list'] [] = array (
+                'openid' => $vo,
+                'lang' => 'zh-CN'
+            );
+            $num++;
+            if($num < 100 && $vo !== $lastOpenid){
+                continue;
+            }
+
+
+            $url = 'https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=' . get_access_token ();
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_POST, 1);//post方式提交
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($param));//要提交的信息
+            $winfoList = curl_exec($ch); //执行cURL抓取页面内容
+            curl_close($ch);
+
+            // 插入
+            $winfoList = json_decode($winfoList, true);
+            $winfoList = $winfoList["user_info_list"];
+            foreach ($winfoList as $winfo ) {
+                if(!empty( $winfo ['openid'])){
+                    $data ['openid'] = $winfo ['openid'];
+                    $this->updateFollow($data,$winfo);
+                }
+            }
+
+            // 还原
+            $param['user_list'] = array();
+            $num = 0;
+        }
+    }
+
+    /**
      * 刷新微信
      * @param $data 查询条件
      * @param $winfo 用户信息

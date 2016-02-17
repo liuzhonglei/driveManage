@@ -84,7 +84,7 @@ MetronicApp.factory('settings', ['$rootScope', function ($rootScope) {
     // supported languages
     var settings = {
         layout: {
-            pageSidebarClosed: false, // sidebar state
+            pageSidebarClosed: true, // sidebar state
             pageAutoScrollOnLoad: 1000 // auto scroll to top on page load
         },
         layoutImgPath: Metronic.getAssetsPath() + 'admin/layout/img/',
