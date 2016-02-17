@@ -97,6 +97,12 @@ class FollowModel extends Model
      */
     function updateFollow($data,$winfo)
     {
+        // 已经不关注
+        if($winfo['subscribe'] == '0'){
+            return;
+        }
+
+        // 还是关注的
         $info = $this->where($data)->find();
         if ($info) {  // 如果数据库已经有该用户信息 则更新用户资料
             $save ['subscribe_time'] = $winfo ['subscribe_time'];
