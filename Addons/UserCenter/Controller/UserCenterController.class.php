@@ -47,9 +47,11 @@ class UserCenterController extends BaseController
         $content = getWeixinUserAllInfo($token);
         $openids = $content['data']['openid'];
         if (is_array($openids)) {
-            foreach ($openids as $openid) {
-                $info = D('Common/Follow')->update_follow($openid,$token);
-            }
+//            foreach ($openids as $openid) {
+//                $info = D('Common/Follow')->update_follow($openid,$token);
+//            }
+
+            D('Common/Follow')->update_follow_batch($openids,$token);
             if($ajaxReturn){
                 $url = addons_url('UserCenter://UserCenter/lists');
                 $this->success('总共拉取了' . $content['count'] . '个粉丝！', $url);
