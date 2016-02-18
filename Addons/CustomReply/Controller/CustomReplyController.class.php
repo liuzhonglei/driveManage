@@ -8,6 +8,7 @@ use Addons\CustomReply\Controller\BaseController;
 class CustomReplyController extends CustomReplayBaseController {
 	var $model;
 	function _initialize() {
+		$this->dataMultiEdit = true;
 		$this->model = $this->getModel ( 'custom_reply_news' );
 		parent::_initialize ();
 	}

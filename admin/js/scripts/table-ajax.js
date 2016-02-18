@@ -77,7 +77,8 @@ var TableAjax = function () {
             var column = {
                 "sTitle": data.list_data.list_grids[i].title,
                 "aTargets": [i],
-                "bSortable": true
+                "bSortable": true,
+                "sWidth": data.list_data.list_grids[i].width
             };
 
             // 字段名
@@ -88,6 +89,7 @@ var TableAjax = function () {
             // 排序
             if (!data.list_data.list_grids[i].field || data.list_data.list_grids[i].title == "操作" || data.list_data.list_grids[i].order == "0") {
                 column.bSortable = false;
+                column.sWidth =  10;
             }
 
             // 增加字段

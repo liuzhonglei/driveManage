@@ -44,11 +44,8 @@ var Datatable = function() {
                     "dom": "<'row'<'col-md-8 col-sm-12'><'col-md-4 col-sm-12'<'table-group-actions'>>r><'table-scrollable't><'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'>>", // datatable layout
                     "pageLength": 10, // default records per page
                     "language": { // language settings
-                        // metronic spesific
                         "metronicGroupActions": "_TOTAL_ 数据选中:  ",
                         "metronicAjaxRequestGeneralError": "无法完成请求，请检查网络链接!",
-
-                        // data tables spesific
                         "lengthMenu": "<span class='seperator'>|</span>每页 _MENU_ 条",
                         "info": "<span class='seperator'>|</span>总共 _TOTAL_ 数据",
                         "infoEmpty": "找不到显示数据",
@@ -64,8 +61,8 @@ var Datatable = function() {
                         }
                     },
 
-                    // 默认排序字段,在后台进行排序
-                    aaSorting: [],
+                    "bDeferRender":false,
+                    "aaSorting": [],
                     "pagingType": "bootstrap_extended", // pagination type(bootstrap, bootstrap_full_number or bootstrap_extended)
                     "autoWidth": true, // disable fixed width and enable fluid table
                     "processing": false, // enable/disable display message box on record load

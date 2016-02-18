@@ -360,7 +360,7 @@ class CommonController extends ExtendAddonsController
         $list_data = $this->_list_grid($model);
         if ($this->dataMultiEdit) {
             array_unshift($list_data['fields'], 'select');
-            array_unshift($list_data['list_grids'], array("title" => '<input type="checkbox" class="group-checkable">'));
+            array_unshift($list_data['list_grids'], array("title" => '<input type="checkbox" class="group-checkable">',"width"=>"5"));
         }
 
         // fieldList

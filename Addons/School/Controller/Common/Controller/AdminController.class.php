@@ -375,9 +375,7 @@ class AdminController extends CommonController
                         $val [] = '<a  target="' . $target . '" href="' . str_replace("javascript_", "javascript:", str_replace("link_", "", $href)) . '"> ' . $value . ' </a>';
                     } else {
                         if (strpos($href, "javascript_") === 0) {
-                            $colors = array("blue");
-                            $color = $colors[array_rand($colors, 1)];
-                            $val [] = '<button type="button" class="btn ' . $color . ' btn-xs" target="' . $target . '" onclick="' . str_replace("javascript_", "javascript:", $href) . '"> ' . $show . ' </button>';
+                            $val [] = '<button type="button" class="btn btn-default btn-xs" target="' . $target . '" onclick="' . str_replace("javascript_", "javascript:", $href) . '"> ' . $show . ' </button>';
                         } else if ($show == '删除') {
                             $val [] = '<a class="confirm"   href="' . urldecode(U($href, $GLOBALS ['get_param'])) . '"> ' . $show . ' </a>';
                         } else if (strpos($href, "#") === 0) {
@@ -397,13 +395,13 @@ class AdminController extends CommonController
             // 根据数据判断操作是否实现
 
             // 超过组合成一个下拉框
-            if (count($val) > 5) {
-                if ($dropup) {
-                    $class = "dropup";
-                }
-                $value = implode('</li><li>', $val);
-                $value = "<div class=\"btn-group " . $class . "\"> <button class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\">相关操作</button> <ul class=\"dropdown-menu\" role=\"menu\"><li>" . $value . "</li></ul></div>";
-            }
+//            if (count($val) > 5) {
+//                if ($dropup) {
+//                    $class = "dropup";
+//                }
+//                $value = implode('</li><li>', $val);
+//                $value = "<div class=\"btn-group " . $class . "\"> <button  class=\"btn btn-default btn-xs dropdown-toggle\" data-toggle=\"dropdown\">其他操作</button> <ul class=\"dropdown-menu\" role=\"menu\"><li>" . $value . "</li></ul></div>";
+//            }
         }
         return $value;
     }

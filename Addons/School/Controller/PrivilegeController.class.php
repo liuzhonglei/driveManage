@@ -12,6 +12,7 @@ namespace Addons\School\Controller;
 class PrivilegeController extends SchoolBaseController{
     function _initialize() {
         $this->model = $this->getModel ( 'school_privilege' );
+        $this->dataMultiEdit = true;
         parent::_initialize ();
     }
 

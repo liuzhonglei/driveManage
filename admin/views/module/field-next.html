@@ -1,18 +1,18 @@
-<div ng-switch="field.type">
-    <input  ng-switch-when="string" type="text" name="{{field.name}}"
-           class="form-control  input-medium " ng-model="info[field.name]" ng-disabled="infoDisabled"/>
+<div ng-switch="fieldList[key][$index+1].type">
+    <input ng-switch-when="string" type="text" name="{{fieldList[key][$index+1].name}}"
+           class="form-control  input-medium " ng-model="info[fieldList[key][$index+1].name]" ng-disabled="infoDisabled"/>
     <input ng-switch-when="num" class="form-control  input-medium "
-           type="text" ng-model="info[field.name]" ng-disabled="infoDisabled">
+           type="text" ng-model="info[fieldList[key][$index+1].name]" ng-disabled="infoDisabled">
         <textarea ng-switch-when="textarea" class="form-control input-medium" maxlength="500" rows="5"
                   ng-disabled="infoDisabled"></textarea>
 
     <input ng-switch-when="date"
            class="form-control form-control-inline input-medium datePicker"
-           type="text" data-date-format="yyyy-mm-dd" name="{{field.name}}" ng-model="info[field.name]"
+           type="text" data-date-format="yyyy-mm-dd" name="{{fieldList[key][$index+1].name}}" ng-model="info[fieldList[key][$index+1].name]"
            ng-disabled="infoDisabled">
 
     <div ng-switch-when="datetime" class="input-group  input-medium  date form_datetime dataTimePicker">
-        <input type="text" name="{{field.name}}" size="16" class="form-control" ng-model="info[field.name]"
+        <input type="text" name="{{fieldList[key][$index+1].name}}" size="16" class="form-control" ng-model="info[fieldList[key][$index+1].name]"
                ng-disabled="infoDisabled">
 												<span class="input-group-btn">
 												<button class="btn default date-set" type="button"
@@ -21,27 +21,27 @@
 												</span>
     </div>
     <div ng-switch-when="radio">
-        <ui-select ng-model="info[field.name]" class="input-medium "
-                   theme="bootstrap" name="{{field.name}}" ng-disabled="infoDisabled">
+        <ui-select ng-model="info[fieldList[key][$index+1].name]" class="input-medium "
+                   theme="bootstrap" name="{{fieldList[key][$index+1].name}}" ng-disabled="infoDisabled">
             <ui-select-match
                     placeholder="选择或搜索">
                 {{$select.selected.text}}
             </ui-select-match>
             <ui-select-choices
-                    repeat=" item.value as item in metadata[field.name] | filter: $select.search">
+                    repeat=" item.value as item in metadata[fieldList[key][$index+1].name] | filter: $select.search">
                 <span ng-bind-html="item.text | highlight: $select.search"></span>
             </ui-select-choices>
         </ui-select>
     </div>
     <div ng-switch-when="select">
-        <ui-select ng-model="info[field.name]" class="input-medium "
-                   theme="bootstrap" name="{{field.name}}" ng-disabled="infoDisabled">
+        <ui-select ng-model="info[fieldList[key][$index+1].name]" class="input-medium "
+                   theme="bootstrap" name="{{fieldList[key][$index+1].name}}" ng-disabled="infoDisabled">
             <ui-select-match
                     placeholder="选择或搜索">
                 {{$select.selected.text}}
             </ui-select-match>
             <ui-select-choices
-                    repeat=" item.value as item in metadata[field.name] | filter: $select.search">
+                    repeat=" item.value as item in metadata[fieldList[key][$index+1].name] | filter: $select.search">
                 <ng-if>
                     <span ng-bind-html="item.text | highlight: $select.search"></span>
                 </ng-if>
@@ -50,19 +50,19 @@
     </div>
     <div ng-switch-when="checkbox">
         <ui-select multiple theme="bootstrap" class="input-medium "
-                   ng-disabled="disabled" ng-model="info[field.name]" name="{{field.name}}"
+                   ng-disabled="disabled" ng-model="info[fieldList[key][$index+1].name]" name="{{fieldList[key][$index+1].name}}"
                    ng-disabled="infoDisabled">
             <ui-select-match>
                 {{$item.text}}
             </ui-select-match>
             <ui-select-choices
-                    repeat="item.value as  item in metadata[field.name] | propsFilter: {text: $select.search}">
+                    repeat="item.value as  item in metadata[fieldList[key][$index+1].name] | propsFilter: {text: $select.search}">
                 {{item.text}}
             </ui-select-choices>
         </ui-select>
     </div>
     <div ng-switch-when="editor">
-        <summernote name="{{field.name}}" ng-model="info[field.name]" name="{{field.name}}"
+        <summernote name="{{fieldList[key][$index+1].name}}" ng-model="info[fieldList[key][$index+1].name]" name="{{fieldList[key][$index+1].name}}"
                     ng-disabled="infoDisabled">
         </summernote>
     </div>
@@ -83,7 +83,7 @@
                                                 选择 </span>
                                                 <span class="fileinput-exists">
                                                 修改 </span>
-                                                    <input fileread info="info" name="{{field.name}}" type="file"
+                                                    <input fileread info="info" name="{{fieldList[key][$index+1].name}}" type="file"
                                                            accept="image/*">
                                                 </span>
                 <a href="#" class="btn red fileinput-exists"
@@ -91,6 +91,7 @@
                     取消 </a>
             </div>
         </div>
+        <!--</form>-->
     </div>
 </div>
     

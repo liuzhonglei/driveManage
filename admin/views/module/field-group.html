@@ -1,0 +1,29 @@
+<div ng-repeat="field in fieldList[key] track by $index" ng-show="field.is_show == '1'">
+    <div ng-switch on="$state.$current.data.infoPatten">
+        <div ng-switch-when="erect">
+            <div class="form-group"  style="margin-right: 1px;margin-left: 1px">
+                <label class="control-label">{{field.title}} <span ng-if="field.is_must  == '1'"
+                                                                   class="required">*</span></label>
+                <div ng-include="'views/module/field.html'"></div>
+                            <span class="help-block">
+                                {{field.remark}}
+                            </span>
+            </div>
+        </div>
+        <div ng-switch-default>
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-3">{{field.title}} <span ng-if="field.is_must  == '1'"
+                                                                                class="required">*</span></label>
+
+                    <div class="col-md-9">
+                        <div ng-include="'views/module/field.html'"></div>
+                            <span class="help-block" ng-bind-html="field.remark">
+                                <!--{{field.remark}}-->
+                            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

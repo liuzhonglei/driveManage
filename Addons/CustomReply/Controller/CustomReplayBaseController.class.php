@@ -2,7 +2,6 @@
 
 namespace Addons\CustomReply\Controller;
 
-use Home\Controller\AddonsController;
 use Addons\School\Controller\BaseController;
 
 class CustomReplayBaseController extends BaseController {

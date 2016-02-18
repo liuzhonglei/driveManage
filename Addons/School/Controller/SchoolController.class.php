@@ -10,7 +10,7 @@ class SchoolController extends SchoolBaseController
     function _initialize()
     {
         $this->model = $this->getModel('school');
-//        $this->dataMultiEdit = true;
+        $this->dataMultiEdit = true;
 
         parent::_initialize();
         // 子导航

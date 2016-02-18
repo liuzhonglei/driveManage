@@ -66,9 +66,11 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
             method: 'GET',
             url: Metronic.rootPath() + '/index.php?s=/addon/Student/Student/syncStudent/status/' + $scope.status
         }).then(function successCallback(response) {
+            Metronic.handleResult(response.data);
             Metronic.stopPageLoading();
             $scope.loadTable();
         }, function errorCallback(response) {
+            Metronic.handleResult(response.data);
             Metronic.stopPageLoading();
             alert(response);
         });
@@ -88,6 +90,7 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
      * 重新加载表哥
      */
     $scope.loadTable = function () {
+        $('#condition-modal').modal('hide');
         TableAjax.modelMap[$rootScope.$state.$current.data.module + "_" + $rootScope.$state.$current.data.handleController] = null;
         //$scope.loadStudentNum();
         TableAjax.init('list', $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, getSearchParam());

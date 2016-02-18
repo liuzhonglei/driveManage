@@ -217,7 +217,13 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("teacherList", {
             url: "/teacher/list.html",
             templateUrl: "views/teacher/list.html",
-            data: {pageTitle: "教练信息", module: "Teacher", handleController: "Teacher", action: "edit", info: true},
+            data: {
+                pageTitle: "教练信息",
+                module: "Teacher",
+                handleController: "Teacher",
+                action: "edit",
+                info: true
+            },
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -262,7 +268,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: ["js/controllers/student/DetailController.js",'js/controllers/pay/ListController.js']
+                            files: ["js/controllers/student/DetailController.js", 'js/controllers/pay/ListController.js']
                         }]);
                 }]
             }
@@ -304,7 +310,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("schoolList", {
             url: "/school/list.html",
             templateUrl: "views/school/list.html",
-            data: {pageTitle: "驾校信息", module: "School", handleController: "School", info: true},
+            data: {pageTitle: "驾校信息", module: "School", handleController: "School", action: "edit", info: true},
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -334,7 +340,8 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                 handleController: "Info",
                 action: "edit",
                 info: true,
-                extendClass: "modal-lg"
+                extendClass: "modal-lg",
+                infoPatten: "erect"
             },
             controller: "ListController",
             resolve: {
@@ -448,8 +455,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                 module: "School",
                 handleController: "Payitem",
                 action: "edit",
-                info: true,
-                extendClass: "modal-lg"
+                info: true
             },
             controller: "ListController",
             resolve: {
@@ -530,38 +536,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         })
 
         // student info
-        .state("studentNotificationList", {
-            url: "/student/notificationList.html",
-            templateUrl: "views/common/list.html",
-            data: {
-                pageTitle: "考试通知",
-                module: "Student",
-                handleController: "Notification",
-                action: "edit",
-                info: true,
-                conf: true
-            },
-            controller: "ListController",
-            resolve: {
-                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([{
-                        name: 'ui.select',
-                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                        files: [
-                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
-                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
-                        ]
-                    },
-                        {
-                            name: 'MetronicApp',
-                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: $.merge($.merge(depFile.info, depFile.list), depFile.conf)
-                        }]);
-                }]
-            }
-        })
-
-        // student info
         .state("studentAppriseList", {
             url: "/student/appriseList.html",
             templateUrl: "views/common/list.html",
@@ -605,11 +579,83 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             }
         })
 
-        // 微信自动回复
+        // 微信图文回复
         .state("customReplyList", {
             url: "/customReply/list.html",
             templateUrl: "views/common/list.html",
-            data: {pageTitle: "自动回复", module: "CustomReply", handleController: "CustomReply"},
+            data: {
+                pageTitle: "自动回复",
+                module: "CustomReply",
+                handleController: "CustomReply",
+                action: "edit",
+                info: true,
+                extendClass: "modal-lg",
+                infoPatten: "erect"
+            },
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([{
+                        name: 'ui.select',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
+                        ]
+                    },
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: $.merge(depFile.info, depFile.list)
+                        }]);
+                }]
+            }
+        })
+
+        // 多图文
+        .state("customReplyMultList", {
+            url: "/customReplyMult/list.html",
+            templateUrl: "views/common/list.html",
+            data: {
+                pageTitle: "多图文自动回复",
+                module: "CustomReply",
+                handleController: "CustomReplyMult",
+                action: "edit",
+                info: true,
+                extendClass: "modal-lg",
+                infoPatten: "erect"
+            },
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([{
+                        name: 'ui.select',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
+                        ]
+                    },
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: $.merge(depFile.info, depFile.list)
+                        }]);
+                }]
+            }
+        })
+
+        // 文字
+        .state("customReplyTextList", {
+            url: "/customReplyText/list.html",
+            templateUrl: "views/common/list.html",
+            data: {
+                pageTitle: "文本自动回复",
+                module: "CustomReply",
+                handleController: "CustomReplyText",
+                action: "edit",
+                info: true
+            },
             controller: "ListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -658,7 +704,10 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state("groupBuyList", {
             url: "/groupBuy/list.html",
             templateUrl: "views/activity/groupBuy/list.html",
-            data: {pageTitle: "自动回复", module: "GroupBuy", handleController: "GroupBuyType"},
+            data: {
+                pageTitle: "自动回复", module: "GroupBuy", handleController: "GroupBuyType",
+                infoPatten: "erect"
+            },
             controller: "GroupBuyListController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {

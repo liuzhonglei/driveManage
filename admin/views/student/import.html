@@ -1,7 +1,7 @@
 <div class="row">
     <div id="file-import" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="myModalLabel10"
          aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="col-md-12">
                     <div class="portlet light">
@@ -13,16 +13,6 @@
                               enctype="multipart/form-data" method="post">
                             <div class="portlet-body">
                                 <div class="form-body">
-                                    <!--<div class="form-group">-->
-                                        <!--<label class="col-md-3 control-label">文件类型</label>-->
-
-                                        <!--<div class="col-md-6">-->
-                                            <!--<select class="form-control" name="fileType">-->
-                                                <!--<option value="examSubscribe">考试预约</option>-->
-                                                <!--<option value="examResult">考试成绩</option>-->
-                                            <!--</select>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
                                     <div class="form-group">
                                         <label for="exampleInputFile" class="col-md-3 control-label">文件</label>
 
@@ -30,7 +20,7 @@
                                             <input type="file" id="exampleInputFile" name="file_stu">
 
                                             <p class="help-block">
-                                                导入考试预约文件,以及考试成绩文件.
+                                                导入考试预约文件或者考试成绩文件.
                                             </p>
                                         </div>
                                     </div>
@@ -66,7 +56,8 @@
 
     $(document).ready(function () {
         var options = {
-            success: function (responseText, statusText, xhr, $form) {
+            success: function (response) {
+                Metronic.handleResult(response);
                 TableAjax.reload('list');
                 $("#file-import").modal("hide");
             },

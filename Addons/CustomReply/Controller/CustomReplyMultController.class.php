@@ -7,6 +7,7 @@ use Addons\CustomReply\Controller\CustomReplayBaseController;
 class CustomReplyMultController extends CustomReplayBaseController {
 	var $model;
 	function _initialize() {
+		$this->dataMultiEdit = true;
 		$this->model = $this->getModel ( 'custom_reply_mult' );
 		parent::_initialize ();
 	}

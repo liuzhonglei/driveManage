@@ -17,6 +17,7 @@ MetronicApp.controller('BalanceParamController', ['$rootScope', '$http', '$scope
 
     // 重新加载搜索条件
     $scope.loadData = function () {
+        $('#condition-modal').modal('hide')
         var param = "";
         $("#search_form").serializeArray().forEach(function (item, index) {
             if (param) {

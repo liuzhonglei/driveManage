@@ -1,74 +1,78 @@
-<div class="col-md-12">
-    <div class="portlet light">
-        <div class="portlet-title" style="height: 20px">
-            <div class="caption" style="height: 20px">
-                条件
-            </div>
-            <div class="tools" style="height: 20px">
-                <a href="javascript:;" class="expand" id="search-expand">
-                </a>
-            </div>
-        </div>
-        <div class="portlet-body form " style="display: none;">
-            <form action="#" class="form-horizontal" id="search_form">
-                <div class="form-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">纬度</label>
-
-                                <div class="col-md-3">
-                                    <select name="date_type" class="select2me form-control">
-                                        <option value="year">年</option>
-                                        <option selected value="month">月</option>
-                                        <option value="day">日</option>
-                                    </select>
-                                </div>
-                                <label class="control-label col-md-3">数据上限</label>
-
-                                <div class="col-md-3">
-                                    <select name="limit_num" class="select2me form-control">
-                                        <option selected value="10">5</option>
-                                        <option value="10">7</option>
-                                        <option value="20">10</option>
-                                    </select>
-                                </div>
-                            </div>
+<div class="row">
+    <div id="condition-modal" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="myModalLabel10"
+         aria-hidden="true">
+        <div class="modal-dialog modal-full">
+            <div class="modal-content">
+                <div class="portlet light">
+                    <div class="portlet-title" style="height: 20px">
+                        <div class="caption" style="height: 20px">
+                            条件
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label col-md-2">期限</label>
+                    </div>
+                    <div class="portlet-body form ">
+                        <form action="#" class="form-horizontal" id="search_form">
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">纬度</label>
 
-                                <div class="col-md-9">
-                                    <div class="input-group input-medium date-picker input-daterange"
-                                         data-date-format="yyyy-mm-dd">
-                                        <input type="text" class="form-control" name="sign_begin_date">
+                                            <div class="col-md-3">
+                                                <select name="date_type" class="select2me form-control">
+                                                    <option value="year">年</option>
+                                                    <option selected value="month">月</option>
+                                                    <option value="day">日</option>
+                                                </select>
+                                            </div>
+                                            <label class="control-label col-md-3">数据上限</label>
+
+                                            <div class="col-md-3">
+                                                <select name="limit_num" class="select2me form-control">
+                                                    <option selected value="10">5</option>
+                                                    <option value="10">7</option>
+                                                    <option value="20">10</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">期限</label>
+
+                                            <div class="col-md-9">
+                                                <div class="input-group input-medium date-picker input-daterange"
+                                                     data-date-format="yyyy-mm-dd">
+                                                    <input type="text" class="form-control" name="sign_begin_date">
 												<span class="input-group-addon">
 												到 </span>
-                                        <input type="text" class="form-control" name="sign_end_date">
+                                                    <input type="text" class="form-control" name="sign_end_date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">缴费点</label>
+
+                                            <div class="col-md-9">
+                                                <select name="pay_place" class="select2me form-control">
+                                                    <option value="">所有</option>
+                                                    <option ng-repeat="item in schoolPlaceList" value="{{item.id}}">
+                                                        {{item.name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </form>
+                        <div class="form-actions right">
+                            <button class="btn green" ng-click="loadData()">确认</button>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">缴费点</label>
 
-                                <div class="col-md-9">
-                                    <select name="pay_place" class="select2me form-control">
-                                        <option value="">所有</option>
-                                        <option ng-repeat="item in schoolPlaceList" value="{{item.id}}">
-                                            {{item.name}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </form>
-            <div class="form-actions right">
-                <button class="btn green" ng-click="loadData()">确认</button>
             </div>
         </div>
     </div>
@@ -79,6 +83,11 @@
             <div class="caption">
                 <i class="icon-bar-chart font-green-haze"></i>
                 <span class="caption-subject bold uppercase font-green-haze">资金统计</span>
+            </div>
+            <div class="actions">
+                <div class="btn-group">
+                    <button class="btn green" onclick="$('#condition-modal').modal('show')" >搜索条件</button>
+                </div>
             </div>
         </div>
         <div class="portlet-body">

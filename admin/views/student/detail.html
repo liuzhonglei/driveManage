@@ -36,21 +36,11 @@
                                 <input type="text" id="student_id" hidden="true" ng-model='info["id"]'/>
 
                                 <div class="tab-content">
-                                    <div class="tab-pane active" id="student_detail_info_1">
-                                        <div ng-repeat="field in fieldList[1] track by $index"
-                                             ng-show="field.is_show == '1'"
-                                             class="form-group">
-                                            <div ng-include="'views/module/field.html'">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div ng-repeat="(key,value) in fieldGroup track by $index" ng-if="key != '1'"
-                                         class="tab-pane"
-                                         id="student_detail_info_{{key}}">
-                                        <div ng-repeat="field in fieldList[key] track by $index"
-                                             ng-show="field.is_show == '1'"
-                                             class="form-group">
-                                            <div ng-include="'views/module/field.html'">
+                                    <div ng-class="{'active': key == 1}"
+                                         ng-repeat="(key,value) in fieldGroup track by $index"
+                                         class="tab-pane" id="student_detail_info_{{key}}">
+                                        <div class="form-body">
+                                            <div ng-include="'views/module/field-group.html'">
                                             </div>
                                         </div>
                                     </div>
