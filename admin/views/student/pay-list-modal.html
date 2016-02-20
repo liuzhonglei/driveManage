@@ -1,6 +1,6 @@
 <div id="pay-list" class="modal fade bs-modal-lg" role="dialog" tabindex="-1" aria-labelledby="myModalLabel10"
      aria-hidden="true">
-    <div class="modal-dialog" ng-class="ListExtendClass">
+    <div class="modal-dialog  modal-full">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="portlet-title tabbable-line">
@@ -13,8 +13,9 @@
                 <div class="tab-content">
                     <div class="active tab-pane">
                         <div class=" row pull-right " style="margin-right: 5px">
-                            <button ng-click="add()" class="btn btn-sm btn-default">
-                                新增 <i class="fa fa-plus"></i>
+
+                            <button onclick="TableAjax.add('pay-form-info')" class="btn btn-sm btn-default">
+                                增加 <i class="fa fa-plus"></i>
                             </button>
                         </div>
                         <div class="table-container">

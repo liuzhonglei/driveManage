@@ -4,6 +4,7 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', 'info
     $scope.info = {};
     $scope.idName = "form-info-id";
     $scope.formName = "form-info";
+    $scope.extendClass = $rootScope.$state.$current.data.extendClass;
 
     /**
      * 加载信息
@@ -11,11 +12,8 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', 'info
     setTimeout(function () {
         infoTool.getInfoModel($rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController).then(function (data) {
             $.extend($scope, data);
-            if ($rootScope.$state.$current.data.extendClass) {
-                $("div[name='form-info']").children(".modal-dialog").addClass($rootScope.$state.$current.data.extendClass);
-            }
         });
-    }, 500);
+    }, 50);
 
     /**
      * 更新信息

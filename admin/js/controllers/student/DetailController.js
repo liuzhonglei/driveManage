@@ -48,6 +48,6 @@ function studentDetailShow(id) {
 
     // 刷新数据
     TableAjax.init('student-log', 'Student', 'Detail', {"info": "log", "student_id": id});
-    TableAjax.init('student-money-log', 'Student', 'Detail', {"info": "moneyLog", "student_id": id});
+    TableAjax.init('student-money-log', 'Student', 'Detail', {"info": "moneyLog", "student_id": id,"operation":"0"});
     $("#student-detail").modal("show");
 }

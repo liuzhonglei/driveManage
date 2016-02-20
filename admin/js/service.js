@@ -42,21 +42,28 @@ MetronicApp.factory('dataTool', ['$http', '$q', function ($http, $q) {
      * 取得模型信息
      * @returns {*}
      */
-    var getModelInfo = function (module, controller) {
+    var getModelInfo = function (module, controller, param) {
         var deferred = $q.defer();
-        if (!TableAjax.modelMap[module + "_" + controller]) {
+        var url = Metronic.rootPath() + "/index.php?s=/addon/" + module + "/" + controller + "/getModelInfo";
+        if (param) {
+            for (var key in param) {
+                url += "/" + key + "/" + param[key];
+            }
+        }
+
+        if (!TableAjax.modelMap[module + "_" + controller + param]) {
             $http({
                 method: "get",
                 headers: function ($httpProvider) {
                     $httpProvider.defaults.withCredentials = true;
                 },
-                url: Metronic.rootPath() + "/index.php?s=/addon/" + module + "/" + controller + "/getModelInfo"
+                url: url
             }).success(function (data) {
-                TableAjax.modelMap[module + "_" + controller] = data;
+                TableAjax.modelMap[module + "_" + controller + param] = data;
                 deferred.resolve(data);
             });
         } else {
-            deferred.resolve(TableAjax.modelMap[module + "_" + controller]);
+            deferred.resolve(TableAjax.modelMap[module + "_" + controller + param]);
         }
 
         // 返回
@@ -94,12 +101,12 @@ MetronicApp.factory('infoTool', ['$http', 'dataTool', '$q', function ($http, dat
     /**
      * 设置对象信息
      */
-    var getInfoModel = function (module, controller) {
+    var getInfoModel = function (module, controller, param) {
         // 查询map
         var deferred = $q.defer();
-        var modelInfoDefer = dataTool.getModelInfo(module, controller);
+        var modelInfoDefer = dataTool.getModelInfo(module, controller, param);
         modelInfoDefer.then(function (data) {
-            // 返回数据
+
             var infoData = {
                 metadata: {},
                 selected: {},
@@ -129,10 +136,12 @@ MetronicApp.factory('infoTool', ['$http', 'dataTool', '$q', function ($http, dat
                         var params = extra.split("\r\n");
                         for (var z in params) {
                             var map = params[z].split(":");
-                            if (map.length == 2) {
+                            if (map.length > 1) {
                                 result.push({
                                     "value": map[0],
                                     "text": map[1],
+                                    "condition": map[2],
+                                    "conditionValue": map[3],
                                     "disabled": true
                                 });
                             }
@@ -213,7 +222,7 @@ MetronicApp.factory('infoTool', ['$http', 'dataTool', '$q', function ($http, dat
      * @param controller 操作器
      * @param data 信息
      */
-    var saveInfoData = function (info, module, controller, method,area) {
+    var saveInfoData = function (info, module, controller, method, area) {
         var deferred = $q.defer();
         method = method || "saveAdmin";
         area = area || "addon";
@@ -250,16 +259,16 @@ MetronicApp.factory('infoTool', ['$http', 'dataTool', '$q', function ($http, dat
         // 发送信息
         $http({
             method: "post",
-            url: Metronic.rootPath() + "/index.php?s=/"+area+"/" + module + "/" + controller + "/" + method,
+            url: Metronic.rootPath() + "/index.php?s=/" + area + "/" + module + "/" + controller + "/" + method,
             data: params,
             headers: {
                 'Accept': "application/json",
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).then(function successCallback(response) {
-            if(response.data.result == "1"){
-                deferred.resolve(response); 
-            }else{
+            if (response.data.result == "1") {
+                deferred.resolve(response);
+            } else {
                 bootbox.alert(response.data.message);
                 deferred.reject(response.data.message);
             }

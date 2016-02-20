@@ -15,6 +15,17 @@ var TableAjax = function () {
     }
 
     /**
+     * 清空模型数据
+     * @param module
+     * @param controller
+     * @param param
+     */
+    var emptyModal = function (module, controller, param) {
+        param = param || "";
+        modelMap[module + "_" + controller + param] = null;
+    }
+
+    /**
      * init the table
      * @param module
      * @param handleController
@@ -28,8 +39,8 @@ var TableAjax = function () {
         tableMap[name].controler = controller;
 
         // 查询表格信息
-        if (!modelMap[tableMap[name].module + "_" + tableMap[name].controler]) {
-            var url = createUrl(name, "getModelInfo");
+        if (!modelMap[tableMap[name].module + "_" + tableMap[name].controler + tableMap[name].param]) {
+            var url = createUrl(name, "getModelInfo", tableMap[name].param);
             $.get(url, function (data) {
                 // 判断是否登录
                 if (data.result == "-1") {
@@ -37,7 +48,7 @@ var TableAjax = function () {
                 }
 
                 // 设置全局模型变量
-                modelMap[tableMap[name].module + "_" + tableMap[name].controler] = data;
+                modelMap[tableMap[name].module + "_" + tableMap[name].controler + param] = data;
 
                 // 加载模型
                 loadModel(name);
@@ -60,7 +71,7 @@ var TableAjax = function () {
      */
     var loadModel = function (name) {
         // 取得数据
-        var data = modelMap[tableMap[name].module + "_" + tableMap[name].controler];
+        var data = modelMap[tableMap[name].module + "_" + tableMap[name].controler + tableMap[name].param];
 
         // set search name
         var searchEle = $("#" + name + "-search-name");
@@ -89,7 +100,7 @@ var TableAjax = function () {
             // 排序
             if (!data.list_data.list_grids[i].field || data.list_data.list_grids[i].title == "操作" || data.list_data.list_grids[i].order == "0") {
                 column.bSortable = false;
-                column.sWidth =  10;
+                column.sWidth = 10;
             }
 
             // 增加字段
@@ -160,7 +171,7 @@ var TableAjax = function () {
             loadingMessage: '读取中...',
             dataTable: {
                 aoColumnDefs: tableMap[name].columns,
-                "bStateSave": true,
+                //"bStateSave": true,
                 "lengthMenu": [
                     [10, 20, 50, 100, 150],
                     [10, 20, 50, 100, 150]
@@ -227,6 +238,7 @@ var TableAjax = function () {
         get: function (name) {
             return tableMap[name];
         },
+
         delete: function (id, tableName) {
             tableName = tableName || 'list';
             bootbox.confirm("确认删除选中数据?", function (result) {
@@ -241,11 +253,13 @@ var TableAjax = function () {
         },
         add: function (formName) {
             formName = formName || 'form-info';
+            $("input[name='" + formName + "-id']").val("-1");
+            $("input[name='" + formName + "-id']").trigger("change");
             $("input[name='" + formName + "-id']").val("");
             $("input[name='" + formName + "-id']").trigger("change");
 
             $("div[name='" + formName + "']").modal("show");
-            var nav = $("a[name='form-info-nav-1']");
+            var nav = $("a[name='" + formName + "-nav-1']");
             nav.click();
         },
         edit: function (id, formName) {
@@ -257,6 +271,7 @@ var TableAjax = function () {
             var nav = $("a[name='" + formName + "-nav-1']");
             nav.click();
         },
+        emptyModal: emptyModal,
         modelMap: modelMap,
         tableMap: tableMap,
         removeModelInfo: removeModelInfo

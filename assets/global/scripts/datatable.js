@@ -61,7 +61,7 @@ var Datatable = function() {
                         }
                     },
 
-                    "bDeferRender":false,
+                    //"bDeferRender":false,
                     "aaSorting": [],
                     "pagingType": "bootstrap_extended", // pagination type(bootstrap, bootstrap_full_number or bootstrap_extended)
                     "autoWidth": true, // disable fixed width and enable fluid table
