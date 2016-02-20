@@ -51,6 +51,12 @@ class AdminController extends CommonController
     {
         if (!empty($this->model['list_grid_admin'])) {
             $this->model['list_grid'] = $this->model['list_grid_admin'];
+
+        }
+
+        $operationIndex = strrpos( $this->model['list_grid'], 'id:');
+        if(i("operation") == "0" && $operationIndex && strpos($this->model['list_grid'], "操作") !== false){
+            $this->model['list_grid'] =  substr($this->model['list_grid'],0,$operationIndex-1);
         }
     }
 

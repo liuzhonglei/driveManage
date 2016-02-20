@@ -1,35 +1,3 @@
-MetronicApp.filter('propsFilter', function () {
-    return function (items, props) {
-        var out = [];
-
-        if (angular.isArray(items)) {
-            items.forEach(function (item) {
-                var itemMatches = false;
-
-                var keys = Object.keys(props);
-                for (var i = 0; i < keys.length; i++) {
-                    var prop = keys[i];
-                    var text = props[prop].toLowerCase();
-                    if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
-                        itemMatches = true;
-                        break;
-                    }
-                }
-
-                if (itemMatches) {
-                    out.push(item);
-                }
-            });
-        } else {
-            // Let the output be the input untouched
-            out = items;
-        }
-
-        return out;
-    }
-});
-
-
 /**
  * 创建controller
  */
@@ -91,8 +59,7 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
      */
     $scope.loadTable = function () {
         $('#condition-modal').modal('hide');
-        TableAjax.modelMap[$rootScope.$state.$current.data.module + "_" + $rootScope.$state.$current.data.handleController] = null;
-        //$scope.loadStudentNum();
+        TableAjax.emptyModal($rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, getSearchParam());
         TableAjax.init('list', $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, getSearchParam());
     }
 
@@ -158,7 +125,7 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
             method: 'GET',
             url: Metronic.rootPath() + '/index.php?s=/addon/Student/Student/saveFieldConf/status/' + $scope.status + '/value/' + conf.join() + '.html'
         }).then(function successCallback(response) {
-            TableAjax.modelMap[$rootScope.$state.$current.data.module + "_" + $rootScope.$state.$current.data.handleController] = null;
+            TableAjax.emptyModal[$rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController];
             TableAjax.init('list', $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, {
                 status: $scope.status
             });

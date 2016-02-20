@@ -83,15 +83,32 @@ class EO2OPaymentController extends EO2OBaseController
     public function getFieldList($fields)
     {
         $fields = parent::getFieldList($fields);
-        $fields = $this->setFiledExtra($fields, "payitem_id", 'school_payitem', 'name');
-        $fields = $this->setFiledExtra($fields, "student_id", 'student', 'name', array("token" => get_token(), "can_pay" => array('lt',99)));
+        $param = array(token => get_token());
+        if (!empty(i("in_or_out"))) {
+            $param["in_or_out"] = i("in_or_out");
+        }
+        $fields = $this->setFiledExtra($fields, "payitem_id", 'school_payitem', 'name',$param );
+        // 划款项目
+        for ($i = 1; $i <= count($fields); $i++) {
+            for ($j = 0; $j < count($fields[$i]); $j++) {
+                $fieldInfo = $fields[$i][$j];
+                if ($fieldInfo['name'] == "payitem_id") {
+                    $extraData = parent::getFieldData('school_payitem', array('token' => get_token()), 'name', $fieldInfo['is_must'] == "1","in_or_out");
+                    $fieldInfo ['extra'] = $extraData;
+                    $fields[$i][$j] = $fieldInfo;
+                }
+            }
+        }
+
+        //其他
+        $fields = $this->setFiledExtra($fields, "student_id", 'student', 'name', array("token" => get_token(), "can_pay" => array('lt', 99)));
         $fields = $this->setFiledExtra($fields, "school_place_id", 'school_place', 'name', array("token" => get_token(), "can_pay" => "1"), true);
 
         // 设置事件默认值
         for ($i = 1; $i <= count($fields); $i++) {
             for ($j = 0; $j < count($fields[$i]); $j++) {
                 $fieldInfo = $fields[$i][$j];
-                if($fieldInfo["name"] == "time_end"){
+                if ($fieldInfo["name"] == "time_end") {
                     $fields[$i][$j]["value"] = date("Y-m-d h:i");
                 }
             }
@@ -370,6 +387,8 @@ class EO2OPaymentController extends EO2OBaseController
         if (!empty($studentId)) {
             $map['student_id'] = $studentId;
         }
+
+
 
         $map['openid'] || $map['openid'] = get_openid();
         $map['token'] = get_token();

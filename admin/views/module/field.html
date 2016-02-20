@@ -1,5 +1,5 @@
 <div ng-switch="field.type">
-    <input  ng-switch-when="string" type="text" name="{{field.name}}"
+    <input ng-switch-when="string" type="text" name="{{field.name}}"
            class="form-control  input-medium " ng-model="info[field.name]" ng-disabled="infoDisabled"/>
     <input ng-switch-when="num" class="form-control  input-medium "
            type="text" ng-model="info[field.name]" ng-disabled="infoDisabled">
@@ -21,45 +21,70 @@
 												</span>
     </div>
     <div ng-switch-when="radio">
-        <ui-select ng-model="info[field.name]" class="input-medium "
-                   theme="bootstrap" name="{{field.name}}" ng-disabled="infoDisabled">
-            <ui-select-match
-                    placeholder="选择或搜索">
-                {{$select.selected.text}}
-            </ui-select-match>
-            <ui-select-choices
-                    repeat=" item.value as item in metadata[field.name] | filter: $select.search">
-                <span ng-bind-html="item.text | highlight: $select.search"></span>
-            </ui-select-choices>
-        </ui-select>
+        <div class="input-group">
+            <ui-select ng-model="info[field.name]" class="input-medium "
+                       theme="bootstrap" name="{{field.name}}" ng-disabled="infoDisabled">
+                <ui-select-match
+                        placeholder="选择或搜索">
+                    {{$select.selected.text}}
+                </ui-select-match>
+                <ui-select-choices
+                        repeat=" item.value as item in metadata[field.name] | filter: $select.search">
+                    <ng-if>
+                        <span ng-bind-html="item.text | highlight: $select.search"></span>
+                    </ng-if>
+                </ui-select-choices>
+            </ui-select>
+           <span class="input-group-btn" ng-hide="infoDisabled">
+              <a href="javascript:" ng-click="info[field.name] = undefined" class="btn btn-default">
+                  <span class="glyphicon glyphicon-trash"></span>
+              </a>
+            </span>
+        </div>
     </div>
     <div ng-switch-when="select">
-        <ui-select ng-model="info[field.name]" class="input-medium "
-                   theme="bootstrap" name="{{field.name}}" ng-disabled="infoDisabled">
-            <ui-select-match
-                    placeholder="选择或搜索">
-                {{$select.selected.text}}
-            </ui-select-match>
-            <ui-select-choices
-                    repeat=" item.value as item in metadata[field.name] | filter: $select.search">
-                <ng-if>
-                    <span ng-bind-html="item.text | highlight: $select.search"></span>
-                </ng-if>
-            </ui-select-choices>
-        </ui-select>
+        <div class="input-group">
+            <ui-select ng-model="info[field.name]" class="input-medium "
+                       theme="bootstrap" name="{{field.name}}" ng-disabled="infoDisabled">
+                <ui-select-match
+                        placeholder="选择或搜索">
+                    {{$select.selected.text}}
+                </ui-select-match>
+                <ui-select-choices
+                        repeat=" item.value as item in metadata[field.name] | filter: $select.search | conditionFilter: info">
+                    <ng-if>
+                        <span ng-bind-html="item.text | highlight: $select.search"></span>
+                    </ng-if>
+                </ui-select-choices>
+            </ui-select>
+          <span class="input-group-btn" ng-hide="infoDisabled">
+              <a href="javascript:" ng-click="info[field.name] = undefined" class="btn btn-default">
+                  <span class="glyphicon glyphicon-trash"></span>
+              </a>
+            </span>
+        </div>
     </div>
     <div ng-switch-when="checkbox">
-        <ui-select multiple theme="bootstrap" class="input-medium "
-                   ng-disabled="disabled" ng-model="info[field.name]" name="{{field.name}}"
-                   ng-disabled="infoDisabled">
-            <ui-select-match>
-                {{$item.text}}
-            </ui-select-match>
-            <ui-select-choices
-                    repeat="item.value as  item in metadata[field.name] | propsFilter: {text: $select.search}">
-                {{item.text}}
-            </ui-select-choices>
-        </ui-select>
+        <div class="input-group">
+            <ui-select ng-model="info[field.name]" class="input-medium "
+                       theme="bootstrap" name="{{field.name}}" ng-disabled="infoDisabled">
+                <ui-select-match
+                        placeholder="选择或搜索">
+                    {{$select.selected.text}}
+                </ui-select-match>
+                <ui-select-choices
+                        repeat=" item.value as item in metadata[field.name] | filter: $select.search | conditionFilter: info">
+                    <ng-if>
+                        <span ng-bind-html="item.text | highlight: $select.search"></span>
+                    </ng-if>
+                </ui-select-choices>
+            </ui-select>
+          <span class="input-group-btn" ng-hide="infoDisabled">
+              <a href="javascript:" ng-click="info[field.name] = undefined" class="btn btn-default">
+                  <span class="glyphicon glyphicon-trash"></span>
+              </a>
+            </span>
+        </div>
     </div>
     <div ng-switch-when="editor">
         <summernote name="{{field.name}}" ng-model="info[field.name]" name="{{field.name}}"

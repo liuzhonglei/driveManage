@@ -15,7 +15,7 @@ var depFile = {
     chart: new Array(
         "js/controllers/common/ChartController.js"),
     list: new Array(
-        'js/controllers/common/Filter.js',
+        //'js/controllers/common/Filter.js',
         'js/controllers/common/ListController.js'),
     info: new Array(
         'js/controllers/common/InfoController.js'),
@@ -252,7 +252,8 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             data: {
                 pageTitle: "划款信息",
                 module: "EO2OPayment",
-                handleController: "EO2OPayment"
+                handleController: "EO2OPayment",
+                info: true
             },
             controller: "ListController",
             resolve: {
@@ -268,7 +269,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: ["js/controllers/student/DetailController.js", 'js/controllers/pay/ListController.js']
+                            files: ["js/controllers/student/DetailController.js", 'js/controllers/pay/ListController.js','js/controllers/common/InfoController.js']
                         }]);
                 }]
             }

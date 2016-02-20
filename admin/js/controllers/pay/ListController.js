@@ -10,7 +10,7 @@ MetronicApp.controller('ListController', ['$rootScope', '$http', '$scope', funct
         // init the table
         setTimeout(function () {
             // 等待DOM回来，黑科技，哈哈哈
-            TableAjax.init('list', $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, null, null);
+            TableAjax.init('list', $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, {"operation":0}, null);
         }, 1);
 
     });

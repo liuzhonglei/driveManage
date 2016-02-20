@@ -137,7 +137,7 @@ class CommonController extends ExtendAddonsController
      * @param $selectd 是否默认选中第一个数据
      * @param @map 查询条件
      */
-    protected function setFiledExtra($fields, $fieldName, $model, $showFiled, $map = null, $selected = false)
+    protected function setFiledExtra($fields, $fieldName, $model, $showFiled, $map = null, $selected = false,$setName = null)
     {
         $map || $map = array('token' => get_token());
 
@@ -194,7 +194,7 @@ class CommonController extends ExtendAddonsController
      * @param $showField 显示字段
      * @return string id:value
      */
-    private function getFieldData($modelName, $map, $showField = 'name', $allowNull = true)
+    public function getFieldData($modelName, $map, $showField = 'name', $allowNull = true,$condition= null)
     {
         $extra = "";
         if ($allowNull) {
@@ -204,7 +204,7 @@ class CommonController extends ExtendAddonsController
         $list = M($modelName)->where($map)->select();
 
         foreach ($list as $v) {
-            $extra .= $v ['id'] . ':' . $v [$showField] . "\r\n";
+            $extra .= $v ['id'] . ':' . $v [$showField].":".$condition.":".$v[$condition] . "\r\n";
         }
 
         // return

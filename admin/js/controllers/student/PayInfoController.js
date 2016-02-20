@@ -1,16 +1,18 @@
 /**
  * Created by wuhanchu on 16/2/5.
  */
-MetronicApp.controller('PayInfoController', ['$rootScope', '$http', '$scope','infoTool', function ($rootScope, $http, $scope,infoTool) {
+MetronicApp.controller('PayInfoController', ['$rootScope', '$http', '$scope', 'infoTool', function ($rootScope, $http, $scope, infoTool) {
     // 信息
     $scope.info = {};
     $scope.idName = "pay-form-info-id";
     $scope.formName = "pay-form-info";
 
     $scope.module = "EO2OPayment";
-    $scope.controller = "EO2OPayList";
+    $scope.controller = "EO2OPayment";
     $scope.title = "划款流水";
     $scope.listName = "pay-list";
+    $scope.ListExtendClass = "modal-full";
+
 
     /**
      * 设置对象信息
@@ -22,14 +24,13 @@ MetronicApp.controller('PayInfoController', ['$rootScope', '$http', '$scope','in
         infoTool.getInfoModel($scope.module, $scope.controller).then(function (data) {
             $.extend($scope, data);
         });
-    }, 500);
+    }, 50);
 
 
     /**
      * 更新信息
      */
     $scope.$watch('info["id"]', function () {
-        // todo
         $(".fileinput").fileinput('clear');
 
         // 查询数据
@@ -47,11 +48,11 @@ MetronicApp.controller('PayInfoController', ['$rootScope', '$http', '$scope','in
      */
     $scope.save = function (modalName, tableName) {
         // 取得学员ID
-        $scope.info["student_id"] =  TableAjax.tableMap["pay-list"].param["student_id"];
+        $scope.info["student_id"] = TableAjax.tableMap["pay-list"].param["student_id"];
 
         // 保存
-        tableName = tableName ||  "pay-list";
-        infoTool.saveInfoData($scope.info, $scope.module, $scope.controller,"saveAdmin").then(function (response) {
+        tableName = tableName || "pay-list";
+        infoTool.saveInfoData($scope.info, $scope.module, $scope.controller, "saveAdmin").then(function (response) {
             if (response.data.result == "1") {
                 $scope.infoErrorShow = false;
                 $scope.infoErrorMsg = "";
@@ -65,29 +66,25 @@ MetronicApp.controller('PayInfoController', ['$rootScope', '$http', '$scope','in
         });
     }
 
-    /**
-     *  set the save method
-     */
-    $scope.add = function (modalName, tableName) {
-        TableAjax.add("pay-form-info");
+    $scope.add = function(){
+        TableAjax.add('pay-form-info');
     }
 }]);
-
 
 
 /**
  * 链接调用对象
  */
-var payInfo = function(){
+var payInfo = function () {
     /**
      * 返回
      */
     return {
-        edit: function(id) {
-            TableAjax.edit(id,"pay-form-info");
+        edit: function (id) {
+            TableAjax.edit(id, "pay-form-info");
         },
-        delete: function(id) {
-            TableAjax.delete(id,"pay-list");
+        delete: function (id) {
+            TableAjax.delete(id, "pay-list");
         }
     };
 }();
@@ -99,6 +96,6 @@ var payInfo = function(){
 function showStudentPayList(id) {
     var param = {};
     param["student_id"] = id;
-    TableAjax.init('pay-list', "EO2OPayment", 'EO2OPayList', param);
+    TableAjax.init('pay-list', "EO2OPayment", 'EO2OPayment', param);
     $("#pay-list").modal("show");
 }

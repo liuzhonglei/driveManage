@@ -29,3 +29,28 @@ MetronicApp.filter('propsFilter', function() {
         return out;
     };
 });
+
+
+MetronicApp.filter('conditionFilter', function() {
+    return function(items, info) {
+        var out = [];
+
+        if (angular.isArray(items)) {
+            items.forEach(function(item) {
+                var itemMatches = true;
+                if(item.condition && info[item.condition] != item.conditionValue){
+                    itemMatches = false;
+                }
+
+                if (itemMatches) {
+                    out.push(item);
+                }
+            });
+        } else {
+            // Let the output be the input untouched
+            out = items;
+        }
+
+        return out;
+    };
+});
