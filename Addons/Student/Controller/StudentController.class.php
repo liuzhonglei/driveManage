@@ -10,9 +10,6 @@ use Addons\School\Controller\Common\Msg\MessageController;
 use Addons\EO2OPayment\Controller\EO2OPaymentController;
 
 require_once ONETHINK_ADDON_PATH . '/Third/Controller/simple_html_dom.php';
-//require_once __ROOT__ . '/Application/Common/Common/weixinFunction.php';
-//require_once __ROOT__ . '/Application/Common/Common/syncFunction.php';
-
 
 define('SCHOOL_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Public');
 
@@ -23,6 +20,11 @@ define('SCHOOL_PUBLIC_PATH', __ROOT__ . '/Addons/School/View/default/Public');
  */
 class StudentController extends StudentBaseController
 {
+    /**
+     * 附加要查询的数据
+     * @var array
+     */
+
     /**
      * init
      */
@@ -1309,15 +1311,16 @@ str;
      */
     protected function operationIsShow($data, $operation)
     {
-        if ($operation == "绑定微信" && !empty($data["weixin_name"])) {
+        $data = M('student')->where(array("id"=>$data["id"]))->find();
+        if ($operation == "绑定微信" && !empty($data["openid"])) {
             return false;
         }
 
-        if ($operation == "解绑微信" && empty($data["weixin_name"])) {
+        if ($operation == "解绑微信" && empty($data["openid"])) {
             return false;
         }
 
-        if ($operation == "推荐费已支付" && (empty($data["in_name"]) || (!empty($data["in_name"] && $data["is_in_payed"] == "1")))) {
+        if ($operation == "推荐费已支付" && ((empty($data["in_student_openid"]) && empty($data["id_in_teacher"])) || (!(empty($data["in_student_openid"]) && empty($data["id_in_teacher"])) && $data["is_in_payed"] == "1"))) {
             return false;
         }
 

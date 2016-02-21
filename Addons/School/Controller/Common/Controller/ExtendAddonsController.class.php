@@ -11,12 +11,22 @@ namespace Addons\School\Controller\Common\Controller;
 use Home\Controller\AddonsController;
 use Think\Model;
 
-
+/**
+ * 基础服务扩展
+ * Class ExtendAddonsController
+ * @package Addons\School\Controller\Common\Controller
+ */
 class ExtendAddonsController extends AddonsController
 {
-    // 需要修改查询的表
+    /**
+     * 需要修改查询的表
+     */
     public static $tableNames = array('student', 'student_question', 'student_banner', 'teacher', 'student_notification', 'qingqing_coupon', 'eo2o_payment');
 
+    /**
+     * 附加要查询的数据
+     * @var array
+     */
     var $fields = array();
 
     /**
@@ -209,7 +219,6 @@ class ExtendAddonsController extends AddonsController
         $row = empty ($model ['list_row']) ? 20 : $model ['list_row'];
 
         // 读取模型数据列表
-
         empty ($fields) || in_array('id', $fields) || array_push($fields, 'id');
 
         // special handle
