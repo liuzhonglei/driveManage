@@ -3,7 +3,7 @@
  */
 MetronicApp.controller('PayInfoController', ['$rootScope', '$http', '$scope', 'infoTool', function ($rootScope, $http, $scope, infoTool) {
     // 信息
-    $scope.info = {id:null};
+    $scope.info = {id: null};
     $scope.idName = "pay-form-info-id";
     $scope.formName = "pay-form-info";
 
@@ -12,10 +12,6 @@ MetronicApp.controller('PayInfoController', ['$rootScope', '$http', '$scope', 'i
     $scope.title = "划款流水";
     $scope.listName = "pay-list";
     $scope.ListExtendClass = "modal-full";
-
-    /**
-     * 加载信息
-     */
 
     /**
      * 更新信息
@@ -68,14 +64,7 @@ MetronicApp.controller('PayInfoController', ['$rootScope', '$http', '$scope', 'i
         });
     }
 
-    /**
-     * 增加信息
-     */
-    $scope.add = function(){
-        Metronic.startPageLoading({
-            message: '读取中'
-        });
-        $.extend($scope.info, $scope.defaultInfo);
+    $scope.add = function () {
         TableAjax.add('pay-form-info');
     }
 }]);
@@ -90,9 +79,6 @@ var payInfo = function () {
      */
     return {
         edit: function (id) {
-            Metronic.startPageLoading({
-                message: '读取中'
-            });
             TableAjax.edit(id, "pay-form-info");
         },
         delete: function (id) {

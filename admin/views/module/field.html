@@ -96,6 +96,7 @@
                 </ui-select-match>
                 <ui-select-choices
                         repeat=" item.value as item in metadata[field.name]">
+
                     <ng-if>
                         <span ng-bind-html="item.text | highlight: $select.search"></span>
                     </ng-if>
@@ -106,17 +107,6 @@
                   <span class="glyphicon glyphicon-trash"></span>
               </a>
             </span>
-        </div>
-
-        <div class="input-group">
-            <div class="icheck-inline">
-                <label>
-                    <input type="radio" name="radio2" class="icheck" data-radio="iradio_square-grey"> Radio Button 1 </label>
-                <label>
-                    <input type="radio" name="radio2" checked class="icheck" data-radio="iradio_square-grey"> Radio Button 2 </label>
-                <label>
-                    <input type="radio" name="radio2" class="icheck" data-radio="iradio_square-grey"> Radio Button 3 </label>
-            </div>
         </div>
     </div>
     <div ng-switch-when="editor">

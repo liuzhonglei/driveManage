@@ -101,7 +101,11 @@ class EO2OPaymentController extends EO2OBaseController
         }
 
         //其他
+<<<<<<< HEAD
 //        $fields = $this->setFiledExtra($fields, "student_id", 'student', 'name', array("token" => get_token(), "can_pay" => array('lt', 99)));
+=======
+        $fields = $this->setFiledExtra($fields, "student_id", 'student', 'name', array("token" => get_token(), "can_pay" => array('lt', 99)));
+>>>>>>> 9e298f5e0765a6f869853e5109d76155aeb07176
         $fields = $this->setFiledExtra($fields, "school_place_id", 'school_place', 'name', array("token" => get_token(), "can_pay" => "1"), true);
 
         // 设置事件默认值

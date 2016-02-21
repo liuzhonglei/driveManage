@@ -21,6 +21,10 @@ var TableAjax = function () {
      * @param param
      */
     var emptyModal = function (module, controller, param) {
+<<<<<<< HEAD
+=======
+        param = param || "";
+>>>>>>> 9e298f5e0765a6f869853e5109d76155aeb07176
         modelMap[module + "_" + controller + param] = null;
     }
 
@@ -259,6 +263,8 @@ var TableAjax = function () {
                 message: '读取中'
             });
             formName = formName || 'form-info';
+            $("input[name='" + formName + "-id']").val("-1");
+            $("input[name='" + formName + "-id']").trigger("change");
             $("input[name='" + formName + "-id']").val("");
             $("input[name='" + formName + "-id']").trigger("change");
 
