@@ -9,12 +9,11 @@ class EO2OPaymentController extends EO2OBaseController
     // the pay type info
     private static $paytypeInfo = array('banner' => array('page' => 'Addons://EO2OPayment@EO2OPayment/Payment', 'body' => '教练锦旗', 'callback' => 'Student://Banner/add', 'attach' => '测试数据'));
 
-    var $model;
 
     function _initialize()
     {
         $this->model = $this->getModel('eo2o_payment');
-        $this->fields = array("openid");
+        $this->fields = array("openid","student_id");
         parent::_initialize();
     }
 

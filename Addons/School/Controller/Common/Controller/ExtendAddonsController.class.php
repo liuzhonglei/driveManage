@@ -21,7 +21,7 @@ class ExtendAddonsController extends AddonsController
     /**
      * 需要修改查询的表
      */
-    public static $tableNames = array('student', 'student_question', 'student_banner', 'teacher', 'student_notification', 'qingqing_coupon', 'eo2o_payment');
+    public static $tableNames = array('student_question', 'student_banner', 'teacher', 'student_notification', 'qingqing_coupon', 'eo2o_payment');
 
     /**
      * 附加要查询的数据
