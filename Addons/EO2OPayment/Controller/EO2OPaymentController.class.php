@@ -82,27 +82,11 @@ class EO2OPaymentController extends EO2OBaseController
      */
     public function getFieldList($fields)
     {
+
         $fields = parent::getFieldList($fields);
-        $param = array(token => get_token());
-        if (!empty(i("in_or_out"))) {
-            $param["in_or_out"] = i("in_or_out");
-        }
-        $fields = $this->setFiledExtra($fields, "payitem_id", 'school_payitem', 'name',$param );
-        // 划款项目
-        for ($i = 1; $i <= count($fields); $i++) {
-            for ($j = 0; $j < count($fields[$i]); $j++) {
-                $fieldInfo = $fields[$i][$j];
-                if ($fieldInfo['name'] == "payitem_id") {
-                    $extraData = parent::getFieldData('school_payitem', array('token' => get_token()), 'name', $fieldInfo['is_must'] == "1","in_or_out");
-                    $fieldInfo ['extra'] = $extraData;
-                    $fields[$i][$j] = $fieldInfo;
-                }
-            }
-        }
 
         //其他
-//        $fields = $this->setFiledExtra($fields, "student_id", 'student', 'name', array("token" => get_token(), "can_pay" => array('lt', 99)));
-
+        $fields = $this->setFiledExtra($fields, "payitem_id", 'school_payitem', 'name',null,false,"in_or_out");
         $fields = $this->setFiledExtra($fields, "school_place_id", 'school_place', 'name', array("token" => get_token(), "can_pay" => "1"), true);
 
         // 设置事件默认值
@@ -390,7 +374,6 @@ class EO2OPaymentController extends EO2OBaseController
         }
 
 
-
         $map['openid'] || $map['openid'] = get_openid();
         $map['token'] = get_token();
         $map['result_code'] = "SUCCESS";
@@ -426,30 +409,4 @@ class EO2OPaymentController extends EO2OBaseController
         $_POST["pay_channel"] = "human";
         parent::saveAdmin();
     }
-
-//    /**
-//     * 首页资金统计
-//     */
-//    public function payStatics()
-//    {
-//        $result = array();
-//        $Model = M("eo2o_payment");
-//
-//        // search
-//        $timeType = i("timetype");
-//
-//        $sql = "call statics_type_pay('" . get_token() . "','" . $timeType . "');";
-//        $result["typePay"] = $Model->query($sql);
-//        $db = $Model->db();
-////        $result["typePay"]->close();
-////        $db->queryID -> close();
-////        $db->free();
-////        $db->next_result();
-//        $sql = "call statics_date_pay('" . get_token() . "','" . $timeType . "');";
-//        $result["datePay"] = M("eo2o_payment")->query($sql);
-//
-//        // return
-//            $this->success("成功", null, null, $result);
-//    }
-
 }

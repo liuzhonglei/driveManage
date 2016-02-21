@@ -51,7 +51,7 @@
                     {{$select.selected.text}}
                 </ui-select-match>
                 <ui-select-choices
-                        repeat=" item.value as item in metadata[field.name] | conditionFilter: {'info':info}">
+                        repeat=" item.value as item in metadata[field.name] | filter: $select.search | conditionFilter:{'value':$select,'info':info}">
                     <ng-if>
                         <span ng-bind-html="item.text | highlight: $select.search"></span>
                     </ng-if>

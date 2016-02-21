@@ -32,14 +32,20 @@ MetronicApp.filter('propsFilter', function() {
 
 
 MetronicApp.filter('conditionFilter', function() {
-    return function(items, info) {
+    return function(items, param) {
         var out = [];
+       
 
         if (angular.isArray(items)) {
             items.forEach(function(item) {
                 var itemMatches = true;
-                if(item.condition && info[item.condition] != item.conditionValue){
+                if(item.condition && param.info[item.condition] !== item.conditionValue){
                     itemMatches = false;
+                }
+                if(item.conditionValue &&  param.value.selected && param.value.selected.value && param.value.selected.conditionValue  != param.info[item.condition]){
+                       param.value.selected.value  = null;
+                       param.value.selected.text  = null;
+
                 }
 
                 if (itemMatches) {

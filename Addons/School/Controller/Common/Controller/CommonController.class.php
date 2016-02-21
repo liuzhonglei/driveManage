@@ -63,7 +63,7 @@ class CommonController extends ExtendAddonsController
         $id = i('id');
 
         // process
-        $Model = D($model ['class_path'].parse_name(get_table_name($model ['id']), 1));
+        $Model = D($model ['class_path'] . parse_name(get_table_name($model ['id']), 1));
         $Model = $this->checkAttr($Model, $model['id']);
         if (empty(i('id'))) {
             $result = $Model->create() && $id = $Model->add();
@@ -89,14 +89,15 @@ class CommonController extends ExtendAddonsController
      * @return string 表名
      * @author huajie <banhuajie@163.com>
      */
-    function get_table_name($model_id = null) {
-        $tableName = get_table_name($model_id);
-        // 判断是否有自定义模型
-        $class      =   '\\Addons\\'.ONETHINK_ADDON_PATH.'\\'.$name.$layer;
-
-        // 返回
-        return $tableName;
-    }
+//    function get_table_name($model_id = null)
+//    {
+//        $tableName = get_table_name($model_id);
+//        // 判断是否有自定义模型
+//        $class = '\\Addons\\' . ONETHINK_ADDON_PATH . '\\' . $name . $layer;
+//
+//        // 返回
+//        return $tableName;
+//    }
 
 
     /**
@@ -137,7 +138,7 @@ class CommonController extends ExtendAddonsController
      * @param $selectd 是否默认选中第一个数据
      * @param @map 查询条件
      */
-    protected function setFiledExtra($fields, $fieldName, $model, $showFiled, $map = null, $selected = false,$setName = null)
+    protected function setFiledExtra($fields, $fieldName, $model, $showFiled, $map = null, $selected = false, $condition = null)
     {
         $map || $map = array('token' => get_token());
 
@@ -145,7 +146,7 @@ class CommonController extends ExtendAddonsController
             for ($j = 0; $j < count($fields[$i]); $j++) {
                 $fieldInfo = $fields[$i][$j];
                 if ($fieldInfo['name'] == $fieldName) {
-                    $extraData = $this->getFieldData($model, $map, $showFiled, $fieldInfo['is_must'] == "1");
+                    $extraData = $this->getFieldData($model, $map, $showFiled, $fieldInfo['is_must'] == "1", $condition);
                     $fieldInfo ['extra'] = $extraData;
                     if ($selected && empty($fieldInfo["value"])) {
                         $fieldInfo["value"] = explode(":", explode(",", $extraData)[0])[0];
@@ -194,7 +195,7 @@ class CommonController extends ExtendAddonsController
      * @param $showField 显示字段
      * @return string id:value
      */
-    public function getFieldData($modelName, $map, $showField = 'name', $allowNull = true,$condition= null)
+    public function getFieldData($modelName, $map, $showField = 'name', $allowNull = true, $condition = null)
     {
         $extra = "";
         if ($allowNull) {
@@ -204,7 +205,12 @@ class CommonController extends ExtendAddonsController
         $list = M($modelName)->where($map)->select();
 
         foreach ($list as $v) {
-            $extra .= $v ['id'] . ':' . $v [$showField].":".$condition.":".$v[$condition] . "\r\n";
+            if (empty($condition)) {
+                $extra .= $v ['id'] . ':' . $v [$showField]. "\r\n";
+
+            } else {
+                $extra .= $v ['id'] . ':' . $v [$showField] . ":" . $condition . ":" . $v[$condition] . "\r\n";
+            }
         }
 
         // return
@@ -360,7 +366,7 @@ class CommonController extends ExtendAddonsController
         $list_data = $this->_list_grid($model);
         if ($this->dataMultiEdit) {
             array_unshift($list_data['fields'], 'select');
-            array_unshift($list_data['list_grids'], array("title" => '<input type="checkbox" class="group-checkable">',"width"=>"5"));
+            array_unshift($list_data['list_grids'], array("title" => '<input type="checkbox" class="group-checkable">', "width" => "5"));
         }
 
         // fieldList
@@ -444,20 +450,20 @@ class CommonController extends ExtendAddonsController
     /**
      * 调用存储过程并返回
      */
-    public function procedureQuery($procedureName,$param)
+    public function procedureQuery($procedureName, $param)
     {
 
         // search
-        $procedureName  || $procedureName = i("procedure_name");
-        $param || $param  = i("param");
+        $procedureName || $procedureName = i("procedure_name");
+        $param || $param = i("param");
 
         $Model = M("");
-        if(!empty($param)){
-            $sql = " call ".$procedureName."('" . get_token() . "'," . $param . ")";
-        }else{
-            $sql = " call ".$procedureName."('" . get_token() . ")";
+        if (!empty($param)) {
+            $sql = " call " . $procedureName . "('" . get_token() . "'," . $param . ")";
+        } else {
+            $sql = " call " . $procedureName . "('" . get_token() . ")";
         }
-        $result= $Model->query($sql);
+        $result = $Model->query($sql);
 
         // return
         $this->success("成功", null, null, $result);
