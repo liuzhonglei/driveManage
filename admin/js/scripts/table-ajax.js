@@ -21,10 +21,6 @@ var TableAjax = function () {
      * @param param
      */
     var emptyModal = function (module, controller, param) {
-<<<<<<< HEAD
-=======
-        param = param || "";
->>>>>>> 9e298f5e0765a6f869853e5109d76155aeb07176
         modelMap[module + "_" + controller + param] = null;
     }
 
