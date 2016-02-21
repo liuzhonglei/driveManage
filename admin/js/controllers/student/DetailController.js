@@ -58,5 +58,4 @@ function studentDetailShow(id) {
 
     $("#student-detail").modal("show");
     Metronic.stopPageLoading();
-
 }

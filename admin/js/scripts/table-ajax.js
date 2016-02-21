@@ -6,22 +6,13 @@ var TableAjax = function () {
     var modelMap = {};
 
     /**
-     * 清空模型信息
-     * @param module
-     * @param controller
-     */
-    var removeModelInfo = function (module, controller) {
-        modelMap[module + "_" + controller] = null;
-    }
-
-    /**
      * 清空模型数据
      * @param module
      * @param controller
      * @param param
      */
     var emptyModal = function (module, controller, param) {
-        modelMap[module + "_" + controller + param] = null;
+        modelMap[module + "_" + controller + JSON.stringify(param)] = null;
     }
 
     /**
@@ -38,7 +29,7 @@ var TableAjax = function () {
         tableMap[name].controler = controller;
 
         // 查询表格信息
-        if (!modelMap[tableMap[name].module + "_" + tableMap[name].controler + tableMap[name].param]) {
+        if (!modelMap[tableMap[name].module + "_" + tableMap[name].controler + JSON.stringify(tableMap[name].param)]) {
             var url = createUrl(name, "getModelInfo", tableMap[name].param);
             $.get(url, function (data) {
                 // 判断是否登录
@@ -47,7 +38,7 @@ var TableAjax = function () {
                 }
 
                 // 设置全局模型变量
-                modelMap[tableMap[name].module + "_" + tableMap[name].controler + param] = data;
+                modelMap[tableMap[name].module + "_" + tableMap[name].controler + JSON.stringify(tableMap[name].param)] = data;
 
                 // 加载模型
                 loadModel(name);
@@ -70,7 +61,7 @@ var TableAjax = function () {
      */
     var loadModel = function (name) {
         // 取得数据
-        var data = modelMap[tableMap[name].module + "_" + tableMap[name].controler + tableMap[name].param];
+        var data = modelMap[tableMap[name].module + "_" + tableMap[name].controler + JSON.stringify(tableMap[name].param)];
 
         // set search name
         var searchEle = $("#" + name + "-search-name");
@@ -115,7 +106,7 @@ var TableAjax = function () {
     var reload = function (name, param) {
         var grid = tableMap[name].grid;
         if (param) {
-            tableMap[name].param = param;
+            JSON.stringify(tableMap[name].param) = param;
         }
         grid.getDataTable().ajax.url(createUrl(name, "listsAdmin")).load();
     }
@@ -255,9 +246,9 @@ var TableAjax = function () {
             });
         },
         add: function (formName) {
-            //Metronic.startPageLoading({
-            //    message: '读取中'
-            //});
+            Metronic.startPageLoading({
+                message: '读取中'
+            });
             formName = formName || 'form-info';
             $("input[name='" + formName + "-id']").val("-1");
             $("input[name='" + formName + "-id']").trigger("change");
@@ -284,7 +275,6 @@ var TableAjax = function () {
         },
         emptyModal: emptyModal,
         modelMap: modelMap,
-        tableMap: tableMap,
-        removeModelInfo: removeModelInfo
+        tableMap: tableMap
     };
 }();

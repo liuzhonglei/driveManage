@@ -90,6 +90,7 @@ class StudentController extends StudentBaseController
     {
         $fields = parent::getFieldList($fields);
         $fields = $this->setFiledExtra($fields, "sign_place_id", 'school_place', 'name');
+        $fields = $this->setFiledExtra($fields, "course_id", 'school_course', 'name');
 
         return $fields;
     }
