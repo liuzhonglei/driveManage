@@ -21,7 +21,6 @@ var TableAjax = function () {
      * @param param
      */
     var emptyModal = function (module, controller, param) {
-        param = param || "";
         modelMap[module + "_" + controller + param] = null;
     }
 
@@ -243,26 +242,35 @@ var TableAjax = function () {
             tableName = tableName || 'list';
             bootbox.confirm("确认删除选中数据?", function (result) {
                 if (result) {
+                    Metronic.startPageLoading({
+                        message: '读取中'
+                    });
                     var grid = tableMap[tableName].grid;
                     grid.setAjaxParam("customActionType", "action");
                     grid.setAjaxParam("customActionName", "delete");
                     grid.setAjaxParam("id", id);
                     grid.getDataTable().ajax.reload();
+                    Metronic.stopPageLoading();
                 }
             });
         },
         add: function (formName) {
+            Metronic.startPageLoading({
+                message: '读取中'
+            });
             formName = formName || 'form-info';
-            $("input[name='" + formName + "-id']").val("-1");
-            $("input[name='" + formName + "-id']").trigger("change");
             $("input[name='" + formName + "-id']").val("");
             $("input[name='" + formName + "-id']").trigger("change");
 
             $("div[name='" + formName + "']").modal("show");
             var nav = $("a[name='" + formName + "-nav-1']");
             nav.click();
+            Metronic.stopPageLoading();
         },
         edit: function (id, formName) {
+            Metronic.startPageLoading({
+                message: '读取中'
+            });
             formName = formName || 'form-info';
 
             $("input[name='" + formName + "-id']").val(id);
@@ -270,6 +278,7 @@ var TableAjax = function () {
             $("div[name='" + formName + "']").modal("show");
             var nav = $("a[name='" + formName + "-nav-1']");
             nav.click();
+            Metronic.stopPageLoading();
         },
         emptyModal: emptyModal,
         modelMap: modelMap,

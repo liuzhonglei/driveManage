@@ -8,7 +8,7 @@ var Login = function() {
         var options = {
             success: function (response, statusText, xhr, $form) {
             	if(response.result == "1"){
-location.href= "./index.html";
+					location.href= "./index.html";
             	}else{
             		bootbox.alert(response.message);
             		return false;

@@ -1,32 +1,39 @@
 /* Setup general page controller */
 MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', 'infoTool', function ($rootScope, $http, $scope, infoTool) {
-    // 信息
-    $scope.info = {};
+    /**
+     * 信息
+     */
+    $scope.info = {id:null};
     $scope.idName = "form-info-id";
     $scope.formName = "form-info";
     $scope.extendClass = $rootScope.$state.$current.data.extendClass;
 
-    /**
-     * 加载信息
-     */
-    setTimeout(function () {
-        infoTool.getInfoModel($rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController).then(function (data) {
-            $.extend($scope, data);
-        });
-    }, 50);
 
     /**
      * 更新信息
      */
     $scope.$watch('info["id"]', function () {
+        Metronic.startPageLoading({
+            message: '读取中'
+        });
         // 查询数据
-        if ($scope.info["id"] != null && $scope.info["id"].length > 0) {
-            infoTool.getInfoData($scope, $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, $scope.info["id"]).then(function (data) {
-                $scope.info = data;
-            });
-        } else {
-            $.extend($scope.info, $scope.defaultInfo);
-        }
+        infoTool.getInfoModel($rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController).then(function (data) {
+            if ($scope.info.id == null) {
+                Metronic.stopPageLoading();
+                return;
+            } else if (!$scope.metadata) {
+                $.extend($scope, data);
+            }
+            if ($scope.info["id"] != null && $scope.info["id"].length > 0) {
+                infoTool.getInfoData($scope, $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, $scope.info["id"]).then(function (data) {
+                    $scope.info = data;
+                });
+            } else {
+                $.extend($scope.info, $scope.defaultInfo);
+            }
+            Metronic.stopPageLoading();
+
+        });
     });
 
     /**

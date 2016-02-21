@@ -3,7 +3,7 @@
  */
 MetronicApp.controller('PayInfoController', ['$rootScope', '$http', '$scope', 'infoTool', function ($rootScope, $http, $scope, infoTool) {
     // 信息
-    $scope.info = {};
+    $scope.info = {id:null};
     $scope.idName = "pay-form-info-id";
     $scope.formName = "pay-form-info";
 
@@ -13,19 +13,9 @@ MetronicApp.controller('PayInfoController', ['$rootScope', '$http', '$scope', 'i
     $scope.listName = "pay-list";
     $scope.ListExtendClass = "modal-full";
 
-
-    /**
-     * 设置对象信息
-     */
     /**
      * 加载信息
      */
-    setTimeout(function () {
-        infoTool.getInfoModel($scope.module, $scope.controller).then(function (data) {
-            $.extend($scope, data);
-        });
-    }, 50);
-
 
     /**
      * 更新信息
@@ -34,13 +24,25 @@ MetronicApp.controller('PayInfoController', ['$rootScope', '$http', '$scope', 'i
         $(".fileinput").fileinput('clear');
 
         // 查询数据
-        if ($scope.info["id"] != null && $scope.info["id"].length > 0) {
-            infoTool.getInfoData($scope, $scope.module, $scope.controller, $scope.info["id"]).then(function (data) {
-                $scope.info = data;
-            });
-        } else {
-            $.extend($scope.info, $scope.defaultInfo);
-        }
+
+        infoTool.getInfoModel($scope.module, $scope.controller).then(function (data) {
+            if ($scope.info.id == null) {
+                Metronic.stopPageLoading();
+                return;
+            } else if (!$scope.metadata) {
+                $.extend($scope, data);
+            }
+            if ($scope.info["id"] != null && $scope.info["id"].length > 0) {
+                infoTool.getInfoData($scope, $scope.module, $scope.controller, $scope.info["id"]).then(function (data) {
+                    $scope.info = data;
+                });
+            } else {
+                $.extend($scope.info, $scope.defaultInfo);
+            }
+            Metronic.stopPageLoading();
+
+        });
+
     });
 
     /**
@@ -66,7 +68,14 @@ MetronicApp.controller('PayInfoController', ['$rootScope', '$http', '$scope', 'i
         });
     }
 
+    /**
+     * 增加信息
+     */
     $scope.add = function(){
+        Metronic.startPageLoading({
+            message: '读取中'
+        });
+        $.extend($scope.info, $scope.defaultInfo);
         TableAjax.add('pay-form-info');
     }
 }]);
@@ -81,6 +90,9 @@ var payInfo = function () {
      */
     return {
         edit: function (id) {
+            Metronic.startPageLoading({
+                message: '读取中'
+            });
             TableAjax.edit(id, "pay-form-info");
         },
         delete: function (id) {

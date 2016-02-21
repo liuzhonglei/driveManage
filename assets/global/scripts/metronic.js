@@ -769,18 +769,18 @@ var Metronic = function () {
         stopPageLoading: function () {
             $('.page-loading, .page-spinner-bar').remove();
         },
-        handleResult: function(response){
-            if(!response.message){
+        handleResult: function (response) {
+            if (!response.message) {
                 return;
             }
-          if(response.result != "1"){
-            this.error(response.message);
-          }else{
-            this.success(response.message);  
-          }
+            if (response.result != "1") {
+                this.error(response.message);
+            } else {
+                this.success(response.message);
+            }
         },
-        success: function(message){
-bootbox.dialog({
+        success: function (message) {
+            bootbox.dialog({
                 message: message, title: "操作成功", buttons: {
                     main: {
                         label: "确认",
@@ -789,7 +789,7 @@ bootbox.dialog({
                 }
             });
         },
-        error: function(message){
+        error: function (message) {
             bootbox.dialog({
                 message: message, title: "操作失败", buttons: {
                     main: {

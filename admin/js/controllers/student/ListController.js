@@ -15,7 +15,7 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
     // init ajax
     $scope.$on('$viewContentLoaded', function () {
         //init
-        Metronic.initAjax();
+        //Metronic.initAjax();
 
         // init the table
         $scope.setStatus("-1");
@@ -125,7 +125,9 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
             method: 'GET',
             url: Metronic.rootPath() + '/index.php?s=/addon/Student/Student/saveFieldConf/status/' + $scope.status + '/value/' + conf.join() + '.html'
         }).then(function successCallback(response) {
-            TableAjax.emptyModal[$rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController];
+            TableAjax.emptyModal($rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, {
+                status: $scope.status
+            });
             TableAjax.init('list', $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, {
                 status: $scope.status
             });
