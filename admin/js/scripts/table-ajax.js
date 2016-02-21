@@ -255,9 +255,9 @@ var TableAjax = function () {
             });
         },
         add: function (formName) {
-            Metronic.startPageLoading({
-                message: '读取中'
-            });
+            //Metronic.startPageLoading({
+            //    message: '读取中'
+            //});
             formName = formName || 'form-info';
             $("input[name='" + formName + "-id']").val("-1");
             $("input[name='" + formName + "-id']").trigger("change");
@@ -267,12 +267,12 @@ var TableAjax = function () {
             $("div[name='" + formName + "']").modal("show");
             var nav = $("a[name='" + formName + "-nav-1']");
             nav.click();
-            Metronic.stopPageLoading();
+            //Metronic.stopPageLoading();
         },
         edit: function (id, formName) {
-            Metronic.startPageLoading({
-                message: '读取中'
-            });
+            //Metronic.startPageLoading({
+            //    message: '读取中'
+            //});
             formName = formName || 'form-info';
 
             $("input[name='" + formName + "-id']").val(id);
@@ -280,7 +280,7 @@ var TableAjax = function () {
             $("div[name='" + formName + "']").modal("show");
             var nav = $("a[name='" + formName + "-nav-1']");
             nav.click();
-            Metronic.stopPageLoading();
+            //Metronic.stopPageLoading();
         },
         emptyModal: emptyModal,
         modelMap: modelMap,
