@@ -106,7 +106,7 @@ var TableAjax = function () {
     var reload = function (name, param) {
         var grid = tableMap[name].grid;
         if (param) {
-            JSON.stringify(tableMap[name].param) = param;
+           tableMap[name].param = param;
         }
         grid.getDataTable().ajax.url(createUrl(name, "listsAdmin")).load();
     }
