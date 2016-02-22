@@ -227,6 +227,10 @@ class SchoolController extends SchoolBaseController
     function myCenter()
     {
         if (IS_POST) {
+            if(get_openid() == -1){
+                $this->error('抓取不到微信信息!');
+            }
+
             $name = $_REQUEST['name'];
             $card_id = $_REQUEST['card_id'];
             $map = array('name' => $name, 'card_id' => $card_id);
