@@ -102,7 +102,7 @@ class StudentController extends StudentBaseController
      */
     public function getFieldConf()
     {
-        $list_data = $this->_list_grid($this->model,false);
+        $list_data = $this->_list_grid($this->model);
         $conf = M('field_display_conf')->where(array("token" => get_token(), "status" => $_REQUEST["status"], "model" => "student"))->find()["value"];
         if (!empty($conf)) {
             $confFieldList = explode(",", $conf);

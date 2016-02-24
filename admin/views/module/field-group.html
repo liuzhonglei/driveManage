@@ -5,10 +5,11 @@
                 <label class="control-label">{{field.title}} <span ng-if="field.is_must  == '1'"
                                                                    class="required">*</span></label>
 
-                <div ng-include="'views/module/field.html'"></div>
-                            <span class="help-block">
-                                {{field.remark}}
+                <div>
+                    <div  ng-include="'views/module/field.html'"></div>
+                            <span class="help-block" ng-bind-html="field.remark">
                             </span>
+                </div>
             </div>
         </div>
         <div ng-switch-default>
@@ -26,4 +27,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

@@ -20,6 +20,7 @@ class GroupBuyPartyController extends BaseController
 
         // 配置模型
         $this->model = $this->getModel('groupbuy_party');
+        $this->checkField = true;
     }
 
     /**
@@ -40,7 +41,7 @@ class GroupBuyPartyController extends BaseController
      * @param string $order
      * @return mixed
      */
-    public function _get_model_list($model = null, $page = 0, $order = 'id desc', $showPrivilege = true)
+    public function _get_model_list($model = null, $page = 0, $order = 'id desc', $map = null, $showPrivilege = true)
     {
         $model || $model = $this->model;
         unset($_GET["openid"]);
@@ -85,7 +86,7 @@ class GroupBuyPartyController extends BaseController
         $result = array();
         foreach ($listData as $item) {
             $partyInfo = M('groupbuy_party')->where(array("id" => $item['id']))->find();
-            $groupBuyInfo = R('Addons://GroupBuy/GroupBuy/getGroupBuyInfo', array($partyInfo["groupbuy_info_id"]));
+            $groupBuyInfo = R('Addons://GroupBuy/GroupBuy/getGroupBuyInfo', array($partyInfo["groupbuy_info_id"],$partyInfo["openid"]));
             $item['privilege'] = $groupBuyInfo["privilege"];
             array_push($result, $item);
         }
@@ -95,8 +96,4 @@ class GroupBuyPartyController extends BaseController
         // 返回
         return $result;
     }
-
-
-
-
 }

@@ -30,6 +30,12 @@ class ExtendAddonsController extends AddonsController
     var $fields = array();
 
     /**
+     * 是否对照表格和属性
+     * @var bool
+     */
+    var $checkField = false;
+
+    /**
      * 模板变量赋值
      *
      * @access protected
@@ -124,7 +130,7 @@ class ExtendAddonsController extends AddonsController
      * @param $model
      * @return mixed
      */
-    public function _list_grid($model, $sign = ture)
+    public function _list_grid($model, $sign = true)
     {
         $fields = $this->fields;
         $grids = preg_split('/[;\r\n]+/s', htmlspecialchars_decode($model ['list_grid']));
@@ -174,12 +180,14 @@ class ExtendAddonsController extends AddonsController
                 }
             }
         }
-        if ($sign) {
-            $model_fields = M('attribute')->where('model_id=' . $model ['id'])->field('name')->select();
-            $model_fields = getSubByKey($model_fields, 'name');
-            in_array('id', $model_fields) || array_push($model_fields, 'id');
+
+        $model_fields = M('attribute')->where('model_id=' . $model ['id'])->field('name')->select();
+        $model_fields = getSubByKey($model_fields, 'name');
+        in_array('id', $model_fields) || array_push($model_fields, 'id');
+
+        if ( $this->checkField) {
             // 可能存在使用视图进行查询的情况
-//             $fields = array_intersect($fields, $model_fields);
+            $fields = array_intersect($fields, $model_fields);
         }
         $res ['fields'] = array_unique($fields);
         $res ['list_grids'] = $grids;

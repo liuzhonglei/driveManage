@@ -63,7 +63,7 @@ class GroupBuyController extends BaseController
     {
         $model || $model = $this->model;
         $list_data = parent::_get_model_list($model, $page, $order);
-        $list_data ['list_data'] = $this->convertListField($list_data ['list_data'], 'openid', 'openid', 'student', 'openid',"name");
+        $list_data ['list_data'] = $this->convertListField($list_data ['list_data'], 'openid', 'openid', 'student', 'openid', "name");
 
         return $list_data;
     }
@@ -82,8 +82,9 @@ class GroupBuyController extends BaseController
     /**
      * 获取活动信息(完整)
      */
-    public function getGroupBuyInfo($groupBuyId = null)
+    public function getGroupBuyInfo($groupBuyId = null, $openid = null)
     {
+        $openid || $openid = get_openid();
         $groupBuyId || $groupBuyId = $_REQUEST['groupbuyid'];
         if (!empty($groupBuyId)) {
             $groupBuyInfo = $this->getDataById("groupbuy_info_all", $groupBuyId);
@@ -105,16 +106,32 @@ class GroupBuyController extends BaseController
         $groupBuyInfo["privilege"] = 0;
         $strategy = array();
 
+        // 查找当前用户
+        $student = M("student")->where(array("token" => get_token(), "openid" => $openid))->find();
+        $courseName = M("course")->field("name")->where(array("token" => get_token(), "id" => $student["course_id"]))->find();
+
         if (is_numeric($groupBuyInfo["strategy"])) {
             if ($groupBuyInfo["sub_num"] == 0) {
                 $groupBuyInfo["privilege"] = intval($groupBuyInfo["strategy"]);
             }
         } else {
             foreach (explode(";", $groupBuyInfo["strategy"]) as $item) {
-                $value = explode(":", $item);
+                $value = explode("=>", $item);
+                // 判断是否是多级
+                $value[1] = json_decode($value[1], true);
+
                 $strategy[intval($value[0])] = intval($value[1]);
                 if (count($groupBuyInfo["partyList"]) >= intval($value[0])) {
-                    $groupBuyInfo["privilege"] = $value[1];
+                    if (is_array($value[1])) {
+                        foreach ($value[1] as $item => $fee) {
+                            if (strpos($courseName, $item) > -1) {
+                                $groupBuyInfo["privilege"] = $fee;
+                                break;
+                            }
+                        }
+                    } else {
+                        $groupBuyInfo["privilege"] = $value[1];
+                    }
                 }
             }
 
@@ -134,14 +151,14 @@ class GroupBuyController extends BaseController
     private function getPartyList($groupBuyId = null)
     {
         $_REQUEST['groupbuy_info_id'] = $groupBuyId;
-        $partyList = R('Addons://GroupBuy/GroupBuyParty/_get_model_list',array(null,null,null,false))['list_data'];
+        $partyList = R('Addons://GroupBuy/GroupBuyParty/_get_model_list', array(null, null, null, null, false))['list_data'];
         for ($i = 0; $i < count($partyList); $i++) {
             $partyList[$i]['time'] = day_format($partyList[$i]['time']);
         }
 
         $result = array();
         foreach ($partyList as $item) {
-            if ($item["is_refund"] == "0" ) {
+            if ($item["is_refund"] == "0") {
                 array_push($result, $item);
             }
         }

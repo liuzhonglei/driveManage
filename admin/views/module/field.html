@@ -4,7 +4,7 @@
     <input ng-switch-when="num" class="form-control  input-medium "
            type="text" ng-model="info[field.name]" ng-disabled="infoDisabled">
         <textarea ng-switch-when="textarea" class="form-control input-medium" maxlength="500" rows="5"
-                  ng-disabled="infoDisabled"></textarea>
+                  ng-disabled="infoDisabled"  ng-model="info[field.name]" ></textarea>
 
     <input ng-switch-when="date"
            class="form-control form-control-inline input-medium datePicker"
