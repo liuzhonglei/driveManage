@@ -124,7 +124,7 @@ class ExtendAddonsController extends AddonsController
      * @param $model
      * @return mixed
      */
-    public function _list_grid($model)
+    public function _list_grid($model, $sign = ture)
     {
         $fields = $this->fields;
         $grids = preg_split('/[;\r\n]+/s', htmlspecialchars_decode($model ['list_grid']));
@@ -164,7 +164,6 @@ class ExtendAddonsController extends AddonsController
             }
         }
         // 过滤重复和错误字段信息
-        $sign = ture;
         if (!empty($this->listsTable)) {
             $sign = false;
         } else {
