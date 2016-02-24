@@ -108,7 +108,9 @@ class GroupBuyController extends BaseController
 
         // 查找当前用户
         $student = M("student")->where(array("token" => get_token(), "openid" => $openid))->find();
-        $courseName = M("course")->field("name")->where(array("token" => get_token(), "id" => $student["course_id"]))->find();
+        if(!empty($student)){
+            $courseName = M("school_course")->field("name")->where(array("token" => get_token(), "id" => $student["course_id"]))->find()["name"];
+        }
 
         if (is_numeric($groupBuyInfo["strategy"])) {
             if ($groupBuyInfo["sub_num"] == 0) {
