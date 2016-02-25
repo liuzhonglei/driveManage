@@ -92,6 +92,13 @@ class SchoolController extends SchoolBaseController
         $select_data = M('school_photo')->query('select t1.*, t2.path from wp_school_photo t1 left join wp_picture t2 on t1.photo = t2.id where t1.type="0" and t1.object_id = '.$info['id'].' and  t1.token="' . $token . '" order by t1.sort');
         $this->assign('imgs', $select_data);
 
+        // 判断
+        $showUlr = "scene/".get_token()."3dshow-mobile/index.html";
+        if(!file_exists ($showUlr)){
+            $showUlr = "#";
+        }
+        $this->assign('showUlr', $showUlr);
+
         // display
         $url = MOBILE_PATH.'index';
         $this->display(T($url));
