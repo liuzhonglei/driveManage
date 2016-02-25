@@ -93,7 +93,7 @@ class SchoolController extends SchoolBaseController
         $this->assign('imgs', $select_data);
 
         // 判断
-        $showUlr = "scene/".get_token()."3dshow-mobile/index.html";
+        $showUlr = "scene/".get_token()."/3dshow-mobile/index.html";
         if(!file_exists ($showUlr)){
             $showUlr = "#";
         }
