@@ -19,7 +19,7 @@ class SchoolController extends SchoolBaseController
         $res ['url'] = addons_url('School://school/lists');
         $res ['class'] = 'cur';
         $nav [] = $res;
-    
+
         $this->assign('sub_nav', $nav);
     }
 
@@ -28,7 +28,7 @@ class SchoolController extends SchoolBaseController
         if (!is_login()) {
             Cookie('__forward__', $_SERVER ['REQUEST_URI']);
             $url = "Admin/index.html";
-        }else{
+        } else {
             $url = "Admin/login.html";
         }
         redirect($url);
@@ -53,10 +53,10 @@ class SchoolController extends SchoolBaseController
         $this->display("lists");
     }
 
-     /**
-      * edit the page
-      * @return [type] [description]
-      */
+    /**
+     * edit the page
+     * @return [type] [description]
+     */
     function photos()
     {
         $param = array('type' => '0', 'object_id' => $_REQUEST['object_id']);
@@ -64,43 +64,46 @@ class SchoolController extends SchoolBaseController
         redirect($url);
     }
 
-     /**
+    /**
      * show the page
      */
-    function showPage(){
+    function showPage()
+    {
         $page = i('page');
-        $this->display ( T ( MOBILE_PATH.$page ) );
+        $this->display(T(MOBILE_PATH . $page));
     }
 
     /**
      * show the index page
      * @return index page
-     * 
+     *
      */
     function show()
     {
 
         // gete compnay info
-        if($_REQUEST['token']){
-            $token =  get_token($_REQUEST['token']);
+        if ($_REQUEST['token']) {
+            $token = get_token($_REQUEST['token']);
         }
         get_openid($_REQUEST['openid']);
         $info = $this->getSchoolInfo();
         $this->assign($info);
 
         // get img
-        $select_data = M('school_photo')->query('select t1.*, t2.path from wp_school_photo t1 left join wp_picture t2 on t1.photo = t2.id where t1.type="0" and t1.object_id = '.$info['id'].' and  t1.token="' . $token . '" order by t1.sort');
+        $select_data = M('school_photo')->query('select t1.*, t2.path from wp_school_photo t1 left join wp_picture t2 on t1.photo = t2.id where t1.type="0" and t1.object_id = ' . $info['id'] . ' and  t1.token="' . $token . '" order by t1.sort');
         $this->assign('imgs', $select_data);
 
         // 判断
-        $showUlr = "scene/".get_token()."/3dshow-mobile/index.html";
-        if(!file_exists ($showUlr)){
+        $showUlr = "scene/" . get_token() . "/3dshow-mobile/index.html";
+        if (!file_exists($showUlr)) {
             $showUlr = "#";
         }
         $this->assign('showUlr', $showUlr);
 
         // display
-        $url = MOBILE_PATH.'index';
+        $theme = $_REQUEST['theme'];
+        $theme || $theme= "";
+        $url = MOBILE_PATH . 'index' . $theme;
         $this->display(T($url));
     }
 
@@ -126,10 +129,10 @@ class SchoolController extends SchoolBaseController
 
 
         $this->assign('list', $select_data);
-        $this->display(T(MOBILE_PATH.'schoolNavigation'));
+        $this->display(T(MOBILE_PATH . 'schoolNavigation'));
     }
 
-     /**
+    /**
      * school register
      * @return the page
      */
@@ -164,7 +167,7 @@ class SchoolController extends SchoolBaseController
             $data = M('school')->where('token = "' . get_token() . '"')->find();
             $this->assign('data', $data);
             $this->assign('section', $_REQUEST['section']);
-            $this->display(T(MOBILE_PATH.'schoolRegister'));
+            $this->display(T(MOBILE_PATH . 'schoolRegister'));
         }
     }
 
@@ -177,15 +180,14 @@ class SchoolController extends SchoolBaseController
         $token = get_token();
         $_POST['token'] = get_token();
         $number = i('load_number');
-        $sql = 'select t.*, from_unixtime(t.time) str_time,t1.nickname, t1.headimgurl, t2.path   from wp_student_question t left join wp_follow t1 on t.openid = t1.openid left join wp_picture t2 on t1.headimgurl = t2.id where t.token ="'.$token.'"  order by id desc ';
+        $sql = 'select t.*, from_unixtime(t.time) str_time,t1.nickname, t1.headimgurl, t2.path   from wp_student_question t left join wp_follow t1 on t.openid = t1.openid left join wp_picture t2 on t1.headimgurl = t2.id where t.token ="' . $token . '"  order by id desc ';
         $select_data = M('student_question')->query($sql);
-        $this->assign('list',$select_data);
+        $this->assign('list', $select_data);
         // 取得数据
-        $this->display(T(MOBILE_PATH.'schoolQuestion'));
+        $this->display(T(MOBILE_PATH . 'schoolQuestion'));
     }
 
 
-    
     /**
      * show the position page
      * @return [type] [description]
@@ -198,43 +200,40 @@ class SchoolController extends SchoolBaseController
 
 
         // 取得数据
-        $this->display(T(MOBILE_PATH.'schoolTeacherMap'));
+        $this->display(T(MOBILE_PATH . 'schoolTeacherMap'));
     }
-
 
 
     /**
      * get the apprise data
      * @return [type] [description]
      */
-    function getAppriseList(){
+    function getAppriseList()
+    {
         $token = get_token();
         $_POST['token'] = get_token();
         $number = i('load_number');
 
         $db_config = D('Common/AddonConfig')->get("Message");
         $showAnswer = $db_config['show_no_answer_question'];
-        $sql = 'select t.*, from_unixtime(t.time) str_time,t1.nickname, t1.headimgurl, t2.path   from wp_student_question t left join wp_follow t1 on t.openid = t1.openid left join wp_picture t2 on t1.headimgurl = t2.id where t.token ="'.$token.'" ';
-        if($showAnswer == "0"){
+        $sql = 'select t.*, from_unixtime(t.time) str_time,t1.nickname, t1.headimgurl, t2.path   from wp_student_question t left join wp_follow t1 on t.openid = t1.openid left join wp_picture t2 on t1.headimgurl = t2.id where t.token ="' . $token . '" ';
+        if ($showAnswer == "0") {
             $sql .= "and answer is not null ";
         }
-        $sql.= 'order by id desc limit '.$number;
+        $sql .= 'order by id desc limit ' . $number;
         $select_data = M('student_question')->query($sql);
 
         $this->ajaxReturn($select_data);
     }
 
 
-
-
-  
     /**
      * show the my center page
      */
     function myCenter()
     {
         if (IS_POST) {
-            if(get_openid() == -1){
+            if (get_openid() == -1) {
                 $this->error('抓取不到微信信息!');
             }
 
@@ -245,14 +244,14 @@ class SchoolController extends SchoolBaseController
             if (!empty($myinfo)) {
                 $myinfo['openid'] = get_openid();
                 M('student')->save($myinfo);
-                $this->success ();
+                $this->success();
             }
             $myinfo = M('teacher')->where($map)->find();
             if (!empty($myinfo)) {
                 $myinfo['openid'] = get_openid();
                 M('teacher')->save($myinfo);
-                $this->success ();
-            }else{
+                $this->success();
+            } else {
                 $this->error('查找不到对应注册人员!');
             }
         } else {
@@ -262,17 +261,17 @@ class SchoolController extends SchoolBaseController
             if (!empty($myinfo)) {
                 $this->assign('myinfo', $myinfo);
                 $this->assign('schoolinfo', $this->getSchoolInfo());
-                $this->display(T(MOBILE_PATH.'studentCenter'));
+                $this->display(T(MOBILE_PATH . 'studentCenter'));
             }
-            $sql = 'select t.*, t2.headimgurl headimgurl from wp_teacher t left join wp_follow  t2 on t.openid = t2.openid where t.openid= "' . get_openid() . '" and t.token = "' .  get_token() . '"';
+            $sql = 'select t.*, t2.headimgurl headimgurl from wp_teacher t left join wp_follow  t2 on t.openid = t2.openid where t.openid= "' . get_openid() . '" and t.token = "' . get_token() . '"';
             $myinfo = M('teacher')->query($sql)[0];
             if (!empty($myinfo)) {
                 $this->assign('myinfo', $myinfo);
                 //$this->assign('photo_path', get_cover_url($myinfo['photo']));
-                $this->display(T(MOBILE_PATH.'teacherCenter'));
+                $this->display(T(MOBILE_PATH . 'teacherCenter'));
             }
-            if(empty($myinfo)){
-              $this->display(T(MOBILE_PATH.'schoolCenterBind'));
+            if (empty($myinfo)) {
+                $this->display(T(MOBILE_PATH . 'schoolCenterBind'));
             }
         }
     }
@@ -281,39 +280,41 @@ class SchoolController extends SchoolBaseController
     /**
      * show the teahcer map navigator
      */
-    function teacher_navigator(){
+    function teacher_navigator()
+    {
         // show
-        $this->display ( T ( MOBILE_PATH.'master_navigator' ) );
+        $this->display(T(MOBILE_PATH . 'master_navigator'));
     }
-
 
 
     /**
      * show the my student page
      */
-    function showMyStudents(){
-        $this->display ( T ( MOBILE_PATH.'teacherCenterStudentList' ) );
+    function showMyStudents()
+    {
+        $this->display(T(MOBILE_PATH . 'teacherCenterStudentList'));
     }
 
 
     /**
      * return the recommandPage
      */
-    function getRecommandPage(){
+    function getRecommandPage()
+    {
         // param
         $token = get_token();
         $openid = get_openid();
-        $teacherInfo =  M('teacher')->where("token = \"".$token."\" and openid = \"".$openid."\"")->find();
-        if(!empty($teacherInfo)){
-            redirect(addons_url("Teacher://Teacher/teacherPage",array("teacher_id"=>$teacherInfo["id"])));
-        }else {
+        $teacherInfo = M('teacher')->where("token = \"" . $token . "\" and openid = \"" . $openid . "\"")->find();
+        if (!empty($teacherInfo)) {
+            redirect(addons_url("Teacher://Teacher/teacherPage", array("teacher_id" => $teacherInfo["id"])));
+        } else {
             redirect(addons_url("Student://Student/studentPayAdvance", array("token" => $token)));
         }
     }
 
-   
- 
-        // function top()
+
+
+    // function top()
     // {
     //     $vote_id = I('id', 0, 'intval');
     //     $openid = get_openid();
