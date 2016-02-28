@@ -113,53 +113,46 @@ WHERE model_id = 0;
 
 #wp_eo2o_payment_all
 DROP VIEW wp_eo2o_payment_all;
-CREATE VIEW wp_eo2o_payment_all AS
-  SELECT
-    DISTINCT
-    t.*,
-    t.openid  student_name,
-    t.openid nickname,
-    FROM_UNIXTIME(t.time_end, "%Y-%m-%d %H:%i:%S") pay_time,
-    ROUND(t.total_fee / 100, 2) pay_fee,
-    (
-      CASE t.pay_channel
-      WHEN "human" THEN
-        "人工"
-      WHEN "weixin" THEN
-        "微信"
-      WHEN "alipay" THEN
-        "支付宝"
-      ELSE
-        t1. NAME
-      END
-    ) pay_channel_name,
-    (
-      CASE t.paytype
-      WHEN "banner" THEN
-        "锦旗支付"
-      ELSE
-        t1. NAME
-      END
-    ) pay_item_name,
-    t2. NAME school_name,
-    (
-      CASE t.result_code
-      WHEN "SUCCESS"
-        THEN
-          "支付成功"
-      WHEN "FAIL" THEN
-        "支付失败"
-      ELSE
-        "划款中"
-      END
-    ) pay_result,
-    t3.username as user_name
-  FROM
-    wp_eo2o_payment t
-    LEFT JOIN wp_school_payitem t1 ON t.payitem_id = t1.id
-    LEFT JOIN wp_school t2 ON t.token = t2.token
-    LEFT JOIN wp_ucenter_member t3 ON t.user_id = t3.id
-  WHERE   LENGTH(trim(transaction_id))>0 or pay_channel = "human" or result_code  = "WAIT";
+
+CREATE VIEW wp_eo2o_payment_all AS SELECT DISTINCT t.id ,
+ t.transaction_id ,
+ t.out_trade_no ,
+ t.attach ,
+ t.pay_channel ,
+ t.in_or_out ,
+ t.student_id ,
+ t.token ,
+ t.time_end ,
+ t.total_fee ,
+ t.openid ,
+ t.err_code ,
+ t.err_code_des ,
+ t.result_code ,
+ t.mch_id ,
+ t.appid ,
+ t.time_begin ,
+ t.return_code ,
+ t.return_msg ,
+ IF(
+	LENGTH(trim(t.paytype)) > 1 ,
+	t.paytype ,
+	t1.type
+) AS paytype ,
+ t.openid student_name ,
+ t.openid nickname ,
+ FROM_UNIXTIME(t.time_end , "%Y-%m-%d %H:%i:%S") pay_time ,
+ ROUND(t.total_fee / 100 , 2) pay_fee ,
+(
+	CASE t.pay_channel WHEN "human" THEN "现金" WHEN "weixin" THEN "微信" WHEN "alipay" THEN "支付宝" ELSE t1.NAME END
+) pay_channel_name ,
+(
+	CASE t1.type WHEN "banner" THEN "锦旗支付" ELSE t1.NAME END
+) pay_item_name ,
+ t2.NAME school_name ,
+(
+	CASE t.result_code WHEN "SUCCESS" THEN "支付成功" WHEN "FAIL" THEN "支付失败" ELSE "划款中" END
+) pay_result ,
+ t3.username AS user_name FROM wp_eo2o_payment t LEFT JOIN wp_school_payitem t1 ON t.payitem_id = t1.id LEFT JOIN wp_school t2 ON t.token = t2.token LEFT JOIN wp_ucenter_member t3 ON t.user_id = t3.id WHERE LENGTH(trim(transaction_id)) > 0 OR pay_channel IN("human" , "alipay") OR result_code = "WAIT";
 
 
 create view wp_eo2o_pay_list AS

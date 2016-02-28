@@ -13,7 +13,7 @@ class EO2OPaymentController extends EO2OBaseController
     function _initialize()
     {
         $this->model = $this->getModel('eo2o_payment');
-        $this->fields = array("openid","student_id");
+        $this->fields = array("openid", "student_id");
         parent::_initialize();
     }
 
@@ -85,7 +85,7 @@ class EO2OPaymentController extends EO2OBaseController
         $fields = parent::getFieldList($fields);
 
         //其他
-        $fields = $this->setFiledExtra($fields, "payitem_id", 'school_payitem', 'name',null,false,"in_or_out");
+        $fields = $this->setFiledExtra($fields, "payitem_id", 'school_payitem', 'name', null, false, "in_or_out");
         $fields = $this->setFiledExtra($fields, "school_place_id", 'school_place', 'name', array("token" => get_token(), "can_pay" => "1"), true);
 
         // 设置事件默认值
@@ -405,7 +405,36 @@ class EO2OPaymentController extends EO2OBaseController
         $_POST["user_id"] = $user["uid"];
         $_POST["total_fee"] = strval($_POST["total_fee"] * 100);
         $_POST["result_code"] = "SUCCESS";
-        $_POST["pay_channel"] = "human";
+//        $_POST["pay_channel"] = "human";
         parent::saveAdmin();
+    }
+
+    /**
+     * 设置搜索条件,如何查询为学员和教练必须id和openid 一起查询
+     * @param $model
+     * @param $fields
+     * @return array|string
+     */
+    public function _search_map($model, $fields)
+    {
+        $map = parent::_search_map($model, $fields);
+        // 查询学员
+        if (!empty($map["student_id"])) {
+            $student = M('student')->where(array("id" => $map["student_id"]))->find();
+            if(!empty($student["openid"])){
+                $map['_complex'] = array("student_id" => $map["student_id"], "openid" => $student["openid"], "_logic" => 'or');
+                unset($map["student_id"]);
+            }
+        } else if (!empty($map["openid"]) && !empty($map["token"])) {
+            // 当前是学员
+            $student = M('student')->where(array("token" => $map["token"], "openid" => $map["openid"]))->find();
+            if(!empty($student)){
+                $map['_complex'] = array("student_id" => $student["id"], "openid" => $map["openid"], "_logic" => 'or');
+                unset($map["openid"]);
+            }
+        }
+
+        // 返回
+        return $map;
     }
 }
