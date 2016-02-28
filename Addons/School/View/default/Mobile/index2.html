@@ -1,128 +1,143 @@
 <!DOCTYPE html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="format-detection" content="telephone=no">
-<link rel="apple-touch-icon-precomposed" href="{:MOBILE_PUBLIC_PATH}/img/screen_icon.png">
-<title>首页</title>
-<link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/jquery.mobile-1.4.4.css" />
-<link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/car.css">
-<style>
-/*新首页样式*/
-.c_item{
-    padding: 0;
-}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon-precomposed" href="{:MOBILE_PUBLIC_PATH}/img/screen_icon.png">
+    <title>首页</title>
+    <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/jquery.mobile-1.4.4.css"/>
+    <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/car.css">
+    <style>
+        /*新首页样式*/
+        .c_item {
+            padding: 0;
+        }
 
-.c_item .ui-block-a,
-.c_item .ui-block-b,
-.c_item .ui-block-c,
-.c_item .ui-block-d,
-.c_item .ui-block-e,
-.c_item .ui-block-f{
-    width: 50%;
-    float:left;
-	padding:0;
-}
-.c_item .ui-body{
-    padding-top:2em;
-    padding-top:1em;
-	-webkit-border-radius:0;
-	border-radius:0;
-}
-.c_item .ui-body span{
-    color: #fff;
-    font-size: 1em;
-}
-.c_item img{
-    width: 45%;
-}
-.c_item .ui-body span{
-    position:static;
-    margin-top:-3px;
-}
-.nc01{
-	background:#ffda19 !important;
-}
-.nc02{
-	background:#6337c5 !important;
-}
-.nc03{
-	background:#d24927 !important;
-}
-.nc04{
-	background:#3ba300 !important;
-}
-.nc05{
-	background:#0d4cad !important;
-}
-.nc06{
-	background:#5d92fc !important;
-}
-.nc07{
-	background:#0095a5 !important;
-}
-.nc08{
-	background:#95438f !important;
-}
-</style> 
-<script src="{:MOBILE_PUBLIC_PATH}/js/jquery-1.11.1.min.js"></script>
-<script src="{:MOBILE_PUBLIC_PATH}/js/iscroll.js"></script>
-<script src="{:MOBILE_PUBLIC_PATH}/js/owl.carousel.js"></script>
-<script>
-//幻灯片自动播发激活
-function owlplay(){
-   $('.owl-carousel').trigger('play.owl',2000); 
-}
-/*滚动条*/    
-var myScroll;
-function loaded() {
-    /*幻灯片*/ 
-    $('.owl-carousel').owlCarousel({
-            items:1,
-            autoplayHoverPause:true,
-            responsive:{
-                0:{
-                    items:1,
-                    margin: 0
-                },
-                480:{
-                    items:2,
-                },
-                960:{
-                    items:3
+        .c_item .ui-block-a,
+        .c_item .ui-block-b,
+        .c_item .ui-block-c,
+        .c_item .ui-block-d,
+        .c_item .ui-block-e,
+        .c_item .ui-block-f {
+            width: 50%;
+            float: left;
+            padding: 0;
+        }
+
+        .c_item .ui-body {
+            padding-top: 2em;
+            padding-top: 1em;
+            -webkit-border-radius: 0;
+            border-radius: 0;
+        }
+
+        .c_item .ui-body span {
+            color: #fff;
+            font-size: 1em;
+        }
+
+        .c_item img {
+            width: 45%;
+        }
+
+        .c_item .ui-body span {
+            position: static;
+            margin-top: -3px;
+        }
+
+        .nc01 {
+            background: #ffda19 !important;
+        }
+
+        .nc02 {
+            background: #6337c5 !important;
+        }
+
+        .nc03 {
+            background: #d24927 !important;
+        }
+
+        .nc04 {
+            background: #3ba300 !important;
+        }
+
+        .nc05 {
+            background: #0d4cad !important;
+        }
+
+        .nc06 {
+            background: #5d92fc !important;
+        }
+
+        .nc07 {
+            background: #0095a5 !important;
+        }
+
+        .nc08 {
+            background: #95438f !important;
+        }
+    </style>
+    <script src="{:MOBILE_PUBLIC_PATH}/js/jquery-1.11.1.min.js"></script>
+    <script src="{:MOBILE_PUBLIC_PATH}/js/iscroll.js"></script>
+    <script src="{:MOBILE_PUBLIC_PATH}/js/owl.carousel.js"></script>
+    <script>
+        //幻灯片自动播发激活
+        function owlplay() {
+            $('.owl-carousel').trigger('play.owl', 2000);
+        }
+        /*滚动条*/
+        var myScroll;
+        function loaded() {
+            /*幻灯片*/
+            $('.owl-carousel').owlCarousel({
+                items: 1,
+                autoplayHoverPause: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                        margin: 0
+                    },
+                    480: {
+                        items: 2,
+                    },
+                    960: {
+                        items: 3
+                    }
                 }
-            }
-    });
-    setTimeout(owlplay, 2000);
-	
-    /*iscroll*/ 
-	myScroll = new IScroll('#wrapper', {
-        tap:true,
-		click:false,
-		preventDefaultException:{tagName:/.*/},//解除默认事件锁定，调用tab，click等事件,不支持swipeleft
-		scrollbars: true,
-		mouseWheel: true,
-		fadeScrollbars: true
-	}); 
-}
+            });
+            setTimeout(owlplay, 2000);
 
-function preventDefault(e) { e.preventDefault(); };
-document.addEventListener('touchmove', preventDefault, false);
-</script>
-<script src="{:MOBILE_PUBLIC_PATH}/js/jquery.mobile-1.4.4.min.js"></script>
+            /*iscroll*/
+            myScroll = new IScroll('#wrapper', {
+                tap: true,
+                click: false,
+                preventDefaultException: {tagName: /.*/},//解除默认事件锁定，调用tab，click等事件,不支持swipeleft
+                scrollbars: true,
+                mouseWheel: true,
+                fadeScrollbars: true
+            });
+        }
+
+        function preventDefault(e) {
+            e.preventDefault();
+        }
+        ;
+        document.addEventListener('touchmove', preventDefault, false);
+    </script>
+    <script src="{:MOBILE_PUBLIC_PATH}/js/jquery.mobile-1.4.4.min.js"></script>
 </head>
 <body onload="loaded()">
 <div id="pageIndex" data-role="page" data-theme="none">
-<link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/owl.carousel.css">
-<link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/owl.theme.css">
-<style>
-.owl-theme .owl-dots .owl-dot.active span{
-	background:#007aff;
-}
-</style>
+    <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/owl.carousel.css">
+    <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/owl.theme.css">
+    <style>
+        .owl-theme .owl-dots .owl-dot.active span {
+            background: #007aff;
+        }
+    </style>
     <div id="wrapper">
         <div id="scroller">
 
@@ -135,62 +150,75 @@ document.addEventListener('touchmove', preventDefault, false);
                     </volist>
                 </div>
             </div>
-                <!--//幻灯片 -->
-                <div class="c_item">
-                    <div class="ui-block-a">
-                        <div class="ui-body nc01">
-                            <span>驾校介绍</span>
-                            <a href="{:addons_url('School://Info/schoolInfo')}" data-role="none" data-transition="slide"><img src="{:MOBILE_PUBLIC_PATH}/img/item_comp.png"></a>
-                        </div>
-                    </div>
-                    <div class="ui-block-b">
-                        <div class="ui-body nc02">
-                            <span>驾校导航</span>
-                            <a href="{:U('schoolNavigation')}" data-role="none" data-ajax="false"><img src="{:MOBILE_PUBLIC_PATH}/img/item_guide.png"></a>
-                        </div>
-                    </div>
-                    <div class="ui-block-c">
-                        <div class="ui-body nc03">
-                            <span>在线报名</span>
-                            <a href="{:U('schoolRegister','section=2')}" data-role="none" data-ajax="false"><img src="{:MOBILE_PUBLIC_PATH}/img/item_card.png"></a>
-                        </div>
-                    </div>
-                    <div class="ui-block-c">
-                        <div class="ui-body nc05">
-                            <span>驾校风采</span>
-                            <a href="{$showUlr}" data-ajax="false"><img src="{:MOBILE_PUBLIC_PATH}/img/new2/item_pic.png"></a>
-                        </div>
-                    </div>
-                    <div class="ui-block-d">
-                        <div class="ui-body nc04">
-                            <span>模拟考试</span>
-                            <a href="http://m.jxedt.com" data-ajax="false"><img src="{:MOBILE_PUBLIC_PATH}/img/item_try.png"></a>
-                        </div>
-                    </div>
-
-                    <div class="ui-block-f">
-                        <div class="ui-body nc06">
-                            <span>最新优惠</span>
-                            <a href="{:addons_url('School://Privilege/schoolRrivilege')}" data-ajax="false"><img src="{:MOBILE_PUBLIC_PATH}/img/item_gift.png"></a>
-                        </div>
-                    </div>
-                    <div class="ui-block-f">
-                        <div class="ui-body nc07">
-                            <span>报名指南</span>
-                            <a href="{:U('schoolRegister','section=0')}" data-ajax="false"><img src="{:MOBILE_PUBLIC_PATH}/img/new2/item_navgation.png"></a>
-                        </div>
-                    </div>
-                    <div class="ui-block-f">
-                        <div class="ui-body nc08">
-                            <span>在线问答</span>
-                            <a href="{:U('schoolQuestion')}" data-ajax="false"><img src="{:MOBILE_PUBLIC_PATH}/img/item_chat.png"></a>
-                        </div>
+            <!--//幻灯片 -->
+            <div class="c_item">
+                <div class="ui-block-a">
+                    <div class="ui-body nc01">
+                        <span>驾校介绍</span>
+                        <a href="{:addons_url('School://Info/schoolInfo')}" data-role="none"
+                           data-transition="slide"><img src="{:MOBILE_PUBLIC_PATH}/img/item_comp.png"></a>
                     </div>
                 </div>
-                <!--模块 end -->
+                <div class="ui-block-b">
+                    <div class="ui-body nc02">
+                        <a href="{:U('schoolNavigation')}" data-role="none" data-ajax="false"><img
+                                src="{:MOBILE_PUBLIC_PATH}/img/item_guide.png"></a>
+                        <span>驾校导航</span>
+                    </div>
+                </div>
+                <div class="ui-block-c">
+                    <div class="ui-body nc03">
+                        <a href="{:U('schoolRegister','section=2')}" data-role="none" data-ajax="false"><img
+                                src="{:MOBILE_PUBLIC_PATH}/img/item_card.png"></a>
+                        <span>在线报名</span>
+                    </div>
+                </div>
+                <div class="ui-block-c">
+                    <div class="ui-body nc05">
+                        <a href="{$showUlr}" data-ajax="false"><img
+                                src="{:MOBILE_PUBLIC_PATH}/img/new2/item_pic.png"></a>
+                        <span>驾校风采</span>
+
+                    </div>
+                </div>
+                <div class="ui-block-d">
+                    <div class="ui-body nc04">
+                        <a href="http://m.jxedt.com" data-ajax="false"><img
+                                src="{:MOBILE_PUBLIC_PATH}/img/item_try.png"></a>
+                        <span>模拟考试</span>
+
+                    </div>
+                </div>
+
+                <div class="ui-block-f">
+                    <div class="ui-body nc06">
+                        <a href="{:addons_url('School://Privilege/schoolRrivilege')}" data-ajax="false"><img
+                                src="{:MOBILE_PUBLIC_PATH}/img/item_gift.png"></a>
+                        <span>最新优惠</span>
+
+                    </div>
+                </div>
+                <div class="ui-block-f">
+                    <div class="ui-body nc07">
+                        <a href="{:U('schoolRegister','section=0')}" data-ajax="false"><img
+                                src="{:MOBILE_PUBLIC_PATH}/img/new2/item_navgation.png"></a>
+                        <span>报名指南</span>
+                    </div>
+                </div>
+                <div class="ui-block-f">
+                    <div class="ui-body nc08">
+                        <a href="{:U('schoolQuestion')}" data-ajax="false"><img
+                                src="{:MOBILE_PUBLIC_PATH}/img/item_chat.png"></a>
+                        <span>在线问答</span>
+
+                    </div>
+                </div>
+            </div>
+            <!--模块 end -->
         </div>
     </div><!--//wrapper -->
-    <div data-role="footer" data-theme="none"  class="x_footer"  data-position="fixed"  data-tap-toggle="false" data-id="myfooter">
+    <div data-role="footer" data-theme="none" class="x_footer" data-position="fixed" data-tap-toggle="false"
+         data-id="myfooter">
         <div class="x_navbar">
             <ul class="ui-grid-d">
                 <li class="ui-block-a active"><a href="{:U('show')}" class="x_icon_home">首页</a></li>
@@ -204,9 +232,9 @@ document.addEventListener('touchmove', preventDefault, false);
         </div>
     </div><!--//footer -->
     <script>
-    $(function(){
-       
-	})
+        $(function () {
+
+        })
     </script>
 </div> <!--//Page-->
 </body>
