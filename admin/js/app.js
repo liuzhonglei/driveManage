@@ -1,4 +1,3 @@
-
 /***
  Metronic AngularJS App Main Script
  ***/
@@ -246,6 +245,37 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         })
 
 
+        // car info
+        .state("carList", {
+            url: "/car/list.html",
+            templateUrl: "views/common/list.html",
+            data: {
+                pageTitle: "车辆信息",
+                module: "Car",
+                handleController: "Car",
+                action: "edit",
+                info: true
+            },
+            controller: "ListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([{
+                        name: 'ui.select',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
+                        ]
+                    },
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                            files: $.merge(depFile.info, depFile.list)
+                        }]);
+                }]
+            }
+        })
+
         // 划款模块
         .state("payList", {
             url: "/pay/list.html",
@@ -270,7 +300,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                            files: ["js/controllers/student/DetailController.js", 'js/controllers/pay/ListController.js','js/controllers/common/InfoController.js']
+                            files: ["js/controllers/student/DetailController.js", 'js/controllers/pay/ListController.js', 'js/controllers/common/InfoController.js']
                         }]);
                 }]
             }
