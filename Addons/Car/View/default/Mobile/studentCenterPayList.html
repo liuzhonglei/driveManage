@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon-precomposed" href="img/screen_icon.png">
+<title>car</title>
+<link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/jquery.mobile-1.4.4.css" />
+<link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/car.css">
+<script src="{:MOBILE_PUBLIC_PATH}/js/jquery-1.11.1.min.js"></script>
+<script src="{:MOBILE_PUBLIC_PATH}/js/jquery.mobile-1.4.4.min.js"></script>
+    <script src="{:MOBILE_PUBLIC_PATH}/js/car.js"></script>
+
+</head>
+<body class="x_flowAuto">
+<div id="pagePaylist" data-role="page" data-theme="none">
+	<div data-role="header" data-theme="none"  class="x_header"  data-position="fixed"  data-tap-toggle="false">
+        <a href="#"  data-role="none" data-rel="back" class="x_btn_back" data-ajax="false"></a>
+        <h1>支付记录</h1>
+	</div><!--//header -->
+	<div class="x_content">
+        <!--支付记录-->
+        <volist name="payList" id="vo">
+            <div class="c_payList">
+                <div class="title"><span>¥{$vo.pay_fee}</span>{$vo.pay_item_name}</div>
+                <ul>
+                    <li><label>商户名称</label><span>{$vo.school_name}</span></li>
+                    <li><label>当前状态</label><span>{$vo.pay_result}</span></li>
+                    <li><label>支付时间</label><span>{$vo.pay_time}</span></li>
+                    <li><label>支付方式</label><span>{$vo.pay_channel}</span></li>
+                    <li><label>交易单号</label><span>{$vo.transaction_id}</span></li>
+                    <li><label>商户单号</label><span>{$vo.out_trade_no}</span></li>
+                </ul>
+            </div>
+        </volist>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon-precomposed" href="img/screen_icon.png">
+    <title>我的信息</title>
+    <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/jquery.mobile-1.4.4.css" />
+    <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/car.css">
+    <script src="{:MOBILE_PUBLIC_PATH}/js/jquery-1.11.1.min.js"></script>
+    <script src="{:MOBILE_PUBLIC_PATH}/js/jquery.mobile-1.4.4.min.js"></script>
+    <script src="{:MOBILE_PUBLIC_PATH}/js/car.js"></script>
+
+</head>
+<body class="x_flowAuto">
+<div id="pageFollow" data-role="page" data-theme="none">
+    <div data-role="header" data-theme="none"  class="x_header"  data-position="fixed"  data-tap-toggle="false">
+        <a href="#"  data-role="none" data-rel="back" class="x_btn_back" data-transition="slide"></a>
+        <h1>个人中心</h1>
+    </div><!--//header -->
+    <div class="x_content">
+        <!--个人信息-->
+        <div class="my_top" id="userpic" style="background:url({:MOBILE_PUBLIC_PATH}/img/my_bg.png) no-repeat;">
+            <div class="tit01">
+                <div class="pic01">
+                    <if condition="$myinfo.headimgurl eq ''">
+                             <img src="{:MOBILE_PUBLIC_PATH}/img/userPic.png">
+                        <else />
+                            <img src="{$myinfo.headimgurl}">
+                    </if>
+                </div>
+                <div class="info01">{$myinfo.name}<label>{$myinfo.phone}</label></div>
+            </div>
+        </div>
+        <!--//个人信息-->
+        <!--学车预约-->
+        <div class="c_grid">
+            <ul class="ui-grid-a">
+                <li class="ui-block-a">
+                    <div class="c_iconTxt">
+                        <div class="pic01"><img src="{:MOBILE_PUBLIC_PATH}/img/icon_clock.png"></div>
+                        <div class="info01"><span>学车预约</span></div>
+                        <div class="c_dot" style="top:19px; left:105px;"></div>
+                    </div>
+                </li>
+                <li class="ui-block-b">
+                    <div class="c_iconTxt">
+                        <div class="pic01"><img src="{:MOBILE_PUBLIC_PATH}/img/icon_message.png"></div>
+                        <div class="info01"><span>考试通知</span></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--//学车预约-->
+        <div class="x_blank2"></div>
+        <div class="x_item2">
+            <ul>
+                <a href="{:addons_url('Student://Student/myTeacher')}" data-transition="slide" data-ajax="false"> <li><img src="{:MOBILE_PUBLIC_PATH}/img/icon_comment.png"><span>我的教练</span><label class="tips01">评价有奖哦!<img src="{:MOBILE_PUBLIC_PATH}/img/icon_gift.png"></label></li></a>
+                <a href="{:addons_url('School://School/showpage',array('page'=>'enrollStudentList'))}" data-transition="slide" data-ajax="false"><li><img src="{:MOBILE_PUBLIC_PATH}/img/icon_comment.png">  <span>我推荐的学员</span></li></a>
+                <a href="{:addons_url('Student://Student/studentCenterPay')}" data-transition="slide" data-ajax="false"> <li><img src="{:MOBILE_PUBLIC_PATH}/img/icon_money.png"> <span>在线缴费</span></li></a>
+                <a href="{:addons_url('Student://Student/studentCenterPayList')}" data-transition="slide" data-ajax="false"> <li><img src="{:MOBILE_PUBLIC_PATH}/img/icon_money.png"> <span>缴费清单</span></li></a>
+                <a href="{:addons_url('School://Privilege/schoolRrivilege')}" data-transition="slide" data-ajax="false"><li><img src="{:MOBILE_PUBLIC_PATH}/img/icon_coupon.png">  <span>我的优惠券</span></li></a>
+                <!--<li><img src="{:MOBILE_PUBLIC_PATH}/img/icon_flag.png"><span>赠送锦旗</span><label class="tips01">学会感恩!</label></li>-->
+                <li><img src="{:MOBILE_PUBLIC_PATH}/img/icon_assistant.png"><span>找陪练</span></li>
+            </ul>
+        </div>
+        <div class="x_blank2"></div>
+        <div class="x_item2">
+            <ul>
+                <li><img src="{:MOBILE_PUBLIC_PATH}/img/icon_notes.png"><span>学车笔记</span><label class="tips01">天天写，争当中国好学员!</label></li>
+               <a href="tel:{$schoolinfo.phone}" data-transition="slide" data-ajax="false">  <li><img src="{:MOBILE_PUBLIC_PATH}/img/icon_hotline.png"><span>客服热线</span><label class="tips01">{$schoolinfo.phone}</label></li></a>
+            </ul>
+        </div>
+    </div><!-- /content -->
+</div> <!--//Page-->
+</body>
+</html>

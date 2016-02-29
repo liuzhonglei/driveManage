@@ -1,0 +1,93 @@
+<meta charset="utf-8">
+<script src="{:MOBILE_PUBLIC_PATH}/js/car.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="{:MOBILE_PUBLIC_PATH}/js/weixin.js"></script>
+
+
+<div class="x_item subItem">
+    <ul>
+        <a href="#courseSel" data-rel="popup" data-transition="pop" >
+            <li id="courseShow" value="{$id}">{$name} &nbsp;&nbsp;&nbsp;{$sign_charge}元</li></a>
+    </ul>
+</div>
+<div class="x_blank"></div>
+<div class="c_formFull subItem" {$signHide}>
+    <input type="text" data-role="none" id="re_name" value="{$studentInfo.name}" placeholder="请输入您的姓名">
+    <input type="text" data-role="none" id="re_phone" value="{$studentInfo.phone}" placeholder="请输入电话号码">
+    <input type="text" data-role="none" id="re_remark" value="{$studentInfo.remark}" placeholder="备注">
+</div>
+<div class="item_note text-center">{$signText}</div>
+<if condition="$payItme neq null">
+    <div class="c_remark" {$signHide}>报名说明：姓名、手机提交后，直接微信支付100，到店可以抵用200！</div>
+    <else/>
+    <div class="c_remark" {$signHide}>报名说明：报名成功后,驾校会在第一时间联系您与您确认,请耐心等候。如急需报名可拨打我们的预约电话联系我们。</div>
+</if>
+<div class="c_warn_bk"  >
+    <div class="c_warn" id="c_warn" style="display:none"><span ></span><label id="c_warn_label">请输入正确的电话号码！</label></div>
+    <div class="c_warn" id="c_success"  style="display:none"><span class="icon_success"></span><label>提交成功，我们会尽快和您联系！</label></div>
+</div>
+<div class="x_btn_bk"  {$signHide}>
+    <a href="#" class="ui-btn ui-corner-all x_btn x_btn_curr" onclick = "info_submit()">提交</a>
+</div>
+<script>
+
+function info_submit() {
+    var teacher_id = $("#teacher_id").val();
+    var course_id = $("#courseShow").val();
+    var name = $("#re_name").val();
+    var phone = $("#re_phone").val();
+    var remark = $("#re_remark").val();
+    var token = $("#token").val();
+    if(name == null || name == ""){
+        alert("请填写您的姓名!")
+        return;
+    }
+    if(phone == null || phone == ""){
+        alert("请填写您的电话号码!")
+        return;
+    }
+    if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(phone))){
+        alert("不是完整的11位手机号或者正确的手机号前七位");
+        return;
+    }
+
+<if condition="$payItme neq null">
+
+        var url = "{:U('/addon/Student/Student/studentPayAdvance',null,false)}/id_in_teacher/"+teacher_id+'/course_id/'+course_id+'/name/' + name + '/phone/' + phone + '/remark/' + remark+"/token/"+ token; // 跳转到支付界面
+    $.post(url, null, function (response) {
+        if (response.status == 0) {
+            document.getElementById("c_success").style.display = "none";
+            document.getElementById("c_warn").style.display = "";
+            document.getElementById("c_warn_label").innerHTML = response.info;
+
+        } else {
+            payParameter = response;
+            callpay(payParameter, function () {
+                document.getElementById("c_success").style.display = "";
+                document.getElementById("c_success").getElementsByTagName('label') .innerHTML = "报名成功";
+            });
+        }
+    });
+<else />
+    $.ajax({ //一个Ajax过程
+        type: "post",
+        url: "{:U('register')}",
+        dataType: 'json',
+        data: 'id_in_teacher='+teacher_id+'&course_id='+course_id+'&name=' + name + '&phone=' + phone + '&remark=' + remark+"&token="+ token,
+        success: function (data) {
+            if(data.status == 0 ){
+                document.getElementById("c_success").style.display = "none";
+                document.getElementById("c_warn").style.display = "";
+                document.getElementById("c_warn_label").innerHTML = data.info;
+            }else{
+                document.getElementById("c_success").style.display = "";
+                document.getElementById("c_success").getElementsByTagName('label') .innerHTML = "报名成功";
+            }
+        },
+        failed: function(){
+            alert("报名出错！");
+        }
+    })
+    </if>
+};
+</script>

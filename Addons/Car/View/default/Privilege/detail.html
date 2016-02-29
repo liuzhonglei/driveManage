@@ -1,0 +1,55 @@
+<include file="Public/mobile_head"/>
+<link rel="apple-touch-icon-precomposed" href="img/screen_icon.png">
+<title>car</title>
+<link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/jquery.mobile-1.4.4.css"/>
+<link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/car.css">
+<script src="{:MOBILE_PUBLIC_PATH}/js/jquery-1.11.1.min.js"></script>
+<script src="{:MOBILE_PUBLIC_PATH}/js/iscroll.js"></script>
+<script src="{:MOBILE_PUBLIC_PATH}/js/jquery.mobile-1.4.4.min.js"></script>
+<script>
+    var myScroll_ask;
+    function loaded() {
+        /*iscroll*/
+        myScroll_ask = new IScroll('#c_content', {
+            tap: true,
+            click: false,
+            preventDefaultException: {tagName: /.*/},//解除默认事件锁定，调用tab，click等事件,不支持swipeleft
+            scrollbars: true,
+            mouseWheel: true,
+            fadeScrollbars: true
+        });
+    }
+</script>
+
+<link href="{:ADDON_PUBLIC_PATH}/css/privilege.detail.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<body id="weisite">
+<div class="container">
+    <div data-role="header" data-theme="none" class="x_header" data-position="fixed" data-tap-toggle="false">
+        <a href="#" data-role="none" data-rel="back" class="x_btn_back" data-transition="slide"></a>
+
+        <h1>最新优惠</h1>
+    </div>
+    <!--//header -->
+    <!--<div id="c_content" class="c_wrapper">-->
+        <!--<div id="scroller">-->
+            <div class="detail">
+                <h6 class="title">{$info.title}</h6>
+                <p class="info"><span class="colorless">{$info.cTime|time_format}</span></p>
+                <section class="content">
+                    <notempty name="info.cover"><p><img src="{$info.cover|get_cover_url}"/></p></notempty>
+                    {$info.content|htmlspecialchars_decode}
+                </section>
+            </div>
+        <!--</div>-->
+    <!--</div>-->
+</div>
+<!-- 底部导航 -->
+{$footer_html}
+<!-- 统计代码 -->
+<notempty name="config.code">
+    <p class="hide bdtongji">
+        {$config.code}
+    </p>
+</notempty>
+</body>
+</html>

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon-precomposed" href="img/screen_icon.png">
+    <title></title>
+    <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/jquery.mobile-1.4.4.css"/>
+    <link rel="stylesheet" href="{:MOBILE_PUBLIC_PATH}/css/car.css">
+    <script src="{:MOBILE_PUBLIC_PATH}/js/jquery-1.11.1.min.js"></script>
+    <script src="{:MOBILE_PUBLIC_PATH}/js/jquery.mobile-1.4.4.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <style>
+        body {
+            background: #13B7E3
+        }
+
+        .chk_2 {
+            display: none;
+        }
+
+        .chk_2 + label {
+            background: url({:MOBILE_PUBLIC_PATH}/img/radio_checked.png) no-repeat 0 0;;
+            background-size: 16px 32px;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            position: relative;
+            margin: 0 3px -3px 0;
+        }
+
+        .chk_2:checked + label:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0px;
+            display: block;
+            width: 16px;
+            height: 16px;
+            background: url({:MOBILE_PUBLIC_PATH}/img/radio_checked.png) no-repeat 0 -17px;
+            background-size: 16px 32px;
+        }
+
+        .x_radio {
+            margin: 15px 0 12px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .x_radio > label {
+            display: inline-block;
+        }
+
+        .x_radio > label:first-child {
+            margin-right: 30px;
+        }
+
+        #mask {
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            display: none;
+            position: fixed;
+            z-index: 999;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        #mask img {
+            top: 0px;
+            right: 20px;
+            position: absolute;
+        }
+
+        .c_ipt, .c_texta {
+            color: #333;
+            padding-left: 0.5em;
+            border-radius: 3px
+        }
+
+        .x_blank {
+            height: 12px;
+        }
+
+        .c_ipt::-webkit-input-placeholder, .c_texta::-webkit-input-placeholder {
+            color: #999;
+        }
+
+        .cut_main {
+            height: 401px;
+            background: #1DCAEB url({:MOBILE_PUBLIC_PATH}/img/cut_price.jpg) no-repeat left top;
+            background-size: cover;
+        }
+
+        .c_merchant {
+            color: #fff;
+            margin: 0;
+        }
+
+        .c_merchant span {
+            color: #fff;
+            text-decoration: line-through
+        }
+
+        .c_merchant_pic {
+            margin-top: 0;
+        }
+
+        .cut_jx {
+            background: #0098c1;
+        }
+
+        .cut_jx img {
+            width: 100%;
+            height: 300px;
+            margin: 0 auto;
+            vertical-align: middle
+        }
+
+        .countdown {
+            text-align: center;
+        }
+
+        .countdown span {
+            display: inline-block;
+        }
+
+        .countdown span.cnum {
+            background: #17282E;
+            color: #ffe100;
+            text-align: center;
+            padding: 0 6px;
+            margin-right: 3px;
+        }
+
+        .priceBtn {
+            background: #D0B40C;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            margin: 20px 30px;
+            font-size: 18px;
+        }
+
+        .regBtn {
+            background: #EC4455
+        }
+
+        .box_price {
+            background: #fff;
+            padding: 15px;
+            color: #333;
+            border-radius: 10px;
+            margin: 15px 15px;
+        }
+
+        .box_price .box_price_title small {
+            display: block;
+        }
+
+        small {
+            color: #aaa;
+        }
+
+        .box_price li {
+            border-bottom: 1px dashed #ddd;
+            padding: 15px 0 5px;
+            color: #aaa;
+        }
+
+        .emphasis {
+            color: #aa1d11;
+        }
+
+        .box_price li span {
+            color: #333
+        }
+
+        .box_price li span:first-child {
+            color: #0096c7
+        }
+
+        .footer-price {
+            display: -webkit-flex; /*兼容android*/
+            display: -webkit-box; /*兼容ios*/
+            height: 45px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .footer-price a {
+            -webkit-flex: 1; /*兼容android*/
+            -webkit-box-flex: 1; /*兼容ios*/
+            background: #0f96d8;
+            display: block;
+            height: 45px;
+            line-height: 45px;
+            text-align: center;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .footer-price a:first-child {
+            background: #F1771B;
+        }
+
+        .end-price {
+            color: #000;
+            font-size: 18px;
+            text-align: center;
+            margin: 15px 0 5px;
+        }
+
+        .coupon_pop_box {
+            padding: 1px 20px 20px;
+            min-width: 200px;
+        }
+
+        .coupon_pop_title01 {
+            margin-top: 10px;
+        }
+
+        .info-content {
+            min-height: 100px;
+            margin-top: 30px;
+        }
+
+        .ok {
+            width: 58px;
+            height: 58px;
+            margin: 10px auto 0;
+        }
+
+        .couponsBtn {
+            /*居中*/
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            display: box;
+            box-orient: horizontal;
+            box-pack: center;
+            box-align: center;
+        }
+
+        a.couponsBtn i, a.couponsBtn span {
+            display: block;
+            margin: 0 2px;
+        }
+
+        a.couponsBtn i {
+            width: 18px;
+            height: 18px;
+            background: url(img/loading.png) no-repeat;
+            background-size: contain;
+            -webkit-animation: anim4 .8s linear infinite;
+        }
+
+        @-webkit-keyframes anim4 {
+            from {
+                -webkit-transform: rotateZ(0deg);
+            }
+            50% {
+                -webkit-transform: rotateZ(180deg);
+            }
+            to {
+                -webkit-transform: rotateZ(360deg);
+            }
+        }
+
+
+    </style>
+
+
+</head>
+<body class="x_flowAuto">
+<div id="mask" onclick="javascript:$('#mask').css('display', 'none');"><img
+        src="{:MOBILE_PUBLIC_PATH}/img/weixin_share.png"></div>
+<div id="pageCutPrice" data-role="page" data-theme="none" class="gift-bg">
+    <!--填写信息 弹出层-->
+    <div data-role="popup" id="info_pop" data-position-to="window" data-tolerance="10,30,10,30" data-shadow="false"
+         data-overlay-theme="b" data-corners="false">
+        <div class="coupon_pop_box">
+            <span class="coupon_pop_close" id="info_close"></span>
+            <!--提交信息-->
+            <div class="" id="submitInfo">
+                <form method="post" id="registerInfo">
+                    <div class="info-content">
+                        <div class="">填写个人信息</div>
+                        <div class="x_blank"></div>
+                        <input data-role="none" type="text" name="name" class="c_ipt" placeholder="请输入您的大名">
+
+                        <div class="x_blank"></div>
+                        <input data-role="none" type="text" name="phone" class="c_ipt" placeholder="请输入您的手机号">
+
+                        <div class="x_blank"></div>
+                        <input data-role="none" type="text" name="remark" class="c_ipt" placeholder="备注">
+
+                        <div class="x_blank"></div>
+                        <div class="x_radio">
+                            <volist name="courseList" id="vo">
+                                <label>
+                                    <input type="radio" data-role="none" name="course_id" class="chk_2" id="{$vo.id}"
+                                           value="{$vo.id}"><label for="{$vo.id}"></label>{$vo.name}
+                                </label>
+                            </volist>
+                            <!--<label>-->
+                            <!--<input type="radio"  data-role="none" name="car-type" class="chk_2" id="no" value="自动挡"><label for="no"></label>自动挡-->
+                            <!--</label>-->
+                        </div>
+
+                    </div>
+                    <a href="#" class="ui-btn x_btn couponsBtn" type="but" id="submitBtn">提交 </a>
+                </form>
+            </div>
+            <!--//提交信息-->
+            <!--&lt;!&ndash;分享&ndash;&gt;-->
+            <!--<div class="" id="sharePrice" style="display:none">-->
+            <!--<span class="coupon_pop_close"></span>-->
+            <!--<div class="info-content" style="min-height:130px;">-->
+            <!--<img src="{:MOBILE_PUBLIC_PATH}/img/ok.png" class="ok">-->
+            <!--<div class="coupon_pop_title01">提交成功</div>-->
+            <!--</div>-->
+            <!--<a href="#" class="ui-btn x_btn shareBtn" id="getCoupon">邀请朋友开始砍价 </a>-->
+            <!--</div>-->
+            <!--//分享-->
+        </div>
+    </div>
+    <!--//填写信息 弹出层-->
+    <div class="x_content">
+        <div class="cut_jx">
+            <img src="{:MOBILE_PUBLIC_PATH}/img/jx_pic.jpg">
+        </div>
+        <!--砍价-->
+        <in name="activityInfo.status" value="1,2,3,4,5,6">
+            <div class="cut_main">
+                <in name="activityInfo.status" value="1">
+                    <div class="c_merchant">
+                        <div class="x_blank" style="height:200px"></div>
+                        您还未加入活动，赶紧加入！<br>
+                    </div>
+                </in>
+                <in name="activityInfo.status" value="2,3,4,5,6">
+                    <div class="c_merchant">
+                        <div class="x_blank" style="height:100px"></div>
+                        <div class="c_merchant_pic">
+                            <notempty name="info.photo_url">
+                                <img src="{$info.photo_url}">
+                                <else/>
+                                <img src="{:MOBILE_PUBLIC_PATH}/img/yellow_kid.png">
+                            </notempty>
+                        </div>
+                        <in name="activityInfo.status" value="5,6">
+                            <font color="#000">活动结束！</font><br>
+                        </in>
+
+                        {$info.name}的{$cutResult.course_name}学费<br/>
+                        ￥<font class="emphasis">{$cutResult.current_fee}</font>,现已砍掉<font class="emphasis">{$cutResult.fee}</font>元<br/>
+                        原价为 <span><font class="emphasis">{$cutResult.total_fee}</font></span>元。<br>
+                    </div>
+                </in>
+                <!--//倒计时-->
+                <in name="activityInfo.status" value="3">
+                    <a href="{:U('cutPrice',null,false)}/activityOpenid/{$activityopenid}" data-ajax="false"
+                       class="ui-btn  x_btn priceBtn" id="cutPrice">帮他砍价</a>
+                </in>
+                <in name="activityInfo.status" value="4,6">
+                    <div class="end-price">
+                        “你已经帮TA砍了{$cutInfo.fee}元”
+                    </div>
+
+                </in>
+                <in name="activityInfo.status" value="1">
+                    <a href="#" class="ui-btn  x_btn priceBtn regBtn" name="register">参加活动</a>
+                </in>
+
+                <in name="activityInfo.status" value="4">
+                    <a href="#" class="ui-btn  x_btn priceBtn regBtn" name="register">我也要参加活动</a>
+                </in>
+
+                <in name="activityInfo.status" value="2">
+                    <a href="#" onclick="javascript:$('#mask').css('display', 'block');"
+                       class="ui-btn  x_btn priceBtn regBtn" data-ajax="false">发送给小伙伴，帮你砍价</a>
+                </in>
+                <!--<in name="activityInfo.status" value="5">-->
+                <!--<a href="{:addons_url('Student://Student/studentCenterPay')}"  data-ajax="false"  class="ui-btn  x_btn priceBtn regBtn">支付预约金</a>-->
+                <!--</in>-->
+                <in name="activityInfo.status" value="1,2,3,4">
+                    <!--倒计时-->
+                    <div class="countdown">
+                        <span>倒计时：</span>
+
+                        <div id="timeCounter"></div>
+                    </div>
+                </in>
+            </div>
+        </in>
+        <!--//砍价-->
+        <!--活动规则-->
+        <div class="box_price">
+            <div class="box_price_title"><b>活动规则</b></div>
+            <div class="box_price_content">
+                <p>1. 填写个人姓名，联系方式，报名班型参与活动</p>
+
+                <!--<p>2. 邀请好友义气砍价</p>-->
+
+                <p>2. 最高可砍价{$activityInfo.max_sum_money}元</p>
+
+                <p>3. 砍价成功后需10天内到驾校现场报名缴费，过期无效</p>
+
+                <p>4. 活动时间<font class="emphasis">{$activityInfo.begin_date}至{$activityInfo.end_date}</font></p>
+
+                <p>5. 最终解释权归{$schoolInfo.name}所有</p>
+            </div>
+        </div>
+        <!--//活动规则-->
+        <!--砍价记录-->
+        <in name="activityInfo.status" value="2,3,4,5,6">
+            <if condition="count($cutList) gt 0">
+                <div class="box_price" style="margin-bottom:60px;">
+                    <div class="box_price_title"><b>砍价记录</b>
+                        <small>目前共有 {:count($cutList)}位好友一共砍掉了 {$cutResult.fee}元</small>
+                    </div>
+                    <div class="box_price_content">
+                        <ul>
+                            <volist name="cutList" id="vo">
+
+                                <li><span><notempty name="vo.friend_nickname">
+                                    t {$vo.friend_nickname}
+                                    <else/>
+                                    匿名
+                                </notempty></span>
+                                    已经砍了 <span>{$vo.fee}元</span></li>
+                            </volist>
+                        </ul>
+                    </div>
+                </div>
+            </if>
+        </in>
+        <!--//砍价记录-->
+        <div class="x_blank" style="height:50px"></div>
+        <!--关注-->
+        <div class="footer-price">
+            <a href="tel:{$schoolInfo.phone}" data-ajax="false">咨询</a>
+            <a href="{:U('home/Index/leaflets',null,false)}/token/{:get_token()}" data-ajax="false">关注</a>
+        </div>
+        <!--//关注-->
+    </div>
+</div>
+<!--//Page-->
+</body>
+</html>
+<script type="application/javascript">
+    $.post("{:U('wxSignPackage','teacher_id='.$teacher_data['id'])}", function (data) {
+        wx.config({
+            debug: false,
+            appId: data.appId,
+            timestamp: data.timestamp,
+            nonceStr: data.nonceStr,
+            signature: data.signature,
+            jsApiList: [
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo'
+            ]
+        });
+
+        wx.ready(function () {
+            wx.onMenuShareTimeline({
+                title: '我在{$schoolInfo.name}学车，快来帮我砍价！朋友们！', // 分享标题
+                desc: '感情深不深，就看这回啦！为期一个月，时间不多啦!',
+                link: "{:U('show',null,false)}/token/{:get_token()}/activityopenid/{:get_openid()}", // 分享链接
+                imgUrl: "http://{$_SERVER['HTTP_HOST']}/{:MOBILE_PUBLIC_PATH}/img/cut_price_activity.png", // 分享图标
+                success: function (res) {
+                    // alert("进入成功");
+                    // location.reload();
+                },
+                cancel: function (res) {
+                    // 用户取消分享后执行的回调函数
+                    //
+                    // alert("进入失败");
+                }
+            });
+            wx.onMenuShareAppMessage({
+                title: '我在{$schoolInfo.name}学车，快来帮我砍价！朋友们！', // 分享标题
+                desc: '感情深不深，就看这回啦！为期一个月，时间不多啦!',
+                link: "{:U('show',null,false)}/token/{:get_token()}/activityopenid/{:get_openid()}", // 分享链接
+                imgUrl: "http://{$_SERVER['HTTP_HOST']}/{:MOBILE_PUBLIC_PATH}/img/cut_price_activity.png", // 分享图标
+                success: function (res) {
+                    // alert("进入成功");
+                    // location.reload();
+                },
+                cancel: function (res) {
+                    // 用户取消分享后执行的回调函数
+                    //
+                    // alert("进入失败");
+                }
+            });
+        });
+    });
+
+    <in
+    name = "activityInfo.status"
+    value = "1,4" >
+            $(function () {
+                /*点击弹出 提交成功*/
+                $("#submitBtn").click(function () {
+
+                    var formData = $("#registerInfo").serialize();
+                    var name = $("input[name='name']").val();
+                    var phone = $("input[name='phone']").val();
+                    var course_id = $("input[name='course_id']:checked").val();
+
+                    if (name == null || name == "") {
+                        alert("请填写您的姓名!")
+                        return;
+                    }
+                    if (phone == null || phone == "") {
+                        alert("请填写您的电话号码!")
+                        return;
+                    }
+                    if (course_id == null || course_id == "") {
+                        alert("请选择课程!")
+                        return;
+                    }
+                    if (!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(phone))) {
+                        alert("不是完整的11位手机号或者正确的手机号前七位");
+                        return;
+                    }
+
+                    $.ajax({
+                        type: "POST",
+                        url: "{:U('register')}",
+                        processData: true,
+                        data: formData,
+                        success: function (data) {
+                            if (data.status == "0") {
+                                alert(data.info);
+                            } else {
+                                window.location = "{:U('show')}";
+                            }
+                        }
+                    });
+                })
+                /*点击弹出 填写信息*/
+                $('a[name="register"]').click(function () {
+                    $("#info_pop").popup("open");
+                })
+
+                $(".coupon_pop_close").click(function () {
+                    $("#info_pop").popup("close");
+                })
+
+            });
+    </in>
+    <in
+    name = "activityInfo.status"
+    value = "1,2,3,4" >
+    /*
+     * 这里以秒为单位计算，一天=86400秒（60*60*24），
+     * 一天的秒数减去已过的小时（小时*60*60）再减去分钟（分数*60）再减去秒数
+     * 等于一天中剩下的秒数
+     */
+    var total = {$activityInfo.timeRemain
+    }
+    ;
+
+    function timeCounter() {
+        obj = document.getElementById('timeCounter');
+        var s = (total % 60) < 10 ? ('0' + total % 60) : total % 60;
+        var d = parseInt(total / (24 * 3600));
+        var h = (total - (24 * 3600 * d)) / 3600 < 10 ? ('0' + parseInt((total - (24 * 3600 * d)) / 3600)) : parseInt((total - (24 * 3600 * d)) / 3600);
+        var m = (total - (24 * 3600 * d) - h * 3600) / 60 < 10 ? ('0' + parseInt((total - (24 * 3600 * d) - h * 3600) / 60)) : parseInt((total - (24 * 3600 * d) - h * 3600) / 60);
+
+        //这里可以改成自己的格式，如：h + ' 小时' + m + '分' + s + '秒'
+        obj.innerHTML = '<span class="cnum">' + d + '</span><span>天</span>' + '<span class="cnum">' + h + '</span><span>时</span>' +
+                '<span class="cnum">' + m + '</span><span>分</span>' +
+                '<span class="cnum">' + s + '</span><span>秒</span>';
+        total--;
+        if (total <= 0) {
+            total = 86400;
+        }
+    }
+
+    //每隔一秒钟行动一次timeCounter()函数,这里1000是毫秒,1000毫秒=1秒
+    window.setInterval("timeCounter()", 1000);
+    </in>
+</script>
