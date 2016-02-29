@@ -190,9 +190,9 @@
                         alert(response.info);
                     } else {
                         payParameter = response;
-                        callpay(payParameter, function () {
-                            window.location.href = "{:U('/addon/Student/Student/studentPayAdvanceResult',null,false)}"; // 跳转到支付结果界面
-                        });
+//                        callpay(payParameter, function () {
+                        window.location.href = "{:U('/addon/Student/Student/studentPayAdvanceResult',null,false)}"; // 跳转到支付结果界面
+//                        });
                     }
                 });
             });
@@ -219,10 +219,9 @@
             <div class="x_blank"></div>
             <input data-role="none" type="text" id="phone" class="c_ipt" value="{$studentInfo.phone}"
                    placeholder="请输入您的手机号" {$signHide}></div>
-        <div {$signHide}><a href="#" class="ui-btn ui-corner-all x_btn couponsBtn" id="send_pay">支付100抵200</a></div>
+        <div {$signHide}><a href="#" class="ui-btn ui-corner-all x_btn couponsBtn" id="send_pay">注册</a></div>
         <div class="item_note text-center">{$signText}</div>
-        <!--//100元礼包--> </div>
-    <!--活动详情-->
+    </div>
     <div class="promotion">
         <span class="tip-close" style="display:none"></span>
 
@@ -235,8 +234,6 @@
             <p>3、手机保持畅通，美女客服将与你联系并支付红包金额；</p>
         </div>
     </div>
-    <!--活动详情 end-->
 </div>
-<!--//Page-->
 </body>
 </html>

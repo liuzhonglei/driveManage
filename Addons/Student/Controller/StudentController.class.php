@@ -851,6 +851,9 @@ STR;
         $token = get_token();
         $in_student_openid = $_GET["in_student_openid"];
         $studentInfo = $this->getMyInfo();
+        if (!empty($studentInfo)) {
+            $this->studentPayAdvanceResult();
+        }
 
         // judge get or post
         if (!IS_POST) {
@@ -883,7 +886,7 @@ STR;
             }
 
             $this->display(T(MOBILE_PATH . 'studentPayAdvance'));
-        } else {
+        } else  {
             // check is teacher
             $existTeacherInfo = M("teacher")->where('openid= "' . $openid . '" and token = "' . $token . '"')->find();
             if (!empty($existTeacherInfo)) {
@@ -913,16 +916,7 @@ STR;
                 $_POST['intro_source'] = '0';
             }
             $result = $this->saveModel();
-            if ($result['status'] == '0') {
-                $this->ajaxReturn($result);
-            }
-
-            // start the pay
-            $payItme = M("school_payitem")->where("type='activity' and token = '" . $token . "'")->find();
-            $_POST["payitem_id"] = $payItme["id"];
-            $_POST["paytype"] = $payItme["type"];
-            $_POST["total"] = $payItme["fee"];
-            R('Addons://EO2OPayment/EO2OPayment/paymentData');
+            $this->ajaxReturn($result);
         }
     }
 
@@ -932,16 +926,37 @@ STR;
      */
     function studentPayAdvanceResult()
     {
-        $follow = M('follow')->where('openid= "' . get_openid() . '" and token = "' . get_token() . '"')->find();
-        $this->assign("follow", $follow);
-        $schoolInfo = $this->getSchoolInfo();
-        $this->assign("schoolInfo", $schoolInfo);
         $studentInfo = $this->getMyInfo();
-        $this->assign("studentInfo", $studentInfo);
-        $db_config = D('Common/AddonConfig')->get("Leaflets");
-        $imgUrl = get_cover_url($db_config['img']);
-        $this->assign("imgUrl", $imgUrl);
-        $this->display(T(MOBILE_PATH . 'studentPayAdvanceResult'));
+        if (!IS_POST) {
+
+            if (!empty($studentInfo) && ((!empty($studentInfo['total_fee']) && $studentInfo['status'] == "-1") || $studentInfo['status'] != "-1")) {
+                $this->assign("signHide", "hidden");
+                $this->assign("signText", "您已经在本驾校登记过了，请耐心等待通知！");
+            } else {
+                $this->assign("signHide", "");
+                $this->assign("signText", "同时为我赢得100元学车基金哦！");
+            }
+            $follow = M('follow')->where('openid= "' . get_openid() . '" and token = "' . get_token() . '"')->find();
+            $this->assign("follow", $follow);
+            $schoolInfo = $this->getSchoolInfo();
+            $this->assign("schoolInfo", $schoolInfo);
+            $studentInfo = $this->getMyInfo();
+            $this->assign("studentInfo", $studentInfo);
+            $db_config = D('Common/AddonConfig')->get("Leaflets");
+            $imgUrl = get_cover_url($db_config['img']);
+            $this->assign("imgUrl", $imgUrl);
+            $this->display(T(MOBILE_PATH . 'studentPayAdvanceResult'));
+        } else {
+            if (!empty($studentInfo)) {
+                $_POST['token'] = get_token();
+                $_POST['openid'] = get_openid();
+                $payItme = M("school_payitem")->where("type='activity' and token = '" . get_token() . "'")->find();
+                $_POST["payitem_id"] = $payItme["id"];
+                $_POST["paytype"] = $payItme["type"];
+                $_POST["total"] = $payItme["fee"];
+                R('Addons://EO2OPayment/EO2OPayment/paymentData');
+            }
+        }
     }
 
 
@@ -1039,7 +1054,7 @@ str;
     function syncStudent($status = null, $token = null, $isAll = false, $ajaxReturn = true)
     {
         // 操作结果
-        $result  = "";
+        $result = "";
 
         // 取得账户密码
         $token || $token = get_token();
@@ -1123,7 +1138,7 @@ str;
             }
         }
 
-        $result = "同步".$pageNum."条学员数据!";
+        $result = "同步" . $pageNum . "条学员数据!";
 
         if ($ajaxReturn) {
             $this->success($result);
@@ -1311,7 +1326,7 @@ str;
      */
     protected function operationIsShow($data, $operation)
     {
-        $data = M('student')->where(array("id"=>$data["id"]))->find();
+        $data = M('student')->where(array("id" => $data["id"]))->find();
         if ($operation == "绑定微信" && !empty($data["openid"])) {
             return false;
         }
@@ -1373,13 +1388,13 @@ str;
             }
 
             // 批量插入
-            $result .= "处理数据数量: ".($objWorksheet->getHighestRow()-1)." 条!<br/>";
+            $result .= "处理数据数量: " . ($objWorksheet->getHighestRow() - 1) . " 条!<br/>";
             for ($i = 2; $i <= $objWorksheet->getHighestRow(); $i++) {
                 $modelData = array();
                 $modelData['token'] = $token;
                 for ($j = 'A'; $j <= $colNum; $j++) {
                     $value = $objWorksheet->getCell($j . $i)->getValue();
-                    if (!empty($fields[$j]) && !empty($value) && in_array($fields[$j], array("name","status", "exam_serial", "card_id", "exam_date", "exam_place", "exam_round", "exam_score"))) {
+                    if (!empty($fields[$j]) && !empty($value) && in_array($fields[$j], array("name", "status", "exam_serial", "card_id", "exam_date", "exam_place", "exam_round", "exam_score"))) {
                         $modelData[$fields[$j]] = $this->convertField($fieldMap, $fields[$j], $value);
                     }
 
@@ -1421,8 +1436,8 @@ str;
                         $modelData['id'] = $exist_student[id];
                         $Model->save($modelData);
                     }
-                }else{
-                    $result .= "学员[". $modelData['name']."] 身份证[". $modelData['card_id']."] 不存在当前系统,更新信息失败!<br/>";
+                } else {
+                    $result .= "学员[" . $modelData['name'] . "] 身份证[" . $modelData['card_id'] . "] 不存在当前系统,更新信息失败!<br/>";
                 }
             }
         }
@@ -1580,7 +1595,7 @@ str;
         }
 
         // 返回数据1231
-        $data =  parent::listsAdmin(false, $map);
+        $data = parent::listsAdmin(false, $map);
         $data["customActionMessage"] = $result;
         $this->ajaxReturn($data);
     }
@@ -1656,7 +1671,7 @@ str;
         $token = get_token();
         $db_config = D('Common/AddonConfig')->get(_ADDONS);
         $tempId = $db_config['temp_id'];
-        if(empty ($tempId)){
+        if (empty ($tempId)) {
             return '请配置消息模板ID!';
         }
 
@@ -1689,7 +1704,7 @@ str;
                     // 保存
                     M("student")->data($data)->save();
                     $logController->writeLog("学员进行考试通知，科目[" . $data["status"] . "]已发送通知!", LogMajorType::STUDENT, $data["id"]);
-                    if(!empty($returnMsg)){
+                    if (!empty($returnMsg)) {
                         $returnMsg .= "<br/>";
                     }
                     $returnMsg .= "学员[" . $data['name'] . "]进行科目[" . $data["status"] . "]考试通知，已发送通知!";
@@ -1698,7 +1713,7 @@ str;
                     // 保存
                     M("student")->data($data)->save();
                     $logController->writeLog("学员进行考试通知，科目[" . $data["status"] . "]发送通知失败!", LogMajorType::STUDENT, $data["id"]);
-                    if(!empty($returnMsg)){
+                    if (!empty($returnMsg)) {
                         $returnMsg .= "<br/>";
                     }
                     $returnMsg .= "学员[" . $data['name'] . "]进行科目[" . $data["status"] . "]考试通知，发送通知失败!";
