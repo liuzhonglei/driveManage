@@ -511,9 +511,9 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
 
         // student info
-        .state("messagetQuestionList", {
+        .state("messageeQuestionList", {
             url: "/message/questionList.html",
-            templateUrl: "views/common/list.html",
+            templateUrl: "views/message/list.html",
             data: {
                 pageTitle: "问题列表",
                 module: "Message",
