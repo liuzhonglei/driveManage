@@ -841,19 +841,23 @@ STR;
      */
     function studentPayAdvance()
     {
-        // param
+        // 教练信息
         $id_in_teacher = $_GET["id_in_teacher"];
         if (!empty($id_in_teacher)) {
             $teacherInfo = M('teacher')->where('id=' . $id_in_teacher)->find();
             get_token($teacherInfo['token']);
         }
-        $openid = get_openid();
-        $token = get_token();
-        $in_student_openid = $_GET["in_student_openid"];
+
+        // 学员信息
         $studentInfo = $this->getMyInfo();
         if (!empty($studentInfo)) {
             $this->studentPayAdvanceResult();
         }
+
+        // 配置信息
+        $in_student_openid = $_GET["in_student_openid"];
+        $openid = get_openid();
+        $token = get_token();
 
         // judge get or post
         if (!IS_POST) {
@@ -886,7 +890,7 @@ STR;
             }
 
             $this->display(T(MOBILE_PATH . 'studentPayAdvance'));
-        } else  {
+        } else {
             // check is teacher
             $existTeacherInfo = M("teacher")->where('openid= "' . $openid . '" and token = "' . $token . '"')->find();
             if (!empty($existTeacherInfo)) {
@@ -926,9 +930,20 @@ STR;
      */
     function studentPayAdvanceResult()
     {
+        // 学员信息
         $studentInfo = $this->getMyInfo();
-        if (!IS_POST) {
 
+
+        if (!IS_POST) {
+            // 如果有推荐人,并且当前学员推荐为空进行配置
+            $in_student_openid = $_GET["in_student_openid"];
+            if (!empty($in_student_openid) && !empty($studentInfo) && $studentInfo['intro_source'] == '0' && empty($studentInfo['in_student_openid'])) {
+                $studentInfo['intro_source'] = "2";
+                $studentInfo['in_student_openid'] = $in_student_openid;
+                M("student")->save($studentInfo);
+            }
+
+            // 按钮显示
             if (!empty($studentInfo) && ((!empty($studentInfo['total_fee']) && $studentInfo['status'] == "-1") || $studentInfo['status'] != "-1")) {
                 $this->assign("signHide", "hidden");
                 $this->assign("signText", "您已经在本驾校登记过了，请耐心等待通知！");
