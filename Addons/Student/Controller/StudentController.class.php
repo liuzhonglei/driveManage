@@ -1103,7 +1103,7 @@ str;
 
 
         // 登录
-        $cookiePath = "./Runtime/Temp/wudriver.cookie";
+        $cookiePath = "./Runtime/Temp/wudriver_".get_token().".cookie";
         $this->login_post("http://fj.jppt.com.cn/xmjp/loginSubmit.do", $cookiePath, array("loginName" => $account, "password" => $password, "loginFlag" => "pw"));
 
         // 查询
