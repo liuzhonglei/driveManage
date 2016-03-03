@@ -722,6 +722,15 @@ str;
         $this->ajaxReturn($signPackage);
     }
 
-}
-
-;
+    /**
+     * 增加字段
+     * @param $fields
+     * @return \Addons\School\Controller\Common\Controller\当前的字段
+     */
+    public function getFieldList($fields)
+    {
+        $fields = parent::getFieldList($fields);
+        $fields = $this->setFiledExtra($fields, "car_id", 'car', 'name');
+        return $fields;
+    }
+};
