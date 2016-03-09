@@ -4,7 +4,7 @@
     <input ng-switch-when="num" class="form-control  input-medium "
            type="text" ng-model="info[field.name]" ng-disabled="infoDisabled">
         <textarea ng-switch-when="textarea" class="form-control input-medium" maxlength="500" rows="5"
-                  ng-disabled="infoDisabled"  ng-model="info[field.name]" ></textarea>
+                  ng-disabled="infoDisabled" ng-model="info[field.name]"></textarea>
 
     <input ng-switch-when="date"
            class="form-control form-control-inline input-medium datePicker"
@@ -66,25 +66,16 @@
     </div>
     <div ng-switch-when="checkbox">
         <div class="input-group">
-            <ui-select ng-model="info[field.name]" class="input-medium "
-                       theme="bootstrap" name="{{field.name}}" ng-disabled="infoDisabled">
-                <ui-select-match
-                        placeholder="选择或搜索">
-                    {{$select.selected.text}}
+            <ui-select multiple theme="bootstrap" class="input-medium "
+                       ng-disabled="disabled" ng-model="info[field.name]" name="{{field.name}}">
+                <ui-select-match>
+                    {{$item.text}}
                 </ui-select-match>
                 <ui-select-choices
-                        repeat=" item.value as item in metadata[field.name]">
-
-                    <ng-if>
-                        <span ng-bind-html="item.text | highlight: $select.search"></span>
-                    </ng-if>
+                        repeat="item.value as  item in metadata[field.name] | propsFilter: {text: $select.search}">
+                    {{item.text}}
                 </ui-select-choices>
             </ui-select>
-          <span class="input-group-btn" ng-hide="infoDisabled">
-              <a href="javascript:" ng-click="info[field.name] = undefined" class="btn btn-default">
-                  <span class="glyphicon glyphicon-trash"></span>
-              </a>
-            </span>
         </div>
     </div>
     <div ng-switch-when="editor">

@@ -64,6 +64,22 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">缴费项目</label>
+
+                                            <div class="col-md-9">
+                                                <select name="payType" class="bs-select form-control" multiple>
+                                                    <option value="'sign'">报名费</option>
+                                                    <option value="'supplementary'">补考费</option>
+                                                    <option value="'activity'">预约活动费</option>
+                                                    <option value="'wage'">工资</option>
+                                                    <option value="'reward'">激励</option>
+                                                    <option value="'car'">车辆使用</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -86,7 +102,7 @@
             </div>
             <div class="actions">
                 <div class="btn-group">
-                    <button class="btn green" onclick="$('#condition-modal').modal('show')" >搜索条件</button>
+                    <button class="btn green" onclick="$('#condition-modal').modal('show')">搜索条件</button>
                 </div>
             </div>
         </div>
@@ -96,3 +112,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('.bs-select').selectpicker({
+        noneSelectedText: '所有',
+        iconBase: 'fa',
+        tickIcon: 'fa-check'
+    });
+</script>

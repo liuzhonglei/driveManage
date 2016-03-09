@@ -730,7 +730,7 @@ str;
     public function getFieldList($fields)
     {
         $fields = parent::getFieldList($fields);
-        $fields = $this->setFiledExtra($fields, "car_id", 'car', 'name');
+        $fields = $this->setFiledExtra($fields, "car_id", 'car', 'number');
         return $fields;
     }
 };

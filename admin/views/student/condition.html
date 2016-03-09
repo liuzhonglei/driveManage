@@ -114,6 +114,19 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">报名点</label>
+                                            <div class="col-md-9">
+                                                <select name="sign_place_id" class="select2me form-control">
+                                                    <option value="">所有</option>
+                                                    <option ng-repeat="item in schoolPlaceList" value="{{item.id}}">
+                                                        {{item.name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>

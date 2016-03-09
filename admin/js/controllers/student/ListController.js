@@ -1,12 +1,16 @@
 /**
  * 创建controller
  */
-MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope', function ($rootScope, $http, $scope) {
+MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope','dataTool', function ($rootScope, $http, $scope,dataTool) {
 
     // param
     $scope.rootData = $rootScope.$state.$current.data;
     $scope.status = "-1";
 
+    // 取得地区
+    dataTool.getDataByParam("school_place", "", function (data) {
+        $scope.schoolPlaceList = data.data;
+    });
 
     // 默认为报名
     $scope.studentNum = "";

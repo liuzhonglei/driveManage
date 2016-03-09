@@ -260,6 +260,7 @@ CREATE PROCEDURE statics_type_pay(
 /**
  *获取资金流水,分支出和流入,根据时间和机构
  */
+
 DROP PROCEDURE IF EXISTS statics_complex_type_pay;
 DELIMITER //
 CREATE PROCEDURE statics_complex_type_pay(
@@ -268,7 +269,8 @@ CREATE PROCEDURE statics_complex_type_pay(
   IN limitNum  VARCHAR(50),
   IN begin_date VARCHAR(50),
   IN end_date   VARCHAR(50),
-  IN pay_place  INT
+  IN pay_place  INT,
+  IN paytype  VARCHAR(50)
 )
   BEGIN
     DECLARE
@@ -291,29 +293,33 @@ CREATE PROCEDURE statics_complex_type_pay(
     THEN
       SET externalMap = concat(externalMap,  " and school_place_id = ",pay_place);
     END IF;
+    IF !isnull(paytype)
+    THEN
+      SET externalMap = concat(externalMap,  " and paytype in ",paytype);
+    END IF;
 
 
 
     set @sql = '';
     set @sql = concat(' SELECT',
-     ' FROM_UNIXTIME(t.time_end, \'',date_type_format,'\') time,',
-      ' SUM(CASE WHEN t.paytype = "sign" THEN pay_fee  ELSE 0 END)  AS                    "sign_fee",',
-      ' SUM(CASE WHEN t.paytype = "banner"  THEN pay_fee ELSE 0 END)  AS                    banner_fee,',
-      ' SUM(CASE WHEN t.in_or_out = "supplementary"  THEN pay_fee    ELSE 0 END)  AS        supplementary_fee,',
-      ' SUM(CASE WHEN t.paytype = "activity" THEN pay_fee    ELSE 0 END)  AS                    activity_fee,',
-      ' SUM(CASE WHEN t.paytype = "wage" THEN pay_fee    ELSE 0 END)  AS                    wage_fee,',
-      ' SUM(CASE WHEN t.paytype = "reward" THEN pay_fee ELSE 0 END)  AS                    reward_fee,',
-      ' SUM(CASE WHEN t.paytype = "car"   THEN pay_fee   ELSE 0 END)  AS                    car_fee',
-    ' FROM  wp_eo2o_payment_all t',
-    ' WHERE t.token = token AND  FROM_UNIXTIME(t.time_end, \'', date_type_format, '\') IS NOT NULL AND  t.result_code = "SUCCESS"',externalMap,
-    ' GROUP BY FROM_UNIXTIME(t.time_end,  \'',date_type_format,' \') ',
-    ' ORDER BY FROM_UNIXTIME(t.time_end, \'',date_type_format,'\')',
-    ' LIMIT 0, ',limitNum,';');
+                      ' FROM_UNIXTIME(t.time_end, \'',date_type_format,'\') time,',
+                      ' SUM(CASE WHEN t.paytype = "sign" THEN pay_fee  ELSE 0 END)  AS                    "sign_fee",',
+                      ' SUM(CASE WHEN t.paytype = "banner"  THEN pay_fee ELSE 0 END)  AS                    banner_fee,',
+                      ' SUM(CASE WHEN t.in_or_out = "supplementary"  THEN pay_fee    ELSE 0 END)  AS        supplementary_fee,',
+                      ' SUM(CASE WHEN t.paytype = "activity" THEN pay_fee    ELSE 0 END)  AS                    activity_fee,',
+                      ' SUM(CASE WHEN t.paytype = "wage" THEN pay_fee    ELSE 0 END)  AS                    wage_fee,',
+                      ' SUM(CASE WHEN t.paytype = "reward" THEN pay_fee ELSE 0 END)  AS                    reward_fee,',
+                      ' SUM(CASE WHEN t.paytype = "car"   THEN pay_fee   ELSE 0 END)  AS                    car_fee',
+                      ' FROM  wp_eo2o_payment_all t',
+                      ' WHERE t.token = token AND  FROM_UNIXTIME(t.time_end, \'', date_type_format, '\') IS NOT NULL AND  t.result_code = "SUCCESS"',externalMap,
+                      ' GROUP BY FROM_UNIXTIME(t.time_end,  \'',date_type_format,' \') ',
+                      ' ORDER BY FROM_UNIXTIME(t.time_end, \'',date_type_format,'\')',
+                      ' LIMIT 0, ',limitNum,';');
 
     PREPARE stmt FROM @sql;         -- 预处理动态sql语句
     EXECUTE stmt ;                        -- 执行sql语句
     deallocate prepare stmt;      -- 释放prepare
   END;
 //
-
-# call statics_complex_type_pay('gh_36a5c6958de0','month',10,"2014-12-31","2016-02-01",null);
+call statics_complex_type_pay('gh_36a5c6958de0','month','10',null,null,null,"('activity','wage','reward')");
+call statics_complex_type_pay('gh_36a5c6958de0','month',10,"2014-12-31","2016-02-01",null,'\"supplementary\"');
