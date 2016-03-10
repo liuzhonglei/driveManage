@@ -2,7 +2,7 @@ MetronicApp.controller('DashboardController', ['$rootScope', '$scope', '$http', 
 
     // 收费统计数据
     $scope.payData = {};
-    $scope.payData.payType = "year";
+    $scope.payData.payType = "day";
     $scope.payData.total = 0;
     $scope.payData.payNum = {sign: 0, supplementary: 0, activity: 0, total: 0};
     $scope.payData.payRecord = {};
