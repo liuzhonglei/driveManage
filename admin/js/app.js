@@ -111,12 +111,16 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope', function ($scop
  ***/
 
 /* Setup Layout Part - Header */
-MetronicApp.controller('HeaderController', ['$scope', 'infoTool', function ($scope, infoTool) {
+MetronicApp.controller('HeaderController', ['$scope', 'infoTool', "$http", function ($scope, infoTool, $http) {
     $scope.info = {
         "old": "",
         "password": "",
         "repassword": ""
     };
+
+    //待操作
+    $scope.actionRequired = null;
+    $scope.timer = null;
 
     $scope.$on('$includeContentLoaded', function () {
         Layout.initHeader(); // init header
@@ -130,6 +134,9 @@ MetronicApp.controller('HeaderController', ['$scope', 'infoTool', function ($sco
                 $scope.userInfo = data.data;
             }
         });
+
+        // 查找待办
+        getActionRequired();
     });
 
     /**
@@ -151,6 +158,25 @@ MetronicApp.controller('HeaderController', ['$scope', 'infoTool', function ($sco
             $("#alter-password").modal("hide");
         })
     }
+
+    /**
+     * 循环查找待操作
+     */
+    getActionRequired = function () {
+        // 学员报名统计
+        $http({
+            method: 'GET',
+            url: Metronic.rootPath() + '/index.php?s=/addon/School/School/procedureQuery/procedure_name/action_required.html'
+        }).then(function successCallback(response) {
+                $scope.actionRequired = response.data.data;
+                $scope.timer = setTimeout("getActionRequired()", 60000)
+            }, function errorCallback(response) {
+                console.log("error", response);
+                $scope.timer = setTimeout("getActionRequired()", 60000)
+            }
+        )
+    };
+
 }]);
 
 /* Setup Layout Part - Sidebar */

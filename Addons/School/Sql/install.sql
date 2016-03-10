@@ -254,3 +254,6 @@ UPDATE `wp_attribute` SET model_id= (SELECT MAX(id) FROM `wp_model`) WHERE model
 DROP  INDEX wp_student_search_index  ON wp_student  ;
 CREATE INDEX wp_student_search_index ON wp_student  (token,name,phone,id_in_teacher,status,openid);
 
+
+-- 通知视图
+
