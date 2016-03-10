@@ -18,8 +18,8 @@ MetronicApp.controller('DashboardController', ['$rootScope', '$scope', '$http', 
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         $scope.payData.payType.payType='year';
-        getPayStatics();
-        getSignStatics();
+        $scope.getPayStatics();
+        $scope.getSignStatics();
 
         // 刷新待办事项
         //$scope.getDoList();
@@ -41,10 +41,7 @@ MetronicApp.controller('DashboardController', ['$rootScope', '$scope', '$http', 
         $scope.toDoTimer = setTimeout($scope.getDoList, 60000);
     }
 
-    /**
-     * 获取图形信息
-     */
-    getPayStatics = function () {
+    getPayDataStatics =function(){
         // 统计数据
         $http({
             method: 'GET',
@@ -63,8 +60,13 @@ MetronicApp.controller('DashboardController', ['$rootScope', '$scope', '$http', 
         }, function errorCallback(response) {
             console.log("error", response);
         });
+    }
 
-
+    /**
+     * 获取图形信息
+     */
+    $scope.getPayStatics = function () {
+        getPayDataStatics();
 
         // 统计流水
         $http({
@@ -123,7 +125,7 @@ MetronicApp.controller('DashboardController', ['$rootScope', '$scope', '$http', 
     /**
      * 报名数据
      */
-    getSignStatics = function () {
+    $scope.getSignStatics = function () {
         // 学员报名统计
         $http({
             method: 'GET',
