@@ -69,6 +69,7 @@ CREATE PROCEDURE statics_date_student_sign(
     -- 设置格式
     SET date_type_format = getDateFormat(date_type);
 
+    select * from (
     SELECT
       FROM_UNIXTIME(t.time_sign, date_type_format) time,
       Count(*) AS                    count
@@ -77,10 +78,11 @@ CREATE PROCEDURE statics_date_student_sign(
     WHERE
       t.token = token AND
       t.time_sign IS NOT NULL AND t.time_sign != ""
+      and t.time_sign <  UNIX_TIMESTAMP(now())
     GROUP BY
       FROM_UNIXTIME(t.time_sign, date_type_format)
     ORDER BY FROM_UNIXTIME(t.time_sign, date_type_format) DESC
-    LIMIT 0, 5;
+    LIMIT 0, 4) t order by t.time;
   END;
 //
 CALL statics_date_student_sign('gh_36a5c6958de0', 'day');
