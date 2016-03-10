@@ -2,27 +2,28 @@ MetronicApp.controller('DashboardController', ['$rootScope', '$scope', '$http', 
 
     // 收费统计数据
     $scope.payData = {};
-    $scope.payData.payType = "day";
+    $scope.payData.payType = "year";
+    $scope.payData.total = 0;
     $scope.payData.payNum = {sign: 0, supplementary: 0, activity: 0, total: 0};
     $scope.payData.payRecord = {};
 
 
     //$scope.payData.graph = null;
 
-    $scope.toDoTimer;
+    //$scope.toDoTimer;
 
     /**
      * 同步信息
      */
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
-        Metronic.initAjax();
-        $scope.getPayStatics();
-        $scope.getSignStatics();
+        $scope.payData.payType.payType='year';
+        getPayStatics();
+        getSignStatics();
 
         // 刷新待办事项
-        $scope.getDoList();
-        setTimeout($scope.getDoList(), 1000);
+        //$scope.getDoList();
+        //setTimeout($scope.getDoList(), 1000);
     });
 
     /**
@@ -43,25 +44,26 @@ MetronicApp.controller('DashboardController', ['$rootScope', '$scope', '$http', 
     /**
      * 获取图形信息
      */
-    $scope.getPayStatics = function () {
+    getPayStatics = function () {
         // 统计数据
         $http({
             method: 'GET',
             url: Metronic.rootPath() + '/index.php?s=/addon/EO2OPayment/EO2OPayment/procedureQuery/procedure_name/statics_type_pay/param/' + "'" + $scope.payData.payType + "'" + '.html'
         }).then(function successCallback(response) {
-            $scope.payData.payNum = {};
+            $scope.payData.payNum.sign = 0;
+            $scope.payData.payNum.supplementary = 0;
+            $scope.payData.payNum.activity = 0;
             response.data.data.forEach(function (currentValue, index, array) {
-                $scope.payData.payNum[currentValue["paytype"]] = parseFloat(currentValue["total_fee"]);
+                if (currentValue["paytype"]) {
+                    $scope.payData.payNum[currentValue["paytype"]] = parseFloat(currentValue["total_fee"]);
+                }
             });
 
-            if (!$scope.payData.payNum.sign) $scope.payData.payNum.sign = 0;
-            if (!$scope.payData.payNum.supplementary) $scope.payData.payNum.supplementary = 0;
-            if (!$scope.payData.payNum.activity) $scope.payData.payNum.activity = 0;
             $scope.payData.payNum.total = $scope.payData.payNum.sign + $scope.payData.payNum.supplementary + $scope.payData.payNum.activity;
-
         }, function errorCallback(response) {
             console.log("error", response);
         });
+
 
 
         // 统计流水
@@ -117,12 +119,11 @@ MetronicApp.controller('DashboardController', ['$rootScope', '$scope', '$http', 
     // 学员统计数据
     $scope.signData = {};
     $scope.signData.timeType = "day";
-    //$scope.signData.payNum = {sign: 0, supplementary: 0, activity: 0, total: 0};
     $scope.signData.payRecord = {};
     /**
      * 报名数据
      */
-    $scope.getSignStatics = function () {
+    getSignStatics = function () {
         // 学员报名统计
         $http({
             method: 'GET',
