@@ -45,23 +45,23 @@ MetronicApp.controller('DashboardController', ['$rootScope', '$scope', '$http', 
      */
     $scope.getPayStatics = function () {
         // 统计数据
-        //$http({
-        //    method: 'GET',
-        //    url: Metronic.rootPath() + '/index.php?s=/addon/EO2OPayment/EO2OPayment/procedureQuery/procedure_name/statics_type_pay/param/' + "'" + $scope.payData.payType + "'" + '.html'
-        //}).then(function successCallback(response) {
-        //    $scope.payData.payNum = {};
-        //    response.data.data.forEach(function (currentValue, index, array) {
-        //        $scope.payData.payNum[currentValue["paytype"]] = parseFloat(currentValue["total_fee"]);
-        //    });
-        //
-        //    if (!$scope.payData.payNum.sign) $scope.payData.payNum.sign = 0;
-        //    if (!$scope.payData.payNum.supplementary) $scope.payData.payNum.supplementary = 0;
-        //    if (!$scope.payData.payNum.activity) $scope.payData.payNum.activity = 0;
-        //    $scope.payData.payNum.total = $scope.payData.payNum.sign + $scope.payData.payNum.supplementary + $scope.payData.payNum.activity;
-        //
-        //}, function errorCallback(response) {
-        //    console.log("error", response);
-        //});
+        $http({
+            method: 'GET',
+            url: Metronic.rootPath() + '/index.php?s=/addon/EO2OPayment/EO2OPayment/procedureQuery/procedure_name/statics_type_pay/param/' + "'" + $scope.payData.payType + "'" + '.html'
+        }).then(function successCallback(response) {
+            $scope.payData.payNum = {};
+            response.data.data.forEach(function (currentValue, index, array) {
+                $scope.payData.payNum[currentValue["paytype"]] = parseFloat(currentValue["total_fee"]);
+            });
+
+            if (!$scope.payData.payNum.sign) $scope.payData.payNum.sign = 0;
+            if (!$scope.payData.payNum.supplementary) $scope.payData.payNum.supplementary = 0;
+            if (!$scope.payData.payNum.activity) $scope.payData.payNum.activity = 0;
+            $scope.payData.payNum.total = $scope.payData.payNum.sign + $scope.payData.payNum.supplementary + $scope.payData.payNum.activity;
+
+        }, function errorCallback(response) {
+            console.log("error", response);
+        });
 
 
         // 统计流水
@@ -71,7 +71,6 @@ MetronicApp.controller('DashboardController', ['$rootScope', '$scope', '$http', 
         }).then(function successCallback(response) {
             var data = new Array();
             response.data.data.forEach(function (currentValue) {
-                $scope.payData.payNum[currentValue["paytype"]] = parseFloat(currentValue["total_fee"]);
                 if (currentValue["time"]) {
                     data.push({
                         period: currentValue["time"],
