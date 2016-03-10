@@ -321,5 +321,4 @@ CREATE PROCEDURE statics_complex_type_pay(
     deallocate prepare stmt;      -- 释放prepare
   END;
 //
-call statics_complex_type_pay('gh_36a5c6958de0','month','10',null,null,null,"('activity','wage','reward')");
-call statics_complex_type_pay('gh_36a5c6958de0','month',10,"2014-12-31","2016-02-01",null,'\"supplementary\"');
+# call statics_complex_type_pay('gh_36a5c6958de0','month','10',null,null,null,"('activity','wage','reward')");

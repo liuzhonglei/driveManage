@@ -70,5 +70,33 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="portlet light ">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart font-green-haze hide"></i>
+                        <span class="caption-subject font-green-haze bold uppercase">报名统计</span>
+                        <span class="caption-helper hide">weekly stats...</span>
+                    </div>
+                    <div class="actions">
+                        <div class="btn-group btn-group-devided" data-toggle="buttons">
+                            <label class="btn btn-transparent grey-salsa btn-circle btn-sm active"
+                                   ng-click="signData.timeType='day';getSignStatics()">
+                                <input type="radio" name="options" class="toggle">按天</label>
+                            <label class="btn btn-transparent grey-salsa btn-circle btn-sm"
+                                   ng-click="signData.timeType='month';getSignStatics()">
+                                <input type="radio" name="options" class="toggle">按月</label>
+                            <label class="btn btn-transparent grey-salsa btn-circle btn-sm"
+                                   ng-click="signData.timeType='year';getSignStatics()">
+                                <input type="radio" name="options" class="toggle">按年</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div  id="sign_statistics"   class="portlet-body-morris-fit morris-chart" style="height: 335px">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

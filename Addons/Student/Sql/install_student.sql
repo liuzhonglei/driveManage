@@ -51,3 +51,36 @@ UPDATE `wp_attribute` SET model_id= (SELECT MAX(id) FROM `wp_model`) WHERE model
 
 create view wp_student_all as
 select t1.*,t2.name teacher,t3.name in_teacher from wp_student t1 left join wp_teacher t2 on t1.id_teacher = t2.id left join wp_teacher t3 on  t1.id_in_teacher = t3.id;
+
+
+
+
+/**
+  * 首页:学员图:报名流水数据
+  */
+DROP PROCEDURE IF EXISTS statics_date_student_sign;
+DELIMITER //
+CREATE PROCEDURE statics_date_student_sign(
+  IN token     VARCHAR(50),
+  IN date_type VARCHAR(50))
+  BEGIN
+    DECLARE
+    date_type_format VARCHAR(50);
+    -- 设置格式
+    SET date_type_format = getDateFormat(date_type);
+
+    SELECT
+      FROM_UNIXTIME(t.time_sign, date_type_format) time,
+      Count(*) AS                    count
+    FROM
+      wp_student t
+    WHERE
+      t.token = token AND
+      t.time_sign IS NOT NULL AND t.time_sign != ""
+    GROUP BY
+      FROM_UNIXTIME(t.time_sign, date_type_format)
+    ORDER BY FROM_UNIXTIME(t.time_sign, date_type_format) DESC
+    LIMIT 0, 5;
+  END;
+//
+CALL statics_date_student_sign('gh_36a5c6958de0', 'day');

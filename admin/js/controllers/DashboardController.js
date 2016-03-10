@@ -5,6 +5,8 @@ MetronicApp.controller('DashboardController', ['$rootScope', '$scope', '$http', 
     $scope.payData.payType = "day";
     $scope.payData.payNum = {sign: 0, supplementary: 0, activity: 0, total: 0};
     $scope.payData.payRecord = {};
+
+
     //$scope.payData.graph = null;
 
     $scope.toDoTimer;
@@ -16,6 +18,7 @@ MetronicApp.controller('DashboardController', ['$rootScope', '$scope', '$http', 
         // initialize core components
         Metronic.initAjax();
         $scope.getPayStatics();
+        $scope.getSignStatics();
 
         // 刷新待办事项
         $scope.getDoList();
@@ -101,6 +104,52 @@ MetronicApp.controller('DashboardController', ['$rootScope', '$scope', '$http', 
                 console.log("init");
             } else {
                 $scope.payData.graph.setData(data);
+            }
+
+
+        }, function errorCallback(response) {
+            console.log("error", response);
+        });
+
+
+    }
+
+
+    // 学员统计数据
+    $scope.signData = {};
+    $scope.signData.timeType = "day";
+    //$scope.signData.payNum = {sign: 0, supplementary: 0, activity: 0, total: 0};
+    $scope.signData.payRecord = {};
+    /**
+     * 报名数据
+     */
+    $scope.getSignStatics = function () {
+        // 学员报名统计
+        $http({
+            method: 'GET',
+            url: Metronic.rootPath() + '/index.php?s=/addon/EO2OPayment/EO2OPayment/procedureQuery/procedure_name/statics_date_student_sign/param/' + "'" + $scope.signData.timeType + "'" + '.html'
+        }).then(function successCallback(response) {
+            var data = new Array();
+            response.data.data.forEach(function (currentValue) {
+                data.push({
+                    period: currentValue["time"],
+                    count: currentValue["count"]
+                })
+
+            });
+
+            if (!$scope.signData.graph) {
+                $("#sign_statistics").empty();
+                $scope.signData.graph = Morris.Bar({
+                    element: 'sign_statistics',
+                    data: data,
+                    xkey: 'period',
+                    ykeys: ['count'],
+                    labels: ['数量'],
+                    hideHover: "auto"
+                });
+            } else {
+                $scope.signData.graph.setData(data);
             }
         }, function errorCallback(response) {
             console.log("error", response);
