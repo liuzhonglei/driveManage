@@ -461,7 +461,7 @@ class CommonController extends ExtendAddonsController
         if (!empty($param)) {
             $sql = " call " . $procedureName . "('" . get_token() . "'," . $param . ")";
         } else {
-            $sql = " call " . $procedureName . "('" . get_token() . ")";
+            $sql = " call " . $procedureName . "('" . get_token() . "')";
         }
         $result = $Model->query($sql);
 
