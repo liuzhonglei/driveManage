@@ -675,7 +675,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                 module: "CustomReply",
                 handleController: "CustomReplyMult",
                 action: "edit",
-                info: true,
                 extendClass: "modal-lg",
                 infoPatten: "erect"
             },

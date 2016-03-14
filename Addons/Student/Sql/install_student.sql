@@ -78,6 +78,7 @@ CREATE PROCEDURE statics_date_student_sign(
     WHERE
       t.token = token AND
       t.time_sign IS NOT NULL AND t.time_sign != ""
+      and t.status > 0
       and t.time_sign <  UNIX_TIMESTAMP(now())
     GROUP BY
       FROM_UNIXTIME(t.time_sign, date_type_format)
