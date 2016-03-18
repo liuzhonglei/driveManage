@@ -414,7 +414,7 @@ class EO2OPaymentController extends EO2OBaseController
         $user = session('user_auth');
         $_POST["user_id"] = $user["uid"];
         $_POST["total_fee"] = strval($_POST["total_fee"] * 100);
-        $_POST["result_code"] = "SUCCESS";
+//        $_POST["result_code"] = "SUCCESS";
 //        $_POST["pay_channel"] = "human";
         parent::saveAdmin();
     }
