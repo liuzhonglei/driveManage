@@ -253,7 +253,11 @@ class EO2OPaymentController extends EO2OBaseController
         if ($prepay_id['return_code'] == 'FAIL') {
             $this->error($prepay_id['return_msg']);
         }
+        if ($prepay_id['result_code'] == 'FAIL') {
+            $this->error($prepay_id['err_code_des']);
+        }
         $transaction = array_merge($transaction, $unifiedOrder->parameters, $unifiedOrder->result);
+        $transaction['result_code'] == "WAIT";
 
         // 保存
         if ($transaction["id"]) {
