@@ -183,7 +183,7 @@ MetronicApp.factory('infoTool', ['$http', 'dataTool', '$q', function ($http, dat
                     var currentMetaData = $scope.metadata[name]
                     for (var fieldMetadata in currentMetaData) {
                         if (currentMetaData[fieldMetadata]["value"] == info[name]) {
-                            info[name] = currentMetaData[fieldMetadata];
+                            info[name] = currentMetaData[fieldMetadata].value;
                             break;
                         }
                     }

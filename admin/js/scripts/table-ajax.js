@@ -259,7 +259,6 @@ var TableAjax = function () {
         edit: function (id, formName) {
 
             formName = formName || 'form-info';
-
             $("input[name='" + formName + "-id']").val(id);
             $("input[name='" + formName + "-id']").trigger("change");
             $("div[name='" + formName + "']").modal("show");

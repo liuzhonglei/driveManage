@@ -141,11 +141,11 @@ CREATE VIEW wp_eo2o_payment_all AS
     )           AS              paytype,
     t.openid                    student_name,
     t.openid                    nickname,
-    (CASE t.time_end
-     WHEN CHAR_LENGTH(t.time_end) > 0
-       THEN FROM_UNIXTIME(t.time_end, "%Y-%m-%d %H:%i:%S")
-     ELSE NULL
-     END)                       pay_time,
+    if(
+        CHAR_LENGTH(t.time_end) > 0,
+        FROM_UNIXTIME(t.time_end, "%Y-%m-%d %H:%i:%S")
+        , NULL
+    )                           pay_time,
     ROUND(t.total_fee / 100, 2) pay_fee,
     (
       CASE t.pay_channel
