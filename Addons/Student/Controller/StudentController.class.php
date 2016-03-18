@@ -803,7 +803,8 @@ STR;
         $Model = M("eo2o_payment_all");
         $token = get_token();
         $openid = get_openid();
-        $payList = $Model->where(" LENGTH(trim(transaction_id))>0 and token=\"" . $token . "\" and openid=\"" . $openid . "\"")->order("id desc")->select();
+        $student = M('student')->where(array("token"=>get_token(),"openid" => get_openid()))->find();
+        $payList = $Model->where(" token=\"" . $token . "\" and (openid=\"" . $openid . "\" or student_id=" . $student["id"] . ")")->order("id desc")->select();
         $this->assign("payList", $payList);
         $this->display(T(MOBILE_PATH . 'studentCenterPayList'));
     }
@@ -944,6 +945,8 @@ STR;
             }
 
             // 按钮显示
+            $payItem = M("school_payitem")->where("type='activity' and token = '" . get_token() . "'")->find();
+            $this->assign("payItem", $payItem);
             if (!empty($studentInfo) && ((!empty($studentInfo['total_fee']) && $studentInfo['status'] == "-1") || $studentInfo['status'] != "-1")) {
                 $this->assign("signHide", "hidden");
                 $this->assign("signText", "您已经在本驾校登记过了，请耐心等待通知！");
@@ -953,10 +956,15 @@ STR;
             }
             $follow = M('follow')->where('openid= "' . get_openid() . '" and token = "' . get_token() . '"')->find();
             $this->assign("follow", $follow);
+
             $schoolInfo = $this->getSchoolInfo();
             $this->assign("schoolInfo", $schoolInfo);
+
             $studentInfo = $this->getMyInfo();
             $this->assign("studentInfo", $studentInfo);
+
+
+
             $db_config = D('Common/AddonConfig')->get("Leaflets");
             $imgUrl = get_cover_url($db_config['img']);
             $this->assign("imgUrl", $imgUrl);
@@ -965,10 +973,10 @@ STR;
             if (!empty($studentInfo)) {
                 $_POST['token'] = get_token();
                 $_POST['openid'] = get_openid();
-                $payItme = M("school_payitem")->where("type='activity' and token = '" . get_token() . "'")->find();
-                $_POST["payitem_id"] = $payItme["id"];
-                $_POST["paytype"] = $payItme["type"];
-                $_POST["total"] = $payItme["fee"];
+                $payItem = M("school_payitem")->where("type='activity' and token = '" . get_token() . "'")->find();
+                $_POST["payitem_id"] = $payItem["id"];
+                $_POST["paytype"] = $payItem["type"];
+                $_POST["total"] = $payItem["fee"];
                 R('Addons://EO2OPayment/EO2OPayment/paymentData');
             }
         }
@@ -1103,7 +1111,7 @@ str;
 
 
         // 登录
-        $cookiePath = "./Runtime/Temp/wudriver_".get_token().".cookie";
+        $cookiePath = "./Runtime/Temp/wudriver_" . get_token() . ".cookie";
         $this->login_post("http://fj.jppt.com.cn/xmjp/loginSubmit.do", $cookiePath, array("loginName" => $account, "password" => $password, "loginFlag" => "pw"));
 
         // 查询

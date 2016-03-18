@@ -94,6 +94,7 @@ SELECT
 	t.question AS question,
 	t.token AS token,
 	t.time AS time,
+	t.phone as phone,
 	t1.nickname AS weixin_name
 FROM
 	(

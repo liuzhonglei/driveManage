@@ -138,15 +138,9 @@ class SchoolController extends SchoolBaseController
      */
     function schoolRegister()
     {
-        $vote_id = I('id', 0, 'intval');
-        $openid = get_openid();
-        $token = get_token();
-
-        // 活的驾校排名
-        $list = M('teacher')->query('select @x:=ifnull(@x,0)+1 as rank, t.* from wp_teacher_rank_all t');
-
         if (IS_POST) {
             $_POST['token'] = get_token();
+            $_POST['openid'] = get_openid();
             $_POST['status'] = '-1';
             $_POST['intro_source'] = '0';
             $_POST['time_sign'] = date("Y-m-d");

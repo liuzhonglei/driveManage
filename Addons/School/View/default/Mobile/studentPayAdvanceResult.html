@@ -53,9 +53,9 @@
             恭喜您成为“{$schoolInfo.name}”一员，我们工作人员会速速和您联系的!
         </div>
         <div class="follow"><img src="{$imgUrl}"> 长按二维码关注我们<br>赢取更多福利</div>
-        <button class="ui-btn ui-corner-all x_btn couponsBtn" id="send_pay" {$signHide}>支付一百,抵两百</button>
+        <button class="ui-btn ui-corner-all x_btn couponsBtn" id="send_pay" {$signHide}>{$payItem.remark}</button>
+        <div class="item_note text-center" {$signHide}>预先支付定金,到现场报名可享受优惠!</div>
 
-        <div class="item_note text-center" {$signHide}>预先支付100,到现场报名可抵用200!</div>
         <a href="#" class="ui-btn ui-corner-all x_btn couponsBtn"
            onclick="javascript:$('#mask').css('display', 'block');">邀请好友学车，各得100元</a>
 

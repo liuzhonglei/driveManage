@@ -97,13 +97,12 @@
 
     function info_submit() {
         var question = $("#question").val();
-        var phone = $("#re_phone").val();
-        var remark = $("#re_remark").val();
+        var phone = $("#contact").val();
         $.ajax({ //一个Ajax过程
             type: "post",
             url: "{:addons_url('Message://Message/add')}",
             dataType: 'json',
-            data: 'question=' + question,
+            data: 'question=' + question+"&phone="+phone,
             success: function (data) {
                 if (data.status == 0) {
                     document.getElementById("c_warn").style.display = "";

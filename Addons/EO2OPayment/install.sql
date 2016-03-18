@@ -110,53 +110,79 @@ SET model_id = (SELECT MAX(id)
 WHERE model_id = 0;
 
 
-
 #wp_eo2o_payment_all
 DROP VIEW wp_eo2o_payment_all;
 
-CREATE VIEW wp_eo2o_payment_all AS SELECT DISTINCT t.id ,
- t.transaction_id ,
- t.out_trade_no ,
- t.attach ,
- t.pay_channel ,
- t.in_or_out ,
- t.student_id ,
- t.token ,
- t.time_end ,
- t.total_fee ,
- t.openid ,
- t.err_code ,
- t.err_code_des ,
- t.result_code ,
- t.mch_id ,
- t.appid ,
- t.time_begin ,
- t.return_code ,
- t.return_msg ,
- IF(
-	LENGTH(trim(t.paytype)) > 1 ,
-	t.paytype ,
-	t1.type
-) AS paytype ,
- t.openid student_name ,
- t.openid nickname ,
- FROM_UNIXTIME(t.time_end , "%Y-%m-%d %H:%i:%S") pay_time ,
- ROUND(t.total_fee / 100 , 2) pay_fee ,
-(
-	CASE t.pay_channel WHEN "human" THEN "现金" WHEN "weixin" THEN "微信" WHEN "alipay" THEN "支付宝" ELSE t1.NAME END
-) pay_channel_name ,
-(
-	CASE t1.type WHEN "banner" THEN "锦旗支付" ELSE t1.NAME END
-) pay_item_name ,
- t2.NAME school_name ,
-(
-	CASE t.result_code WHEN "SUCCESS" THEN "支付成功" WHEN "FAIL" THEN "支付失败" ELSE "划款中" END
-) pay_result ,
- t3.username AS user_name FROM wp_eo2o_payment t LEFT JOIN wp_school_payitem t1 ON t.payitem_id = t1.id LEFT JOIN wp_school t2 ON t.token = t2.token LEFT JOIN wp_ucenter_member t3 ON t.user_id = t3.id WHERE LENGTH(trim(transaction_id)) > 0 OR pay_channel IN("human" , "alipay") OR result_code = "WAIT";
+CREATE VIEW wp_eo2o_payment_all AS
+  SELECT DISTINCT
+    t.id,
+    t.transaction_id,
+    t.out_trade_no,
+    t.attach,
+    t.pay_channel,
+    t.in_or_out,
+    t.student_id,
+    t.token,
+    t.time_end,
+    t.total_fee,
+    t.openid,
+    t.err_code,
+    t.err_code_des,
+    t.result_code,
+    t.mch_id,
+    t.appid,
+    t.time_begin,
+    t.return_code,
+    t.return_msg,
+    IF(
+        LENGTH(trim(t.paytype)) > 1,
+        t.paytype,
+        t1.type
+    )           AS              paytype,
+    t.openid                    student_name,
+    t.openid                    nickname,
+    (CASE t.time_end
+     WHEN CHAR_LENGTH(t.time_end) > 0
+       THEN FROM_UNIXTIME(t.time_end, "%Y-%m-%d %H:%i:%S")
+     ELSE NULL
+     END)                       pay_time,
+    ROUND(t.total_fee / 100, 2) pay_fee,
+    (
+      CASE t.pay_channel
+      WHEN "human"
+        THEN "现金"
+      WHEN "weixin"
+        THEN "微信"
+      WHEN "alipay"
+        THEN "支付宝"
+      ELSE t1.NAME END
+    )                           pay_channel_name,
+    (
+      CASE t1.type
+      WHEN "banner"
+        THEN "锦旗支付"
+      ELSE t1.NAME END
+    )                           pay_item_name,
+    t2.NAME                     school_name,
+    (
+      CASE t.result_code
+      WHEN "SUCCESS"
+        THEN "支付成功"
+      WHEN "FAIL"
+        THEN "支付失败"
+      WHEN "WAIT"
+        THEN "等待划款"
+      ELSE "划款中" END
+    )                           pay_result,
+    t3.username AS              user_name
+  FROM wp_eo2o_payment t LEFT JOIN wp_school_payitem t1 ON t.payitem_id = t1.id
+    LEFT JOIN wp_school t2 ON t.token = t2.token
+    LEFT JOIN wp_ucenter_member t3 ON t.user_id = t3.id
+  WHERE LENGTH(trim(transaction_id)) > 0 OR pay_channel IN ("human", "alipay") OR result_code = "WAIT";
 
-
-create view wp_eo2o_pay_list AS
-  select * from wp_eo2o_payment_all;
+CREATE VIEW wp_eo2o_pay_list AS
+  SELECT *
+  FROM wp_eo2o_payment_all;
 
 /**
  * 划款统计
@@ -266,11 +292,11 @@ DELIMITER //
 CREATE PROCEDURE statics_complex_type_pay(
   IN token      VARCHAR(50),
   IN date_type  VARCHAR(50),
-  IN limitNum  VARCHAR(50),
+  IN limitNum   VARCHAR(50),
   IN begin_date VARCHAR(50),
   IN end_date   VARCHAR(50),
   IN pay_place  INT,
-  IN paytype  VARCHAR(50)
+  IN paytype    VARCHAR(50)
 )
   BEGIN
     DECLARE
@@ -283,26 +309,25 @@ CREATE PROCEDURE statics_complex_type_pay(
     SET externalMap = "";
     IF !isnull(begin_date)
     THEN
-      SET externalMap = concat(externalMap," and  time_end >=", UNIX_TIMESTAMP(begin_date));
+      SET externalMap = concat(externalMap, " and  time_end >=", UNIX_TIMESTAMP(begin_date));
     END IF;
     IF !isnull(end_date)
     THEN
-      SET externalMap = concat(externalMap, " and time_end <=",UNIX_TIMESTAMP(end_date));
+      SET externalMap = concat(externalMap, " and time_end <=", UNIX_TIMESTAMP(end_date));
     END IF;
     IF !isnull(pay_place)
     THEN
-      SET externalMap = concat(externalMap,  " and school_place_id = ",pay_place);
+      SET externalMap = concat(externalMap, " and school_place_id = ", pay_place);
     END IF;
     IF !isnull(paytype)
     THEN
-      SET externalMap = concat(externalMap,  " and paytype in ",paytype);
+      SET externalMap = concat(externalMap, " and paytype in ", paytype);
     END IF;
 
 
-
-    set @sql = '';
-    set @sql = concat(' SELECT',
-                      ' FROM_UNIXTIME(t.time_end, \'',date_type_format,'\') time,',
+    SET @sql = '';
+    SET @sql = concat(' SELECT',
+                      ' FROM_UNIXTIME(t.time_end, \'', date_type_format, '\') time,',
                       ' SUM(CASE WHEN t.paytype = "sign" THEN pay_fee  ELSE 0 END)  AS                    "sign_fee",',
                       ' SUM(CASE WHEN t.paytype = "banner"  THEN pay_fee ELSE 0 END)  AS                    banner_fee,',
                       ' SUM(CASE WHEN t.in_or_out = "supplementary"  THEN pay_fee    ELSE 0 END)  AS        supplementary_fee,',
@@ -311,14 +336,18 @@ CREATE PROCEDURE statics_complex_type_pay(
                       ' SUM(CASE WHEN t.paytype = "reward" THEN pay_fee ELSE 0 END)  AS                    reward_fee,',
                       ' SUM(CASE WHEN t.paytype = "car"   THEN pay_fee   ELSE 0 END)  AS                    car_fee',
                       ' FROM  wp_eo2o_payment_all t',
-                      ' WHERE t.token = token AND  FROM_UNIXTIME(t.time_end, \'', date_type_format, '\') IS NOT NULL AND  t.result_code = "SUCCESS"',externalMap,
-                      ' GROUP BY FROM_UNIXTIME(t.time_end,  \'',date_type_format,' \') ',
-                      ' ORDER BY FROM_UNIXTIME(t.time_end, \'',date_type_format,'\')',
-                      ' LIMIT 0, ',limitNum,';');
+                      ' WHERE t.token = token AND  FROM_UNIXTIME(t.time_end, \'', date_type_format,
+                      '\') IS NOT NULL AND  t.result_code = "SUCCESS"', externalMap,
+                      ' GROUP BY FROM_UNIXTIME(t.time_end,  \'', date_type_format, ' \') ',
+                      ' ORDER BY FROM_UNIXTIME(t.time_end, \'', date_type_format, '\')',
+                      ' LIMIT 0, ', limitNum, ';');
 
-    PREPARE stmt FROM @sql;         -- 预处理动态sql语句
-    EXECUTE stmt ;                        -- 执行sql语句
-    deallocate prepare stmt;      -- 释放prepare
+    PREPARE stmt FROM @sql;
+    -- 预处理动态sql语句
+    EXECUTE stmt;
+    -- 执行sql语句
+    DEALLOCATE PREPARE stmt;
+    -- 释放prepare
   END;
 //
 # call statics_complex_type_pay('gh_36a5c6958de0','month','10',null,null,null,"('activity','wage','reward')");

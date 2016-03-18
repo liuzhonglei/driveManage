@@ -187,9 +187,24 @@ class EO2OPaymentController extends EO2OBaseController
      */
     function getPayParameters()
     {
+        // 取得支付信息
+        $Model = M('eo2o_payment');
+        $transaction = array();
+        if (i("id")) {
+            $transaction = $Model->where(array("id" => i("id")))->find();
+        } else {
+            $transaction['paytype'] = i('paytype');
+            $transaction['token'] = get_token();
+            $transaction['time_begin'] = time();
+            $transaction["remark"] = i('remark');
+            $transaction["payitem_id"] = i('payitem_id');
+            $total = I("total");
+            $total = $total * 100;
+            $transaction["total_fee"] = $total;
+        }
+
         // param
         $appinfo = get_token_appinfo();
-        $payType = i('paytype');
         $config = getAddonConfig('EO2OPayment');
         $wxconfig = array(
             'APPID' => $appinfo['appid'],
@@ -214,22 +229,19 @@ class EO2OPaymentController extends EO2OBaseController
         $unifiedOrder->setParameter("out_trade_no", "$out_trade_no");//商户订单号
 
         // attach
-        switch ($payType) {
+        switch ($transaction["paytype"]) {
             case "banner":
                 $attach = array("token" => get_token(), "fee" => $_REQUEST['total'], "teacher_id" => $_REQUEST['teacher_id'], "student_id" => $_REQUEST['student_id']);
                 $unifiedOrder->setParameter("attach", json_encode($attach));//附加数据
-                $unifiedOrder->setParameter("body", self::$paytypeInfo[$payType]['body']);//商品描述
+                $unifiedOrder->setParameter("body", self::$paytypeInfo[$transaction["paytype"]]['body']);//商品描述
                 break;
             default:
-                $payitemInfo = M('school_payitem')->where("id =" . i('payitem_id'))->find();
-                $payType = $payitemInfo["type"];
+                $payitemInfo = M('school_payitem')->where("id =" . $transaction["payitem_id"])->find();
                 $unifiedOrder->setParameter("body", $payitemInfo["name"]);
         }
 
         //总金额
-        $total = I("total");
-        $total = $total * 100;
-        $unifiedOrder->setParameter("total_fee", $total);
+        $unifiedOrder->setParameter("total_fee", $transaction["total_fee"]);
 
         // notify url
         $url = U('/addon/EO2OPayment/EO2OPayment/Notify', array("token" => get_token(), "openid" => get_openid()));
@@ -241,19 +253,17 @@ class EO2OPaymentController extends EO2OBaseController
         if ($prepay_id['return_code'] == 'FAIL') {
             $this->error($prepay_id['return_msg']);
         }
-        $transaction = array_merge($unifiedOrder->parameters, $unifiedOrder->result);
-        $transaction['paytype'] = $payType;
-        $transaction['token'] = get_token();
-        $transaction['time_begin'] = time();
+        $transaction = array_merge($transaction, $unifiedOrder->parameters, $unifiedOrder->result);
 
-        $transaction["remark"] = i('remark');
-        $transaction["payitem_id"] = i('payitem_id');
-        $Model = M('eo2o_payment');
-        $Model->add($transaction);
+        // 保存
+        if ($transaction["id"]) {
+            $Model->save($transaction);
+        } else {
+            $Model->add($transaction);
+        }
         if (!empty($Model->getError())) {
             $this->error($Model->getError());
         }
-
         if (!$prepay_id) {
             $this->error($unifiedOrder->result['return_msg']);
         }
@@ -421,14 +431,14 @@ class EO2OPaymentController extends EO2OBaseController
         // 查询学员
         if (!empty($map["student_id"])) {
             $student = M('student')->where(array("id" => $map["student_id"]))->find();
-            if(!empty($student["openid"])){
+            if (!empty($student["openid"])) {
                 $map['_complex'] = array("student_id" => $map["student_id"], "openid" => $student["openid"], "_logic" => 'or');
                 unset($map["student_id"]);
             }
         } else if (!empty($map["openid"]) && !empty($map["token"])) {
             // 当前是学员
             $student = M('student')->where(array("token" => $map["token"], "openid" => $map["openid"]))->find();
-            if(!empty($student)){
+            if (!empty($student)) {
                 $map['_complex'] = array("student_id" => $student["id"], "openid" => $map["openid"], "_logic" => 'or');
                 unset($map["openid"]);
             }
