@@ -257,7 +257,7 @@ class EO2OPaymentController extends EO2OBaseController
             $this->error($prepay_id['err_code_des']);
         }
         $transaction = array_merge($transaction, $unifiedOrder->parameters, $unifiedOrder->result);
-        $transaction['result_code'] == "WAIT";
+        $transaction['result_code'] = "WAIT";
 
         // 保存
         if ($transaction["id"]) {
