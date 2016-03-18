@@ -53,6 +53,9 @@
                             <a href="javascript:payWait({$vo.id})"
                                class="ui-btn ui-corner-all x_btn couponsBtn">立即支付</a></span>
                         </li>
+                        <elseif condition="$vo.result_code eq 'FAIL'"/>
+                        <li><label>失败原因</label><span>{$vo.err_code_des}</span></li>
+                        <li><label class="dfc01">{$vo.pay_result}</label></li>
                         <else/>
                         <li><label>支付时间</label><span>{$vo.pay_time}</span></li>
                         <li><label>支付方式</label><span>{$vo.pay_channel_name}</span></li>
