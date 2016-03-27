@@ -93,4 +93,19 @@ class WeixinController extends BaseController{
             redirect($url);
         }
     }
+
+    /**
+     * 查询条件
+     * @param $model
+     * @param $fields
+     */
+    public function _search_map($model, $fields)
+    {
+        $map = parent::_search_map($model, $fields);
+        $map || $map = array();
+        if (empty($map["nickname"])) {
+            $map['nickname'] = array('neq', "");
+        }
+        return $map;
+    }
 }

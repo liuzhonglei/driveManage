@@ -964,7 +964,6 @@ STR;
             $this->assign("studentInfo", $studentInfo);
 
 
-
             $db_config = D('Common/AddonConfig')->get("Leaflets");
             $imgUrl = get_cover_url($db_config['img']);
             $this->assign("imgUrl", $imgUrl);
