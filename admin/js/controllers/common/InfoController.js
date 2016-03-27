@@ -47,7 +47,6 @@ MetronicApp.controller('InfoController', ['$rootScope', '$http', '$scope', 'info
                 $scope.infoErrorShow = false;
                 $scope.infoErrorMsg = "";
                 $("div[name='form-info']").modal("hide");
-
                 TableAjax.reload(tableName);
             } else {
                 $scope.infoErrorShow = true;

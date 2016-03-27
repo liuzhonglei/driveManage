@@ -251,7 +251,7 @@ MetronicApp.factory('infoTool', ['$http', 'dataTool', '$q', function ($http, dat
                 if (info[name] == null) {
                     info[name] = "";
                 }
-                params += name + "=" + info[name];
+                params += name + "=" + encodeURIComponent(info[name]);
             }
         }
 
