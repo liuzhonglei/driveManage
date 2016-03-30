@@ -1359,7 +1359,7 @@ str;
 
         $payModel = M('eo2o_payment');
         if ($operation == "推荐费已支付") {
-            $map = "token ='" . get_token() . "' and result_code = \"SUCCEE\" and (LENGTH(trim(transaction_id)) > 0 or pay_channel IN (\"human\", \"alipay\")) and (student_id = " . $data['id'] . " or (openid != '' and openid = '" . $data['openid'] . "')) ";
+            $map = "token ='" . get_token() . "' and result_code = \"SUCCESS\" and (LENGTH(trim(transaction_id)) > 0 or pay_channel IN (\"human\", \"alipay\")) and (student_id = " . $data['id'] . " or (openid != '' and openid = '" . $data['openid'] . "')) ";
             $feeLog = $payModel->where($map)->find();
             if (empty($feeLog) ||  $data["is_in_payed"] == "1" || (empty($data["in_student_openid"]) && empty($data["id_in_teacher"]))) {
                 return false;
