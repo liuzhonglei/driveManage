@@ -1357,8 +1357,13 @@ str;
             return false;
         }
 
-        if ($operation == "推荐费已支付" && ((empty($data["in_student_openid"]) && empty($data["id_in_teacher"])) || (!(empty($data["in_student_openid"]) && empty($data["id_in_teacher"])) && $data["is_in_payed"] == "1"))) {
-            return false;
+        $payModel = M('eo2o_payment');
+        if ($operation == "推荐费已支付") {
+            $map = "token ='" . get_token() . "' and result_code = \"SUCCEE\" and (LENGTH(trim(transaction_id)) > 0 or pay_channel IN (\"human\", \"alipay\")) and (student_id = " . $data['id'] . " or (openid != '' and openid = '" . $data['openid'] . "')) ";
+            $feeLog = $payModel->where($map)->find();
+            if (empty($feeLog) || (empty($data["in_student_openid"]) && empty($data["id_in_teacher"])) || (!(empty($data["in_student_openid"]) && empty($data["id_in_teacher"])) && $data["is_in_payed"] == "1")) {
+                return false;
+            }
         }
 
         return true;
@@ -1656,9 +1661,8 @@ str;
 
             $map["total_fee"] *= 100;
             $payModel->add($map);
-        }
-        // 只修改待付
-        else if($feeLog["result_code"] == "WAIT"){
+        } // 只修改待付
+        else if ($feeLog["result_code"] == "WAIT") {
             $feeLog["total_fee"] = $value * 100;
             $payModel->save($feeLog);
         }
@@ -1797,19 +1801,19 @@ str;
         $ids = $_REQUEST["ids"];
         foreach ($ids as $id) {
             // 查找学员
-            $student = M('student')->where(array("id"=>$id))->find();
-            if(empty($student)){
+            $student = M('student')->where(array("id" => $id))->find();
+            if (empty($student)) {
                 continue;
             }
             $course = M("school_course")->where(array("id" => $student["course_id"], "token" => get_token()))->find();
-            if(empty($course)){
+            if (empty($course)) {
                 continue;
             }
-            if(!empty($_REQUEST["fee1"])){
-                $this->updateFee($id,$course['learn_pay_item_id'],$_REQUEST["fee1"]);
+            if (!empty($_REQUEST["fee1"])) {
+                $this->updateFee($id, $course['learn_pay_item_id'], $_REQUEST["fee1"]);
             }
-            if(!empty($_REQUEST["fee2"])){
-                $this->updateFee($id,$course['learn_pay_item_id_2'],$_REQUEST["fee2"]);
+            if (!empty($_REQUEST["fee2"])) {
+                $this->updateFee($id, $course['learn_pay_item_id_2'], $_REQUEST["fee2"]);
             }
 
 
