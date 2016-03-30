@@ -45,6 +45,16 @@ class CommonController extends ExtendAddonsController
         $_POST['token'] = get_token();
         parent::common_del($this->model);
     }
+    /**
+     * 取得实际的模型对象
+     * @param null $model
+     * @return Model
+     */
+    public function getCurrentModel($model = null)
+    {
+        $Model = D($model ['class_path'] . parse_name(get_table_name($model ['id']), 1));
+        return $Model;
+    }
 
 
     /**
@@ -206,7 +216,7 @@ class CommonController extends ExtendAddonsController
 
         foreach ($list as $v) {
             if (empty($condition)) {
-                $extra .= $v ['id'] . ':' . $v [$showField]. "\r\n";
+                $extra .= $v ['id'] . ':' . $v [$showField] . "\r\n";
 
             } else {
                 $extra .= $v ['id'] . ':' . $v [$showField] . ":" . $condition . ":" . $v[$condition] . "\r\n";

@@ -1,7 +1,7 @@
 /**
  * 创建controller
  */
-MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope','dataTool', function ($rootScope, $http, $scope,dataTool) {
+MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope', 'dataTool', function ($rootScope, $http, $scope, dataTool) {
 
     // param
     $scope.rootData = $rootScope.$state.$current.data;
@@ -19,8 +19,6 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
     // init ajax
     $scope.$on('$viewContentLoaded', function () {
         //init
-        //Metronic.initAjax();
-
         // init the table
         $scope.setStatus("-1");
     });
@@ -69,32 +67,6 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
 
 
     /**
-     * 获取查询参数
-     * @returns {{}}
-     */
-    function getSearchParam() {
-        var param = {};
-        $('#search_form').serializeArray().forEach(function (element, index, array) {
-            if (element.value != "") {
-                param[element.name] = element.value;
-                if (param[element.name] && element.name == "sign_begin_date") {
-                    var timestamp = Date.parse(param[element.name] + " 00:00:00");
-                    timestamp = timestamp / 1000;
-                    param[element.name] = timestamp;
-                } else if (param[element.name] && element.name == "sign_end_date") {
-                    var timestamp = Date.parse(param[element.name] + " 23:59:59");
-                    timestamp = timestamp / 1000;
-                    param[element.name] = timestamp;
-                }
-            }
-
-        });
-        param.status = $scope.status;
-        return param;
-    }
-
-
-    /**
      * 取得学员数目
      */
     $scope.loadStudentNum = function () {
@@ -137,8 +109,32 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
             });
             $("#model-field-conf").modal("hide");
         });
-
     }
+
+
+    /**
+     * 保存字段配置
+     */
+    $scope.signFee = {
+        fee1: null,
+        fee2: null,
+        ids: null
+    }
+    $scope.updateSignFee = function () {
+        // 保存
+        $scope.signFee.ids = TableAjax.get("list").grid.getSelectedRows();
+        $.post(
+            Metronic.rootPath() + "/index.php?s=/addon/Student/Student/updateSignFee",
+            $scope.signFee,
+            function (response) {
+                Metronic.handleResult(response);
+                //TableAjax.reload('list');
+                $scope.signFee.fee1 =  null;
+                $scope.signFee.fee2 =  null;
+                $("#sign-fee-modify").modal("hide");
+            });
+    }
+
 
     /**
      * 显示字段配置
@@ -199,6 +195,31 @@ MetronicApp.controller('StudentListController', ['$rootScope', '$http', '$scope'
             Metronic.stopPageLoading();
             $("#model-field-conf").modal("show");
         });
+    }
+
+    /**
+     * 获取查询参数
+     * @returns {{}}
+     */
+    function getSearchParam() {
+        var param = {};
+        $('#search_form').serializeArray().forEach(function (element, index, array) {
+            if (element.value != "") {
+                param[element.name] = element.value;
+                if (param[element.name] && element.name == "sign_begin_date") {
+                    var timestamp = Date.parse(param[element.name] + " 00:00:00");
+                    timestamp = timestamp / 1000;
+                    param[element.name] = timestamp;
+                } else if (param[element.name] && element.name == "sign_end_date") {
+                    var timestamp = Date.parse(param[element.name] + " 23:59:59");
+                    timestamp = timestamp / 1000;
+                    param[element.name] = timestamp;
+                }
+            }
+
+        });
+        param.status = $scope.status;
+        return param;
     }
 }
 ]);

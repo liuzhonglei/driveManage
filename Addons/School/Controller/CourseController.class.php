@@ -34,6 +34,10 @@ class CourseController extends SchoolBaseController{
     {
         $fields =  parent::getFieldList($fields);
         $fields = $this->setFiledExtra($fields, "learn_pay_item_id", 'school_payitem', 'name',array("token"=>get_token(),"type"=>"sign"));
+        $fields = $this->setFiledExtra($fields, "learn_pay_item_id_2", 'school_payitem', 'name',array("token"=>get_token(),"type"=>"sign"));
+        $fields = $this->setFiledExtra($fields, "link_charge_item_id", 'school_payitem', 'name',array("token"=>get_token(),"type"=>"sign"));
+
+
         $fields = $this->setFiledExtra($fields, "learn_stage_pay_item_id", 'school_payitem', 'name',array("token"=>get_token(),"type"=>"sign"));
         $fields = $this->setFiledExtra($fields, "km1_make_up_pay_item_id", 'school_payitem', 'name',array("token"=>get_token(),"type"=>"supplementary"));
         $fields = $this->setFiledExtra($fields, "km1_twice_make_up_pay_item_id", 'school_payitem', 'name',array("token"=>get_token(),"type"=>"supplementary"));

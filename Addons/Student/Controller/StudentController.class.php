@@ -803,7 +803,7 @@ STR;
         $Model = M("eo2o_payment_all");
         $token = get_token();
         $openid = get_openid();
-        $student = M('student')->where(array("token"=>get_token(),"openid" => get_openid()))->find();
+        $student = M('student')->where(array("token" => get_token(), "openid" => get_openid()))->find();
         $payList = $Model->where(" token=\"" . $token . "\" and (openid=\"" . $openid . "\" or student_id=" . $student["id"] . ")")->order("id desc")->select();
         $this->assign("payList", $payList);
         $this->display(T(MOBILE_PATH . 'studentCenterPayList'));
@@ -1605,6 +1605,7 @@ str;
     {
         // page and length
         $customActionName = i("customActionName");
+        $StudentModel = $this->getCurrentModel($this->model);
 
         // if remove some data
         if ($customActionName == "notify") {
@@ -1614,12 +1615,53 @@ str;
 
             //通知
             $result = $this->notification();
+        } // 挂靠学院
+        else if ($customActionName == "link") {
+            foreach ($_POST['id'] as $id) {
+                $student = $StudentModel->where(array("id" => $id))->find();
+                $student["belong"] = "OUT";
+                $StudentModel->save($student);
+            }
         }
 
         // 返回数据1231
         $data = parent::listsAdmin(false, $map);
         $data["customActionMessage"] = $result;
         $this->ajaxReturn($data);
+    }
+
+    /**
+     * 修改 学员的 付费条目
+     * @param $id
+     * @param $payItem
+     * @param $value
+     */
+    public function updateFee($id, $payItemId, $value = null)
+    {
+        $student = M('student')->where(array("id" => $id))->find();
+        if (empty($student)) {
+            return;
+        }
+        $payModel = M('eo2o_payment');
+        $feeLog = $payModel->where("token ='" . get_token() . "' and (LENGTH(trim(transaction_id)) > 0 or pay_channel IN (\"human\", \"alipay\") or result_code = \"WAIT\") and (student_id = " . $id . " or (openid != '' and openid = '" . $student['openid'] . "')) and payitem_id=" . $payItemId)->find();
+        if (empty($feeLog)) {
+            $map = array("token" => get_token(), "student_id" => $student["id"], "payitem_id" => $payItemId);
+            $map["result_code"] = "WAIT";
+            $payItem = M("school_payitem")->where(array("id" => $payItemId, "token" => get_token()))->find();
+            if (empty($value)) {
+                $map["total_fee"] = $payItem["fee"];
+            } else {
+                $map["total_fee"] = $value;
+            }
+
+            $map["total_fee"] *= 100;
+            $payModel->add($map);
+        }
+        // 只修改待付
+        else if($feeLog["result_code"] == "WAIT"){
+            $feeLog["total_fee"] = $value * 100;
+            $payModel->save($feeLog);
+        }
     }
 
     /**
@@ -1745,5 +1787,35 @@ str;
 
         // 返回通知结果
         return $returnMsg;
+    }
+
+    /**
+     * 修改当前用户的报名费用
+     */
+    public function updateSignFee()
+    {
+        $ids = $_REQUEST["ids"];
+        foreach ($ids as $id) {
+            // 查找学员
+            $student = M('student')->where(array("id"=>$id))->find();
+            if(empty($student)){
+                continue;
+            }
+            $course = M("school_course")->where(array("id" => $student["course_id"], "token" => get_token()))->find();
+            if(empty($course)){
+                continue;
+            }
+            if(!empty($_REQUEST["fee1"])){
+                $this->updateFee($id,$course['learn_pay_item_id'],$_REQUEST["fee1"]);
+            }
+            if(!empty($_REQUEST["fee2"])){
+                $this->updateFee($id,$course['learn_pay_item_id_2'],$_REQUEST["fee2"]);
+            }
+
+
+        }
+
+        // 返回
+        $this->success("操作成功");
     }
 }

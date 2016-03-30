@@ -8,9 +8,6 @@
                 <button class="close" data-close="alert"></button>
             </div>
             <div class="form-group" ng-repeat="(key, value) in addon.config">
-                <!--<div ng-include="'views/module/field.html'">-->
-                <!--</div>-->
-
                 <label class="control-label col-md-3">{{value.title}}</label>
                 <div class="col-md-4">
                     <div ng-switch="value.type">

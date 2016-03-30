@@ -5,6 +5,7 @@
 
 <div ng-include="'views/common/weixin-bind-modal.html'"/>
 <div ng-include="'views/student/import.html'"/>
+<div ng-include="'views/student/modify-fee.html'"/>
 <div ng-include="'views/student/condition.html'"/>
 
 <div class="row">
@@ -75,17 +76,36 @@
                                     <option value="">批量操作</option>
                                     <option value="delete">删除</option>
                                     <option value="notify">微信通知</option>
+                                    <option value="link">挂靠</option>
                                 </select>
                                 <button class="btn btn-sm red table-group-action-submit">提交 <i
                                         class="fa fa-check"></i>
                                 </button>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm green dropdown-toggle"
+                                            data-toggle="dropdown" data-hover="dropdown" data-delay="1000"
+                                            data-close-others="true">
+                                        快捷操作 <i class="fa fa-angle-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="javascript:showSignFeeModify();">
+                                                修改报名费 </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
+
                         <div class="row pull-right" style="margin-right: 5px">
                             <button onclick="TableAjax.add()" type="button" class=" btn-sm btn btn-default">新增</button>
-                            <button onclick="$('#condition-modal').modal('show')" type="button" class=" btn-sm btn btn-default">搜索条件</button>
+                            <button onclick="$('#condition-modal').modal('show')" type="button"
+                                    class=" btn-sm btn btn-default">搜索条件
+                            </button>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm  btn-default dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                                <button type="button" class="btn btn-sm  btn-default dropdown-toggle"
+                                        data-toggle="dropdown" data-hover="dropdown" data-delay="1000"
+                                        data-close-others="true">
                                     其他操作 <i class="fa fa-angle-down"></i>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
@@ -98,7 +118,7 @@
                                             字段配置 </a>
                                     </li>
                                     <li>
-                                        <a  ng-click="syncStudentInfo()">
+                                        <a ng-click="syncStudentInfo()">
                                             同步信息 </a>
                                     </li>
                                 </ul>
