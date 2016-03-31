@@ -41,30 +41,30 @@ class Common_util_pub
 	function trimString($value)
 	{
 		$ret = null;
-		if (null != $value) 
+		if (null != $value)
 		{
 			$ret = $value;
-			if (strlen($ret) == 0) 
+			if (strlen($ret) == 0)
 			{
 				$ret = null;
 			}
 		}
 		return $ret;
 	}
-	
+
 	/**
 	 * 	作用：产生随机字符串，不长于32位
 	 */
-	public function createNoncestr( $length = 32 ) 
+	public function createNoncestr( $length = 32 )
 	{
-		$chars = "abcdefghijklmnopqrstuvwxyz0123456789";  
+		$chars = "abcdefghijklmnopqrstuvwxyz0123456789";
 		$str ="";
-		for ( $i = 0; $i < $length; $i++ )  {  
-			$str.= substr($chars, mt_rand(0, strlen($chars)-1), 1);  
-		}  
+		for ( $i = 0; $i < $length; $i++ )  {
+			$str.= substr($chars, mt_rand(0, strlen($chars)-1), 1);
+		}
 		return $str;
 	}
-	
+
 	/**
 	 * 	作用：格式化参数，签名过程需要使用
 	 */
@@ -82,13 +82,13 @@ class Common_util_pub
 			$buff .= $k . "=" . $v . "&";
 		}
         $reqPar = null;
-		if (strlen($buff) > 0) 
+		if (strlen($buff) > 0)
 		{
 			$reqPar = substr($buff, 0, strlen($buff)-1);
 		}
 		return $reqPar;
 	}
-	
+
 	/**
 	 * 	作用：生成签名
 	 */
@@ -113,7 +113,7 @@ class Common_util_pub
 		//echo "【result】 ".$result_."</br>";
 		return $result_;
 	}
-	
+
 	/**
 	 * 	作用：array转xml
 	 */
@@ -124,23 +124,23 @@ class Common_util_pub
         {
         	 if (is_numeric($val))
         	 {
-        	 	$xml.="<".$key.">".$val."</".$key.">"; 
+        	 	$xml.="<".$key.">".$val."</".$key.">";
 
         	 }
         	 else
-        	 	$xml.="<".$key."><![CDATA[".$val."]]></".$key.">";  
+        	 	$xml.="<".$key."><![CDATA[".$val."]]></".$key.">";
         }
         $xml.="</xml>";
-        return $xml; 
+        return $xml;
     }
-	
+
 	/**
 	 * 	作用：将xml转为array
 	 */
 	public function xmlToArray($xml)
-	{		
+	{
         //将XML转为array        
-        $array_data = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);		
+        $array_data = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
 		return $array_data;
 	}
 
@@ -148,7 +148,7 @@ class Common_util_pub
 	 * 	作用：以post方式提交xml到对应的接口url
 	 */
 	public function postXmlCurl($xml,$url,$second=30)
-	{	
+	{
         //初始化curl        
        	$ch = curl_init();
 		//设置超时
@@ -174,10 +174,10 @@ class Common_util_pub
 			curl_close($ch);
 			return $data;
 		}
-		else 
-		{ 
+		else
+		{
 			$error = curl_errno($ch);
-			echo "curl出错，错误码:$error"."<br>"; 
+			echo "curl出错，错误码:$error"."<br>";
 			echo "<a href='http://curl.haxx.se/libcurl/c/libcurl-errors.html'>错误原因查询</a></br>";
 			curl_close($ch);
 			return false;
@@ -219,15 +219,15 @@ class Common_util_pub
 			curl_close($ch);
 			return $data;
 		}
-		else { 
+		else {
 			$error = curl_errno($ch);
-			echo "curl出错，错误码:$error"."<br>"; 
+			echo "curl出错，错误码:$error"."<br>";
 			echo "<a href='http://curl.haxx.se/libcurl/c/libcurl-errors.html'>错误原因查询</a></br>";
 			curl_close($ch);
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 	作用：打印数组
 	 */
@@ -243,14 +243,14 @@ class Common_util_pub
 /**
  * 请求型接口的基类
  */
-class Wxpay_client_pub extends Common_util_pub 
+class Wxpay_client_pub extends Common_util_pub
 {
 	var $parameters;//请求参数，类型为关联数组
 	public $response;//微信返回的响应
 	public $result;//返回参数，类型为关联数组
 	var $url;//接口链接
 	var $curl_timeout;//curl超时时间
-	function __construct($wxpayconf) 
+	function __construct($wxpayconf)
 	{
 		parent::__construct( $wxpayconf );
 	}
@@ -261,7 +261,7 @@ class Wxpay_client_pub extends Common_util_pub
 	{
 		$this->parameters[$this->trimString($parameter)] = $this->trimString($parameterValue);
 	}
-	
+
 	/**
 	 * 	作用：设置标配的请求参数，生成签名，生成接口参数xml
 	 */
@@ -273,7 +273,7 @@ class Wxpay_client_pub extends Common_util_pub
 	    $this->parameters["sign"] = $this->getSign($this->parameters);//签名
 	    return  $this->arrayToXml($this->parameters);
 	}
-	
+
 	/**
 	 * 	作用：post请求xml
 	 */
@@ -281,17 +281,16 @@ class Wxpay_client_pub extends Common_util_pub
 	{
 	    $xml = $this->createXml();
 		$this->response = $this->postXmlCurl($xml,$this->url,$this->curl_timeout);
-
-		return $this->response;
+		return $this->xmlToArray($this->response);
 	}
-	
+
 	/**
 	 * 	作用：使用证书post请求xml
 	 */
 	function postXmlSSL()
-	{	
+	{
 	    $xml = $this->createXml();
-		
+
 		$this->response = $this->postXmlSSLCurl($xml,$this->url,$this->curl_timeout);
 		return $this->response;
 	}
@@ -299,11 +298,78 @@ class Wxpay_client_pub extends Common_util_pub
 	/**
 	 * 	作用：获取结果，默认不使用证书
 	 */
-	function getResult() 
-	{		
+	function getResult()
+	{
 		$this->postXml();
 		$this->result = $this->xmlToArray($this->response);
 		return $this->result;
+	}
+}
+
+/**
+ * 红包支付对象
+ * Class WxHongBaoHelper
+ */
+class WxHongBaoHelper extends Wxpay_client_pub
+{
+    function __construct($wxpayconf)
+    {
+        parent::__construct( $wxpayconf );
+        //设置接口链接
+        $this->url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
+        //设置curl超时时间
+        $this->curl_timeout = $this->WxPayConf['CURL_TIMEOUT'];
+    }
+
+    /**
+     * 检查参数
+     * @return bool
+     */
+	function check_sign_parameters(){
+		if(
+            $this->parameters["nonce_str"] == null ||
+				$this->parameters["mch_billno"] == null ||
+				$this->parameters["mch_id"] == null ||
+				$this->parameters["wxappid"] == null ||
+				$this->parameters["nick_name"] == null ||
+				$this->parameters["send_name"] == null ||
+				$this->parameters["re_openid"] == null ||
+				$this->parameters["total_amount"] == null ||
+				$this->parameters["total_num"] == null ||
+				$this->parameters["wishing"] == null ||
+				$this->parameters["act_name"] == null ||
+				$this->parameters["remark"] == null
+        )
+		{
+			return false;
+		}
+		return true;
+	}
+
+    /**
+     * 创建XML
+     * @return string
+     */
+	function createXml(){
+		try {
+            // 配置信息
+            $this->parameters["wxappid"] = $this->WxPayConf['APPID'];//公众账号ID
+            $this->parameters["mch_id"] = $this->WxPayConf['MCHID'];//商户号
+            $this->parameters["nonce_str"] = $this->createNoncestr();//随机字符串
+            $this->parameters["sign"] = $this->getSign($this->parameters);//签名
+            $this->parameters["client_ip"] = $_SERVER['REMOTE_ADDR'];//终端ip
+
+            // 检查
+            if(!$this->check_sign_parameters()){
+                throw new SDKRuntimeException("统一红包接口中，缺少相关参数!！"."<br>");
+            }
+
+            // 创建xml
+			return  $this->arrayToXml($this->parameters);
+		}catch (SDKRuntimeException $e)
+		{
+			die($e->errorMessage());
+		}
 	}
 }
 
@@ -312,8 +378,8 @@ class Wxpay_client_pub extends Common_util_pub
  * 统一支付接口类
  */
 class UnifiedOrder_pub extends Wxpay_client_pub
-{	
-	function __construct($wxpayconf) 
+{
+	function __construct($wxpayconf)
 	{
 		parent::__construct( $wxpayconf );
 		//设置接口链接
@@ -321,7 +387,7 @@ class UnifiedOrder_pub extends Wxpay_client_pub
 		//设置curl超时时间
 		$this->curl_timeout = $this->WxPayConf['CURL_TIMEOUT'];
 	}
-	
+
 	/**
 	 * 生成接口参数xml
 	 */
@@ -330,7 +396,7 @@ class UnifiedOrder_pub extends Wxpay_client_pub
 		try
 		{
 			//检测必填参数
-			if($this->parameters["out_trade_no"] == null) 
+			if($this->parameters["out_trade_no"] == null)
 			{
 				throw new SDKRuntimeException("缺少统一支付接口必填参数out_trade_no！"."<br>");
 			}elseif($this->parameters["body"] == null){
@@ -347,7 +413,7 @@ class UnifiedOrder_pub extends Wxpay_client_pub
 			}
 		   	$this->parameters["appid"] = $this->WxPayConf['APPID'];//公众账号ID
 		   	$this->parameters["mch_id"] = $this->WxPayConf['MCHID'];//商户号
-		   	$this->parameters["spbill_create_ip"] = $_SERVER['REMOTE_ADDR'];//终端ip	    
+		   	$this->parameters["spbill_create_ip"] = $_SERVER['REMOTE_ADDR'];//终端ip
 		    $this->parameters["nonce_str"] = $this->createNoncestr();//随机字符串
 		    $this->parameters["sign"] = $this->getSign($this->parameters);//签名
 		    return  $this->arrayToXml($this->parameters);
@@ -356,7 +422,7 @@ class UnifiedOrder_pub extends Wxpay_client_pub
 			die($e->errorMessage());
 		}
 	}
-	
+
 	/**
 	 * 获取prepay_id
 	 */
@@ -376,7 +442,7 @@ class UnifiedOrder_pub extends Wxpay_client_pub
 		    return $prepay_id;
         }
 	}
-	
+
 }
 
 /**
@@ -390,10 +456,10 @@ class JsApi_pub extends Common_util_pub
 	var $prepay_id;//使用统一支付接口得到的预支付id
 	var $curl_timeout;//curl超时时间
 
-	function __construct($wxpayconf) 
+	function __construct($wxpayconf)
 	{
 		parent::__construct( $wxpayconf );
-		
+
 		//设置curl超时时间
 		$this->curl_timeout = $this->WxPayConf['CURL_TIMEOUT'];
 	}
@@ -427,7 +493,7 @@ class JsApi_pub extends Common_util_pub
 	    $jsApiObj["signType"] = "MD5";
 	    $jsApiObj["paySign"] = $this->getSign($jsApiObj);
 	    $this->parameters = json_encode($jsApiObj);
-		
+
 		return $this->parameters;
 	}
 }
@@ -435,11 +501,11 @@ class JsApi_pub extends Common_util_pub
 /**
  * 响应型接口基类
  */
-class Wxpay_server_pub extends Common_util_pub 
+class Wxpay_server_pub extends Common_util_pub
 {
 	public $data;//接收到的数据，类型为关联数组
 	var $returnParameters;//返回参数，类型为关联数组
-	function __construct($wxpayconf) 
+	function __construct($wxpayconf)
 	{
 		parent::__construct( $wxpayconf );
 	}
@@ -450,7 +516,7 @@ class Wxpay_server_pub extends Common_util_pub
 	{
 		$this->data = $this->xmlToArray($xml);
 	}
-	
+
 	function checkSign()
 	{
 		$tmpData = $this->data;
@@ -461,15 +527,15 @@ class Wxpay_server_pub extends Common_util_pub
 		}
 		return FALSE;
 	}
-	
+
 	/**
 	 * 获取微信的请求数据
 	 */
 	function getData()
-	{		
+	{
 		return $this->data;
 	}
-	
+
 	/**
 	 * 设置返回微信的xml数据
 	 */
@@ -477,7 +543,7 @@ class Wxpay_server_pub extends Common_util_pub
 	{
 		$this->returnParameters[$this->trimString($parameter)] = $this->trimString($parameterValue);
 	}
-	
+
 	/**
 	 * 生成接口参数xml
 	 */
@@ -485,7 +551,7 @@ class Wxpay_server_pub extends Common_util_pub
 	{
 		return $this->arrayToXml($this->returnParameters);
 	}
-	
+
 	/**
 	 * 将xml数据返回微信
 	 */
@@ -500,7 +566,7 @@ class Wxpay_server_pub extends Common_util_pub
 /**
  * 通用通知接口
  */
-class Notify_pub extends Wxpay_server_pub 
+class Notify_pub extends Wxpay_server_pub
 {
 
 }

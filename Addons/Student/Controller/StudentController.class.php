@@ -591,15 +591,43 @@ STR;
     function inPay()
     {
         $Model = M('student');
-        $data['is_in_payed'] = "1";
-        $Model->where('id=' . $_REQUEST['student_id'])->save($data);
+
+
+        $student = $Model->where('id=' . $_REQUEST['student_id'])->find();
+        if (empty($student)) {
+            $this->error("学员不存在!");
+        }
+
+        // 取得配置
+        $db_config = D('Common/AddonConfig')->get(_ADDONS);
+        $inPay_bonus = $db_config['inPay_bonus'];
+        $inPay_bonus_amount = $db_config['inPay_bonus_amount'];
+
+        // 查找用户
+        if ($student['in_student_openid'] && $inPay_bonus == "1") {
+            $inStudent = $Model->where(array("token" => get_token(), "openid" => $student['in_student_openid']))->find();
+
+            // 发送红包
+            $amount = $inPay_bonus_amount;
+            $result = R('Addons://EO2OPayment/EO2OPayment/sendBonus', array("推荐学员红包!", "谢谢您参与推荐送红包活动!", $inStudent['id'], $inStudent['openid'], $amount, "推荐越多人,送越多红包!"));
+
+            // 修改记录
+            if($result['result_code'] == "SUCCESS"){
+                $data['is_in_payed'] = "1";
+                $Model->where('id=' . $_REQUEST['student_id'])->save($data);
+            }else{
+                $this->error($result["err_code_des"]);
+            }
+        } else {
+            $data['is_in_payed'] = "1";
+            $Model->where('id=' . $_REQUEST['student_id'])->save($data);
+        }
+
 
         // show
         if ($this->isAdmin()) {
             $this->success();
         } else {
-
-
             $url = $_SERVER['HTTP_REFERER'];
             redirect($url);
         }
@@ -1361,7 +1389,7 @@ str;
         if ($operation == "推荐费已支付") {
             $map = "token ='" . get_token() . "' and result_code = \"SUCCESS\" and (LENGTH(trim(transaction_id)) > 0 or pay_channel IN (\"human\", \"alipay\")) and (student_id = " . $data['id'] . " or (openid != '' and openid = '" . $data['openid'] . "')) ";
             $feeLog = $payModel->where($map)->find();
-            if (empty($feeLog) ||  $data["is_in_payed"] == "1" || (empty($data["in_student_openid"]) && empty($data["id_in_teacher"]))) {
+            if (empty($feeLog) || $data["is_in_payed"] == "1" || (empty($data["in_student_openid"]) && empty($data["id_in_teacher"]))) {
                 return false;
             }
         }

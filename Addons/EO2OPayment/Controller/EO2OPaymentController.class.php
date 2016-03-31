@@ -183,6 +183,69 @@ class EO2OPaymentController extends EO2OBaseController
     }
 
     /**
+     * 发红包给固定的粉丝
+     */
+    function sendBonus($activeName, $wishing, $studentid, $openid, $amount, $remark)
+    {
+        // 模型
+        $Model = M('eo2o_payment');
+        $transaction['paytype'] = 'reward';
+        $transaction['token'] = get_token();
+        $transaction['time_end'] = time();
+        $transaction["remark"] = "红包支付";
+        $transaction["in_or_out"] = "out";
+        $transaction["total_fee"] = $amount * 100;
+        $transaction["student_id"] = $studentid;
+        $transaction["openid"] = $openid;
+
+
+        // 设置参数;
+        $activeName || $activeName = $_REQUEST['activeName'];
+        $wishing || $wishing = $_REQUEST['wishing'];
+        $openid || $openid = $_REQUEST['openid'];
+        $amount || $amount = $_REQUEST['amount'];
+        $remark || $remark = $_REQUEST['remark'];
+
+        // 取得对象
+        $appinfo = get_token_appinfo();
+        $config = getAddonConfig('EO2OPayment');
+
+        // 工具类
+        $wxconfig = array(
+            'APPID' => $appinfo['appid'],
+            'APPSECRET' => $appinfo['secret'],
+            'MCHID' => $config['MCHID'],
+            'KEY' => $config['KEY'],
+            'SSLCERT_PATH' => $config['SSLCERT_PATH'],
+            'SSLKEY_PATH' => $config['SSLKEY_PATH'],
+            'CURL_TIMEOUT' => 30
+        );
+        $wxHongBaoHelper = new \WxHongBaoHelper($wxconfig);
+
+        // 配置信息
+        $wxHongBaoHelper->setParameter("mch_billno", $appinfo['appid'] . time());//订单号
+        $wxHongBaoHelper->setParameter("nick_name", '提供方');//提供方名称
+        $wxHongBaoHelper->setParameter("send_name", '红包发送者');//红包发送者名称
+        $wxHongBaoHelper->setParameter("re_openid", $openid);//相对于医脉互通的openid
+        $wxHongBaoHelper->setParameter("total_amount", $amount);//付款金额，单位分
+        $wxHongBaoHelper->setParameter("total_num", 1);//红包収放总人数
+        $wxHongBaoHelper->setParameter("wishing", $wishing);//红包祝福诧
+        $wxHongBaoHelper->setParameter("act_name", $activeName);//活劢名称
+        $wxHongBaoHelper->setParameter("remark", $remark);//备注信息
+
+        // 发送红包
+        $result = $wxHongBaoHelper->postXml();
+
+        if ($result["result_code"] == "SUCCESS") {
+            $transaction = array_merge($transaction, $wxHongBaoHelper->parameters, $result);
+            $Model->save($transaction);
+        }
+
+        // 返回
+        return $result;
+    }
+
+    /**
      * 取得支付信息
      */
     function getPayParameters()
@@ -418,8 +481,6 @@ class EO2OPaymentController extends EO2OBaseController
         $user = session('user_auth');
         $_POST["user_id"] = $user["uid"];
         $_POST["total_fee"] = strval($_POST["total_fee"] * 100);
-//        $_POST["result_code"] = "SUCCESS";
-//        $_POST["pay_channel"] = "human";
         parent::saveAdmin();
     }
 

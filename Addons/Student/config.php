@@ -20,6 +20,19 @@ return array(
             '0' => '否'
         ),
         'value' => '0',
+    ),
+    'inPay_bonus' => array(
+        'title' => '推荐费支付_红包开关',
+        'type' => 'radio',
+        'options' => array(
+            '1' => '是',
+            '0' => '否'
+        ),
+        'value' => '0',
+    ),
+    'inPay_bonus_amount' => array(
+        'title' => '推荐费支付_红包金额',
+        'type' => 'text'
     )
 );
 					
