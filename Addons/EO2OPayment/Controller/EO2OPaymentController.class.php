@@ -193,7 +193,7 @@ class EO2OPaymentController extends EO2OBaseController
         $transaction['token'] = get_token();
         $transaction['time_end'] = time();
         $transaction["remark"] = "红包支付";
-        $transaction["in_or_out"] = "out";
+        $transaction["in_or_out"] = "OUT";
         $transaction["total_fee"] = $amount * 100;
         $transaction["student_id"] = $studentid;
         $transaction["openid"] = $openid;
