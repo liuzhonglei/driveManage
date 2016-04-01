@@ -224,7 +224,7 @@ class EO2OPaymentController extends EO2OBaseController
 
         // 配置信息
         $wxHongBaoHelper->setParameter("mch_billno", $appinfo['appid'] . time());//订单号
-        $school = M('school')->where(array('token'=>get_token()))->find();
+        $school = M('school')->where(array('token' => get_token()))->find();
         $wxHongBaoHelper->setParameter("send_name", $school['name']);//红包发送者名称
         $wxHongBaoHelper->setParameter("re_openid", $openid);//相对于医脉互通的openid
         $wxHongBaoHelper->setParameter("total_amount", $amount);//付款金额，单位分
@@ -238,6 +238,7 @@ class EO2OPaymentController extends EO2OBaseController
 
         if ($result["result_code"] == "SUCCESS") {
             $transaction = array_merge($transaction, $wxHongBaoHelper->parameters, $result);
+            $transaction['transaction_id'] = $transaction['mch_billno'];
             $Model->add($transaction);
         }
 
