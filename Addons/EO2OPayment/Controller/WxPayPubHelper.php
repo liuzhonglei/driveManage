@@ -356,10 +356,11 @@ class WxHongBaoHelper extends Wxpay_client_pub
             $this->parameters["wxappid"] = $this->WxPayConf['APPID'];//公众账号ID
             $this->parameters["mch_id"] = $this->WxPayConf['MCHID'];//商户号
             $this->parameters["nonce_str"] = $this->createNoncestr();//随机字符串
-            $this->parameters["sign"] = $this->getSign($this->parameters);//签名
             $this->parameters["client_ip"] = $_SERVER['REMOTE_ADDR'];//终端ip
+			$this->parameters["sign"] = $this->getSign($this->parameters);//签名
 
-            // 检查
+
+			// 检查
             if(!$this->check_sign_parameters()){
                 throw new SDKRuntimeException("统一红包接口中，缺少相关参数!！"."<br>");
             }
