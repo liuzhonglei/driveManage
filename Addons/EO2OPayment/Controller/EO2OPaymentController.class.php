@@ -192,7 +192,6 @@ class EO2OPaymentController extends EO2OBaseController
         $transaction['paytype'] = 'reward';
         $transaction['token'] = get_token();
         $transaction['time_end'] = time();
-        $transaction["remark"] = "红包支付";
         $transaction["in_or_out"] = "out";
         $transaction["total_fee"] = $amount * 100;
         $transaction["student_id"] = $studentid;
@@ -224,8 +223,8 @@ class EO2OPaymentController extends EO2OBaseController
 
         // 配置信息
         $wxHongBaoHelper->setParameter("mch_billno", $appinfo['appid'] . time());//订单号
-        $wxHongBaoHelper->setParameter("nick_name", '提供方');//提供方名称
-        $wxHongBaoHelper->setParameter("send_name", '红包发送者');//红包发送者名称
+        $school = M('school')->where(array('token'=>get_token()))->find();
+        $wxHongBaoHelper->setParameter("send_name", $school['name']);//红包发送者名称
         $wxHongBaoHelper->setParameter("re_openid", $openid);//相对于医脉互通的openid
         $wxHongBaoHelper->setParameter("total_amount", $amount);//付款金额，单位分
         $wxHongBaoHelper->setParameter("total_num", 1);//红包収放总人数
@@ -238,7 +237,7 @@ class EO2OPaymentController extends EO2OBaseController
 
         if ($result["result_code"] == "SUCCESS") {
             $transaction = array_merge($transaction, $wxHongBaoHelper->parameters, $result);
-            $Model->save($transaction);
+            $Model->add($transaction);
         }
 
         // 返回
