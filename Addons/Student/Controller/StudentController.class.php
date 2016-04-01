@@ -612,10 +612,10 @@ STR;
             $result = R('Addons://EO2OPayment/EO2OPayment/sendBonus', array("推荐学员红包!", "谢谢您参与推荐送红包活动!", $inStudent['id'], $inStudent['openid'], $amount, "推荐越多人,送越多红包!"));
 
             // 修改记录
-            if($result['result_code'] == "SUCCESS"){
+            if ($result['result_code'] == "SUCCESS") {
                 $data['is_in_payed'] = "1";
                 $Model->where('id=' . $_REQUEST['student_id'])->save($data);
-            }else{
+            } else {
                 $this->error($result["err_code_des"]);
             }
         } else {
@@ -1671,29 +1671,44 @@ str;
      */
     public function updateFee($id, $payItemId, $value = null)
     {
+        $resultMsg = "";
+        $result = 0;
         $student = M('student')->where(array("id" => $id))->find();
+
         if (empty($student)) {
-            return;
+            $resultMsg .= "学员不存在";
+            return $resultMsg;
         }
+        $resultMsg .= "学员[" . $student["name"] . "]";
         $payModel = M('eo2o_payment');
+        $payItem = M("school_payitem")->where(array("id" => $payItemId, "token" => get_token()))->find();
         $feeLog = $payModel->where("token ='" . get_token() . "' and (LENGTH(trim(transaction_id)) > 0 or pay_channel IN (\"human\", \"alipay\") or result_code = \"WAIT\") and (student_id = " . $id . " or (openid != '' and openid = '" . $student['openid'] . "')) and payitem_id=" . $payItemId)->find();
         if (empty($feeLog)) {
             $map = array("token" => get_token(), "student_id" => $student["id"], "payitem_id" => $payItemId);
             $map["result_code"] = "WAIT";
-            $payItem = M("school_payitem")->where(array("id" => $payItemId, "token" => get_token()))->find();
+
             if (empty($value)) {
                 $map["total_fee"] = $payItem["fee"];
             } else {
                 $map["total_fee"] = $value;
             }
+            $resultMsg .= "增加划款项目 [" . $payItem["name"] . "],金额为[" . $map["total_fee"] . "]元";
 
             $map["total_fee"] *= 100;
-            $payModel->add($map);
+            $result = $payModel->add($map);
         } // 只修改待付
         else if ($feeLog["result_code"] == "WAIT") {
+            $resultMsg .= "修改划款项目 [" . $payItem["name"] . "],原金额为[" . ($feeLog["total_fee"] / 100) . "]元,现金额为[" . $value . "]元";
             $feeLog["total_fee"] = $value * 100;
-            $payModel->save($feeLog);
+            $result = $payModel->save($feeLog);
+        }else if ($feeLog["result_code"] == "SUCCEE"){
+            return "学员[" . $student["name"] . "] 划款项目 [" . $payItem["name"] . "]已经划款成功,无法修改!";
         }
+        if ($result == "0") {
+            return "学员[" . $student["name"] . "] 修改划款项目 [" . $payItem["name"] . "]发生错误[" . $payModel->getError() . "]!";
+        }
+
+        return $resultMsg;
     }
 
     /**
@@ -1826,6 +1841,7 @@ str;
      */
     public function updateSignFee()
     {
+        $returnMsg = "操作结果如下:<br/>";
         $ids = $_REQUEST["ids"];
         foreach ($ids as $id) {
             // 查找学员
@@ -1838,16 +1854,17 @@ str;
                 continue;
             }
             if (!empty($_REQUEST["fee1"])) {
-                $this->updateFee($id, $course['learn_pay_item_id'], $_REQUEST["fee1"]);
+                $returnMsg .= $this->updateFee($id, $course['learn_pay_item_id'], $_REQUEST["fee1"]);
+                $returnMsg .= "<br/>";
+
             }
             if (!empty($_REQUEST["fee2"])) {
-                $this->updateFee($id, $course['learn_pay_item_id_2'], $_REQUEST["fee2"]);
+                $returnMsg .= $this->updateFee($id, $course['learn_pay_item_id_2'], $_REQUEST["fee2"]);
+                $returnMsg .= "<br/>";
             }
-
-
         }
 
         // 返回
-        $this->success("操作成功");
+        $this->success($returnMsg);
     }
 }
