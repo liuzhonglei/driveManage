@@ -234,7 +234,7 @@ class EO2OPaymentController extends EO2OBaseController
         $wxHongBaoHelper->setParameter("remark", $remark);//备注信息
 
         // 发送红包
-        $result = $wxHongBaoHelper->postXml();
+        $result = $wxHongBaoHelper->postXmlSSL();
 
         if ($result["result_code"] == "SUCCESS") {
             $transaction = array_merge($transaction, $wxHongBaoHelper->parameters, $result);

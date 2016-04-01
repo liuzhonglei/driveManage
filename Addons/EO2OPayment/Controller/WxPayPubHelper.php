@@ -292,7 +292,7 @@ class Wxpay_client_pub extends Common_util_pub
 	    $xml = $this->createXml();
 
 		$this->response = $this->postXmlSSLCurl($xml,$this->url,$this->curl_timeout);
-		return $this->response;
+		return $this->xmlToArray($this->response);
 	}
 
 	/**
