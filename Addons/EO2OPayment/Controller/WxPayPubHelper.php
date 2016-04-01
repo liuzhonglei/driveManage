@@ -331,7 +331,6 @@ class WxHongBaoHelper extends Wxpay_client_pub
 				$this->parameters["mch_billno"] == null ||
 				$this->parameters["mch_id"] == null ||
 				$this->parameters["wxappid"] == null ||
-				$this->parameters["nick_name"] == null ||
 				$this->parameters["send_name"] == null ||
 				$this->parameters["re_openid"] == null ||
 				$this->parameters["total_amount"] == null ||
