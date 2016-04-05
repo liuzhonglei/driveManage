@@ -621,7 +621,7 @@ STR;
                 $Model->where('id=' . $_REQUEST['student_id'])->save($data);
                 $this->success('红包发送成功!');
             } else {
-                $this->error($result["err_code_des"]);
+                $this->error("错误代码:".$result["err_code"] ."; 错误信息:". $result["err_code_des"]);
             }
         } else {
             $data['is_in_payed'] = "1";
