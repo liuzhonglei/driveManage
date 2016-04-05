@@ -616,21 +616,20 @@ STR;
             if ($result['result_codae'] == "SUCCESS") {
                 $data['is_in_payed'] = "1";
                 $Model->where('id=' . $_REQUEST['student_id'])->save($data);
+                $this->success('红包发送成功!');
             } else {
                 $this->error($result["err_code_des"]);
             }
         } else {
             $data['is_in_payed'] = "1";
             $Model->where('id=' . $_REQUEST['student_id'])->save($data);
-        }
-
-
-        // show
-        if ($this->isAdmin()) {
-            $this->success('红包发送成功!');
-        } else {
-            $url = $_SERVER['HTTP_REFERER'];
-            redirect($url);
+            // show
+            if ($this->isAdmin()) {
+                $this->success('学员修改为已支付推荐费!');
+            } else {
+                $url = $_SERVER['HTTP_REFERER'];
+                redirect($url);
+            }
         }
     }
 
