@@ -187,24 +187,28 @@ class EO2OPaymentController extends EO2OBaseController
      */
     function sendBonus($activeName, $wishing, $studentid, $openid, $amount, $remark)
     {
-        // 模型
-        $Model = M('eo2o_payment');
-        $transaction['paytype'] = 'reward';
-        $transaction['token'] = get_token();
-        $transaction['time_end'] = time();
-        $transaction["remark"] = "红包支付";
-        $transaction["in_or_out"] = "OUT";
-        $transaction["total_fee"] = $amount * 100;
-        $transaction["student_id"] = $studentid;
-        $transaction["openid"] = $openid;
-
-
         // 设置参数;
         $activeName || $activeName = $_REQUEST['activeName'];
         $wishing || $wishing = $_REQUEST['wishing'];
         $openid || $openid = $_REQUEST['openid'];
         $amount || $amount = $_REQUEST['amount'];
+        $amount *= $amount * 100;
         $remark || $remark = $_REQUEST['remark'];
+
+        // 模型
+        $Model = M('eo2o_payment');
+        $transaction['paytype'] = 'reward';
+        // 红包项目
+        $transaction['payitem_id'] = '900001';
+
+        $transaction['token'] = get_token();
+        $transaction['time_end'] = time();
+        $transaction["remark"] = "红包支付";
+        $transaction["in_or_out"] = "OUT";
+        $transaction["total_fee"] = $amount;
+        $transaction["student_id"] = $studentid;
+        $transaction["openid"] = $openid;
+
 
         // 取得对象
         $appinfo = get_token_appinfo();

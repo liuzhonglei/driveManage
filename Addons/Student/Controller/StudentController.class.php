@@ -610,7 +610,7 @@ STR;
 
             // 发送红包
             $amount = $inPay_bonus_amount;
-            $result = R('Addons://EO2OPayment/EO2OPayment/sendBonus', array("推荐学员红包!", "谢谢您参与推荐送红包活动!", $inStudent['id'], $inStudent['openid'], $amount*100, "推荐越多人,送越多红包!"));
+            $result = R('Addons://EO2OPayment/EO2OPayment/sendBonus', array("推荐学员红包!", "谢谢您参与推荐送红包活动!", $inStudent['id'], $inStudent['openid'], $amount, "推荐学员奖励,推荐越多人,送越多红包!"));
 
             // 修改记录
             if ($result['result_codae'] == "SUCCESS") {
