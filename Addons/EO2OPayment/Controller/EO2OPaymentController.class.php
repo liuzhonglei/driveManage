@@ -192,7 +192,7 @@ class EO2OPaymentController extends EO2OBaseController
         $wishing || $wishing = $_REQUEST['wishing'];
         $openid || $openid = $_REQUEST['openid'];
         $amount || $amount = $_REQUEST['amount'];
-        $amount *= $amount * 100;
+        $amount = $amount * 100;
         $remark || $remark = $_REQUEST['remark'];
 
         // 模型
