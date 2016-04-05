@@ -598,6 +598,9 @@ STR;
         if (empty($student)) {
             $this->error("学员不存在!");
         }
+        if ($student['is_in_payed'] == "1") {
+            $this->error("学员已经支付推荐费!");
+        }
 
         // 取得配置
         $db_config = D('Common/AddonConfig')->get(_ADDONS);
