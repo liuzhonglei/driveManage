@@ -770,11 +770,13 @@ var Metronic = function () {
             $('.page-loading, .page-spinner-bar').remove();
         },
         handleResult: function (response) {
-            if (!response.message) {
-                return;
-            }
+        
             if (response.result != "1") {
-                this.error(response.message);
+                if(response.message){
+                    this.error(response.message);
+                }else{
+                    this.error(response);
+                }
             } else {
                 this.success(response.message);
             }

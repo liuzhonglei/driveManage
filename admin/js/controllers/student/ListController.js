@@ -231,13 +231,14 @@ function inPay(id) {
     // 发送费推荐
     $.get(Metronic.rootPath() + "/index.php?s=/addon/Student/Student/inPay/student_id/" + id, function (data) {
         // 返回成功，关闭当前窗口，刷新列表
-        if (data.result) {
+        Metronic.handleResult(data);
+        if (data.result == "1") {
             TableAjax.reload('list');
         }
 
         // 返回失败，显示错误信息
-        else {
-            alert(data.message);
-        }
+//         else {
+//            alert(data.message);
+//         }
     });
 }
