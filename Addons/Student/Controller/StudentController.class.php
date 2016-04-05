@@ -439,7 +439,7 @@ STR;
         $list_data = $this->getSignData(false);
 
         // configure data
-        $list_data['list_grids'][count($list_data['list_grids']) - 1]['href'] = 'signConfirm&student_id=[id]|确认,signCancel&student_id=[id]|取消,inPay&student_id=[id]|推荐费已支付';
+        $list_data['list_grids'][count($list_data['list_grids']) - 1]['href'] = 'signConfirm&student_id=[id]|确认,signCancel&student_id=[id]|取消,inPay&student_id=[id]|支付推荐费';
         $this->assign($list_data);
 
         // display
@@ -469,7 +469,7 @@ STR;
         $list_data = $this->getSignData(true);
 
         // configure data
-        $list_data['list_grids'][count($list_data['list_grids']) - 1]['href'] = 'signConfirm&student_id=[id]|确认,signCancel&student_id=[id]|取消,inPay&student_id=[id]|推荐费已支付';
+        $list_data['list_grids'][count($list_data['list_grids']) - 1]['href'] = 'signConfirm&student_id=[id]|确认,signCancel&student_id=[id]|取消,inPay&student_id=[id]|支付推荐费';
         $this->assign($list_data);
 
         // display
@@ -1386,7 +1386,7 @@ str;
         }
 
         $payModel = M('eo2o_payment');
-        if ($operation == "推荐费已支付") {
+        if ($operation == "支付推荐费") {
             $map = "token ='" . get_token() . "' and result_code = \"SUCCESS\" and (LENGTH(trim(transaction_id)) > 0 or pay_channel IN (\"human\", \"alipay\")) and (student_id = " . $data['id'] . " or (openid != '' and openid = '" . $data['openid'] . "')) ";
             $feeLog = $payModel->where($map)->find();
             if (empty($feeLog) || $data["is_in_payed"] == "1" || (empty($data["in_student_openid"]) && empty($data["id_in_teacher"]))) {
