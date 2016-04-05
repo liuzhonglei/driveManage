@@ -589,9 +589,11 @@ STR;
      */
     function inPay()
     {
+        if (!is_login()) {
+            $this->error("未登陆!");
+        }
+
         $Model = M('student');
-
-
         $student = $Model->where('id=' . $_REQUEST['student_id'])->find();
         if (empty($student)) {
             $this->error("学员不存在!");
@@ -611,7 +613,7 @@ STR;
             $result = R('Addons://EO2OPayment/EO2OPayment/sendBonus', array("推荐学员红包!", "谢谢您参与推荐送红包活动!", $inStudent['id'], $inStudent['openid'], $amount*100, "推荐越多人,送越多红包!"));
 
             // 修改记录
-            if ($result['result_code'] == "SUCCESS") {
+            if ($result['result_codae'] == "SUCCESS") {
                 $data['is_in_payed'] = "1";
                 $Model->where('id=' . $_REQUEST['student_id'])->save($data);
             } else {
@@ -625,7 +627,7 @@ STR;
 
         // show
         if ($this->isAdmin()) {
-            $this->success();
+            $this->success('红包发送成功!');
         } else {
             $url = $_SERVER['HTTP_REFERER'];
             redirect($url);
