@@ -394,6 +394,7 @@ class StudentController extends StudentBaseController
 
 		LEFT JOIN wp_eo2o_payment_count t8 ON t.token = t8.token
 		AND t.openid = t8.openid
+		and in_or_out = 'IN'
      ) tw
      order by $order
 

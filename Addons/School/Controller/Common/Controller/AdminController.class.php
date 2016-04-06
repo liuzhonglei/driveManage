@@ -292,7 +292,7 @@ class AdminController extends CommonController
      * @param $result
      * @param $message
      */
-    private function adminReturn($result, $message = null, $data = null)
+    private function adminReturn($result, $messwage = null, $data = null)
     {
         $map = array(result => $result, message => $message, data => $data);
         $this->ajaxReturn($map);

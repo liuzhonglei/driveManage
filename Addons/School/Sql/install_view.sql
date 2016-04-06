@@ -53,7 +53,8 @@ create view wp_student_all as
     LEFT JOIN wp_teacher t6 ON t.token = t6.token
                                AND t.id_teacher_k3 = t6.id
     LEFT JOIN wp_eo2o_payment_count t8 ON t.token = t8.token
-                                          AND t.openid = t8.openid;
+                                          AND t.openid = t8.openid
+                                          AND t8.in_or_out='IN';
 
 #wp_student_apprise_all
 drop view wp_student_apprise_all;
@@ -135,10 +136,10 @@ select t.*,t1.nickname from wp_qingqing_coupon t left join wp_follow t1 on t1.to
 #wp_eo2o_payment_count
 drop view wp_eo2o_payment_count;
 create view wp_eo2o_payment_count as
-select t.token,t.openid, SUM(t.total_fee)/100 total_fee
+select t.token,t.openid,t.in_or_out, SUM(t.total_fee)/100 total_fee
 from wp_eo2o_payment_all t
-where length(t.transaction_id) > 0 and t.return_code = "SUCCESS"
-group by t.token,t.openid;
+where length(t.transaction_id) > 0 and t.result_code = "SUCCESS"
+group by t.token,t.openid,t.in_or_out;
 
 /**
  *index

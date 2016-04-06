@@ -257,3 +257,5 @@ CREATE INDEX wp_student_search_index ON wp_student  (token,name,phone,id_in_teac
 
 -- 通知视图
 
+-- 初始化数据
+INSERT INTO `wp_school_payitem` (`id`,`token`,`name`,`fee`,`remark`,`type`,`in_or_out`) VALUES ('900001','','红包费用','','推荐学员返回红包','reword','OUT');

@@ -84,7 +84,7 @@ class BaseController extends AdminController
         $payed = $_REQUEST['payed'];
         $result = "";
         if ($payed !== null) {
-            $sql = "select openid from wp_eo2o_payment_count t where t.token = '" . get_token() . "' and  total_fee is not null";
+            $sql = "select openid from wp_eo2o_payment_count t where t.token = '" . get_token() . "' and in_or_out = 'IN' and  total_fee is not null";
             $records = M('eo2o_payment_count')->query($sql);
             if (count($records) > 0) {
                 if ($payed) {
