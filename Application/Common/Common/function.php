@@ -1337,7 +1337,9 @@ function get_list_field($data, $grid, $model) {
 				if (strpos ( $href, '?' ) === false && strpos ( $href, '&' ) !== false) {
 					$href = preg_replace ( "/&/i", "?", $href, 1 );
 				}
-				if ($show == '删除') {
+				if ($_REQUEST['_action'] == 'listsExcel') {
+					$val [] = $value;
+				} else if ($show == '删除') {
 					$val [] = '<a class="confirm"   href="' . urldecode ( U ( $href, $GLOBALS ['get_param'] ) ) . '">' . $show . '</a>';
 				} else {
 					$val [] = '<a  target="' . $target . '" href="' . urldecode ( U ( $href, $GLOBALS ['get_param'] ) ) . '">' . $show . '</a>';

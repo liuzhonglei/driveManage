@@ -275,7 +275,7 @@ class CommonController extends ExtendAddonsController
 
         //由PHPExcel根据传入内容自动判断单元格内容类型
         $skip = 0;
-        if (end($list_data['fields']) == "id") {
+        if (end($list_data['fields']) == "id" || end($list_data['list_grids'])['title'] == "操作") {
             $skip = 1;
         }
         for ($i = 0, $b = 'A'; $i < sizeof($list_data['list_grids']) - $skip; $i++, $b++) {

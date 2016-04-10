@@ -33,7 +33,7 @@ class AdminController extends CommonController
     {
         $user = is_login();
         if ($this->isAdmin() && !empty($user)) {
-            $userInfo = array("id"=>$user, "name"=>get_username($user));
+            $userInfo = array("id" => $user, "name" => get_username($user));
             $this->success("已登录", null, null, $userInfo);
         } else {
             $this->error("未登录");
@@ -54,9 +54,9 @@ class AdminController extends CommonController
 
         }
 
-        $operationIndex = strrpos( $this->model['list_grid'], 'id:');
-        if(i("operation") == "0" && $operationIndex && strpos($this->model['list_grid'], "操作") !== false){
-            $this->model['list_grid'] =  substr($this->model['list_grid'],0,$operationIndex-1);
+        $operationIndex = strrpos($this->model['list_grid'], 'id:');
+        if (i("operation") == "0" && $operationIndex && strpos($this->model['list_grid'], "操作") !== false) {
+            $this->model['list_grid'] = substr($this->model['list_grid'], 0, $operationIndex - 1);
         }
     }
 
@@ -237,7 +237,7 @@ class AdminController extends CommonController
     public function  saveAdmin()
     {
         $result = $this->saveModel();
-        if($result["status"] == "1"){
+        if ($result["status"] == "1") {
             $this->success();
         }
         $this->error($result["info"]);
@@ -378,7 +378,8 @@ class AdminController extends CommonController
                     if (strpos($href, '?') === false && strpos($href, '&') !== false) {
                         $href = preg_replace("/&/i", "?", $href, 1);
                     }
-                    if (strpos($href, "link_") === 0) {
+
+                   if (strpos($href, "link_") === 0) {
                         $val [] = '<a  target="' . $target . '" href="' . str_replace("javascript_", "javascript:", str_replace("link_", "", $href)) . '"> ' . $value . ' </a>';
                     } else {
                         if (strpos($href, "javascript_") === 0) {

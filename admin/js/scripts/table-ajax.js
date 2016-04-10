@@ -112,6 +112,16 @@ var TableAjax = function () {
     }
 
     /**
+     * 下载Excel文件
+     * @param name
+     * @param param
+     */
+    var downExcel = function () {
+        var excelUrl = createUrl('list', "listsExcel");
+        window.location.href = excelUrl;
+    }
+
+    /**
      * create the  data url
      * @returns {string}
      */
@@ -266,6 +276,7 @@ var TableAjax = function () {
             nav.click();
         },
         emptyModal: emptyModal,
+        downExcel: downExcel,
         modelMap: modelMap,
         tableMap: tableMap
     };
