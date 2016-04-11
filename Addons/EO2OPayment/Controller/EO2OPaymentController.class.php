@@ -261,11 +261,16 @@ class EO2OPaymentController extends EO2OBaseController
         if (i("id")) {
             $transaction = $Model->where(array("id" => i("id")))->find();
         } else {
+            $transaction["payitem_id"] = i('payitem_id');
             $transaction['paytype'] = i('paytype');
+            if (empty($transaction['paytype']) && !empty($transaction["payitem_id"])) {
+                $payitemInfo = M('school_payitem')->where(array('token' => get_token(), 'id' => $transaction["payitem_id"]))->find();
+                $transaction['paytype'] = $payitemInfo['type'];
+            }
+
             $transaction['token'] = get_token();
             $transaction['time_begin'] = time();
             $transaction["remark"] = i('remark');
-            $transaction["payitem_id"] = i('payitem_id');
             $total = I("total");
             $total = $total * 100;
             $transaction["total_fee"] = $total;
