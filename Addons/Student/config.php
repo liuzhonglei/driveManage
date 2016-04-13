@@ -12,6 +12,14 @@ return array(
         'title' => '培训管理系统密码:',
         'type' => 'text'
     ),
+    'sync_q_account' => array(
+        'title' => '备用培训管理系统帐号:',
+        'type' => 'text'
+    ),
+    'sync_q_password' => array(
+        'title' => '备用培训管理系统密码:',
+        'type' => 'text'
+    ),
     'sync_task' => array(
         'title' => '同步任务启动:',
         'type' => 'radio',

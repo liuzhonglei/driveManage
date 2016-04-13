@@ -622,7 +622,7 @@ STR;
                 $Model->where('id=' . $_REQUEST['student_id'])->save($data);
                 $this->success('红包发送成功!');
             } else {
-                $this->error("错误代码:".$result["err_code"] ."; 错误信息:". $result["err_code_des"]);
+                $this->error("错误代码:" . $result["err_code"] . "; 错误信息:" . $result["err_code_des"]);
             }
         } else {
             $data['is_in_payed'] = "1";
@@ -1115,14 +1115,16 @@ str;
         $db_config = D('Common/AddonConfig')->get("Student", $token);
         $account = $db_config["sync_account"];
         $password = $db_config["sync_password"];
+        $account2 = $db_config["sync_q_account"];
+        $password2 = $db_config["sync_q_password"];
         $taskSign = $db_config["sync_task"];
+        $totalNum = 0;
 
 
-        //判读是否执行同步
-        if (empty($account) || empty($password) || ($isAll && $taskSign == "0")) {
+        //判读是否执行同步任务
+        if ($isAll && $taskSign == "0") {
             return;
         }
-
 
         // 组装查询条件
         if ($isAll) {
@@ -1140,6 +1142,27 @@ str;
             $map = array("applyStartTime" => $today, "applyEndTime" => $today, "state" => $status);
         }
 
+        $totalNum += $this->syncInsertStudent($account, $password, $map);
+        $totalNum += $this->syncInsertStudent($account2, $password2, $map);
+
+        if ($ajaxReturn) {
+            $this->success("总共同步" . $totalNum . "数据!");
+        }
+    }
+
+    /**
+     * 从远程服务器 同步数据 到本地数据库
+     *
+     * @param $account
+     * @param $password
+     * @param $map
+     * @return int
+     */
+    function syncInsertStudent($account, $password, $map)
+    {
+        if (empty($account) || empty($password)) {
+            return 0;
+        }
 
         // 登录
         $cookiePath = "./Runtime/Temp/wudriver_" . get_token() . ".cookie";
@@ -1188,15 +1211,11 @@ str;
                 $index++;
 
                 $studentInfo["status"] = trim($value->children($index)->plaintext);
-                $this->insertStudent($studentInfo, $token);
+                $this->insertStudent($studentInfo, get_token());
             }
         }
 
-        $result = "同步" . $pageNum . "条学员数据!";
-
-        if ($ajaxReturn) {
-            $this->success($result);
-        }
+        return $pageNum;
     }
 
 
@@ -1705,7 +1724,7 @@ str;
             $resultMsg .= "修改划款项目 [" . $payItem["name"] . "],原金额为[" . ($feeLog["total_fee"] / 100) . "]元,现金额为[" . $value . "]元";
             $feeLog["total_fee"] = $value * 100;
             $result = $payModel->save($feeLog);
-        }else if ($feeLog["result_code"] == "SUCCEE"){
+        } else if ($feeLog["result_code"] == "SUCCEE") {
             return "学员[" . $student["name"] . "] 划款项目 [" . $payItem["name"] . "]已经划款成功,无法修改!";
         }
         if ($result == "0") {
