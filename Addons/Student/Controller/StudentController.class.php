@@ -1139,7 +1139,7 @@ str;
                 }
             }
             $today = date("Y-m-d");
-            $map = array("applyStartTime" => $today, "applyEndTime" => $today, "state" => $status);
+            $map = array("applyStartTime" => date("Y-m-d", strtotime("-1 week")), "applyEndTime" => $today, "state" => $status);
         }
 
         $totalNum += $this->syncInsertStudent($account, $password, $map);
