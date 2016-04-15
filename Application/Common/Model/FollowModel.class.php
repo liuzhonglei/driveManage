@@ -108,7 +108,7 @@ class FollowModel extends Model
                 'lang' => 'zh-CN'
             );
             $num++;
-            if($num < 100 && $vo !== $lastOpenid){
+            if($num < 80 && $vo !== $lastOpenid){
                 continue;
             }
 
