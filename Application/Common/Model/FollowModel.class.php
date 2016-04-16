@@ -128,6 +128,7 @@ class FollowModel extends Model
             // 插入
 //            error_log("get weixin follow error!", 3, $winfoList);
 //            Log::record('get weixin follow error!'.$winfoList, Log::NOTICE);
+            Log::record('get weixin follow info!'.$winfoList, Log::INFO);
             $winfoList = json_decode($winfoList, true);
 
             if(empty($winfoList["user_info_list"])){
