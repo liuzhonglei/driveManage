@@ -4,6 +4,7 @@ namespace Common\Model;
 
 use Think\Model;
 use User\Api\UserApi;
+use Think\Log;
 
 /**
  * 粉丝操作
@@ -125,14 +126,23 @@ class FollowModel extends Model
             curl_close($ch);
 
             // 插入
+//            error_log("get weixin follow error!", 3, $winfoList);
+//            Log::record('get weixin follow error!'.$winfoList, Log::NOTICE);
             $winfoList = json_decode($winfoList, true);
-            $winfoList = $winfoList["user_info_list"];
-            foreach ($winfoList as $winfo ) {
-                if(!empty( $winfo ['openid'])){
-                    $data ['openid'] = $winfo ['openid'];
-                    $this->updateFollow($data,$winfo);
+
+            if(empty($winfoList["user_info_list"])){
+                Log::record('get weixin follow error!'.$winfoList, Log::ERR);
+            }else{
+                $winfoList = $winfoList["user_info_list"];
+                foreach ($winfoList as $winfo ) {
+                    if(!empty( $winfo ['openid'])){
+                        $data ['openid'] = $winfo ['openid'];
+                        $this->updateFollow($data,$winfo);
+                    }
                 }
             }
+
+
 
             // 还原
             $param['user_list'] = array();
