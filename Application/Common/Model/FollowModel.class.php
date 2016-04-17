@@ -115,6 +115,8 @@ class FollowModel extends Model
 
 
             $url = 'https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=' . get_access_token ();
+            Log::record('get weixin follow url!'.$url, Log::INFO);
+
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_HEADER, 0);
