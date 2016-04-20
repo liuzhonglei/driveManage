@@ -53,6 +53,17 @@ class BaseController extends AdminController
         return $info;
     }
 
+    /**
+     * download the studentl lists
+     */
+    public function listsExcel()
+    {
+        $this->model ['list_row'] = 100000;
+        // get data
+        $list_data = $this->_get_model_list($this->model);
+        $this->downloadExcel($list_data);
+    }
+
 
     /**
      * search the follow

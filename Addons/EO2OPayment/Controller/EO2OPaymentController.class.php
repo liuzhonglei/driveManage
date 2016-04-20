@@ -9,7 +9,6 @@ class EO2OPaymentController extends EO2OBaseController
     // the pay type info
     private static $paytypeInfo = array('banner' => array('page' => 'Addons://EO2OPayment@EO2OPayment/Payment', 'body' => '教练锦旗', 'callback' => 'Student://Banner/add', 'attach' => '测试数据'));
 
-
     function _initialize()
     {
         $this->model = $this->getModel('eo2o_payment');
@@ -208,6 +207,7 @@ class EO2OPaymentController extends EO2OBaseController
         $transaction["total_fee"] = $amount;
         $transaction["student_id"] = $studentid;
         $transaction["openid"] = $openid;
+        $transaction["out_trade_no"] = $this->createTradeNo();
 
 
         // 取得对象
@@ -248,6 +248,18 @@ class EO2OPaymentController extends EO2OBaseController
 
         // 返回
         return $result;
+    }
+
+
+    /**
+     * 创建划款单号
+     * @return string
+     */
+    function createTradeNo()
+    {
+        $timeStamp = time();
+        $out_trade_no = "$timeStamp";
+        return $out_trade_no;
     }
 
     /**
@@ -297,9 +309,7 @@ class EO2OPaymentController extends EO2OBaseController
 
 
         //订单号
-        $timeStamp = time();
-        $out_trade_no = $appinfo['appid'] . "$timeStamp";
-        $unifiedOrder->setParameter("out_trade_no", "$out_trade_no");//商户订单号
+        $unifiedOrder->setParameter("out_trade_no", $this->createTradeNo());//商户订单号
 
         // attach
         switch ($transaction["paytype"]) {

@@ -73,6 +73,8 @@ class StudentModel extends Model
             // 查找已支付项目
             $map = array("token" => get_token(), "student_id" => $data["id"], "payitem_id" => $course["link_charge_item_id"]);
             if (!empty($payItem) && empty(M("eo2o_payment")->where($map)->find())) {
+                $map["out_trade_no"] = $this->time();
+
                 $map["result_code"] = "WAIT";
                 $map["total_fee"] = $payItem["fee"] * 100;
                 M("eo2o_payment")->add($map);
