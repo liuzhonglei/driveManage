@@ -20,13 +20,13 @@ class StudentModel extends Model
      */
     protected function _after_insert($data, $options)
     {
-        // 查找课程信息
-        $course = M("school_course")->where(array("id" => $data["course_id"], "token" => get_token()))->find();
-
         /**
          * 状态为初始化,并且学时为0
          */
         if (intval($data["status"]) < 1 && intval($data["status"]) > -99 && empty($data["time_k1"])) {
+            // 查找课程信息
+            $course = M("school_course")->where(array("id" => $data["course_id"], "token" => get_token()))->find();
+
             // 查询报名费
             if (!empty($course) && !empty($course["learn_pay_item_id"])) {
                 // 查找支付项目
@@ -79,6 +79,10 @@ class StudentModel extends Model
      */
     protected function _after_update($data, $options)
     {
+        if ($data["belong"] != "OUT") {
+            return;
+        }
+
         $course = M("school_course")->where(array("id" => $data["course_id"], "token" => get_token()))->find();
 
         // 查询报名费
