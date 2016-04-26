@@ -11,9 +11,40 @@ class EO2OPaymentController extends EO2OBaseController
 
     function _initialize()
     {
+        $this->dataMultiEdit = true;
         $this->model = $this->getModel('eo2o_payment');
         $this->fields = array("openid", "student_id");
         parent::_initialize();
+    }
+
+    /**
+     * 打印发票
+     */
+    public function payPrint()
+    {
+
+        // 查找驾校信息
+        $schoolInfo = $this->getSchoolInfo();
+        $text = $schoolInfo['name'] . "<br/>" .
+            " ===============================<br/>" .
+            " 单号/商品/单价/数据/金额/<br/>" .
+            " -------------------------------<br/>";
+
+        // 查找划款数据
+        $list = M('eo2o_payment')->where(array('id' => array('IN', $_REQUEST['id'])))->select();
+        $totalFee = 0;
+        foreach ($list as $item) {
+            $text .= $item['out_trade_no'] . "<br/>" . "/学费/" . $item['total_fee'] / 100 . "元/1/" . $item ['total_fee'] / 100 . "元" . "<br/>";
+            $totalFee += $item ['total_fee'] / 100;
+        }
+
+
+        $text .= " -------------------------------<br/>" .
+            " 消费" . count($list) . "项,合计:" . $totalFee . "元<br/>" .
+            " ===============================<br/>";
+
+        $this->success('查询成功', null, null, $text);
+
     }
 
     // 通用插件的列表模型
@@ -400,7 +431,7 @@ class EO2OPaymentController extends EO2OBaseController
         //update the transaction data
         $responseData = $notify->getData();
         $Model = M('eo2o_payment');
-        $transaction = $Model->where('out_trade_no="' . $responseData['out_trade_no'] . '"')->find();
+        $transaction = $Model->where(array('out_trade_no' => $responseData['out_trade_no'], 'appid' => $responseData['appid']))->find();
 
         // get the data
         $responseData['token'] = get_token();
