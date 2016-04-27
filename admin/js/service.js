@@ -71,6 +71,52 @@ MetronicApp.factory('dataTool', ['$http', '$q', function ($http, $q) {
     }
 
     /**
+     * 取得模型信息
+     * @returns {*}
+     */
+    var getPostResponse = function (url, info, callback) {
+        var params = '';
+        for (var name in info) {
+
+            // 转换数据
+            if (info[name] instanceof Array) {
+                for (var index = 0; index < info[name].length; index++) {
+                    if (params != "") {
+                        params += "&";
+                    }
+                    params += name + "[]" + "=" + info[name][index] + "";
+                }
+            } else if (info[name] instanceof Object) {
+                if (params != "") {
+                    params += "&";
+                }
+                params += name + "[]" + "=" + info[name]["value"] + "";
+            }
+            else {
+                if (params != "") {
+                    params += "&";
+                }
+                if (info[name] == null) {
+                    info[name] = "";
+                }
+                params += name + "=" + encodeURIComponent(info[name]);
+            }
+        }
+
+        $http({
+            method: "post",
+            url: Metronic.rootPath() + url,
+            data: params,
+            headers: {
+                'Accept': "application/json",
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).success(function (data, status, headers, config) {
+            callback(data);
+        });
+    }
+
+    /**
      * 根据参数查询数据
      * @param model 模型名称
      * @param param 参数名称
@@ -88,7 +134,13 @@ MetronicApp.factory('dataTool', ['$http', '$q', function ($http, $q) {
 
 
     // 返回
-    return {save: saveData, getDataByParam: getDataByParam, getFieldList: getFieldList, getModelInfo: getModelInfo};
+    return {
+        save: saveData,
+        getDataByParam: getDataByParam,
+        getFieldList: getFieldList,
+        getModelInfo: getModelInfo,
+        getPostResponse: getPostResponse
+    };
 }]);
 
 

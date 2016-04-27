@@ -238,7 +238,6 @@ var TableAjax = function () {
         get: function (name) {
             return tableMap[name];
         },
-
         delete: function (id, tableName) {
             tableName = tableName || 'list';
             bootbox.confirm("确认删除选中数据?", function (result) {

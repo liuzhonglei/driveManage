@@ -27,24 +27,25 @@ class EO2OPaymentController extends EO2OBaseController
         $schoolInfo = $this->getSchoolInfo();
         $text = $schoolInfo['name'] . "<br/>" .
             " ===============================<br/>" .
-            " 单号/商品/单价/数据/金额/<br/>" .
-            " -------------------------------<br/>";
+            " 单号/时间/商品/金额<br/>" .
+            " ---------------------------------------------------------<br/>";
 
         // 查找划款数据
         $list = M('eo2o_payment')->where(array('id' => array('IN', $_REQUEST['id'])))->select();
         $totalFee = 0;
         foreach ($list as $item) {
-            $text .= $item['out_trade_no'] . "<br/>" . "/学费/" . $item['total_fee'] / 100 . "元/1/" . $item ['total_fee'] / 100 . "元" . "<br/>";
+            $payItem = M('school_payitem')->where(array('id' => $item['payitem_id']))->find();
+            $text .= $item['out_trade_no'] . "/</br>" . date('Y-m-d H:i:s', $item['time_end']) . "/" . $payItem['name'] . "/" . $item['total_fee'] / 100 . "元<br/><br/>";
             $totalFee += $item ['total_fee'] / 100;
         }
 
-
-        $text .= " -------------------------------<br/>" .
+        // 合并项目
+        $text .= " ---------------------------------------------------------<br/>" .
             " 消费" . count($list) . "项,合计:" . $totalFee . "元<br/>" .
             " ===============================<br/>";
 
+        // 返回
         $this->success('查询成功', null, null, $text);
-
     }
 
     // 通用插件的列表模型
@@ -288,7 +289,7 @@ class EO2OPaymentController extends EO2OBaseController
      */
     function createTradeNo()
     {
-        $timeStamp = time();
+        $timeStamp = microtime(true) * 10000;
         $out_trade_no = "$timeStamp";
         return $out_trade_no;
     }

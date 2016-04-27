@@ -1,4 +1,4 @@
-MetronicApp.controller('ListController', ['$rootScope', '$http', '$scope', function ($rootScope, $http, $scope) {
+MetronicApp.controller('ListController', ['$rootScope', '$http', '$scope', 'dataTool', function ($rootScope, $http, $scope, dataTool) {
     // param
     $scope.rootData = $rootScope.$state.$current.data;
     $scope.status = "WAIT";
@@ -22,6 +22,38 @@ MetronicApp.controller('ListController', ['$rootScope', '$http', '$scope', funct
         TableAjax.init('list', $rootScope.$state.$current.data.module, $rootScope.$state.$current.data.handleController, {result_code: $scope.status});
     }
 
+
+    /**
+     * 打印信息
+     */
+    $scope.print = function () {
+        // 读取标签
+        param = {id: TableAjax.tableMap['list'].grid.getSelectedRows()};
+
+        dataTool.getPostResponse("/index.php?s=/addon/" + $rootScope.$state.$current.data.module + "/" + $rootScope.$state.$current.data.handleController + "/payPrint", param, function (responese) {
+            if (responese.result == 1) {
+                browerPrint('pay-print-area', responese.data);
+            }
+        });
+    }
+
+    function browerPrint(divName, content) {
+        var jqueryName = "div#" + divName;
+        $(jqueryName).html(content)
+        $(jqueryName).print({
+            addGlobalStyles: true,
+            stylesheet: null,
+            rejectWindow: true,
+            noPrintSelector: ".no-print",
+            iframe: true,
+            append: null,
+            prepend: null
+        });
+
+        $(jqueryName).html("");
+    }
+
+
     // init ajax
     $scope.$on('$viewContentLoaded', function () {
         //init
@@ -35,4 +67,5 @@ MetronicApp.controller('ListController', ['$rootScope', '$http', '$scope', funct
         }, 1);
 
     });
-}]);
+}])
+;

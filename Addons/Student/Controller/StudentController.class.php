@@ -290,9 +290,9 @@ class StudentController extends StudentBaseController
      * @param $order
      * @return string
      */
-    private function createStudentSql($fields, $map, $page, $row, $order = "id desc")
+    private function createStudentSql($fields, $map, $page, $row, $order = null)
     {
-        $order || $order = "id desc";
+        $order || $order = "time_sign desc";
         $fieldsSql = implode(",", $fields);
         $mapSql = "";
         if (is_array($map)) {
@@ -403,7 +403,6 @@ STR;
         // return
         return $sql;
     }
-
 
 
     /**
