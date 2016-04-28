@@ -28,7 +28,7 @@ class EO2OPaymentController extends EO2OBaseController
         $text = $schoolInfo['name'] . "<br/>" .
             " ===============================<br/>" .
             " 单号/时间/商品/金额<br/>" .
-            " ---------------------------------------------------------<br/>";
+            " -------------------------------<br/>";
 
         // 查找划款数据
         $list = M('eo2o_payment')->where(array('id' => array('IN', $_REQUEST['id'])))->select();
@@ -40,7 +40,7 @@ class EO2OPaymentController extends EO2OBaseController
         }
 
         // 合并项目
-        $text .= " ---------------------------------------------------------<br/>" .
+        $text .= " -------------------------------<br/>" .
             " 消费" . count($list) . "项,合计:" . $totalFee . "元<br/>" .
             " ===============================<br/>";
 
