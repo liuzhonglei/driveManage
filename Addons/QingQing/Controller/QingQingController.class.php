@@ -53,21 +53,21 @@ class QingQingController extends BaseController
     /**
      * return the page attention
      */
-    function game(){
-        $name = i("name");
-        if(empty($name)){
-            $token = "gh_94ecad95d624";
-//            if(empty($token) || $token == -1){
-//                $token = gh_94ecad95d624;
-//            }
-
-//            http://www.iqqxc.com/index.php?s=/home/Index/leaflets/token/gh_94ecad95d624.html
-           // redirect("http://mp.weixin.qq.com/s?__biz=MzIyNzA0NjczMw==&mid=218779399&idx=1&sn=304e5822cebbc5c928a86ab7a22cd9a7&scene=0#rd");
-            $this->display( T ("Addons://QingQing@Mobile/"."color"));
-        }else{
-            $this->display( T ("Addons://QingQing@Mobile/".$name));
-        }
-    }
+//    function game(){
+//        $name = i("name");
+//        if(empty($name)){
+//            $token = "gh_94ecad95d624";
+////            if(empty($token) || $token == -1){
+////                $token = gh_94ecad95d624;
+////            }
+//
+////            http://www.iqqxc.com/index.php?s=/home/Index/leaflets/token/gh_94ecad95d624.html
+//           // redirect("http://mp.weixin.qq.com/s?__biz=MzIyNzA0NjczMw==&mid=218779399&idx=1&sn=304e5822cebbc5c928a86ab7a22cd9a7&scene=0#rd");
+//            $this->display( T ("Addons://QingQing@Mobile/"."color"));
+//        }else{
+//            $this->display( T ("Addons://QingQing@Mobile/".$name));
+//        }
+//    }
 
     /**
      * return the page attention
