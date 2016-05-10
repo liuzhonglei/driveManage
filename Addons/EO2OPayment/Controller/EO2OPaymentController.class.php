@@ -25,7 +25,7 @@ class EO2OPaymentController extends EO2OBaseController
 
         // 查找驾校信息
         $schoolInfo = $this->getSchoolInfo();
-        $text = $schoolInfo['name'] . "<span style=\"font-family: SimSun; font-size: 5px\"><br/>" .
+        $text = $schoolInfo['name'] . "<br/>" .
             " ===============================<br/>" .
             " 单号/时间/商品/金额<br/>" .
             " -------------------------------<br/>";
@@ -42,7 +42,7 @@ class EO2OPaymentController extends EO2OBaseController
         // 合并项目
         $text .= " -------------------------------<br/>" .
             " 消费" . count($list) . "项,合计:" . $totalFee . "元<br/>" .
-            " ===============================<br/></span>";
+            " ===============================<br/>";
 
         // 返回
         $this->success('查询成功', null, null, $text);

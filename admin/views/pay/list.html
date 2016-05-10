@@ -29,7 +29,7 @@
                         <div class="table-container">
                             <div ng-if="rootData.action == 'edit'" class="table-actions-wrapper ">
                                 <div style="margin-left: 5px">
-                                    <select class="table-group-action-input form-control input-inline input-small input-sm">
+                                    <select  class="table-group-action-input form-control input-inline input-small input-sm">
                                         <option value="">批量操作</option>
                                         <option value="delete">删除</option>
                                     </select>
@@ -67,9 +67,25 @@
         </div>
     </div>
 </div>
-<div ng-if="rootData.info" ng-include="'views/common/info-modal.html'" ng-controller="InfoController"/>
-<div id="pay-print-area" style="font-family:STSong; font-size: 10px;">
 
+<style>
+    .print {
+        text-align: left;  /*文本左对齐*/
+        width: 300px; /*宽度300px*/
+        background-color: white; /*背景色：白色*/
+        margin: 20px ;/*4边外边距20px*/
+        padding: 15px; /*4边内边距15px*/
+        font-size: 10px; /*字体大小14px*/
+        padding-bottom:30px;  /*下内变距30px*/
+        display: inline-block; /*将元素显示为块级元素*/
+        font-family: "SimSun";/*字体指定*/
+        border: solid 1px rgb(220,220,220);/*边框 实线 宽度1px,颜色 Gainsboro DCDCDC  220,220,220*/
+        border-radius: 3px;/*为元素添加圆角边框3px*/
+        overflow: hidden;/*内容会被修剪，但是浏览器不会显示供查看内容的滚动条。*/
+    }
+</style>
+<div ng-if="rootData.info" ng-include="'views/common/info-modal.html'" ng-controller="InfoController"/>
+<div id="pay-print-area" class="print">
 </div>
 <script>
 

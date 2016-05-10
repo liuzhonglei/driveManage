@@ -179,10 +179,10 @@ CREATE VIEW wp_eo2o_payment_all AS
     LEFT JOIN wp_school t2 ON t.token = t2.token
     LEFT JOIN wp_ucenter_member t3 ON t.user_id = t3.id
   WHERE LENGTH(trim(transaction_id)) > 0 OR pay_channel IN ("human", "alipay") OR result_code = "WAIT";
-
-CREATE VIEW wp_eo2o_pay_list AS
-  SELECT *
-  FROM wp_eo2o_payment_all;
+#
+# CREATE VIEW wp_eo2o_pay_list AS
+#   SELECT *
+#   FROM wp_eo2o_payment_all;
 
 /**
  * 划款统计
