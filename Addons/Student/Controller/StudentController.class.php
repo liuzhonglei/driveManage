@@ -880,6 +880,9 @@ STR;
         // 配置信息
         $in_student_openid = $_GET["in_student_openid"];
         $openid = get_openid();
+        if ($in_student_openid == $openid) {
+            $in_student_openid = null;
+        }
         $token = get_token();
 
         // judge get or post
