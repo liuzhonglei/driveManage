@@ -436,7 +436,7 @@ class EO2OPaymentController extends EO2OBaseController
 
         // get the data
         $responseData['token'] = get_token();
-        $responseData['time_end'] = time();
+        $responseData['time_end'] = strtotime($responseData['time_end']);
         if (!empty($transaction)) {
             $responseData["id"] = $transaction["id"];
             $Model->save($responseData);
