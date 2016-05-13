@@ -427,9 +427,8 @@ class EO2OPaymentController extends EO2OBaseController
         }
         $returnXml = $notify->returnXml();
         echo $returnXml;
+        addWeixinLog('pay return ' + $returnXml);
 
-
-        //update the transaction data
         $responseData = $notify->getData();
         $Model = M('eo2o_payment');
         $transaction = $Model->where(array('out_trade_no' => $responseData['out_trade_no'], 'appid' => $responseData['appid']))->find();
@@ -437,15 +436,14 @@ class EO2OPaymentController extends EO2OBaseController
         // get the data
         $responseData['token'] = get_token();
         $responseData['time_end'] = strtotime($responseData['time_end']);
-        if (!empty($transaction)) {
+        if (empty($transaction)) {
+            $Model->add($responseData);
+        } else if (empty($transaction['transaction_id'])) {
             $responseData["id"] = $transaction["id"];
             $Model->save($responseData);
-        } else {
-            $Model->add($responseData);
         }
 
         if ($notify->checkSign() == TRUE) {
-            //==商户根据实际情况设置相应的处理流程，此处仅作举例=======
             $data = array_merge(array("out_trade_no" => $responseData['out_trade_no'], "time" => date('Y-m-d H:i:s')), (array)json_decode($responseData['attach']));
             $data = http_build_query($data);
 
