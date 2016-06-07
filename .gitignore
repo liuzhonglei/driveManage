@@ -16,6 +16,7 @@
 !/ThinkPHP
 !/URLRewrite
 !/Doc
+!/mobile
 
 
 /Application/Common/Conf/config.php

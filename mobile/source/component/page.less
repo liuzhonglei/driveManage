@@ -1,0 +1,145 @@
+
+body {
+  background-color: #FBF9FE;
+}
+
+.page {
+  background-color: #FBF9FE;
+  //标题
+  .hd {
+    padding: 1em;
+    .title {
+      text-align: center;
+      font-size: 30px;
+      color: #76c5c2;
+      font-weight: 400;
+    }
+    .sub_title {
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+    }
+  }
+
+  //主体
+  .bd {
+    &.spacing {
+      padding: 0 10px;
+    }
+    position: relative;
+    top: -1.5em;
+  }
+
+
+
+  //行
+  .weui_cell {
+    .weui_cell_bd{
+      padding-right: 10px;
+    }
+
+    font-size: 0.85em;
+    .header {
+      float: none;
+      display: block;
+      width: 25%;
+    }
+
+    .half_header {
+      float: none;
+      display: block;
+      width: 28%;
+    }
+    .big_header {
+      float: none;
+      display: block;
+      width: 35%;
+    }
+
+    .icon_nav {
+      height: 20px;
+      display: block;
+      margin-right: .7em;
+      text-align: center;
+    }
+
+    //评级
+    .grade {
+      color: orange;
+      font-size: 0.8em;
+    }
+  }
+
+  .auth_code {
+    width: 70px;
+  }
+
+  .item {
+    float: right;
+    display: block;
+    width: 20%;
+    align: right;
+    //text-align: right;
+    img {
+      margin: auto;
+      display: block;
+      width: 20%;
+    }
+    span {
+      display: block;
+      text-align: center;
+    }
+  }
+}
+
+//图片中的文字
+.images_wrapper {
+  position: relative;
+  .images_content {
+    position: absolute;
+    font-size: 1.1em;
+    z-index: 1;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: #fff;
+    background: rgba(0, 0, 0, .7);
+    height: 2.5em;
+    line-height: 2.5em;
+    overflow: hidden;
+    text-align: left;
+  }
+}
+
+.gallery {
+  .title {
+    h1 {
+      color: #222;
+      font-weight: 100;
+      width: 90%;
+      margin-top: 10px;
+      margin-right: auto;
+      margin-bottom: 0px;
+      margin-left: auto;
+      display: block;
+      font-size: 2em;
+    }
+    h2 {
+      color: #222;
+      font-weight: 100;
+      width: 90%;
+      margin-top: 0px;
+      margin-right: auto;
+      margin-bottom: 10px;
+      margin-left: auto;
+      display: block;
+      font-size: 1.2em;
+    }
+  }
+  .gallery_div {
+    margin: 0px 8px 0px 8px;
+    img {
+      width: 100%;
+    }
+  }
+}

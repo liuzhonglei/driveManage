@@ -45,6 +45,7 @@ class CommonController extends ExtendAddonsController
         $_POST['token'] = get_token();
         parent::common_del($this->model);
     }
+
     /**
      * 取得实际的模型对象
      * @param null $model
@@ -239,6 +240,22 @@ class CommonController extends ExtendAddonsController
             $this->display(T(MOBILE_PATH . 'schoolCenterBind'));
         }
     }
+
+//    /**
+//     * 查询表数据
+//     */
+//    public function getModelList()
+//    {
+//        // 查询
+//        $model = $this->model;
+//        $model ['list_row'] = 100000;
+//        if (empty($list_data)) {
+//            $list_data = $this->_get_model_list($model);
+//        }
+//
+//        // 返回
+//        $this->ajaxReturn($list_data);
+//    }
 
 
     /**

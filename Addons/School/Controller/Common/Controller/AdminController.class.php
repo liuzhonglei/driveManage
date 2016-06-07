@@ -292,7 +292,7 @@ class AdminController extends CommonController
      * @param $result
      * @param $message
      */
-    private function adminReturn($result, $message = null, $data = null)
+    protected function adminReturn($result, $message = null, $data = null)
     {
 
         $map = array(result => $result, message => $message, data => $data);

@@ -1,0 +1,7 @@
+/**
+ * Created by wuhanchu on 16/4/25.
+ */
+{
+    "stage": 2,
+    "optional": ["es7.classProperties"]
+}

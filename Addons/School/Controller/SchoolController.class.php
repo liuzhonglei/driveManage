@@ -74,6 +74,16 @@ class SchoolController extends SchoolBaseController
     }
 
     /**
+     * 显示轻轻宣传报名界面
+     */
+    function showRegister()
+    {
+        $this->display("mobile/page/register.html");
+
+    }
+
+
+    /**
      * show the index page
      * @return index page
      *
@@ -102,7 +112,7 @@ class SchoolController extends SchoolBaseController
 
         // display
         $theme = $_REQUEST['theme'];
-        $theme || $theme= "";
+        $theme || $theme = "";
         $url = MOBILE_PATH . 'index' . $theme;
         $this->display(T($url));
     }
@@ -307,6 +317,31 @@ class SchoolController extends SchoolBaseController
     }
 
 
+    /**
+     * 显示所有的驾校
+     */
+    function listAllSchool()
+    {
+        $data = M('school')->where(array('is_qingqing' => '1'))->select();
+        $this->ajaxReturn($data);
+    }
+
+
+    /**
+     * 取得驾校的信息
+     */
+    function getSchoolInfo()
+    {
+        //  查找驾校信息
+        $token = $_REQUEST['token'];
+        $schoolInfo = M('school')->where(array('token' => $token))->find();
+
+        // 查找封面信息
+        $schoolInfo['photo'] = get_cover($schoolInfo['photo'])['path'];
+
+        // 返回
+        $this->ajaxReturn($schoolInfo);
+    }
 
     // function top()
     // {

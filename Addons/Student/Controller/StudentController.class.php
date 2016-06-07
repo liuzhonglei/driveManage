@@ -1883,4 +1883,21 @@ str;
         // 返回
         $this->success($returnMsg);
     }
+
+    /**
+     * 注册学员
+     */
+    function registerStudent()
+    {
+        $student = M('student')->where(array('token' => get_token()))->find();
+        if ($student) {
+            return $this->adminReturn(0, '学员已经存在!');
+        } else {
+            $result = $this->saveModel();
+            if ($result["status"] == "1") {
+                $this->adminReturn(1);
+            }
+            $this->adminReturn(0, $result["info"]);
+        }
+    }
 }
