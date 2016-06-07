@@ -326,22 +326,22 @@ class SchoolController extends SchoolBaseController
         $this->ajaxReturn($data);
     }
 
-
-    /**
-     * 取得驾校的信息
-     */
-    function getSchoolInfoByToken()
-    {
-        //  查找驾校信息
-        $token = $_REQUEST['token'];
-        $schoolInfo = M('school')->where(array('token' => $token))->find();
-
-        // 查找封面信息
-        $schoolInfo['photo'] = get_cover($schoolInfo['photo'])['path'];
-
-        // 返回
-        $this->ajaxReturn($schoolInfo);
-    }
+//
+//    /**
+//     * 取得驾校的信息
+//     */
+//    function getSchoolInfoByToken()
+//    {
+//        //  查找驾校信息
+//        $token = $_REQUEST['token'];
+//        $schoolInfo = M('school')->where(array('token' => $token))->find();
+//
+//        // 查找封面信息
+//        $schoolInfo['photo'] = get_cover($schoolInfo['photo'])['path'];
+//
+//        // 返回
+//        $this->ajaxReturn($schoolInfo);
+//    }
 
     // function top()
     // {

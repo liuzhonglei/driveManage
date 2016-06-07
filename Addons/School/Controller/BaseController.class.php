@@ -36,8 +36,18 @@ class BaseController extends AdminController
     protected function  getSchoolInfo()
     {
         $Model = M("school");
-        $map = array('token' => get_token());
+        $token = $_REQUEST['token'];
+        if (empty($token)) {
+            $token = get_token();
+        }
+        $map = array('token' => $token);
         $info = $Model->where($map)->find();
+
+        // 查找封面信息
+        if(!empty($info['photo'])){
+            $info['photo'] = get_cover($info['photo'])['path'];
+        }
+
         return $info;
     }
 
