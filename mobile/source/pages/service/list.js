@@ -160,7 +160,7 @@ export default class ServiceList extends Controller {
         // 加载列表
         this.showLoading();
         $.ajax({
-            url: 'http://localhost:8891/index.php?s=/addon/School/school/listAllSchool',
+            url: './index.php?s=/addon/School/school/listAllSchool',
             type: 'GET',
             data: {
                 "admin_area": this.state.param.admin_area,

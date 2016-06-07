@@ -5048,7 +5048,7 @@ webpackJsonp([0],[
 
 	            //查询驾校信息
 	            $.ajax({
-	                url: 'http://localhost:8891/index.php?s=/addon/School/school/getSchoolInfo',
+	                url: './index.php?s=/addon/School/school/getSchoolInfo',
 	                type: 'POST',
 	                data: {
 	                    token: this.props.routeParams.token
@@ -5098,7 +5098,7 @@ webpackJsonp([0],[
 	        value: function submit() {
 	            this.showLoading();
 	            $.ajax({
-	                url: 'http://localhost:8891/index.php?s=/addon/Student/Student/registerStudent',
+	                url: './index.php?s=/addon/Student/Student/registerStudent',
 	                type: 'POST',
 	                data: this.state.info,
 	                success: (function (response) {
@@ -19310,7 +19310,7 @@ webpackJsonp([0],[
 	            // 加载列表
 	            this.showLoading();
 	            $.ajax({
-	                url: 'http://localhost:8891/index.php?s=/addon/School/school/listAllSchool',
+	                url: './index.php?s=/addon/School/school/listAllSchool',
 	                type: 'GET',
 	                data: {
 	                    "admin_area": this.state.param.admin_area,
@@ -19802,7 +19802,7 @@ webpackJsonp([0],[
 
 	            // 创建地点
 	            $.ajax({
-	                url: 'http://localhost:8891/index.php?s=/addon/School/place/listAllPlace',
+	                url: './index.php?s=/addon/School/place/listAllPlace',
 	                type: 'GET',
 	                success: (function (response) {
 	                    for (var item in response) {
@@ -19987,7 +19987,7 @@ webpackJsonp([0],[
 	            this.showLoading();
 
 	            $.ajax({
-	                url: 'http://localhost:8891/index.php?s=/addon/School/school/getSchoolInfo',
+	                url: './index.php?s=/addon/School/school/getSchoolInfo',
 	                type: 'POST',
 	                data: {
 	                    token: this.props.routeParams.token

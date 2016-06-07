@@ -43,7 +43,7 @@ export default class UserRegister extends Controller {
 
         //查询驾校信息
         $.ajax({
-            url: 'http://localhost:8891/index.php?s=/addon/School/school/getSchoolInfo',
+            url: './index.php?s=/addon/School/school/getSchoolInfo',
             type: 'POST',
             data: {
                 token: this.props.routeParams.token
@@ -87,7 +87,7 @@ export default class UserRegister extends Controller {
     submit() {
         this.showLoading();
         $.ajax({
-            url: 'http://localhost:8891/index.php?s=/addon/Student/Student/registerStudent',
+            url: './index.php?s=/addon/Student/Student/registerStudent',
             type: 'POST',
             data: this.state.info,
             success: function (response) {

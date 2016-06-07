@@ -40,7 +40,7 @@ export default class ServiceInfo extends Controller {
         this.showLoading();
 
         $.ajax({
-            url: 'http://localhost:8891/index.php?s=/addon/School/school/getSchoolInfo',
+            url: './index.php?s=/addon/School/school/getSchoolInfo',
             type: 'POST',
             data: {
                 token: this.props.routeParams.token

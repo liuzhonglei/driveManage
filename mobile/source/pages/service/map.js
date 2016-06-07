@@ -44,7 +44,7 @@ export default class ServiceMap extends Controller {
 
         // 创建地点
         $.ajax({
-            url: 'http://localhost:8891/index.php?s=/addon/School/place/listAllPlace',
+            url: './index.php?s=/addon/School/place/listAllPlace',
             type: 'GET',
             success: function (response) {
                 for (var item in response) {
