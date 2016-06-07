@@ -37,18 +37,27 @@ class BaseController extends AdminController
     {
         $Model = M("school");
         $token = $_REQUEST['token'];
-        if (empty($token)) {
+
+        if (!empty($token)) {
+            $isAjax = true;
+        } else {
+            $isAjax = false;
             $token = get_token();
         }
         $map = array('token' => $token);
         $info = $Model->where($map)->find();
 
         // 查找封面信息
-        if(!empty($info['photo'])){
+        if (!empty($info['photo'])) {
             $info['photo'] = get_cover($info['photo'])['path'];
         }
 
-        return $info;
+        // 返回
+        if ($isAjax) {
+            $this->ajaxReturn($info);
+        } else {
+            return $info;
+        }
     }
 
     /**
