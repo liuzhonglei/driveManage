@@ -20,3 +20,25 @@
 <script src="/mobile/javascript/app.js"></script>
 </body>
 </html>
+
+<script>
+    $.post('./index.php?s=/addon/School/School/wxSignPackage', function (data) {
+        console.log("wxSignPackage", data);
+        wx.config({
+            debug: false,
+            appId: data.appId,
+            timestamp: data.timestamp,
+            nonceStr: data.nonceStr,
+            signature: data.signature,
+            jsApiList: [
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'getLocation',
+                'openLocation'
+            ]
+        })
+    });
+</script>

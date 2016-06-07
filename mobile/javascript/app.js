@@ -19776,12 +19776,9 @@ webpackJsonp([0],[
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            // 地址
-	            //wx.ready(
-	            //    function () {
-	            this.syncLocation();
-	            //
-	            //    }.bind(this)
-	            //)
+	            wx.ready((function () {
+	                this.syncLocation();
+	            }).bind(this));
 	        }
 
 	        /**
@@ -19790,31 +19787,28 @@ webpackJsonp([0],[
 	    }, {
 	        key: 'syncLocation',
 	        value: function syncLocation() {
-	            //this.setState({syncLocation: true});
-	            //wx.getLocation({
-	            //    type: 'gcj02',
-	            //    success: function (res) {
-	            //118.161409,24.482197
-	            var res = { latitude: 24.482197, longitude: 118.161409 };
-	            //  创建地图
-	            this.createMap(res.latitude, res.longitude);
-	            console.log('this.createMap', this.state.map);
+	            wx.getLocation({
+	                type: 'gcj02',
+	                success: (function (res) {
+	                    //  创建地图
+	                    this.createMap(res.latitude, res.longitude);
+	                    console.log('this.createMap', this.state.map);
 
-	            // 创建地点
-	            $.ajax({
-	                url: './index.php?s=/addon/School/place/listAllPlace',
-	                type: 'GET',
-	                success: (function (response) {
-	                    for (var item in response) {
-	                        //console.log('item', item);
+	                    // 创建地点
+	                    $.ajax({
+	                        url: './index.php?s=/addon/School/place/listAllPlace',
+	                        type: 'GET',
+	                        success: (function (response) {
+	                            for (var item in response) {
+	                                //console.log('item', item);
 
-	                        this.createMarker(response[item]);
-	                    }
-	                    this.stopLoading();
+	                                this.createMarker(response[item]);
+	                            }
+	                            this.stopLoading();
+	                        }).bind(this)
+	                    });
 	                }).bind(this)
 	            });
-	            //    }.bind(this)
-	            //});
 	        }
 
 	        /**
