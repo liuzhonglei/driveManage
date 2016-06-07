@@ -37,11 +37,8 @@ class BaseController extends AdminController
     {
         $Model = M("school");
         $token = $_REQUEST['token'];
-
-        if (!empty($token)) {
-            $isAjax = true;
-        } else {
-            $isAjax = false;
+        $isAjax = $_REQUEST['isAjax'];
+        if (empty($token)) {
             $token = get_token();
         }
         $map = array('token' => $token);
