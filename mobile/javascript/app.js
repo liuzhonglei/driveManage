@@ -19975,7 +19975,6 @@ webpackJsonp([0],[
 	                economy_range: {},
 	                corporation: {}
 	            };
-	            this.state.info.type = "repair";
 
 	            // 显示推荐配置
 	            this.showLoading();
@@ -19987,66 +19986,43 @@ webpackJsonp([0],[
 	                    token: this.props.routeParams.token
 	                },
 	                success: (function (response) {
-	                    //转换字典
-	                    var conditions = response.condition.split(',');
-	                    var recruit_place_list = response.recruit_place.split(',');
-	                    response.condition = "";
-	                    response.recruit_place = "";
-	                    var conditionMap = {
-	                        1: "可夜间练车",
-	                        2: "可接送",
-	                        3: "可刷卡",
-	                        4: "是否速成",
-	                        5: "可考自动档",
-	                        6: "可分期"
-	                    };
-	                    var placeMap = {
-	                        1: "思明区",
-	                        2: "湖里区",
-	                        3: "集美区",
-	                        4: "同安区",
-	                        5: "海沧区",
-	                        6: "翔安区"
-	                    };
-	                    for (var i in conditions) {
-	                        response.condition += " " + conditionMap[conditions[i]];
+	                    //转换条件
+	                    if (response.condition) {
+	                        var conditions = response.condition.split(',');
+	                        response.condition = "";
+	                        var conditionMap = {
+	                            1: "可夜间练车",
+	                            2: "可接送",
+	                            3: "可刷卡",
+	                            4: "是否速成",
+	                            5: "可考自动档",
+	                            6: "可分期"
+	                        };
+	                        response.condition = "";
+	                        for (var i in conditions) {
+	                            response.condition += " " + conditionMap[conditions[i]];
+	                        }
 	                    }
-	                    for (var i in recruit_place_list) {
-	                        response.recruit_place += " " + placeMap[recruit_place_list[i]];
+
+	                    // 转换地点
+	                    if (response.recruit_place) {
+	                        var placeMap = {
+	                            1: "思明区",
+	                            2: "湖里区",
+	                            3: "集美区",
+	                            4: "同安区",
+	                            5: "海沧区",
+	                            6: "翔安区"
+	                        };
+	                        var recruit_place_list = response.recruit_place.split(',');
+	                        response.recruit_place = "";
+	                        for (var i in recruit_place_list) {
+	                            response.recruit_place += " " + placeMap[recruit_place_list[i]];
+	                        }
 	                    }
 
 	                    // 设置
 	                    this.setState({ info: response });
-	                    this.stopLoading();
-	                }).bind(this)
-	            });
-	        }
-
-	        /**
-	         * 更新评价
-	         */
-	    }, {
-	        key: 'refreshApprise',
-	        value: function refreshApprise(check_corp_code) {
-	            this.showLoading();
-	            $.ajax({
-	                url: '/data/common',
-	                type: 'POST',
-	                data: {
-	                    source: 'maintain/second_maintenance/grade_statics',
-	                    check_corp_code: check_corp_code,
-	                    method: 'POST'
-	                },
-	                success: (function (response) {
-	                    // 更新评价
-	                    this.state.info.apprise_num = response.result.count;
-	                    if (!this.state.info.apprise_num) {
-	                        this.state.info.apprise_num = 0;
-	                    }
-	                    this.setState({ info: response });
-	                    if (!response.result.grade) {
-	                        response.result.grade = 5;
-	                    }
 	                    this.stopLoading();
 	                }).bind(this)
 	            });
