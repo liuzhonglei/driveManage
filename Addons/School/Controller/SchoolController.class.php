@@ -330,7 +330,7 @@ class SchoolController extends SchoolBaseController
     /**
      * 取得驾校的信息
      */
-    function getSchoolInfo()
+    function getSchoolInfoByToken()
     {
         //  查找驾校信息
         $token = $_REQUEST['token'];
