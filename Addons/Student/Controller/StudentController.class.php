@@ -330,6 +330,7 @@ class StudentController extends StudentBaseController
 			) teacher_k2_name,
 			t3. NAME course_name,
 			t5. NAME status_name,
+			t9. Name school_name,
 			(
 				SELECT
 					NAME
@@ -391,10 +392,10 @@ class StudentController extends StudentBaseController
 		LEFT JOIN wp_school_dict t5 ON t5.dic_type = 'student_status'
 		AND t. STATUS = t5.
 		VALUE
-
 		LEFT JOIN wp_eo2o_payment_count t8 ON t.token = t8.token
 		AND t.openid = t8.openid
 		and in_or_out = 'IN'
+		left join wp_school t9 on t.school_token = t9.token
      ) tw
      order by $order
 
@@ -1664,11 +1665,20 @@ str;
 
             //通知
             $result = $this->notification();
-        } // 挂靠学院
+        }
+        // 挂靠学院
         else if ($customActionName == "link") {
             foreach ($_POST['id'] as $id) {
                 $student = $StudentModel->where(array("id" => $id))->find();
                 $student["belong"] = "OUT";
+                $StudentModel->save($student);
+            }
+        }
+        // 推送到对应的驾校
+        else if ($customActionName == "push") {
+            foreach ($_POST['id'] as $id) {
+                $student = $StudentModel->where(array("id" => $id))->find();
+                $student["token"] = $student["school_token"];
                 $StudentModel->save($student);
             }
         }
@@ -1889,10 +1899,14 @@ str;
      */
     function registerStudent()
     {
-        $student = M('student')->where(array('token' => get_token()))->find();
+        $student = M('student')->where(array('school_token' => $_POST['school_token'], 'openid' => get_openid()))->find();
         if ($student) {
             return $this->adminReturn(0, '学员已经存在!');
         } else {
+            $_POST['openid'] = get_openid();
+            $_POST['status'] = '-1';
+            $_POST['intro_source'] = '5';
+            $_POST['time_sign'] = date("Y-m-d");
             $result = $this->saveModel();
             if ($result["status"] == "1") {
                 $this->adminReturn(1);

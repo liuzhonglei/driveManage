@@ -5051,7 +5051,8 @@ webpackJsonp([0],[
 	                url: './index.php?s=/addon/School/school/getSchoolInfo',
 	                type: 'POST',
 	                data: {
-	                    token: this.props.routeParams.token
+	                    token: this.props.routeParams.token,
+	                    isAjax: true
 	                },
 	                success: (function (response) {
 	                    this.state.info.school_token = response.token;
