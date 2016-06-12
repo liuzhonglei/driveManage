@@ -49,6 +49,12 @@ class BaseController extends AdminController
             $info['photo'] = get_cover($info['photo'])['path'];
         }
 
+        // 3D场景
+        $showUlr = "scene/" . get_token() . "/3dshow-mobile/index.html";
+        if (file_exists($showUlr)) {
+            $info['scene_url'] = $showUlr;
+        }
+
         // 返回
         if ($isAjax) {
             $this->ajaxReturn($info);

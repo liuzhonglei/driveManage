@@ -39,7 +39,7 @@ export default class ServiceInfo extends Controller {
         this.showLoading();
 
         $.ajax({
-            url: './index.php?s=/addon/School/school/getSchoolInfo',
+            url: './index.php?s=/addon/School/School/getSchoolInfo',
             type: 'POST',
             data: {
                 token: this.props.routeParams.token,
@@ -130,7 +130,7 @@ export default class ServiceInfo extends Controller {
 
                     <div className="images_content">&nbsp;&nbsp;{this.state.info.name}</div>
                 </div>
-                <Cells style={{marginTop:0}}>
+                <Cells access style={{marginTop:0}}>
                     <Cell>
                         <CellBody>
                             <div onClick={this.showPosition.bind(this)}
@@ -138,7 +138,7 @@ export default class ServiceInfo extends Controller {
                                 <FontAwesome style={{color:"#4397f1"}} name='location-arrow'
                                              size="lg"/>
                                 &nbsp;
-                                <span style={{color:"#4397f1"}}>到这去</span>
+                                <span style={{color:"#4397f1"}}>去报名点</span>
                             </div>
                             <a href={this.state.info.phone? 'tel:'+this.state.info.phone:"javascript:"}
 
@@ -172,6 +172,13 @@ export default class ServiceInfo extends Controller {
                         </CellBody>
                     </Cell>
 
+                    <Cell style={{display: this.state.info.scene_url? "":"none"}} href={this.state.info.scene_url}>
+                        <CellHeader className="half_header">3D影像</CellHeader>
+                        <CellBody>
+                        </CellBody>
+                        <CellFooter>
+                        </CellFooter>
+                    </Cell>
                 </Cells>
 
 

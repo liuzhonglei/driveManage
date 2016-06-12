@@ -150,7 +150,7 @@ export default class ServiceList extends Controller {
      */
     dataChange(param, event) {
         this.state.param[param] = event.target.value;
-        this.reloadData();
+        this.refreshList();
     }
 
     /**
@@ -160,7 +160,7 @@ export default class ServiceList extends Controller {
         // 加载列表
         this.showLoading();
         $.ajax({
-            url: './index.php?s=/addon/School/school/listAllSchool',
+            url: './index.php?s=/addon/School/School/listAllSchool',
             type: 'GET',
             data: {
                 "admin_area": this.state.param.admin_area,
@@ -208,6 +208,14 @@ export default class ServiceList extends Controller {
         this.setState({'items': this.state.items});
         for (var i = 0; i < this.state.list.length && i <= this.state.itemEnd; i++) {
             var item = this.state.list[i];
+
+            //判断地点
+            console.log('this.state.param.recruit_place',this.state.param.recruit_place);
+            console.log('item.recruit_place',item.recruit_place);
+
+            if(this.state.param.recruit_place && item.recruit_place.indexOf(this.state.param.recruit_place) < 0){
+                continue;
+            }
 
             // 判断类型
             if (this.state.param.business_type && item.business_type != this.state.param.business_type) {
@@ -360,10 +368,14 @@ export default class ServiceList extends Controller {
                 <div className="weui_tab">
                     <div className="weui_navbar">
                         <div className="weui_navbar_item">
-                            <select name="admin_area" className="weui_select"
-                                    onChange={this.dataChange.bind(this,"admin_area")}>
-                                <option value="3502">厦门市</option>
-                                <option value="3507">南平市</option>
+                            <select name="recruit_place" className="weui_select"
+                                    onChange={this.dataChange.bind(this,"recruit_place")}>
+                                <option value="1">思明区</option>
+                                <option value="2">湖里区</option>
+                                <option value="3">集美区</option>
+                                <option value="4">同安区</option>
+                                <option value="5">海沧区</option>
+                                <option value="6">翔安区</option>
                             </select>
                             &nbsp;
                             <FontAwesome name='angle-down'

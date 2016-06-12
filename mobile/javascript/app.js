@@ -19299,7 +19299,7 @@ webpackJsonp([0],[
 	        key: 'dataChange',
 	        value: function dataChange(param, event) {
 	            this.state.param[param] = event.target.value;
-	            this.reloadData();
+	            this.refreshList();
 	        }
 
 	        /**
@@ -19311,7 +19311,7 @@ webpackJsonp([0],[
 	            // 加载列表
 	            this.showLoading();
 	            $.ajax({
-	                url: './index.php?s=/addon/School/school/listAllSchool',
+	                url: './index.php?s=/addon/School/School/listAllSchool',
 	                type: 'GET',
 	                data: {
 	                    "admin_area": this.state.param.admin_area,
@@ -19361,6 +19361,14 @@ webpackJsonp([0],[
 	            this.setState({ 'items': this.state.items });
 	            for (var i = 0; i < this.state.list.length && i <= this.state.itemEnd; i++) {
 	                var item = this.state.list[i];
+
+	                //判断地点
+	                console.log('this.state.param.recruit_place', this.state.param.recruit_place);
+	                console.log('item.recruit_place', item.recruit_place);
+
+	                if (this.state.param.recruit_place && item.recruit_place.indexOf(this.state.param.recruit_place) < 0) {
+	                    continue;
+	                }
 
 	                // 判断类型
 	                if (this.state.param.business_type && item.business_type != this.state.param.business_type) {
@@ -19576,17 +19584,37 @@ webpackJsonp([0],[
 	                            { className: 'weui_navbar_item' },
 	                            React.createElement(
 	                                'select',
-	                                { name: 'admin_area', className: 'weui_select',
-	                                    onChange: this.dataChange.bind(this, "admin_area") },
+	                                { name: 'recruit_place', className: 'weui_select',
+	                                    onChange: this.dataChange.bind(this, "recruit_place") },
 	                                React.createElement(
 	                                    'option',
-	                                    { value: '3502' },
-	                                    '厦门市'
+	                                    { value: '1' },
+	                                    '思明区'
 	                                ),
 	                                React.createElement(
 	                                    'option',
-	                                    { value: '3507' },
-	                                    '南平市'
+	                                    { value: '2' },
+	                                    '湖里区'
+	                                ),
+	                                React.createElement(
+	                                    'option',
+	                                    { value: '3' },
+	                                    '集美区'
+	                                ),
+	                                React.createElement(
+	                                    'option',
+	                                    { value: '4' },
+	                                    '同安区'
+	                                ),
+	                                React.createElement(
+	                                    'option',
+	                                    { value: '5' },
+	                                    '海沧区'
+	                                ),
+	                                React.createElement(
+	                                    'option',
+	                                    { value: '6' },
+	                                    '翔安区'
 	                                )
 	                            ),
 	                            ' ',
@@ -19981,7 +20009,7 @@ webpackJsonp([0],[
 	            this.showLoading();
 
 	            $.ajax({
-	                url: './index.php?s=/addon/School/school/getSchoolInfo',
+	                url: './index.php?s=/addon/School/School/getSchoolInfo',
 	                type: 'POST',
 	                data: {
 	                    token: this.props.routeParams.token,
@@ -20090,7 +20118,7 @@ webpackJsonp([0],[
 	                ),
 	                React.createElement(
 	                    Cells,
-	                    { style: { marginTop: 0 } },
+	                    { access: true, style: { marginTop: 0 } },
 	                    React.createElement(
 	                        Cell,
 	                        null,
@@ -20107,7 +20135,7 @@ webpackJsonp([0],[
 	                                React.createElement(
 	                                    'span',
 	                                    { style: { color: "#4397f1" } },
-	                                    '到这去'
+	                                    '去报名点'
 	                                )
 	                            ),
 	                            React.createElement(
@@ -20178,6 +20206,17 @@ webpackJsonp([0],[
 	                                this.state.info.condition
 	                            )
 	                        )
+	                    ),
+	                    React.createElement(
+	                        Cell,
+	                        { style: { display: this.state.info.scene_url ? "" : "none" }, href: this.state.info.scene_url },
+	                        React.createElement(
+	                            CellHeader,
+	                            { className: 'half_header' },
+	                            '3D影像'
+	                        ),
+	                        React.createElement(CellBody, null),
+	                        React.createElement(CellFooter, null)
 	                    )
 	                ),
 	                React.createElement(
