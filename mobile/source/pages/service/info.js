@@ -46,6 +46,7 @@ export default class ServiceInfo extends Controller {
                 isAjax: true
             },
             success: function (response) {
+                alert(response.condition);
                 //转换条件
                 if (response.condition) {
                     var conditions = response.condition.split(',');
