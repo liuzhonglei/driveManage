@@ -78,8 +78,10 @@ class SchoolController extends SchoolBaseController
      */
     function showRegister()
     {
+        if ($_REQUEST['token']) {
+            get_token($_REQUEST['token']);
+        }
         $this->display("mobile/page/register.html");
-
     }
 
 
