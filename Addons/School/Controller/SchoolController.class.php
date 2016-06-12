@@ -82,6 +82,8 @@ class SchoolController extends SchoolBaseController
             get_token($_REQUEST['token']);
         }
         $this->display("mobile/page/register.html");
+
+
     }
 
 
