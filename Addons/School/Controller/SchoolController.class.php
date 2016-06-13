@@ -78,6 +78,7 @@ class SchoolController extends SchoolBaseController
      */
     function showRegister()
     {
+        get_openid();
         if ($_REQUEST['token']) {
             get_token($_REQUEST['token']);
         }
