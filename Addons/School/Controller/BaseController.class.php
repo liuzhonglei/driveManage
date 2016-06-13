@@ -33,7 +33,7 @@ class BaseController extends AdminController
      * 取得驾校信息
      * @return [type] [description]
      */
-    protected function  getSchoolInfo()
+    public function  getSchoolInfo()
     {
         $Model = M("school");
         $token = $_REQUEST['token'];
