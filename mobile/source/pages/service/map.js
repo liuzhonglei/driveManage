@@ -10,7 +10,10 @@ export default class ServiceMap extends Controller {
      */
     componentWillMount() {
         super.componentWillMount();
-
+        this.state.width = document.documentElement.clientWidth;
+        this.state.height = document.documentElement.clientHeight;
+        this.setState({'height': this.state.height});
+        console.log(' this.state.height', this.state.height);
     }
 
     /**
@@ -34,9 +37,12 @@ export default class ServiceMap extends Controller {
         wx.getLocation({
             type: 'gcj02',
             success: function (res) {
+                console.log('syncLocation');
+                //var res = {latitude: 24.480601, longitude: 118.172301};
+
                 //  创建地图
                 this.createMap(res.latitude, res.longitude);
-                console.log('this.createMap', this.state.map);
+                //console.log('this.createMap', this.state.map);
 
                 // 创建地点
                 $.ajax({
@@ -118,10 +124,9 @@ export default class ServiceMap extends Controller {
      */
     render() {
         return (
-            <div className="page">
-                <div id="map"></div>
+            <div style={{width:this.state.width, height : this.state.height}} className="page">
+                <div id="map">123</div>
             </div>
         );
     }
-
 };

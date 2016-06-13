@@ -9510,7 +9510,7 @@ webpackJsonp([0],[
 
 
 	// module
-	exports.push([module.id, "body {\n  background-color: #FBF9FE;\n}\n.page {\n  background-color: #FBF9FE;\n}\n.page .hd {\n  padding: 1em;\n}\n.page .hd .title {\n  text-align: center;\n  font-size: 30px;\n  color: #76c5c2;\n  font-weight: 400;\n}\n.page .hd .sub_title {\n  text-align: center;\n  color: #888;\n  font-size: 14px;\n}\n.page .bd {\n  position: relative;\n  top: -1.5em;\n}\n.page .bd.spacing {\n  padding: 0 10px;\n}\n.page .weui_cell {\n  font-size: 0.85em;\n}\n.page .weui_cell .weui_cell_bd {\n  padding-right: 10px;\n}\n.page .weui_cell .header {\n  float: none;\n  display: block;\n  width: 25%;\n}\n.page .weui_cell .half_header {\n  float: none;\n  display: block;\n  width: 28%;\n}\n.page .weui_cell .big_header {\n  float: none;\n  display: block;\n  width: 35%;\n}\n.page .weui_cell .icon_nav {\n  height: 20px;\n  display: block;\n  margin-right: .7em;\n  text-align: center;\n}\n.page .weui_cell .grade {\n  color: orange;\n  font-size: 0.8em;\n}\n.page .auth_code {\n  width: 70px;\n}\n.page .item {\n  float: right;\n  display: block;\n  width: 20%;\n  align: right;\n}\n.page .item img {\n  margin: auto;\n  display: block;\n  width: 20%;\n}\n.page .item span {\n  display: block;\n  text-align: center;\n}\n.images_wrapper {\n  position: relative;\n}\n.images_wrapper .images_content {\n  position: absolute;\n  font-size: 1.1em;\n  z-index: 1;\n  left: 0;\n  bottom: 0;\n  width: 100%;\n  color: #fff;\n  background: rgba(0, 0, 0, 0.7);\n  height: 2.5em;\n  line-height: 2.5em;\n  overflow: hidden;\n  text-align: left;\n}\n.gallery .title h1 {\n  color: #222;\n  font-weight: 100;\n  width: 90%;\n  margin-top: 10px;\n  margin-right: auto;\n  margin-bottom: 0px;\n  margin-left: auto;\n  display: block;\n  font-size: 2em;\n}\n.gallery .title h2 {\n  color: #222;\n  font-weight: 100;\n  width: 90%;\n  margin-top: 0px;\n  margin-right: auto;\n  margin-bottom: 10px;\n  margin-left: auto;\n  display: block;\n  font-size: 1.2em;\n}\n.gallery .gallery_div {\n  margin: 0px 8px 0px 8px;\n}\n.gallery .gallery_div img {\n  width: 100%;\n}\n", ""]);
+	exports.push([module.id, "body {\n  background-color: #FBF9FE;\n}\n.page {\n  background-color: #FBF9FE;\n}\n.page .hd {\n  padding: 1em;\n}\n.page .hd .title {\n  text-align: center;\n  font-size: 30px;\n  color: #76c5c2;\n  font-weight: 400;\n}\n.page .hd .sub_title {\n  text-align: center;\n  color: #888;\n  font-size: 14px;\n}\n.page .bd {\n  position: relative;\n  top: -1.5em;\n}\n.page .bd.spacing {\n  padding: 0 10px;\n}\n.page .weui_cell {\n  font-size: 0.85em;\n}\n.page .weui_cell .weui_cell_bd {\n  padding-right: 10px;\n}\n.page .weui_cell .header {\n  float: none;\n  display: block;\n  width: 25%;\n}\n.page .weui_cell .half_header {\n  float: none;\n  display: block;\n  width: 28%;\n}\n.page .weui_cell .big_header {\n  float: none;\n  display: block;\n  width: 35%;\n}\n.page .weui_cell .icon_nav {\n  height: 20px;\n  width: 20px;\n  display: block;\n  margin-right: .7em;\n  text-align: left;\n}\n.page .weui_cell .grade {\n  color: orange;\n  font-size: 0.8em;\n}\n.page .auth_code {\n  width: 70px;\n}\n.page .item {\n  float: right;\n  display: block;\n  width: 20%;\n  align: right;\n}\n.page .item img {\n  margin: auto;\n  display: block;\n  width: 20%;\n}\n.page .item span {\n  display: block;\n  text-align: center;\n}\n.images_wrapper {\n  position: relative;\n}\n.images_wrapper .images_content {\n  position: absolute;\n  font-size: 1.1em;\n  z-index: 1;\n  left: 0;\n  bottom: 0;\n  width: 100%;\n  color: #fff;\n  background: rgba(0, 0, 0, 0.7);\n  height: 2.5em;\n  line-height: 2.5em;\n  overflow: hidden;\n  text-align: left;\n}\n.gallery .title h1 {\n  color: #222;\n  font-weight: 100;\n  width: 90%;\n  margin-top: 10px;\n  margin-right: auto;\n  margin-bottom: 0px;\n  margin-left: auto;\n  display: block;\n  font-size: 2em;\n}\n.gallery .title h2 {\n  color: #222;\n  font-weight: 100;\n  width: 90%;\n  margin-top: 0px;\n  margin-right: auto;\n  margin-bottom: 10px;\n  margin-left: auto;\n  display: block;\n  font-size: 1.2em;\n}\n.gallery .gallery_div {\n  margin: 0px 8px 0px 8px;\n}\n.gallery .gallery_div img {\n  width: 100%;\n}\n", ""]);
 
 	// exports
 
@@ -19366,7 +19366,7 @@ webpackJsonp([0],[
 	                console.log('this.state.param.recruit_place', this.state.param.recruit_place);
 	                console.log('item.recruit_place', item.recruit_place);
 
-	                if (this.state.param.recruit_place && item.recruit_place.indexOf(this.state.param.recruit_place) < 0) {
+	                if (!item.recruit_place || this.state.param.recruit_place && item.recruit_place.indexOf(this.state.param.recruit_place) < 0) {
 	                    continue;
 	                }
 
@@ -19744,7 +19744,7 @@ webpackJsonp([0],[
 
 
 	// module
-	exports.push([module.id, "#map {\n  width: 100%;\n  height: 100%;\n  min-height: 600px;\n  min-width: 100px;\n}\n.page .auth_code {\n  width: 70px;\n}\n.page .header {\n  float: left;\n  display: block;\n  width: 20%;\n}\n.page .weui_select {\n  padding-left: 0px;\n  text-align: center;\n  width: initial;\n  height: auto;\n}\n.page .service_list {\n  display: block;\n}\n.page .service_list .weui_media_title {\n  font-size: 1.1em;\n}\n.page .service_list .weui_media_desc {\n  padding-top: 5px;\n  font-size: 0.8em;\n  line-height: 180%;\n}\n.page .service_list .weui_media_desc .distance {\n  float: right;\n  font-size: 1.3em;\n}\n.page .service_list .weui_media_desc .merchant {\n  width: 100%;\n}\n.page .service_list .weui_media_desc .merchant .name {\n  color: #4397f1;\n}\n.page .service_list .weui_media_desc .merchant .title {\n  width: 30%;\n  float: left;\n}\n.page .service_list .weui_media_desc .merchant .emphasis {\n  color: orange;\n}\n.page .service_list .weui_media_desc .remark {\n  color: gray;\n}\n.page .item {\n  float: right;\n  display: block;\n  width: 20%;\n  align: right;\n}\n.page .item img {\n  margin: auto;\n  display: block;\n  width: 20%;\n}\n.page .item span {\n  display: block;\n  text-align: center;\n}\n", ""]);
+	exports.push([module.id, "#map {\n  width: 100%;\n  height: 100%;\n  min-height: 500px;\n  min-width: 100px;\n}\n.page .auth_code {\n  width: 70px;\n}\n.page .header {\n  float: left;\n  display: block;\n  width: 20%;\n}\n.page .weui_select {\n  padding-left: 0px;\n  text-align: center;\n  width: initial;\n  height: auto;\n}\n.page .service_list {\n  display: block;\n}\n.page .service_list .weui_media_title {\n  font-size: 1.1em;\n}\n.page .service_list .weui_media_desc {\n  padding-top: 5px;\n  font-size: 0.8em;\n  line-height: 180%;\n}\n.page .service_list .weui_media_desc .distance {\n  float: right;\n  font-size: 1.3em;\n}\n.page .service_list .weui_media_desc .merchant {\n  width: 100%;\n}\n.page .service_list .weui_media_desc .merchant .name {\n  color: #4397f1;\n}\n.page .service_list .weui_media_desc .merchant .title {\n  width: 30%;\n  float: left;\n}\n.page .service_list .weui_media_desc .merchant .emphasis {\n  color: orange;\n}\n.page .service_list .weui_media_desc .remark {\n  color: gray;\n}\n.page .item {\n  float: right;\n  display: block;\n  width: 20%;\n  align: right;\n}\n.page .item img {\n  margin: auto;\n  display: block;\n  width: 20%;\n}\n.page .item span {\n  display: block;\n  text-align: center;\n}\n", ""]);
 
 	// exports
 
@@ -19796,6 +19796,10 @@ webpackJsonp([0],[
 	         */
 	        value: function componentWillMount() {
 	            _get(Object.getPrototypeOf(ServiceMap.prototype), 'componentWillMount', this).call(this);
+	            this.state.width = document.documentElement.clientWidth;
+	            this.state.height = document.documentElement.clientHeight;
+	            this.setState({ 'height': this.state.height });
+	            console.log(' this.state.height', this.state.height);
 	        }
 
 	        /**
@@ -19819,9 +19823,12 @@ webpackJsonp([0],[
 	            wx.getLocation({
 	                type: 'gcj02',
 	                success: (function (res) {
+	                    console.log('syncLocation');
+	                    //var res = {latitude: 24.480601, longitude: 118.172301};
+
 	                    //  创建地图
 	                    this.createMap(res.latitude, res.longitude);
-	                    console.log('this.createMap', this.state.map);
+	                    //console.log('this.createMap', this.state.map);
 
 	                    // 创建地点
 	                    $.ajax({
@@ -19907,8 +19914,12 @@ webpackJsonp([0],[
 	        value: function render() {
 	            return React.createElement(
 	                'div',
-	                { className: 'page' },
-	                React.createElement('div', { id: 'map' })
+	                { style: { width: this.state.width, height: this.state.height }, className: 'page' },
+	                React.createElement(
+	                    'div',
+	                    { id: 'map' },
+	                    '123'
+	                )
 	            );
 	        }
 	    }]);
@@ -20016,7 +20027,6 @@ webpackJsonp([0],[
 	                    isAjax: true
 	                },
 	                success: (function (response) {
-	                    alert(response.condition);
 	                    //转换条件
 	                    if (response.condition) {
 	                        var conditions = response.condition.split(',');
@@ -20052,6 +20062,33 @@ webpackJsonp([0],[
 	                        }
 	                    }
 
+	                    // 课程
+	                    this.state.course = [];
+	                    for (var i = 0; i < response.course.length; i++) {
+	                        this.state.course.push(React.createElement(
+	                            Cell,
+	                            null,
+	                            React.createElement(
+	                                CellHeader,
+	                                { className: 'half_header' },
+	                                response.course[i].name
+	                            ),
+	                            React.createElement(
+	                                CellBody,
+	                                null,
+	                                response.course[i].sign_charge,
+	                                ' (原价',
+	                                React.createElement(
+	                                    'span',
+	                                    {
+	                                        style: { textDecoration: "line-through" } },
+	                                    parseInt(response.course[i].sign_charge) + 200
+	                                ),
+	                                ')'
+	                            )
+	                        ));
+	                    }
+
 	                    // 设置
 	                    this.setState({ info: response });
 	                    this.stopLoading();
@@ -20074,11 +20111,21 @@ webpackJsonp([0],[
 	    }, {
 	        key: 'showPosition',
 	        value: function showPosition() {
+	            console.log('this.state.info', this.state.info);
+
+	            if (!this.state.info.sign_place || !this.state.info.coordinate) {
+	                return;
+	            }
+
+	            var coordinates = this.state.info.coordinate.split(",");
+
+	            console.log('coordinates', coordinates);
+
 	            wx.openLocation({
-	                longitude: 116.306687, // 经度，浮点数，范围为180 ~ -180。
-	                latitude: 39.984231, // 纬度，浮点数，范围为90 ~ -90
-	                name: '厦门特运集团有限公司湖滨汽车修理厂', // 位置名
-	                address: '厦门市湖滨南路8号之二', // 地址详情说明
+	                longitude: coordinates[1], // 经度，浮点数，范围为180 ~ -180。
+	                latitude: coordinates[0], // 纬度，浮点数，范围为90 ~ -90
+	                name: this.state.info.name, // 位置名
+	                address: this.state.info.sign_place.address, // 地址详情说明
 	                scale: 20, // 地图缩放级别,整形值,范围从1~28。默认为最大
 	                infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
 	            });
@@ -20223,11 +20270,41 @@ webpackJsonp([0],[
 	                React.createElement(
 	                    CellsTitle,
 	                    null,
+	                    '课程'
+	                ),
+	                React.createElement(
+	                    Cells,
+	                    null,
+	                    this.state.course
+	                ),
+	                React.createElement(
+	                    CellsTitle,
+	                    null,
 	                    '提供服务'
 	                ),
 	                React.createElement(
 	                    Cells,
 	                    { access: true },
+	                    React.createElement(
+	                        Cell,
+	                        { href: 'index.php?s=/addon/School/School/schoolQuestion.html' },
+	                        React.createElement(
+	                            CellHeader,
+	                            { className: 'icon_nav' },
+	                            React.createElement(_reactFontawesome2['default'], { style: { color: "black" }, name: 'question',
+	                                size: 'lg' })
+	                        ),
+	                        React.createElement(
+	                            CellBody,
+	                            null,
+	                            React.createElement(
+	                                'span',
+	                                null,
+	                                '在线问答'
+	                            )
+	                        ),
+	                        React.createElement(CellFooter, null)
+	                    ),
 	                    React.createElement(
 	                        Cell,
 	                        { href: "#/user/register/" + this.state.info.token },
@@ -20243,7 +20320,7 @@ webpackJsonp([0],[
 	                            React.createElement(
 	                                'span',
 	                                null,
-	                                '报名'
+	                                '在线报名'
 	                            )
 	                        ),
 	                        React.createElement(CellFooter, null)

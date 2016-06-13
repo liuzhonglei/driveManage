@@ -210,10 +210,10 @@ export default class ServiceList extends Controller {
             var item = this.state.list[i];
 
             //判断地点
-            console.log('this.state.param.recruit_place',this.state.param.recruit_place);
-            console.log('item.recruit_place',item.recruit_place);
+            console.log('this.state.param.recruit_place', this.state.param.recruit_place);
+            console.log('item.recruit_place', item.recruit_place);
 
-            if(this.state.param.recruit_place && item.recruit_place.indexOf(this.state.param.recruit_place) < 0){
+            if (!item.recruit_place || (this.state.param.recruit_place && item.recruit_place.indexOf(this.state.param.recruit_place) < 0)) {
                 continue;
             }
 

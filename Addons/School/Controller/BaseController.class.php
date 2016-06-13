@@ -55,6 +55,12 @@ class BaseController extends AdminController
             $info['scene_url'] = $showUlr;
         }
 
+        // 课程信息
+        $info['course'] = M("school_course")->where($map)->select();
+
+        // 报名地点
+        $info['sign_place'] = M("school_place")->where(array('token' => $token, 'can_pay' => '1'))->find();
+
         // 返回
         if ($isAjax) {
             $this->ajaxReturn($info);

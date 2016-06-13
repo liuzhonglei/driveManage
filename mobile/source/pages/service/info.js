@@ -46,7 +46,6 @@ export default class ServiceInfo extends Controller {
                 isAjax: true
             },
             success: function (response) {
-                alert(response.condition);
                 //转换条件
                 if (response.condition) {
                     var conditions = response.condition.split(',');
@@ -82,6 +81,20 @@ export default class ServiceInfo extends Controller {
                     }
                 }
 
+                // 课程
+                this.state.course = [];
+                for (var i = 0; i < response.course.length; i++) {
+                    this.state.course.push(
+                        <Cell>
+                            <CellHeader className="half_header">{response.course[i].name}</CellHeader>
+                            <CellBody>
+                                {response.course[i].sign_charge}&nbsp;(原价<span
+                                style={{textDecoration:"line-through"}}>{parseInt(response.course[i].sign_charge) + 200}</span>)
+                            </CellBody>
+                        </Cell>
+                    );
+                }
+
                 // 设置
                 this.setState({info: response});
                 this.stopLoading();
@@ -102,11 +115,21 @@ export default class ServiceInfo extends Controller {
      * 显示当前位置
      */
     showPosition() {
+        console.log('this.state.info',this.state.info);
+
+        if(!this.state.info.sign_place || !this.state.info.coordinate){
+            return;
+        }
+
+        var coordinates = this.state.info.coordinate.split(",");
+
+        console.log('coordinates',coordinates);
+
         wx.openLocation({
-            longitude: 116.306687, // 经度，浮点数，范围为180 ~ -180。
-            latitude: 39.984231, // 纬度，浮点数，范围为90 ~ -90
-            name: '厦门特运集团有限公司湖滨汽车修理厂', // 位置名
-            address: '厦门市湖滨南路8号之二', // 地址详情说明
+            longitude: coordinates[1], // 经度，浮点数，范围为180 ~ -180。
+            latitude: coordinates[0], // 纬度，浮点数，范围为90 ~ -90
+            name: this.state.info.name, // 位置名
+            address: this.state.info.sign_place.address, // 地址详情说明
             scale: 20, // 地图缩放级别,整形值,范围从1~28。默认为最大
             infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
         });
@@ -159,7 +182,6 @@ export default class ServiceInfo extends Controller {
                             {this.state.info.address}
                         </CellBody>
                     </Cell>
-
                     <Cell>
                         <CellHeader className="half_header">招生地点</CellHeader>
                         <CellBody>
@@ -181,17 +203,31 @@ export default class ServiceInfo extends Controller {
                         </CellFooter>
                     </Cell>
                 </Cells>
-
-
+                <CellsTitle>课程</CellsTitle>
+                <Cells>
+                    {this.state.course}
+                </Cells>
                 <CellsTitle>提供服务</CellsTitle>
                 <Cells access>
+
+                    <Cell href="index.php?s=/addon/School/School/schoolQuestion.html">
+                        <CellHeader className="icon_nav">
+                            <FontAwesome style={{color:"black"}} name='question'
+                                         size="lg"/></CellHeader>
+
+                        <CellBody>
+                            <span>在线问答</span>
+                        </CellBody>
+                        <CellFooter>
+                        </CellFooter>
+                    </Cell>
                     <Cell href={"#/user/register/"+this.state.info.token}>
                         <CellHeader className="icon_nav">
                             <FontAwesome style={{color:"black"}} name='briefcase'
                                          size="lg"/></CellHeader>
 
                         <CellBody>
-                            <span>报名</span>
+                            <span>在线报名</span>
                         </CellBody>
                         <CellFooter>
                         </CellFooter>
