@@ -20010,7 +20010,7 @@ webpackJsonp([0],[
 
 	            $.ajax({
 	                url: './index.php?s=/addon/School/School/getSchoolInfo',
-	                type: 'POST',
+	                type: 'GET',
 	                data: {
 	                    token: this.props.routeParams.token,
 	                    isAjax: true

@@ -50,7 +50,7 @@ class BaseController extends AdminController
         }
 
         // 3D场景
-        $showUlr = "scene/" . get_token() . "/3dshow-mobile/index.html";
+        $showUlr = "scene/" . $token . "/3dshow-mobile/index.html";
         if (file_exists($showUlr)) {
             $info['scene_url'] = $showUlr;
         }
