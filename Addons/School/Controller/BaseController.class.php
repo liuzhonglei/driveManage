@@ -36,7 +36,7 @@ class BaseController extends AdminController
     public function  getSchoolInfo()
     {
         $Model = M("school");
-        $token = $_REQUEST['token'];
+        $token = $_REQUEST['query_token'];
         $isAjax = $_REQUEST['isAjax'];
         if (empty($token)) {
             $token = get_token();

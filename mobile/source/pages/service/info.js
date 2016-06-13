@@ -42,7 +42,7 @@ export default class ServiceInfo extends Controller {
             url: './index.php?s=/addon/School/School/getSchoolInfo',
             type: 'GET',
             data: {
-                token: this.props.routeParams.token,
+                query_token: this.props.routeParams.token,
                 isAjax: true
             },
             success: function (response) {
