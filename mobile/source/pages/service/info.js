@@ -24,15 +24,7 @@ export default class ServiceInfo extends Controller {
     componentWillMount() {
         super.componentWillMount();
         this.state.info = {
-            item: null,
-            prefix: null,
-            number: null,
-            location: "上海",
-            time: "",
-            apprise_num: 0,
-            apprise_level: 0,
-            economy_range: {},
-            corporation: {}
+            token: null
         }
 
         // 显示推荐配置
@@ -210,7 +202,7 @@ export default class ServiceInfo extends Controller {
                 <CellsTitle>提供服务</CellsTitle>
                 <Cells access>
 
-                    <Cell href={"index.php?s=/addon/School/School/schoolQuestion/token/"+this.info.token+".html"}>
+                    <Cell href={"index.php?s=/addon/School/School/schoolQuestion/token/"+this.state.info.token+".html"}>
                         <CellHeader className="icon_nav">
                             <FontAwesome style={{color:"black"}} name='question'
                                          size="lg"/></CellHeader>
