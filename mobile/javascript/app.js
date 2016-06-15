@@ -5051,7 +5051,7 @@ webpackJsonp([0],[
 	                url: './index.php?s=/addon/School/school/getSchoolInfo',
 	                type: 'POST',
 	                data: {
-	                    token: this.props.routeParams.token,
+	                    query_token: this.props.routeParams.token,
 	                    isAjax: true
 	                },
 	                success: (function (response) {
@@ -19915,11 +19915,7 @@ webpackJsonp([0],[
 	            return React.createElement(
 	                'div',
 	                { style: { width: this.state.width, height: this.state.height }, className: 'page' },
-	                React.createElement(
-	                    'div',
-	                    { id: 'map' },
-	                    '123'
-	                )
+	                React.createElement('div', { id: 'map' })
 	            );
 	        }
 	    }]);
@@ -20287,7 +20283,7 @@ webpackJsonp([0],[
 	                    { access: true },
 	                    React.createElement(
 	                        Cell,
-	                        { href: 'index.php?s=/addon/School/School/schoolQuestion.html' },
+	                        { href: "index.php?s=/addon/School/School/schoolQuestion/token/" + this.info.token + ".html" },
 	                        React.createElement(
 	                            CellHeader,
 	                            { className: 'icon_nav' },

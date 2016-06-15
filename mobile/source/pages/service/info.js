@@ -115,15 +115,15 @@ export default class ServiceInfo extends Controller {
      * 显示当前位置
      */
     showPosition() {
-        console.log('this.state.info',this.state.info);
+        console.log('this.state.info', this.state.info);
 
-        if(!this.state.info.sign_place || !this.state.info.coordinate){
+        if (!this.state.info.sign_place || !this.state.info.coordinate) {
             return;
         }
 
         var coordinates = this.state.info.coordinate.split(",");
 
-        console.log('coordinates',coordinates);
+        console.log('coordinates', coordinates);
 
         wx.openLocation({
             longitude: coordinates[1], // 经度，浮点数，范围为180 ~ -180。
@@ -210,7 +210,7 @@ export default class ServiceInfo extends Controller {
                 <CellsTitle>提供服务</CellsTitle>
                 <Cells access>
 
-                    <Cell href="index.php?s=/addon/School/School/schoolQuestion.html">
+                    <Cell href={"index.php?s=/addon/School/School/schoolQuestion/token/"+this.info.token+".html"}>
                         <CellHeader className="icon_nav">
                             <FontAwesome style={{color:"black"}} name='question'
                                          size="lg"/></CellHeader>
