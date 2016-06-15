@@ -125,7 +125,7 @@ export default class ServiceMap extends Controller {
     render() {
         return (
             <div style={{width:this.state.width, height : this.state.height}} className="page">
-                <div id="map">123</div>
+                <div id="map"></div>
             </div>
         );
     }

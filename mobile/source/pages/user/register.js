@@ -46,7 +46,7 @@ export default class UserRegister extends Controller {
             url: './index.php?s=/addon/School/school/getSchoolInfo',
             type: 'POST',
             data: {
-                token: this.props.routeParams.token,
+                query_token: this.props.routeParams.token,
                 isAjax: true
             },
             success: function (response) {
