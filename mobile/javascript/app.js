@@ -20001,15 +20001,7 @@ webpackJsonp([0],[
 	        value: function componentWillMount() {
 	            _get(Object.getPrototypeOf(ServiceInfo.prototype), 'componentWillMount', this).call(this);
 	            this.state.info = {
-	                item: null,
-	                prefix: null,
-	                number: null,
-	                location: "上海",
-	                time: "",
-	                apprise_num: 0,
-	                apprise_level: 0,
-	                economy_range: {},
-	                corporation: {}
+	                token: null
 	            };
 
 	            // 显示推荐配置
@@ -20283,7 +20275,7 @@ webpackJsonp([0],[
 	                    { access: true },
 	                    React.createElement(
 	                        Cell,
-	                        { href: "index.php?s=/addon/School/School/schoolQuestion/token/" + this.info.token + ".html" },
+	                        { href: "index.php?s=/addon/School/School/schoolQuestion/token/" + this.state.info.token + ".html" },
 	                        React.createElement(
 	                            CellHeader,
 	                            { className: 'icon_nav' },
