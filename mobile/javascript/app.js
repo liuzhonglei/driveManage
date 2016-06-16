@@ -37,6 +37,10 @@ webpackJsonp([0],[
 
 	var _pagesServiceInfo2 = _interopRequireDefault(_pagesServiceInfo);
 
+	var _pagesServiceInfo_map = __webpack_require__(202);
+
+	var _pagesServiceInfo_map2 = _interopRequireDefault(_pagesServiceInfo_map);
+
 	ReactDOM.render(_react2['default'].createElement(
 	    _reactRouter.Router,
 	    null,
@@ -44,7 +48,8 @@ webpackJsonp([0],[
 	    _react2['default'].createElement(_reactRouter.Route, { path: '/user/register/:token', component: _pagesUserRegister2['default'] }),
 	    _react2['default'].createElement(_reactRouter.Route, { path: '/service/List', component: _pagesServiceList2['default'] }),
 	    _react2['default'].createElement(_reactRouter.Route, { path: '/service/Map', component: _pagesServiceMap2['default'] }),
-	    _react2['default'].createElement(_reactRouter.Route, { path: '/service/info/:token', component: _pagesServiceInfo2['default'] })
+	    _react2['default'].createElement(_reactRouter.Route, { path: '/service/info/:token', component: _pagesServiceInfo2['default'] }),
+	    _react2['default'].createElement(_reactRouter.Route, { path: '/service/info/:token/map', component: _pagesServiceInfo_map2['default'] })
 	), document.getElementById('container'));
 
 /***/ },
@@ -19363,9 +19368,6 @@ webpackJsonp([0],[
 	                var item = this.state.list[i];
 
 	                //判断地点
-	                console.log('this.state.param.recruit_place', this.state.param.recruit_place);
-	                console.log('item.recruit_place', item.recruit_place);
-
 	                if (!item.recruit_place || this.state.param.recruit_place && item.recruit_place.indexOf(this.state.param.recruit_place) < 0) {
 	                    continue;
 	                }
@@ -19586,6 +19588,11 @@ webpackJsonp([0],[
 	                                'select',
 	                                { name: 'recruit_place', className: 'weui_select',
 	                                    onChange: this.dataChange.bind(this, "recruit_place") },
+	                                React.createElement(
+	                                    'option',
+	                                    { value: '' },
+	                                    '厦门市'
+	                                ),
 	                                React.createElement(
 	                                    'option',
 	                                    { value: '1' },
@@ -19857,7 +19864,7 @@ webpackJsonp([0],[
 	            var center = new qq.maps.LatLng(latitude, longitude);
 
 	            //创建地图
-	            var map = new qq.maps.Map(document.getElementById('map'), {
+	            var map = new qq.maps.Map(document.getElementById('info_map'), {
 	                center: center,
 	                zoom: 13
 	            });
@@ -20242,17 +20249,6 @@ webpackJsonp([0],[
 	                                this.state.info.condition
 	                            )
 	                        )
-	                    ),
-	                    React.createElement(
-	                        Cell,
-	                        { style: { display: this.state.info.scene_url ? "" : "none" }, href: this.state.info.scene_url },
-	                        React.createElement(
-	                            CellHeader,
-	                            { className: 'half_header' },
-	                            '3D影像'
-	                        ),
-	                        React.createElement(CellBody, null),
-	                        React.createElement(CellFooter, null)
 	                    )
 	                ),
 	                React.createElement(
@@ -20275,6 +20271,22 @@ webpackJsonp([0],[
 	                    { access: true },
 	                    React.createElement(
 	                        Cell,
+	                        { href: "#/service/info/" + this.props.routeParams.token + "/map" },
+	                        React.createElement(
+	                            CellHeader,
+	                            { className: 'icon_nav' },
+	                            React.createElement(_reactFontawesome2['default'], { style: { color: "black" }, name: 'map-pin',
+	                                size: 'lg' })
+	                        ),
+	                        React.createElement(
+	                            CellBody,
+	                            null,
+	                            '学车场地'
+	                        ),
+	                        React.createElement(CellFooter, null)
+	                    ),
+	                    React.createElement(
+	                        Cell,
 	                        { href: "index.php?s=/addon/School/School/schoolQuestion/token/" + this.state.info.token + ".html" },
 	                        React.createElement(
 	                            CellHeader,
@@ -20291,6 +20303,19 @@ webpackJsonp([0],[
 	                                '在线问答'
 	                            )
 	                        ),
+	                        React.createElement(CellFooter, null)
+	                    ),
+	                    React.createElement(
+	                        Cell,
+	                        { style: { display: this.state.info.scene_url ? "" : "none" }, href: this.state.info.scene_url },
+	                        React.createElement(
+	                            CellHeader,
+	                            { className: 'icon_nav' },
+	                            React.createElement(_reactFontawesome2['default'], { style: { color: "black" }, name: 'film',
+	                                size: 'lg' })
+	                        ),
+	                        React.createElement(CellBody, null),
+	                        '3D影像',
 	                        React.createElement(CellFooter, null)
 	                    ),
 	                    React.createElement(
@@ -20322,6 +20347,185 @@ webpackJsonp([0],[
 	})(_componentController2['default']);
 
 	exports['default'] = ServiceInfo;
+	;
+	module.exports = exports['default'];
+
+/***/ },
+/* 201 */,
+/* 202 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	__webpack_require__(197);
+
+	var _componentController = __webpack_require__(116);
+
+	var _componentController2 = _interopRequireDefault(_componentController);
+
+	/**
+	 * 服务公司地图界面
+	 */
+
+	var ServiceInfoMap = (function (_Controller) {
+	    _inherits(ServiceInfoMap, _Controller);
+
+	    function ServiceInfoMap() {
+	        _classCallCheck(this, ServiceInfoMap);
+
+	        _get(Object.getPrototypeOf(ServiceInfoMap.prototype), 'constructor', this).apply(this, arguments);
+	    }
+
+	    _createClass(ServiceInfoMap, [{
+	        key: 'componentWillMount',
+
+	        /**
+	         * 加载前
+	         */
+	        value: function componentWillMount() {
+	            _get(Object.getPrototypeOf(ServiceInfoMap.prototype), 'componentWillMount', this).call(this);
+	            this.state.width = document.documentElement.clientWidth;
+	            this.state.height = document.documentElement.clientHeight;
+	            this.setState({ 'height': this.state.height });
+	        }
+
+	        /**
+	         * 被加载后
+	         */
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            // 地址
+	            wx.ready((function () {
+	                this.syncLocation();
+	            }).bind(this));
+	        }
+
+	        /**
+	         * 同步当前位置
+	         */
+	    }, {
+	        key: 'syncLocation',
+	        value: function syncLocation() {
+	            wx.getLocation({
+	                type: 'gcj02',
+	                success: (function (res) {
+	                    var res = { latitude: 24.480601, longitude: 118.172301 };
+
+	                    //  创建地图
+	                    this.createMap(res.latitude, res.longitude);
+
+	                    // 创建地点
+	                    $.ajax({
+	                        url: './index.php?s=/addon/School/place/listAllPlace',
+	                        type: 'GET',
+	                        data: {
+	                            query_token: this.props.routeParams.token
+	                        },
+	                        success: (function (response) {
+	                            for (var item in response) {
+	                                //console.log('item', item);
+
+	                                this.createMarker(response[item]);
+	                            }
+	                            this.stopLoading();
+	                        }).bind(this)
+	                    });
+	                }).bind(this)
+	            });
+	        }
+
+	        /**
+	         * 创建地图
+	         */
+	    }, {
+	        key: 'createMap',
+	        value: function createMap(latitude, longitude) {
+	            //中心
+	            var center = new qq.maps.LatLng(latitude, longitude);
+
+	            //创建地图
+	            var map = new qq.maps.Map(document.getElementById('map'), {
+	                center: center,
+	                zoom: 13
+	            });
+
+	            //配置地图
+	            this.state.map = map;
+	        }
+
+	        /**
+	         * 创建标签
+	         */
+	    }, {
+	        key: 'createMarker',
+	        value: function createMarker(item) {
+	            // 判断是否有坐标
+	            if (!item.coordinate) {
+	                return;
+	            }
+
+	            // 中心
+	            var coordinates = item.coordinate.split(',');
+	            console.log('coordinates', coordinates);
+	            var center = new qq.maps.LatLng(coordinates[1], coordinates[0]);
+
+	            // 创建标记
+	            var marker = new qq.maps.Marker({
+	                position: center,
+	                map: this.state.map
+	            });
+
+	            // 添加到提示窗
+	            var info = new qq.maps.InfoWindow({
+	                map: this.state.map
+	            });
+
+	            // 获取标记的点击事件
+	            qq.maps.event.addListener(marker, 'click', (function () {
+	                if (this.state.popInfo) {
+	                    this.state.popInfo.close();
+	                }
+	                info.open();
+	                info.setContent('<div style="text-align:center;white-space:nowrap;' + 'margin:10px;">' + item.school_name + item.name + '&nbsp;<a href="#/service/info/' + item.token + '">报名</a></div>');
+	                info.setPosition(center);
+	                this.state.popInfo = info;
+	            }).bind(this));
+	        }
+
+	        /**
+	         * 渲染
+	         * @returns {XML}
+	         */
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement(
+	                'div',
+	                { style: { width: this.state.width, height: this.state.height }, className: 'page' },
+	                React.createElement('div', { id: 'map' })
+	            );
+	        }
+	    }]);
+
+	    return ServiceInfoMap;
+	})(_componentController2['default']);
+
+	exports['default'] = ServiceInfoMap;
 	;
 	module.exports = exports['default'];
 

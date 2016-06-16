@@ -210,9 +210,6 @@ export default class ServiceList extends Controller {
             var item = this.state.list[i];
 
             //判断地点
-            console.log('this.state.param.recruit_place', this.state.param.recruit_place);
-            console.log('item.recruit_place', item.recruit_place);
-
             if (!item.recruit_place || (this.state.param.recruit_place && item.recruit_place.indexOf(this.state.param.recruit_place) < 0)) {
                 continue;
             }
@@ -370,6 +367,7 @@ export default class ServiceList extends Controller {
                         <div className="weui_navbar_item">
                             <select name="recruit_place" className="weui_select"
                                     onChange={this.dataChange.bind(this,"recruit_place")}>
+                                <option value="">厦门市</option>
                                 <option value="1">思明区</option>
                                 <option value="2">湖里区</option>
                                 <option value="3">集美区</option>

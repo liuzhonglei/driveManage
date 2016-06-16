@@ -4,7 +4,7 @@ import Controller from '../../component/controller'
 /**
  * 服务公司地图界面
  */
-export default class ServiceMap extends Controller {
+export default class ServiceInfoMap extends Controller {
     /**
      * 加载前
      */
@@ -13,7 +13,6 @@ export default class ServiceMap extends Controller {
         this.state.width = document.documentElement.clientWidth;
         this.state.height = document.documentElement.clientHeight;
         this.setState({'height': this.state.height});
-        console.log(' this.state.height', this.state.height);
     }
 
     /**
@@ -24,7 +23,6 @@ export default class ServiceMap extends Controller {
         wx.ready(
             function () {
                 this.syncLocation()
-
             }.bind(this)
         )
     }
@@ -37,17 +35,18 @@ export default class ServiceMap extends Controller {
         wx.getLocation({
             type: 'gcj02',
             success: function (res) {
-                console.log('syncLocation');
-                //var res = {latitude: 24.480601, longitude: 118.172301};
+                var res = {latitude: 24.480601, longitude: 118.172301};
 
                 //  创建地图
                 this.createMap(res.latitude, res.longitude);
-                //console.log('this.createMap', this.state.map);
 
                 // 创建地点
                 $.ajax({
                     url: './index.php?s=/addon/School/place/listAllPlace',
                     type: 'GET',
+                    data: {
+                        query_token: this.props.routeParams.token
+                    },
                     success: function (response) {
                         for (var item in response) {
                             //console.log('item', item);
@@ -69,7 +68,7 @@ export default class ServiceMap extends Controller {
         var center = new qq.maps.LatLng(latitude, longitude);
 
         //创建地图
-        var map = new qq.maps.Map(document.getElementById('info_map'), {
+        var map = new qq.maps.Map(document.getElementById('map'), {
             center: center,
             zoom: 13
         });

@@ -186,14 +186,6 @@ export default class ServiceInfo extends Controller {
                             <span>{this.state.info.condition}</span>
                         </CellBody>
                     </Cell>
-
-                    <Cell style={{display: this.state.info.scene_url? "":"none"}} href={this.state.info.scene_url}>
-                        <CellHeader className="half_header">3D影像</CellHeader>
-                        <CellBody>
-                        </CellBody>
-                        <CellFooter>
-                        </CellFooter>
-                    </Cell>
                 </Cells>
                 <CellsTitle>课程</CellsTitle>
                 <Cells>
@@ -201,7 +193,16 @@ export default class ServiceInfo extends Controller {
                 </Cells>
                 <CellsTitle>提供服务</CellsTitle>
                 <Cells access>
-
+                    <Cell href={"#/service/info/"+this.props.routeParams.token+"/map"}>
+                        <CellHeader className="icon_nav">
+                            <FontAwesome style={{color:"black"}} name='map-pin'
+                                         size="lg"/></CellHeader>
+                        <CellBody>
+                            学车场地
+                        </CellBody>
+                        <CellFooter>
+                        </CellFooter>
+                    </Cell>
                     <Cell href={"index.php?s=/addon/School/School/schoolQuestion/token/"+this.state.info.token+".html"}>
                         <CellHeader className="icon_nav">
                             <FontAwesome style={{color:"black"}} name='question'
@@ -210,6 +211,16 @@ export default class ServiceInfo extends Controller {
                         <CellBody>
                             <span>在线问答</span>
                         </CellBody>
+                        <CellFooter>
+                        </CellFooter>
+                    </Cell>
+                    <Cell style={{display: this.state.info.scene_url? "":"none"}} href={this.state.info.scene_url}>
+                        <CellHeader className="icon_nav">
+                            <FontAwesome style={{color:"black"}} name='film'
+                                         size="lg"/></CellHeader>
+                        <CellBody>
+                        </CellBody>
+                        3D影像
                         <CellFooter>
                         </CellFooter>
                     </Cell>
