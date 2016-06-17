@@ -23,7 +23,7 @@ export default class ServiceMap extends Controller {
         // 地址
         wx.ready(
             function () {
-                this.syncLocation()
+                this.syncLocation();
 
             }.bind(this)
         )
@@ -38,7 +38,7 @@ export default class ServiceMap extends Controller {
             type: 'gcj02',
             success: function (res) {
                 console.log('syncLocation');
-                //var res = {latitude: 24.480601, longitude: 118.172301};
+                var res = {latitude: 24.480601, longitude: 118.172301};
 
                 //  创建地图
                 this.createMap(res.latitude, res.longitude);
@@ -69,7 +69,7 @@ export default class ServiceMap extends Controller {
         var center = new qq.maps.LatLng(latitude, longitude);
 
         //创建地图
-        var map = new qq.maps.Map(document.getElementById('info_map'), {
+        var map = new qq.maps.Map(document.getElementById('map'), {
             center: center,
             zoom: 13
         });

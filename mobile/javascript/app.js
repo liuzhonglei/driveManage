@@ -37,7 +37,7 @@ webpackJsonp([0],[
 
 	var _pagesServiceInfo2 = _interopRequireDefault(_pagesServiceInfo);
 
-	var _pagesServiceInfo_map = __webpack_require__(202);
+	var _pagesServiceInfo_map = __webpack_require__(201);
 
 	var _pagesServiceInfo_map2 = _interopRequireDefault(_pagesServiceInfo_map);
 
@@ -19831,7 +19831,7 @@ webpackJsonp([0],[
 	                type: 'gcj02',
 	                success: (function (res) {
 	                    console.log('syncLocation');
-	                    //var res = {latitude: 24.480601, longitude: 118.172301};
+	                    var res = { latitude: 24.480601, longitude: 118.172301 };
 
 	                    //  创建地图
 	                    this.createMap(res.latitude, res.longitude);
@@ -19864,7 +19864,7 @@ webpackJsonp([0],[
 	            var center = new qq.maps.LatLng(latitude, longitude);
 
 	            //创建地图
-	            var map = new qq.maps.Map(document.getElementById('info_map'), {
+	            var map = new qq.maps.Map(document.getElementById('map'), {
 	                center: center,
 	                zoom: 13
 	            });
@@ -20351,8 +20351,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 201 */,
-/* 202 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
