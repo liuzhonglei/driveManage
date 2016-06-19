@@ -45,6 +45,7 @@ export default class ServiceMap extends Controller {
                 //console.log('this.createMap', this.state.map);
 
                 //中心坐标
+                var center = new qq.maps.LatLng(res.latitude, res.longitude);
                 var anchor = new qq.maps.Point(6, 6),
                     size = new qq.maps.Size(24, 24),
                     origin = new qq.maps.Point(0, 0),
@@ -52,9 +53,8 @@ export default class ServiceMap extends Controller {
                 new qq.maps.Marker({
                     icon: icon,
                     map: map,
-                    position: res
+                    position: center
                 });
-
 
                 // 创建地点
                 $.ajax({
