@@ -19831,11 +19831,19 @@ webpackJsonp([0],[
 	                type: 'gcj02',
 	                success: (function (res) {
 	                    console.log('syncLocation');
-	                    var res = { latitude: 24.480601, longitude: 118.172301 };
+	                    //var res = {latitude: 24.480601, longitude: 118.172301};
 
 	                    //  创建地图
 	                    this.createMap(res.latitude, res.longitude);
 	                    //console.log('this.createMap', this.state.map);
+
+	                    //中心坐标
+	                    var icon = new qq.maps.MarkerImage('http://lbs.qq.com/javascript_v2/img/center.gif', size, origin, anchor);
+	                    new qq.maps.Marker({
+	                        icon: icon,
+	                        map: map,
+	                        position: res
+	                    });
 
 	                    // 创建地点
 	                    $.ajax({
@@ -20423,10 +20431,18 @@ webpackJsonp([0],[
 	            wx.getLocation({
 	                type: 'gcj02',
 	                success: (function (res) {
-	                    var res = { latitude: 24.480601, longitude: 118.172301 };
+	                    //var res = {latitude: 24.480601, longitude: 118.172301};
 
 	                    //  创建地图
 	                    this.createMap(res.latitude, res.longitude);
+
+	                    //中心坐标
+	                    var icon = new qq.maps.MarkerImage('http://lbs.qq.com/javascript_v2/img/center.gif', size, origin, anchor);
+	                    new qq.maps.Marker({
+	                        icon: icon,
+	                        map: map,
+	                        position: res
+	                    });
 
 	                    // 创建地点
 	                    $.ajax({
