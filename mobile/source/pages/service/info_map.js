@@ -38,7 +38,7 @@ export default class ServiceInfoMap extends Controller {
                 //var res = {latitude: 24.480601, longitude: 118.172301};
 
                 //  创建地图
-                this.createMap(res.latitude, res.longitude);
+                var map = this.createMap(res.latitude, res.longitude);
 
                 //中心坐标
                 var center = new qq.maps.LatLng(res.latitude, res.longitude);
@@ -72,6 +72,7 @@ export default class ServiceInfoMap extends Controller {
         });
     }
 
+
     /**
      * 创建地图
      */
@@ -88,8 +89,9 @@ export default class ServiceInfoMap extends Controller {
 
         //配置地图
         this.state.map = map;
-    }
 
+        return map;
+    }
     /**
      * 创建标签
      */

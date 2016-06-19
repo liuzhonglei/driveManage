@@ -19834,10 +19834,10 @@ webpackJsonp([0],[
 	                    //var res = {latitude: 24.480601, longitude: 118.172301};
 
 	                    //  创建地图
-	                    this.createMap(res.latitude, res.longitude);
-	                    //console.log('this.createMap', this.state.map);
+	                    var map = this.createMap(res.latitude, res.longitude);
 
 	                    //中心坐标
+	                    var center = new qq.maps.LatLng(res.latitude, res.longitude);
 	                    var anchor = new qq.maps.Point(6, 6),
 	                        size = new qq.maps.Size(24, 24),
 	                        origin = new qq.maps.Point(0, 0),
@@ -19845,7 +19845,7 @@ webpackJsonp([0],[
 	                    new qq.maps.Marker({
 	                        icon: icon,
 	                        map: map,
-	                        position: res
+	                        position: center
 	                    });
 
 	                    // 创建地点
@@ -19882,6 +19882,8 @@ webpackJsonp([0],[
 
 	            //配置地图
 	            this.state.map = map;
+
+	            return map;
 	        }
 
 	        /**
@@ -20437,9 +20439,10 @@ webpackJsonp([0],[
 	                    //var res = {latitude: 24.480601, longitude: 118.172301};
 
 	                    //  创建地图
-	                    this.createMap(res.latitude, res.longitude);
+	                    var map = this.createMap(res.latitude, res.longitude);
 
 	                    //中心坐标
+	                    var center = new qq.maps.LatLng(res.latitude, res.longitude);
 	                    var anchor = new qq.maps.Point(6, 6),
 	                        size = new qq.maps.Size(24, 24),
 	                        origin = new qq.maps.Point(0, 0),
@@ -20447,7 +20450,7 @@ webpackJsonp([0],[
 	                    new qq.maps.Marker({
 	                        icon: icon,
 	                        map: map,
-	                        position: res
+	                        position: center
 	                    });
 
 	                    // 创建地点
@@ -20487,6 +20490,8 @@ webpackJsonp([0],[
 
 	            //配置地图
 	            this.state.map = map;
+
+	            return map;
 	        }
 
 	        /**
