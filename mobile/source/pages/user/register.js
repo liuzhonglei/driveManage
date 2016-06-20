@@ -42,6 +42,8 @@ export default class UserRegister extends Controller {
         }
 
         //查询驾校信息
+        this.showLoading();
+
         $.ajax({
             url: './index.php?s=/addon/School/school/getSchoolInfo',
             type: 'POST',
