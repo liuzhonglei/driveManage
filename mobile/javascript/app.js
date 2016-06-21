@@ -19833,7 +19833,7 @@ webpackJsonp([0],[
 	                type: 'gcj02',
 	                success: (function (res) {
 	                    console.log('syncLocation');
-	                    //var res = {latitude: 24.480601, longitude: 118.172301};
+	                    //        var res = {latitude: 24.480601, longitude: 118.172301};
 
 	                    //  创建地图
 	                    var map = this.createMap(res.latitude, res.longitude);
@@ -19855,10 +19855,16 @@ webpackJsonp([0],[
 	                        url: './index.php?s=/addon/School/place/listAllPlace',
 	                        type: 'GET',
 	                        success: (function (response) {
+	                            var num = 1;
+	                            var tokens = {};
 	                            for (var item in response) {
 	                                //console.log('item', item);
-
-	                                this.createMarker(response[item]);
+	                                if (tokens[response[item]['token']]) {
+	                                    this.createMarker(response[item], tokens[response[item]['token']]);
+	                                } else {
+	                                    tokens[response[item]['token']] = num;
+	                                    num++;
+	                                }
 	                            }
 	                            this.stopLoading();
 	                        }).bind(this)
@@ -19893,7 +19899,7 @@ webpackJsonp([0],[
 	         */
 	    }, {
 	        key: 'createMarker',
-	        value: function createMarker(item) {
+	        value: function createMarker(item, num) {
 	            // 判断是否有坐标
 	            if (!item.coordinate) {
 	                return;
@@ -19904,10 +19910,15 @@ webpackJsonp([0],[
 	            console.log('coordinates', coordinates);
 	            var center = new qq.maps.LatLng(coordinates[1], coordinates[0]);
 
-	            // 创建标记
+	            //中心坐标
+	            var anchor = new qq.maps.Point(12, 0),
+	                size = new qq.maps.Size(24, 24),
+	                origin = new qq.maps.Point(0, 0),
+	                icon = new qq.maps.MarkerImage('./mobile/img/bullet-' + num + '-d-b.png', size, origin, anchor, size);
 	            var marker = new qq.maps.Marker({
-	                position: center,
-	                map: this.state.map
+	                icon: icon,
+	                map: this.state.map,
+	                position: center
 	            });
 
 	            // 添加到提示窗
