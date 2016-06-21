@@ -95,6 +95,12 @@ export default class ServiceMap extends Controller {
         //配置地图
         this.state.map = map;
 
+        qq.maps.event.addListener(map, 'click', function () {
+            if (this.state.popInfo) {
+                this.state.popInfo.close();
+            }
+        }.bind(this));
+
         return map;
     }
 
@@ -139,6 +145,8 @@ export default class ServiceMap extends Controller {
             info.setPosition(center);
             this.state.popInfo = info;
         }.bind(this));
+
+
     }
 
 

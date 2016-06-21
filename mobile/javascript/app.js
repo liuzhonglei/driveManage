@@ -19891,6 +19891,12 @@ webpackJsonp([0],[
 	            //配置地图
 	            this.state.map = map;
 
+	            qq.maps.event.addListener(map, 'click', (function () {
+	                if (this.state.popInfo) {
+	                    this.state.popInfo.close();
+	                }
+	            }).bind(this));
+
 	            return map;
 	        }
 
