@@ -19859,12 +19859,12 @@ webpackJsonp([0],[
 	                            var tokens = {};
 	                            for (var item in response) {
 	                                //console.log('item', item);
-	                                if (tokens[response[item]['token']]) {
-	                                    this.createMarker(response[item], tokens[response[item]['token']]);
-	                                } else {
+	                                if (!tokens[response[item]['token']]) {
 	                                    tokens[response[item]['token']] = num;
 	                                    num++;
 	                                }
+
+	                                this.createMarker(response[item], tokens[response[item]['token']]);
 	                            }
 	                            this.stopLoading();
 	                        }).bind(this)

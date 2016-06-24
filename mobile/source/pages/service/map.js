@@ -38,7 +38,7 @@ export default class ServiceMap extends Controller {
             type: 'gcj02',
             success: function (res) {
                 console.log('syncLocation');
-        //        var res = {latitude: 24.480601, longitude: 118.172301};
+                //        var res = {latitude: 24.480601, longitude: 118.172301};
 
                 //  创建地图
                 var map = this.createMap(res.latitude, res.longitude);
@@ -64,12 +64,13 @@ export default class ServiceMap extends Controller {
                         var tokens = {};
                         for (var item in response) {
                             //console.log('item', item);
-                            if(tokens[response[item]['token']]){
-                                this.createMarker(response[item],tokens[response[item]['token']]);
-                            }else{
+                            if (!tokens[response[item]['token']]) {
                                 tokens[response[item]['token']] = num;
                                 num++;
                             }
+
+                            this.createMarker(response[item], tokens[response[item]['token']]);
+
                         }
                         this.stopLoading();
                     }.bind(this)
@@ -107,7 +108,7 @@ export default class ServiceMap extends Controller {
     /**
      * 创建标签
      */
-    createMarker(item,num) {
+    createMarker(item, num) {
         // 判断是否有坐标
         if (!item.coordinate) {
             return;
@@ -122,10 +123,10 @@ export default class ServiceMap extends Controller {
         var anchor = new qq.maps.Point(12, 0),
             size = new qq.maps.Size(24, 24),
             origin = new qq.maps.Point(0, 0),
-            icon = new qq.maps.MarkerImage('./mobile/img/bullet-'+num+'-d-b.png', size, origin, anchor,size);
+            icon = new qq.maps.MarkerImage('./mobile/img/bullet-' + num + '-d-b.png', size, origin, anchor, size);
         var marker = new qq.maps.Marker({
             icon: icon,
-            map:  this.state.map,
+            map: this.state.map,
             position: center
         });
 
