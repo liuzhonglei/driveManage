@@ -5219,7 +5219,7 @@ webpackJsonp([0],[
 	                        React.createElement(
 	                            CellBody,
 	                            null,
-	                            React.createElement('input', { name: 'appointment_time', onChange: this.valueChange.bind(this), 'class': 'weui_input',
+	                            React.createElement('input', { name: 'appointment_time', onChange: this.valueChange.bind(this), className: 'weui_input',
 	                                type: 'datetime-local', value: '', placeholder: '' })
 	                        ),
 	                        React.createElement(CellFooter, null)

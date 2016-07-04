@@ -161,7 +161,7 @@ export default class UserRegister extends Controller {
                     <FormCell>
                         <CellHeader className="half_header">报名时间</CellHeader>
                         <CellBody>
-                            <input name="appointment_time" onChange={this.valueChange.bind(this)} class="weui_input"
+                            <input name="appointment_time" onChange={this.valueChange.bind(this)} className="weui_input"
                                    type="datetime-local" value="" placeholder=""/>
                         </CellBody>
                         <CellFooter>
