@@ -37,7 +37,7 @@ export default class UserRegister extends Controller {
             //公共信息
             name: null,
             phone: null,
-            sign_date: null,
+            appointment_time: null,
             school_token: null,
             school_name: null
         }
@@ -66,7 +66,7 @@ export default class UserRegister extends Controller {
      */
     allowSubmit() {
         var result = true;
-        if (!this.state.info.name || !this.state.info.phone || !this.state.info.sign_date) {
+        if (!this.state.info.name || !this.state.info.phone || !this.state.info.appointment_time) {
             result = false;
         }
 
@@ -161,8 +161,8 @@ export default class UserRegister extends Controller {
                     <FormCell>
                         <CellHeader className="half_header">报名时间</CellHeader>
                         <CellBody>
-                            <input name="sign_date" onChange={this.valueChange.bind(this)} class="weui_input"
-                                   type="date" value=""/>
+                            <input name="appointment_time" onChange={this.valueChange.bind(this)} class="weui_input"
+                                   type="datetime-local" value="" placeholder=""/>
                         </CellBody>
                         <CellFooter>
                         </CellFooter>

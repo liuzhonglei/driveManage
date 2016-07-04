@@ -5047,7 +5047,7 @@ webpackJsonp([0],[
 	                //公共信息
 	                name: null,
 	                phone: null,
-	                sign_date: null,
+	                appointment_time: null,
 	                school_token: null,
 	                school_name: null
 	            };
@@ -5078,7 +5078,7 @@ webpackJsonp([0],[
 	        key: 'allowSubmit',
 	        value: function allowSubmit() {
 	            var result = true;
-	            if (!this.state.info.name || !this.state.info.phone || !this.state.info.sign_date) {
+	            if (!this.state.info.name || !this.state.info.phone || !this.state.info.appointment_time) {
 	                result = false;
 	            }
 
@@ -5219,8 +5219,8 @@ webpackJsonp([0],[
 	                        React.createElement(
 	                            CellBody,
 	                            null,
-	                            React.createElement('input', { name: 'sign_date', onChange: this.valueChange.bind(this), 'class': 'weui_input',
-	                                type: 'date', value: '' })
+	                            React.createElement('input', { name: 'appointment_time', onChange: this.valueChange.bind(this), 'class': 'weui_input',
+	                                type: 'datetime-local', value: '', placeholder: '' })
 	                        ),
 	                        React.createElement(CellFooter, null)
 	                    )
