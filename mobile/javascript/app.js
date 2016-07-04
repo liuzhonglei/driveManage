@@ -5047,6 +5047,7 @@ webpackJsonp([0],[
 	                //公共信息
 	                name: null,
 	                phone: null,
+	                sign_date: null,
 	                school_token: null,
 	                school_name: null
 	            };
@@ -5077,7 +5078,7 @@ webpackJsonp([0],[
 	        key: 'allowSubmit',
 	        value: function allowSubmit() {
 	            var result = true;
-	            if (!this.state.info.name || !this.state.info.phone) {
+	            if (!this.state.info.name || !this.state.info.phone || !this.state.info.sign_date) {
 	                result = false;
 	            }
 
@@ -5186,7 +5187,7 @@ webpackJsonp([0],[
 	                            CellBody,
 	                            null,
 	                            React.createElement(_componentFormIndexJs.Input, { name: 'name', onChange: this.valueChange.bind(this),
-	                                className: 'weui_input', type: 'number', placeholder: '请输入姓名' })
+	                                className: 'weui_input', maxLength: '11', placeholder: '请输入姓名' })
 	                        ),
 	                        React.createElement(CellFooter, null)
 	                    ),
@@ -5204,6 +5205,22 @@ webpackJsonp([0],[
 	                            React.createElement(_componentFormIndexJs.Input, { name: 'phone', onChange: this.valueChange.bind(this),
 	                                className: 'weui_input',
 	                                type: 'tel', maxLength: '11', placeholder: '请输入手机号' })
+	                        ),
+	                        React.createElement(CellFooter, null)
+	                    ),
+	                    React.createElement(
+	                        _componentFormIndexJs.FormCell,
+	                        null,
+	                        React.createElement(
+	                            CellHeader,
+	                            { className: 'half_header' },
+	                            '报名时间'
+	                        ),
+	                        React.createElement(
+	                            CellBody,
+	                            null,
+	                            React.createElement('input', { name: 'sign_date', onChange: this.valueChange.bind(this), 'class': 'weui_input',
+	                                type: 'date', value: '' })
 	                        ),
 	                        React.createElement(CellFooter, null)
 	                    )
