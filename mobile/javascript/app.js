@@ -5214,7 +5214,7 @@ webpackJsonp([0],[
 	                        React.createElement(
 	                            CellHeader,
 	                            { className: 'half_header' },
-	                            '报名时间'
+	                            '预约报名时间'
 	                        ),
 	                        React.createElement(
 	                            CellBody,
