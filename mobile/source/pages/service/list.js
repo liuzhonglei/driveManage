@@ -118,7 +118,6 @@ export default class ServiceList extends Controller {
             return distance;
         } else if (this.state.param.order_type == 'level') {
             var result = (a.statics.apprise_level ? a.statics.apprise_level : 0) - (b.statics.apprise_level ? b.statics.apprise_level : 0)
-            //console.log('result', result);
             return result;
         }
     }
@@ -228,6 +227,12 @@ export default class ServiceList extends Controller {
             }
             item.credit_result_html = item.credit_result ? <span className="info">信誉等级<span
                 className="emphasis"> {item.credit_result}级</span></span> : '';
+
+            // 计算统计数据
+            item.statics = {
+                order_month: Math.ceil(Math.random()*100+30),
+                order_total: Math.ceil(Math.random()*500+2000)
+            };
 
             //计算距离
             //item.distance = this.computeDistance(item.latitude, item.longitude);
