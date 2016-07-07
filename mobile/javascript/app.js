@@ -20368,8 +20368,11 @@ webpackJsonp([0],[
 	                            React.createElement(_reactFontawesome2['default'], { style: { color: "black" }, name: 'film',
 	                                size: 'lg' })
 	                        ),
-	                        React.createElement(CellBody, null),
-	                        '3D影像',
+	                        React.createElement(
+	                            CellBody,
+	                            null,
+	                            '3D影像'
+	                        ),
 	                        React.createElement(CellFooter, null)
 	                    ),
 	                    React.createElement(

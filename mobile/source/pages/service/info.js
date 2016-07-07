@@ -219,8 +219,8 @@ export default class ServiceInfo extends Controller {
                             <FontAwesome style={{color:"black"}} name='film'
                                          size="lg"/></CellHeader>
                         <CellBody>
+                            3D影像
                         </CellBody>
-                        3D影像
                         <CellFooter>
                         </CellFooter>
                     </Cell>
