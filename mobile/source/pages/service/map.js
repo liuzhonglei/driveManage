@@ -123,7 +123,7 @@ export default class ServiceMap extends Controller {
         var anchor = new qq.maps.Point(12, 0),
             size = new qq.maps.Size(24, 24),
             origin = new qq.maps.Point(0, 0),
-            icon = new qq.maps.MarkerImage('./mobile/img/bullet-' + num + '-d-b.png', size, origin, anchor, size);
+            icon = new qq.maps.MarkerImage('./mobile/img/place.png', size, origin, anchor, size);
         var marker = new qq.maps.Marker({
             icon: icon,
             map: this.state.map,
