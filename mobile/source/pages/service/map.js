@@ -24,7 +24,6 @@ export default class ServiceMap extends Controller {
         wx.ready(
             function () {
                 this.syncLocation();
-
             }.bind(this)
         )
     }
@@ -38,7 +37,7 @@ export default class ServiceMap extends Controller {
             type: 'gcj02',
             success: function (res) {
                 console.log('syncLocation');
-                //        var res = {latitude: 24.480601, longitude: 118.172301};
+                        //var res = {latitude: 24.480601, longitude: 118.172301};
 
                 //  创建地图
                 var map = this.createMap(res.latitude, res.longitude);
@@ -141,8 +140,11 @@ export default class ServiceMap extends Controller {
                 this.state.popInfo.close();
             }
             info.open();
-            info.setContent('<div style="text-align:center;white-space:nowrap;' +
-                'margin:10px;">' + item.school_name + item.name + '&nbsp;<a href="#/service/info/' + item.token + '">报名</a></div>');
+            info.setContent(
+                '<h4 style=\'margin:0 0 5px 0;padding:0.2em 0\'>' + item.school_name + '</h4>'+
+                '<div style="text-align:left;white-space:nowrap;margin:10px;font-size: 0.8em;">'+ item.name+'<br/>'+"地址: "+item.address +'&nbsp;</div>'
+                +'<div style="text-align:right;font-size: 0.8em;font-weight:bolder;"><a style="color:black;" href="#/service/info/' + item.token + '">报名<img  style="height: 1.1em;" src="./mobile/img/sign.png"></a></div>'
+            );
             info.setPosition(center);
             this.state.popInfo = info;
         }.bind(this));
