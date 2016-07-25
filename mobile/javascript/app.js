@@ -5066,7 +5066,28 @@ webpackJsonp([0],[
 	                    this.state.info.school_token = response.token;
 	                    this.state.info.school_name = response.name;
 	                    this.setState({ info: this.state.info });
-	                    this.stopLoading();
+	                    $.ajax({
+	                        url: './index.php?s=/addon/School/school/getStudentInfo',
+	                        type: 'POST',
+	                        data: {
+	                            "isAjax": 1
+	                        },
+	                        success: (function (response) {
+	                            if (response) {
+	                                this.state.info.name = response.name;
+	                                this.state.info.phone = response.phone;
+
+	                                // 设置报名时间
+	                                if (response.appointment_time) {
+	                                    var date = new Date(response.appointment_time * 1000);
+	                                    this.state.info.appointment_time = date.toJSON().split('.')['0'];
+	                                }
+
+	                                this.setState({ info: this.state.info });
+	                            }
+	                            this.stopLoading();
+	                        }).bind(this)
+	                    });
 	                }).bind(this)
 	            });
 	        }
@@ -5187,6 +5208,7 @@ webpackJsonp([0],[
 	                            CellBody,
 	                            null,
 	                            React.createElement(_componentFormIndexJs.Input, { name: 'name', onChange: this.valueChange.bind(this),
+	                                value: this.state.info.name,
 	                                className: 'weui_input', maxLength: '11', placeholder: '请输入姓名' })
 	                        ),
 	                        React.createElement(CellFooter, null)
@@ -5203,6 +5225,7 @@ webpackJsonp([0],[
 	                            CellBody,
 	                            null,
 	                            React.createElement(_componentFormIndexJs.Input, { name: 'phone', onChange: this.valueChange.bind(this),
+	                                value: this.state.info.phone,
 	                                className: 'weui_input',
 	                                type: 'tel', maxLength: '11', placeholder: '请输入手机号' })
 	                        ),
@@ -5220,6 +5243,7 @@ webpackJsonp([0],[
 	                            CellBody,
 	                            null,
 	                            React.createElement('input', { name: 'appointment_time', onChange: this.valueChange.bind(this), className: 'weui_input',
+	                                value: this.state.info.appointment_time,
 	                                type: 'datetime-local' })
 	                        ),
 	                        React.createElement(CellFooter, null)

@@ -20,9 +20,11 @@
             padding: 0 30px;
             margin-top: 30px;
         }
+
         .follow {
             margin-bottom: 20px;
         }
+
         #mask {
             left: 0px;
             top: 0px;
@@ -47,11 +49,19 @@
 <div id="pageGiftShare" data-role="page" data-theme="none">
     <div class="x_content c_wrapper_padd">
         <div class="c_merchant">
-            恭喜您成为“{$schoolInfo.name}”一员，我们工作人员会速速和您联系的!
+            恭喜您成为注册“{$schoolInfo.name}”，我们工作人员会速速和您联系的!
         </div>
         <div class="follow"><img src="{$imgUrl}"> 长按二维码关注我们<br>赢取更多福利</div>
-        <button class="ui-btn ui-corner-all x_btn couponsBtn" id="send_pay" {$signHide}>{$payItem.remark}</button>
-        <div class="item_note text-center" {$signHide}>预先支付定金,到现场报名可享受优惠!</div>
+        <if condition=" get_token() eq constant('QINGQING_TOKEN')">
+            <a class="ui-btn ui-corner-all x_btn couponsBtn" href="./index.php?s=/addon/School/School/showRegister/token/gh_94ecad95d624" target="_self">驾校报名</a>
+            <div class="item_note text-center">请点击按钮,进入驾校选择界面,选择驾校,并填写相应信息,完成报名预约!</div>
+        </if>
+
+        <notempty name="payItem">
+            <button class="ui-btn ui-corner-all x_btn couponsBtn" id="send_pay" {$signHide}>{$payItem.remark}</button>
+            <div class="item_note text-center" {$signHide}>预先支付定金,到现场报名可享受优惠!</div>
+        </notempty>
+
         <a href="#" class="ui-btn ui-corner-all x_btn couponsBtn"
            onclick="javascript:$('#mask').css('display', 'block');">邀请好友学车，得100元</a>
         <div class="item_note text-center">邀请好友注册,可领取红包!</div>
@@ -125,5 +135,6 @@
                 });
             }
         });
+
     });
 </script>

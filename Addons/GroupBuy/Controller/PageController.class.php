@@ -80,28 +80,6 @@ class PageController extends BaseController
     }
 
 
-    /**
-     * 注册学员
-     */
-    public
-    function register()
-    {
-        $student = M('student')->where(array("token" => get_token(), "openid" => get_openid()))->find();
-        if (!empty($student)) {
-            $_POST['id'] = $student['id'];
-            if( $_POST['name'] == $student['name'] && $_POST['phone'] == $student['phone'] && $_POST['course_id'] == $student['course_id'] && $_POST['remark'] == $student['remark']){
-                $this->success('成功');
-            }
-        }
-        $_POST['openid'] = get_openid();
-
-        $_POST['status'] = '-1';
-        $_POST['intro_source'] = '0';
-        $_POST['time_sign'] = date("Y-m-d");
-
-
-        $this->ajaxReturn($this->saveModel("student"));
-    }
 
     /**
      * 参与团购

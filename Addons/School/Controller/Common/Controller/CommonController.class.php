@@ -83,9 +83,9 @@ class CommonController extends ExtendAddonsController
         }
         if ($result && empty($Model->getError())) {
             $this->_saveKeyword($this->model, $id);
-            $result = array("status" => "1", "info" => '保存成功', 'id' => $id);
+            $result = array("status" => "1", "message" => '保存成功', 'id' => $id);
         } else {
-            $result = array("status" => "0", "info" => "保存失败！" . $Model->getError());
+            $result = array("status" => "0", "message" => "保存失败！" . $Model->getError());
         }
 
         // return

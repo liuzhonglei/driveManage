@@ -56,9 +56,32 @@ export default class UserRegister extends Controller {
                 this.state.info.school_token = response.token;
                 this.state.info.school_name = response.name;
                 this.setState({info: this.state.info});
-                this.stopLoading();
+                $.ajax({
+                    url: './index.php?s=/addon/School/school/getStudentInfo',
+                    type: 'POST',
+                    data:{
+                        "isAjax": 1
+                    },
+                    success: function (response) {
+                        if (response) {
+                            this.state.info.name = response.name;
+                            this.state.info.phone = response.phone;
+
+                            // 设置报名时间
+                            if(response.appointment_time){
+                                var date = new Date(response.appointment_time * 1000);
+                                this.state.info.appointment_time = date.toJSON().split('.')['0'];
+                            }
+
+                            this.setState({info: this.state.info});
+                        }
+                        this.stopLoading();
+                    }.bind(this)
+                });
             }.bind(this)
         });
+
+
     }
 
     /**
@@ -110,7 +133,6 @@ export default class UserRegister extends Controller {
                     this.showAlert(jqXHR.responseJSON.message);
                 } else {
                     this.showAlert(jqXHR.statusText);
-
                 }
             }.bind(this)
         });
@@ -143,6 +165,7 @@ export default class UserRegister extends Controller {
                         <CellHeader className="half_header">姓名</CellHeader>
                         <CellBody>
                             <Input name="name" onChange={this.valueChange.bind(this)}
+                                   value={this.state.info.name}
                                    className="weui_input" maxLength='11' placeholder="请输入姓名"/>
                         </CellBody>
                         <CellFooter>
@@ -152,6 +175,7 @@ export default class UserRegister extends Controller {
                         <CellHeader className="half_header">电话</CellHeader>
                         <CellBody>
                             <Input name="phone" onChange={this.valueChange.bind(this)}
+                                   value={this.state.info.phone}
                                    className="weui_input"
                                    type="tel" maxLength='11' placeholder="请输入手机号"/>
                         </CellBody>
@@ -162,6 +186,7 @@ export default class UserRegister extends Controller {
                         <CellHeader className="half_header">预约报名时间</CellHeader>
                         <CellBody>
                             <input name="appointment_time" onChange={this.valueChange.bind(this)} className="weui_input"
+                                   value={this.state.info.appointment_time}
                                    type="datetime-local"/>
                         </CellBody>
                         <CellFooter>

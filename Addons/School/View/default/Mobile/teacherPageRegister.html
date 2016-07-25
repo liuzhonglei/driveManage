@@ -79,7 +79,12 @@ function info_submit() {
                 document.getElementById("c_success").style.display = "none";
                 document.getElementById("c_warn").style.display = "";
                 document.getElementById("c_warn_label").innerHTML = data.info;
-            }else{
+            }else if(data.result == 0 ){
+                document.getElementById("c_success").style.display = "none";
+                document.getElementById("c_warn").style.display = "";
+                document.getElementById("c_warn_label").innerHTML = data.message;
+            }
+            else{
                 document.getElementById("c_success").style.display = "";
                 document.getElementById("c_success").getElementsByTagName('label') .innerHTML = "报名成功";
             }

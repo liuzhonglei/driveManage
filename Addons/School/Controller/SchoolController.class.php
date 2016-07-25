@@ -152,17 +152,18 @@ class SchoolController extends SchoolBaseController
     function schoolRegister()
     {
         if (IS_POST) {
-            $_POST['token'] = get_token();
-            $_POST['openid'] = get_openid();
-            $_POST['status'] = '-1';
-            $_POST['intro_source'] = '0';
-            $_POST['time_sign'] = date("Y-m-d");
-            if (empty($_POST['id_in_teacher'])) {
-                $_POST['intro_source'] = '0';
-            } else {
-                $_POST['intro_source'] = '1';
-            }
-            parent::common_add($this->getModel('student'));
+            super.$this->register();
+//            $_POST['token'] = get_token();
+//            $_POST['openid'] = get_openid();
+//            $_POST['status'] = '-1';
+//            $_POST['intro_source'] = '0';
+//            $_POST['time_sign'] = date("Y-m-d");
+//            if (empty($_POST['id_in_teacher'])) {
+//                $_POST['intro_source'] = '0';
+//            } else {
+//                $_POST['intro_source'] = '1';
+//            }
+//            parent::common_add($this->getModel('student'));
         } else {
             // 报名须知
             $sign_info = M('school_info')->where('token = "' . get_token() . '" and type = 0')->find();
@@ -194,7 +195,6 @@ class SchoolController extends SchoolBaseController
         $this->display(T(MOBILE_PATH . 'schoolQuestion'));
     }
 
-
     /**
      * show the position page
      * @return [type] [description]
@@ -209,7 +209,6 @@ class SchoolController extends SchoolBaseController
         // 取得数据
         $this->display(T(MOBILE_PATH . 'schoolTeacherMap'));
     }
-
 
     /**
      * get the apprise data

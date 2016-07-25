@@ -29,6 +29,7 @@ class BaseController extends AdminController
     // param
     var $listsTable;
 
+
     /**
      * 取得驾校信息
      * @return [type] [description]
@@ -73,12 +74,19 @@ class BaseController extends AdminController
      * 取得学员信息
      * @return mixed
      */
-    protected function  getStudentInfo()
+    public function  getStudentInfo()
     {
         $Model = M("student");
         $map = array('token' => get_token(), 'openid' => get_openid());
         $info = $Model->where($map)->find();
-        return $info;
+        $isAjax = $_REQUEST['isAjax'];
+
+        // 返回
+        if ($isAjax) {
+            $this->ajaxReturn($info);
+        } else {
+            return $info;
+        }
     }
 
     /**
@@ -145,6 +153,35 @@ class BaseController extends AdminController
         return $result;
 
     }
+
+    /**
+     * register the student
+     */
+    public
+    function register()
+    {
+        $student = M('student')->where(array("token" => get_token(), "openid" => get_openid()))->find();
+        if (!empty($student)) {
+            $this->adminReturn(0, "当前微信已经注册!");
+        }
+
+        $_POST['openid'] = get_openid();
+        $_POST['status'] = '-1';
+
+        // judge have teacher
+        if (!empty($_POST['id_in_teacher'])) {
+            $_POST['intro_source'] = '1';
+        }
+
+        // default is wechat
+        else {
+            $_POST['intro_source'] = '0';
+        }
+
+        $_POST['time_sign'] = date("Y-m-d");
+        $this->ajaxReturn($this->saveModel("student"));
+    }
+
 
     /**
      * search the students

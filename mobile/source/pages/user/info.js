@@ -30,16 +30,16 @@ export default class UserInfo extends Controller {
         $.ajax({
             url: '/data/user_info',
             type: 'GET',
-            success: function(response) {
+            success: function (response) {
                 if (response.success == true) {
                     this.state.info = response.result;
-                    this.setState({info:  this.state.info});
+                    this.setState({info: this.state.info});
                 } else {
                     this.showAlert(response.message);
                 }
                 this.stopLoading();
             }.bind(this),
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 if (jqXHR.responseJSON) {
                     this.showAlert(jqXHR.responseJSON.message);
                 } else {
@@ -60,41 +60,41 @@ export default class UserInfo extends Controller {
         $.ajax({
             url: '/data/user_info',
             type: 'DELETE',
-            success: function(response) {
+            success: function (response) {
                 if (response.success == true) {
                     location.href = "/";
                 } else {
                     this.showAlert(response.message);
                 }
-                  this.stopLoading();
+                this.stopLoading();
             }.bind(this),
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 if (jqXHR.responseJSON) {
                     this.showAlert(jqXHR.responseJSON.message);
                 } else {
                     this.showAlert(jqXHR.statusText);
                 }
-                  this.stopLoading();
+                this.stopLoading();
             }.bind(this)
         });
     }
 
-     /* 渲染
+    /* 渲染
      * @returns {XML}
      */
     render() {
         return (
             <Page className="cell" title="我的信息">
-              <Toast icon="loading" show={this.state.showLoading}>正在加载中...</Toast>
-              <Alert title={this.state.alert.title} buttons={this.state.alert.buttons} show={this.state.showAlert}>
-                  {this.state.alert.message}
-              </Alert>
+                <Toast icon="loading" show={this.state.showLoading}>正在加载中...</Toast>
+                <Alert title={this.state.alert.title} buttons={this.state.alert.buttons} show={this.state.showAlert}>
+                    {this.state.alert.message}
+                </Alert>
                 <CellsTitle>个人信息</CellsTitle>
-                <Cells>
+                <Cells access>
                     <Cell>
                         <CellHeader className="header">姓名</CellHeader>
                         <CellBody>
-                            {this.state.info.name? this.state.info.name: this.state.info.company_name}
+                            {this.state.info.name ? this.state.info.name : this.state.info.company_name}
                         </CellBody>
                     </Cell>
                     <Cell>
@@ -104,31 +104,28 @@ export default class UserInfo extends Controller {
                         </CellBody>
                     </Cell>
                 </Cells>
-                <div style={{display: this.state.info.type=="P"?"":"none"}}>
 
-                <CellsTitle>车辆信息</CellsTitle>
+                <CellsTitle>预约信息</CellsTitle>
                 <Cells access>
                     <Cell>
-                        <CellHeader className="header">车牌号</CellHeader>
+                        <CellHeader className="header">预约驾校</CellHeader>
                         <CellBody>
                             {this.state.info.plate}
                         </CellBody>
                     </Cell>
                     <Cell>
-                        <CellHeader className="header">车牌色</CellHeader>
+                        <CellHeader className="header">预约时间</CellHeader>
                         <CellBody>
                             {this.state.info.plate_color_name}
                         </CellBody>
                     </Cell>
                     <Cell>
-                        <CellHeader className="header">道路运<br/>输证号</CellHeader>
+                        <CellHeader className="header">状态</CellHeader>
                         <CellBody>
-                             {this.state.info.traffic_card}
+                            {this.state.info.traffic_card}
                         </CellBody>
                     </Cell>
-
                 </Cells>
-                </div>
                 <ButtonArea>
                     <Button type="warn" onClick={this.submit.bind(this)}>解除绑定</Button>
                 </ButtonArea>
@@ -136,10 +133,3 @@ export default class UserInfo extends Controller {
         );
     }
 };
-// <Cell href="#/user/strategy">
-//     <CellBody>
-//         维护周期
-//     </CellBody>
-//     <CellFooter>
-//     </CellFooter>
-// </Cell>

@@ -117,19 +117,6 @@ class PageController extends BaseController
     }
 
     /**
-     * register the info and show the page
-     */
-    function register()
-    {
-        $_POST['status'] = '-1';
-        $_POST['intro_source'] = '0';
-        $_POST['time_sign'] = date("Y-m-d");
-
-        $_POST['openid'] = get_openid();
-        $this->ajaxReturn($this->saveModel("student"));
-    }
-
-    /**
      * cut the price and show the page
      */
     function cutPrice()

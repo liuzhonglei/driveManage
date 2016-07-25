@@ -212,10 +212,13 @@
                 dataType: 'json',
                 data: 'name=' + name + '&phone=' + phone + '&remark=' + remark,
                 success: function (data) {
-                    if (data.status == 0) {
+                    if (data.status == 0 ) {
                         document.getElementById("c_warn").style.display = "";
                         document.getElementById("c_warn_label").innerHTML = data.info;
-                    } else {
+                    }else if( data.result == 0){
+                        document.getElementById("c_warn").style.display = "";
+                        document.getElementById("c_warn_label").innerHTML = data.message;
+                    }else {
                         alert("报名成功");
                         document.getElementById("c_warn").style.display = "display:none";
                         document.getElementById("c_warn_label").innerHTML = "";

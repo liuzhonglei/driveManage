@@ -301,18 +301,19 @@
                         <div class="x_blank"></div>
                         <input data-role="none" type="text" name="remark" class="c_ipt" placeholder="备注">
 
-                        <div class="x_blank"></div>
-                        <div class="x_radio">
-                            <volist name="courseList" id="vo">
-                                <label>
-                                    <input type="radio" data-role="none" name="course_id" class="chk_2" id="{$vo.id}"
-                                           value="{$vo.id}"><label for="{$vo.id}"></label>{$vo.name}
-                                </label>
-                            </volist>
-                            <!--<label>-->
-                            <!--<input type="radio"  data-role="none" name="car-type" class="chk_2" id="no" value="自动挡"><label for="no"></label>自动挡-->
-                            <!--</label>-->
-                        </div>
+                        <!--<if condition=" get_token() neq constant('QINGQING_TOKEN')">-->
+
+                            <div class="x_blank"></div>
+                            <div class="x_radio">
+                                <volist name="courseList" id="vo">
+                                    <label>
+                                        <input type="radio" data-role="none" name="course_id" class="chk_2"
+                                               id="{$vo.id}"
+                                               value="{$vo.id}"><label for="{$vo.id}"></label>{$vo.name}
+                                    </label>
+                                </volist>
+                            </div>
+                        <!--</if>-->
 
                     </div>
                     <a href="#" class="ui-btn x_btn couponsBtn" type="but" id="submitBtn">提交 </a>
@@ -362,6 +363,11 @@
                         {$info.name}的{$cutResult.course_name}学费<br/>
                         ￥<font class="emphasis">{$cutResult.current_fee}</font>,现已砍掉<font class="emphasis">{$cutResult.fee}</font>元<br/>
                         原价为 <span><font class="emphasis">{$cutResult.total_fee}</font></span>元。<br>
+
+                        <in name="activityInfo.status" value="5">
+                            <a  href="./index.php?s=/addon/School/School/showRegister/token/gh_94ecad95d624"
+                               class="ui-btn  x_btn priceBtn regBtn" target="_self">选择驾校,预约报名</a>
+                        </in>
                     </div>
                 </in>
                 <!--//倒计时-->
@@ -373,7 +379,6 @@
                     <div class="end-price">
                         “你已经帮TA砍了{$cutInfo.fee}元”
                     </div>
-
                 </in>
                 <in name="activityInfo.status" value="1">
                     <a href="#" class="ui-btn  x_btn priceBtn regBtn" name="register">参加活动</a>
@@ -507,58 +512,63 @@
     });
 
     <in
-    name = "activityInfo.status"
-    value = "1,4" >
-            $(function () {
-                /*点击弹出 提交成功*/
-                $("#submitBtn").click(function () {
+            name="activityInfo.status"
+            value="1,4">
+        $(function () {
+        /*点击弹出 提交成功*/
+        $("#submitBtn").click(function () {
 
-                    var formData = $("#registerInfo").serialize();
-                    var name = $("input[name='name']").val();
-                    var phone = $("input[name='phone']").val();
-                    var course_id = $("input[name='course_id']:checked").val();
+            var formData = $("#registerInfo").serialize();
+            var name = $("input[name='name']").val();
+            var phone = $("input[name='phone']").val();
+            var course_id = $("input[name='course_id']:checked").val();
 
-                    if (name == null || name == "") {
-                        alert("请填写您的姓名!")
-                        return;
+            if (name == null || name == "") {
+                alert("请填写您的姓名!")
+                return;
+            }
+            if (phone == null || phone == "") {
+                alert("请填写您的电话号码!")
+                return;
+            }
+
+            if (course_id == null || course_id == "") {
+                alert("请选择课程!")
+                return;
+            }
+
+            if (!(/^1[0-9][0-9]\d{4,8}$/.test(phone))) {
+                alert("不是完整的11位手机号或者正确的手机号前七位");
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "{:U('register')}",
+                processData: true,
+                data: formData,
+                success: function (data) {
+                    if (data.status == "0") {
+                        alert(data.info);
+                    }else if (data.result == "0") {
+                        alert(data.message);
                     }
-                    if (phone == null || phone == "") {
-                        alert("请填写您的电话号码!")
-                        return;
+                    else {
+                        window.location = "{:U('show')}";
                     }
-                    if (course_id == null || course_id == "") {
-                        alert("请选择课程!")
-                        return;
-                    }
-                    if (!(/^1[0-9][0-9]\d{4,8}$/.test(phone))) {
-                        alert("不是完整的11位手机号或者正确的手机号前七位");
-                        return;
-                    }
-
-                    $.ajax({
-                        type: "POST",
-                        url: "{:U('register')}",
-                        processData: true,
-                        data: formData,
-                        success: function (data) {
-                            if (data.status == "0") {
-                                alert(data.info);
-                            } else {
-                                window.location = "{:U('show')}";
-                            }
-                        }
-                    });
-                })
-                /*点击弹出 填写信息*/
-                $('a[name="register"]').click(function () {
-                    $("#info_pop").popup("open");
-                })
-
-                $(".coupon_pop_close").click(function () {
-                    $("#info_pop").popup("close");
-                })
-
+                }
             });
+        })
+        /*点击弹出 填写信息*/
+        $('a[name="register"]').click(function () {
+        $("#info_pop").popup("open");
+    })
+
+        $(".coupon_pop_close").click(function () {
+        $("#info_pop").popup("close");
+    })
+
+    });
     </in>
     <in
     name = "activityInfo.status"

@@ -15,6 +15,7 @@
         .grouponBg {
             background: #E0F3FD;
         }
+
         .grouponBk {
             height: 100%;
             width: 100%;
@@ -174,89 +175,99 @@
         }
 
         /*update 12-25 已参团的*/
-        .join_group{
-            width:300px;
-            border:1px solid #93d3ff;
-            background:#fff;
-            padding:10px 20px;
+        .join_group {
+            width: 300px;
+            border: 1px solid #93d3ff;
+            background: #fff;
+            padding: 10px 20px;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
-            overflow:hidden;
-            margin:0 auto 10px;
-            border-radius:5px;
+            overflow: hidden;
+            margin: 0 auto 10px;
+            border-radius: 5px;
         }
-        .join_group h3{
-            font-size:1em;
-            color:#e30707;
-            font-weight:normal;
-            text-align:center;
-            padding:8px 0 12px;;
-            margin:0;
+
+        .join_group h3 {
+            font-size: 1em;
+            color: #e30707;
+            font-weight: normal;
+            text-align: center;
+            padding: 8px 0 12px;;
+            margin: 0;
         }
-        .join_group li{
-            color:#333;
-            clear:both;
-            margin:10px 0 0;
-            height:25px;
+
+        .join_group li {
+            color: #333;
+            clear: both;
+            margin: 10px 0 0;
+            height: 25px;
         }
-        .join_group li span{
-            float:right;
-            color:#aaa;
-            font-size:.7em;
+
+        .join_group li span {
+            float: right;
+            color: #aaa;
+            font-size: .7em;
         }
-        .join_group li label{
-            font-size:.9em;
-            text-align:left;
-            float:left;
-            font-weight:normal;
-            display:block;
+
+        .join_group li label {
+            font-size: .9em;
+            text-align: left;
+            float: left;
+            font-weight: normal;
+            display: block;
         }
-        .join_group li em{
-            margin:-5px 0 0 -2px;
-            float:left;
-            display:block;
-            background:#FA6701;
-            color:#fff;
-            padding:1px 3px;
-            height:13px;
-            line-height:13px;
-            font-size:.6em;
-            border-radius:10px;
-            font-style:normal;
+
+        .join_group li em {
+            margin: -5px 0 0 -2px;
+            float: left;
+            display: block;
+            background: #FA6701;
+            color: #fff;
+            padding: 1px 3px;
+            height: 13px;
+            line-height: 13px;
+            font-size: .6em;
+            border-radius: 10px;
+            font-style: normal;
         }
-        .join_group li em.pcw{
-            background:#E9CB5C
+
+        .join_group li em.pcw {
+            background: #E9CB5C
         }
-        .join_group li img{
-            border:1px solid #d0d0d0;
-            border-radius:50%;
-            width:20px;
-            height:20px;
+
+        .join_group li img {
+            border: 1px solid #d0d0d0;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
         }
 
         /*update 12-29 活动介绍*/
-        .grounpon-intro{
-            width:300px;
-            padding:10px;
-            border:1px solid #93D3FF;
-            background:#fff;
+        .grounpon-intro {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #93D3FF;
+            background: #fff;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
-            border-radius:5px;
-            margin:0 auto;
-            text-align:left;
+            border-radius: 5px;
+            margin: 0 auto;
+            text-align: left;
         }
-        .grounpon-intro h1{
-            color:#000;
-            font-size:.9em;
+
+        .grounpon-intro h1 {
+            color: #000;
+            font-size: .9em;
         }
-        .grounpon-intro p{
-            color:#999;
-            font-size:.7em;
+
+        .grounpon-intro p {
+            color: #999;
+            font-size: .7em;
         }
-        .detail-bk{
-            padding-top:5px;
-            text-align:left
+
+        .detail-bk {
+            padding-top: 5px;
+            text-align: left
         }
 
         /*注册表单*/
@@ -285,6 +296,7 @@
             background: url({:MOBILE_PUBLIC_PATH}/img/radio_checked.png) no-repeat 0 -17px;
             background-size: 16px 32px;
         }
+
         .info-content {
             min-height: 100px;
             margin-top: 30px;
@@ -397,7 +409,8 @@
             <in name="groupbuyInfo.status" value="1,2">
                 <notempty name="myInfo.party">
                     <div class="g_total">
-                        <span>当前价</span><?php echo $myInfo["course"]["sign_charge"] - $groupbuyInfo["privilege"]  ; ?>元<span>满{$groupbuyInfo.current_num}人</span>
+                        <span>当前价</span><?php echo $myInfo["course"]["sign_charge"] - $groupbuyInfo["privilege"]  ; ?>
+                        元<span>满{$groupbuyInfo.current_num}人</span>
                     </div>
                     <div class="g_origin">市场价{$myInfo.course.sign_charge}元</div>
                 </notempty>
@@ -459,7 +472,8 @@
                         </volist>
                     </ul>
                 </div>
-                <a href="#" class="groupon_rule" id="gronpon_detail"><img src="{:MOBILE_PUBLIC_PATH}/img/group_info.png">活动详情</a>
+                <a href="#" class="groupon_rule" id="gronpon_detail"><img
+                        src="{:MOBILE_PUBLIC_PATH}/img/group_info.png">活动详情</a>
             </in>
         </div>
     </div>
@@ -567,7 +581,10 @@
                 success: function (data) {
                     if (data.status == "0") {
                         alert(data.info);
-                    } else {
+                    } else if (data.result == "0") {
+                        alert(data.message);
+                    }
+                    else {
                         $("#info_pop").popup("close");
                         payMoney();
                     }

@@ -1896,19 +1896,19 @@ str;
 
     /**
      * 注册学员
+     * 可以重复注册
      */
     function registerStudent()
     {
 
-        $student = M('student')->where(array('school_token' => $_POST['school_token'], 'openid' => get_openid()))->find();
+        $student = M('student')->where(array('school_token' => $_POST['school_token'], 'openid' => get_openid(), '_string' => 'appointment_time is not null'))->find();
         if ($student) {
-            return $this->adminReturn(0, '学员已经存在!');
+            return $this->adminReturn(0, '学员已经预约!');
         } else {
             $_POST['openid'] = get_openid();
             $_POST['status'] = '-1';
             $_POST['intro_source'] = '5';
             $_POST['time_sign'] = date("Y-m-d");
-//            $_POST['appointment_time'] = strtotime($_POST['appointment_time']);
 
             $result = $this->saveModel();
             if ($result["status"] == "1") {
