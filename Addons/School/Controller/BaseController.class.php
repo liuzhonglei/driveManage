@@ -161,8 +161,8 @@ class BaseController extends AdminController
     function register()
     {
         $student = M('student')->where(array("token" => get_token(), "openid" => get_openid()))->find();
-        if (!empty($student)) {
-            $this->adminReturn(0, "当前微信已经注册!");
+        if (!empty($student) and $_POST['phone'] == $student['phone']  and $_POST['course_id'] == $student['course_id'] and $_POST['remark'] == $student['remark']) {
+            $this->adminReturn(1, "报名成功!");
         }
 
         $_POST['openid'] = get_openid();
