@@ -90,7 +90,7 @@
         });
         wx.ready(function () {
             wx.onMenuShareTimeline({
-                title: '我的驾校{$schoolInfo.name}，值得推荐！想学车过来哦!', // 分享标题
+                title: '"{$schoolInfo.name}"考驾照，值得推荐！想学车过来哦!', // 分享标题
                 link: "{:U('studentPayAdvance',null,false)}/token/{:get_token()}/in_student_openid/{:get_openid()}", // 分享链接
                 imgUrl: "{$follow.headimgurl}", // 分享图标
 
@@ -106,7 +106,7 @@
                 }
             });
             wx.onMenuShareAppMessage({
-                title: '我的驾校{$schoolInfo.name}，值得推荐！想学车过来哦!', // 分享标题
+                title: '"{$schoolInfo.name}"考驾照，值得推荐！想学车过来哦!', // 分享标题
                 link: "{:U('studentPayAdvance',null,false)}/token/{:get_token()}/in_student_openid/{:get_openid()}", // 分享链接
                 imgUrl: "{$follow.headimgurl}", // 分享图标
 
