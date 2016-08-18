@@ -20194,8 +20194,8 @@ webpackJsonp([0],[
 	            console.log('coordinates', coordinates);
 
 	            wx.openLocation({
-	                longitude: coordinates[1], // 经度，浮点数，范围为180 ~ -180。
-	                latitude: coordinates[0], // 纬度，浮点数，范围为90 ~ -90
+	                longitude: coordinates[0], // 经度，浮点数，范围为180 ~ -180。
+	                latitude: coordinates[1], // 纬度，浮点数，范围为90 ~ -90
 	                name: this.state.info.name, // 位置名
 	                address: this.state.info.sign_place.address, // 地址详情说明
 	                scale: 20, // 地图缩放级别,整形值,范围从1~28。默认为最大
