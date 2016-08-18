@@ -890,9 +890,9 @@ STR;
         if (!IS_POST) {
             // set the page param
             $schoolInfo = $this->getSchoolInfo();
-            $schoolInfoUrl = get_cover_url($schoolInfo["photo"]);
+//            $schoolInfoUrl = get_cover_url($schoolInfo["photo"]);
             $this->assign("schoolInfo", $schoolInfo);
-            $this->assign("photoUrl", $schoolInfoUrl);
+            $this->assign("photoUrl", $schoolInfo["photo"]);
             $follow = M('follow')->where('openid= "' . get_openid() . '" and token = "' . $token . '"')->find();
             $this->assign("follow", $follow);
             if (!empty($in_student_openid)) {
