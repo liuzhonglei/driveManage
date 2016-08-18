@@ -20185,9 +20185,8 @@ webpackJsonp([0],[
 	        key: 'showPosition',
 	        value: function showPosition() {
 	            console.log('this.state.info', this.state.info);
-
-	            if (!this.state.info.sign_place || !this.state.info.coordinate) {
-	                return;
+	            if (!this.state.info.coordinate && this.state.info.sign_place) {
+	                this.state.info.coordinate = this.state.info.sign_place.coordinate;
 	            }
 
 	            var coordinates = this.state.info.coordinate.split(",");
