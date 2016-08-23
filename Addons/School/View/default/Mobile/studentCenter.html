@@ -26,7 +26,7 @@
         <div class="my_top" id="userpic" style="background:url({:MOBILE_PUBLIC_PATH}/img/my_bg.png) no-repeat;">
             <div class="tit01">
                 <div class="pic01">
-                    <if condition="$myinfo.headimgurl eq ''">
+                    <if condition="($myinfo.headimgurl eq '') OR (empty($myinfo.headimgurl ))">
                              <img src="{:MOBILE_PUBLIC_PATH}/img/userPic.png">
                         <else />
                             <img src="{$myinfo.headimgurl}">

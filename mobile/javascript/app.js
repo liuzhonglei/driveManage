@@ -19251,7 +19251,7 @@ webpackJsonp([0],[
 	                admin_area: '3502'
 	            };
 	            this.state.itemEnd = 50;
-	            this.state.param.order_type = "distance";
+	            this.state.param.order_type = "level";
 	            this.state.param.pre_order_type = null;
 	            this.state.latitude = 0;
 	            this.state.longitude = 0;
@@ -19309,7 +19309,7 @@ webpackJsonp([0],[
 	                var distance = (aDistance ? aDistance : 999999999) - (bDistance ? bDistance : 999999999);
 	                return distance;
 	            } else if (this.state.param.order_type == 'level') {
-	                var result = (a.statics.apprise_level ? a.statics.apprise_level : 0) - (b.statics.apprise_level ? b.statics.apprise_level : 0);
+	                var result = (b.level ? b.level : 0) - (a.level ? a.level : 0);
 	                return result;
 	            }
 	        }
@@ -19396,8 +19396,8 @@ webpackJsonp([0],[
 
 	            // 排列数组
 	            if (this.state.param.pre_order_type != this.state.param.order_type) {
-	                // TODO
-	                // this.state.list.sort(this.sortItems.bind(this));
+	                // 排序
+	                this.state.list.sort(this.sortItems.bind(this));
 
 	                // 设置上一次排序
 	                this.state.param.pre_order_type = this.state.param.order_type;
@@ -19419,9 +19419,9 @@ webpackJsonp([0],[
 	                    continue;
 	                }
 
-	                var level = item.statics && item.statics.level ? item.statics.level : 5;
+	                var level = item.level ? item.level : 4;
 	                item.levelStar = [];
-	                for (var j = 0; j < 5; j++) {
+	                for (var j = 0; j < level; j++) {
 	                    item.levelStar.push(React.createElement(_reactFontawesome2['default'], {
 	                        name: 'star',
 	                        size: 'lg' }));
@@ -19598,9 +19598,13 @@ webpackJsonp([0],[
 	    }, {
 	        key: 'computeDistance',
 	        value: function computeDistance(latitude, longitude) {
-	            var start = new qq.maps.LatLng(this.state.latitude, this.state.longitude),
-	                end = new qq.maps.LatLng(latitude, longitude);
-	            return qq.maps.geometry.spherical.computeDistanceBetween(start, end);
+	            if (qq.maps.geometry) {
+	                var start = new qq.maps.LatLng(this.state.latitude, this.state.longitude),
+	                    end = new qq.maps.LatLng(latitude, longitude);
+	                return qq.maps.geometry.spherical.computeDistanceBetween(start, end);
+	            } else {
+	                return 999999;
+	            }
 	        }
 
 	        /**
@@ -19685,13 +19689,13 @@ webpackJsonp([0],[
 	                                    onChange: this.paramChange.bind(this, "order_type") },
 	                                React.createElement(
 	                                    'option',
-	                                    { value: 'distance' },
-	                                    '距离优先'
+	                                    { value: 'level' },
+	                                    '评分优先'
 	                                ),
 	                                React.createElement(
 	                                    'option',
-	                                    { value: 'level' },
-	                                    '评分优先'
+	                                    { value: 'distance' },
+	                                    '距离优先'
 	                                )
 	                            ),
 	                            ' ',
@@ -19864,57 +19868,61 @@ webpackJsonp([0],[
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            // 地址
+	            //console.log('componentDidMount wx', wx);
 	            wx.ready((function () {
-	                this.syncLocation();
+	                console.log('wx.ready', wx);
+	                wx.getLocation({
+	                    type: 'gcj02',
+	                    success: (function (res) {
+	                        this.showPlace(res);
+	                    }).bind(this)
+	                });
 	            }).bind(this));
+
+	            // 测试数据
+	            var res = { latitude: 24.480601, longitude: 118.172301 };
+	            this.showPlace(res);
 	        }
 
 	        /**
-	         * 同步当前位置
+	         * 显示地点坐标
 	         */
 	    }, {
-	        key: 'syncLocation',
-	        value: function syncLocation() {
-	            wx.getLocation({
-	                type: 'gcj02',
-	                success: (function (res) {
-	                    console.log('syncLocation');
-	                    //var res = {latitude: 24.480601, longitude: 118.172301};
+	        key: 'showPlace',
+	        value: function showPlace(res) {
 
-	                    //  创建地图
-	                    var map = this.createMap(res.latitude, res.longitude);
+	            //  创建地图
+	            var map = this.createMap(res.latitude, res.longitude);
 
-	                    //中心坐标
-	                    var center = new qq.maps.LatLng(res.latitude, res.longitude);
-	                    var anchor = new qq.maps.Point(6, 6),
-	                        size = new qq.maps.Size(24, 24),
-	                        origin = new qq.maps.Point(0, 0),
-	                        icon = new qq.maps.MarkerImage('http://lbs.qq.com/javascript_v2/img/center.gif', size, origin, anchor);
-	                    new qq.maps.Marker({
-	                        icon: icon,
-	                        map: map,
-	                        position: center
-	                    });
+	            //中心坐标
+	            var center = new qq.maps.LatLng(res.latitude, res.longitude);
+	            var anchor = new qq.maps.Point(6, 6),
+	                size = new qq.maps.Size(24, 24),
+	                origin = new qq.maps.Point(0, 0),
+	                icon = new qq.maps.MarkerImage('http://lbs.qq.com/javascript_v2/img/center.gif', size, origin, anchor);
+	            new qq.maps.Marker({
+	                icon: icon,
+	                map: map,
+	                position: center
+	            });
 
-	                    // 创建地点
-	                    $.ajax({
-	                        url: './index.php?s=/addon/School/place/listAllPlace',
-	                        type: 'GET',
-	                        success: (function (response) {
-	                            var num = 1;
-	                            var tokens = {};
-	                            for (var item in response) {
-	                                //console.log('item', item);
-	                                if (!tokens[response[item]['token']]) {
-	                                    tokens[response[item]['token']] = num;
-	                                    num++;
-	                                }
+	            // 创建地点
+	            $.ajax({
+	                url: './index.php?s=/addon/School/place/listAllPlace',
+	                type: 'GET',
+	                success: (function (response) {
+	                    var num = 1;
+	                    var tokens = {};
+	                    for (var item in response) {
+	                        //console.log('item', item);
+	                        if (!tokens[response[item]['token']]) {
+	                            tokens[response[item]['token']] = num;
+	                            num++;
+	                        }
 
-	                                this.createMarker(response[item], tokens[response[item]['token']]);
-	                            }
-	                            this.stopLoading();
-	                        }).bind(this)
-	                    });
+	                        this.createMarker(response[item], tokens[response[item]['token']]);
+	                    }
+	                    this.stopLoading();
 	                }).bind(this)
 	            });
 	        }
@@ -19965,8 +19973,19 @@ webpackJsonp([0],[
 	            //中心坐标
 	            var anchor = new qq.maps.Point(12, 0),
 	                size = new qq.maps.Size(24, 24),
-	                origin = new qq.maps.Point(0, 0),
-	                icon = new qq.maps.MarkerImage('./mobile/img/place.png', size, origin, anchor, size);
+	                origin = new qq.maps.Point(0, 0);
+
+	            // todo 需要修改成公共
+	            var extend = "";
+	            if (item.token == 'gh_94ecad95d624') {
+	                extend = "_qingqing";
+	            }
+
+	            if (item.can_pay == '1') {
+	                var icon = new qq.maps.MarkerImage('../img/place_sign' + extend + '.png', size, origin, anchor, size);
+	            } else {
+	                var icon = new qq.maps.MarkerImage('../img/place_train' + extend + '.png', size, origin, anchor, size);
+	            }
 	            var marker = new qq.maps.Marker({
 	                icon: icon,
 	                map: this.state.map,
@@ -19984,7 +20003,7 @@ webpackJsonp([0],[
 	                    this.state.popInfo.close();
 	                }
 	                info.open();
-	                info.setContent('<h4 style=\'margin:0 0 5px 0;padding:0.2em 0\'>' + item.school_name + '</h4>' + '<div style="text-align:left;white-space:nowrap;margin:10px;font-size: 0.8em;">' + item.name + '<br/>' + "地址: " + item.address + '&nbsp;</div>' + '<div style="text-align:right;font-size: 0.8em;font-weight:bolder;"><a style="color:black;" href="#/service/info/' + item.token + '">报名<img  style="height: 1.1em;" src="./mobile/img/sign.png"></a></div>');
+	                info.setContent('<h4 style=\'margin:0 0 5px 0;padding:0.2em 0\'>' + item.school_name + '</h4>' + '<div style="text-align:left;white-space:nowrap;margin:10px;font-size: 0.8em;">' + item.name + '<br/>' + "地址: " + item.address + '&nbsp;</div>' + '<div style="text-align:right;font-size: 0.8em;font-weight:bolder;"><a style="color:black;" href="#/service/info/' + item.token + '">报名<img  style="height: 1.1em;" src="../img/sign.png"></a></div>');
 	                info.setPosition(center);
 	                this.state.popInfo = info;
 	            }).bind(this));

@@ -72,7 +72,7 @@ export default class ServiceList extends Controller {
             admin_area: '3502'
         }
         this.state.itemEnd = 50;
-        this.state.param.order_type = "distance";
+        this.state.param.order_type = "level";
         this.state.param.pre_order_type = null;
         this.state.latitude = 0;
         this.state.longitude = 0;
@@ -117,7 +117,7 @@ export default class ServiceList extends Controller {
             var distance = (aDistance ? aDistance : 999999999) - (bDistance ? bDistance : 999999999);
             return distance;
         } else if (this.state.param.order_type == 'level') {
-            var result = (a.statics.apprise_level ? a.statics.apprise_level : 0) - (b.statics.apprise_level ? b.statics.apprise_level : 0)
+            var result = (b.level ? b.level : 0) - (a.level ? a.level : 0)
             return result;
         }
     }
@@ -194,8 +194,8 @@ export default class ServiceList extends Controller {
 
         // 排列数组
         if (this.state.param.pre_order_type != this.state.param.order_type) {
-            // TODO
-            // this.state.list.sort(this.sortItems.bind(this));
+            // 排序
+            this.state.list.sort(this.sortItems.bind(this));
 
             // 设置上一次排序
             this.state.param.pre_order_type = this.state.param.order_type;
@@ -218,9 +218,9 @@ export default class ServiceList extends Controller {
                 continue;
             }
 
-            var level = item.statics && item.statics.level ? item.statics.level : 5;
+            var level = item.level ? item.level : 4;
             item.levelStar = [];
-            for (var j = 0; j < 5; j++) {
+            for (var j = 0; j < level; j++) {
                 item.levelStar.push(<FontAwesome
                     name='star'
                     size="lg"/>);
@@ -230,8 +230,8 @@ export default class ServiceList extends Controller {
 
             // 计算统计数据
             item.statics = {
-                order_month: Math.ceil(Math.random()*100+30),
-                order_total: Math.ceil(Math.random()*500+2000)
+                order_month: Math.ceil(Math.random() * 100 + 30),
+                order_total: Math.ceil(Math.random() * 500 + 2000)
             };
 
             //计算距离
@@ -351,8 +351,12 @@ export default class ServiceList extends Controller {
 
     // 计算与当前坐标之间的距离
     computeDistance(latitude, longitude) {
-        var start = new qq.maps.LatLng(this.state.latitude, this.state.longitude), end = new qq.maps.LatLng(latitude, longitude);
-        return qq.maps.geometry.spherical.computeDistanceBetween(start, end);
+        if (qq.maps.geometry) {
+            var start = new qq.maps.LatLng(this.state.latitude, this.state.longitude), end = new qq.maps.LatLng(latitude, longitude);
+            return qq.maps.geometry.spherical.computeDistanceBetween(start, end);
+        } else {
+            return 999999;
+        }
     }
 
     /**
@@ -387,8 +391,8 @@ export default class ServiceList extends Controller {
                         <div className="weui_navbar_item">
                             <select name="order_type" className="weui_select"
                                     onChange={this.paramChange.bind(this,"order_type")}>
-                                <option value="distance">距离优先</option>
                                 <option value="level">评分优先</option>
+                                <option value="distance">距离优先</option>
                             </select>
                             &nbsp;
                             <FontAwesome name='angle-down'
