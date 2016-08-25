@@ -152,7 +152,7 @@ class SchoolController extends SchoolBaseController
     function schoolRegister()
     {
         if (IS_POST) {
-            super.$this->register();
+            super . $this->register();
 //            $_POST['token'] = get_token();
 //            $_POST['openid'] = get_openid();
 //            $_POST['status'] = '-1';
@@ -250,15 +250,16 @@ class SchoolController extends SchoolBaseController
             if (!empty($myinfo)) {
                 $myinfo['openid'] = get_openid();
                 M('student')->save($myinfo);
-                $this->success();
-            }
-            $myinfo = M('teacher')->where($map)->find();
-            if (!empty($myinfo)) {
-                $myinfo['openid'] = get_openid();
-                M('teacher')->save($myinfo);
-                $this->success();
+                $this->success('绑定学员成功');
             } else {
-                $this->error('查找不到对应注册人员!');
+                $myinfo = M('teacher')->where($map)->find();
+                if (!empty($myinfo)) {
+                    $myinfo['openid'] = get_openid();
+                    M('teacher')->save($myinfo);
+                    $this->success('绑定教练成功');
+                } else {
+                    $this->error('查找不到对应注册人员!');
+                }
             }
         } else {
 
