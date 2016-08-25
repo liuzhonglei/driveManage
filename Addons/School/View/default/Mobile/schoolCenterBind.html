@@ -38,13 +38,13 @@
             var id = $("#id").val();
             $.ajax({ //一个Ajax过程
                 type: "post",
-                url: location.href,
+                url: "{:addons_url('School://School/myCenter')}",
                 dataType: 'json',
                 data: 'name=' + name + "&card_id=" + id,
                 success: function (data) {
-                    if (data.status == 0) {
+                    if (data.result == 0) {
                         document.getElementById("c_warn").style.display = "";
-                        document.getElementById("c_warn_label").innerHTML = data.info;
+                        document.getElementById("c_warn_label").innerHTML = data.message;
                     } else {
                         document.getElementById("c_warn").style.display = "display:none";
                         location.reload();
