@@ -250,37 +250,38 @@ class SchoolController extends SchoolBaseController
             if (!empty($myinfo)) {
                 $myinfo['openid'] = get_openid();
                 M('student')->save($myinfo);
-                $this->success('绑定学员成功');
+//                $this->success('绑定学员成功');
             } else {
                 $myinfo = M('teacher')->where($map)->find();
                 if (!empty($myinfo)) {
                     $myinfo['openid'] = get_openid();
                     M('teacher')->save($myinfo);
-                    $this->success('绑定教练成功');
+//                    $this->success('绑定教练成功');
                 } else {
                     $this->error('查找不到对应注册人员!');
                 }
             }
-        } else {
-
-            $sql = 'select t.*, t2.headimgurl headimgurl from wp_student t left join wp_follow  t2 on t.openid = t2.openid where t.openid= "' . get_openid() . '" and t.token = "' . get_token() . '"';
-            $myinfo = M('student')->query($sql)[0];
-            if (!empty($myinfo)) {
-                $this->assign('myinfo', $myinfo);
-                $this->assign('schoolinfo', $this->getSchoolInfo());
-                $this->display(T(MOBILE_PATH . 'studentCenter'));
-            }
-            $sql = 'select t.*, t2.headimgurl headimgurl from wp_teacher t left join wp_follow  t2 on t.openid = t2.openid where t.openid= "' . get_openid() . '" and t.token = "' . get_token() . '"';
-            $myinfo = M('teacher')->query($sql)[0];
-            if (!empty($myinfo)) {
-                $this->assign('myinfo', $myinfo);
-                //$this->assign('photo_path', get_cover_url($myinfo['photo']));
-                $this->display(T(MOBILE_PATH . 'teacherCenter'));
-            }
-            if (empty($myinfo)) {
-                $this->display(T(MOBILE_PATH . 'schoolCenterBind'));
-            }
         }
+
+
+        $sql = 'select t.*, t2.headimgurl headimgurl from wp_student t left join wp_follow  t2 on t.openid = t2.openid where t.openid= "' . get_openid() . '" and t.token = "' . get_token() . '"';
+        $myinfo = M('student')->query($sql)[0];
+        if (!empty($myinfo)) {
+            $this->assign('myinfo', $myinfo);
+            $this->assign('schoolinfo', $this->getSchoolInfo());
+            $this->display(T(MOBILE_PATH . 'studentCenter'));
+        }
+        $sql = 'select t.*, t2.headimgurl headimgurl from wp_teacher t left join wp_follow  t2 on t.openid = t2.openid where t.openid= "' . get_openid() . '" and t.token = "' . get_token() . '"';
+        $myinfo = M('teacher')->query($sql)[0];
+        if (!empty($myinfo)) {
+            $this->assign('myinfo', $myinfo);
+            //$this->assign('photo_path', get_cover_url($myinfo['photo']));
+            $this->display(T(MOBILE_PATH . 'teacherCenter'));
+        }
+        if (empty($myinfo)) {
+            $this->display(T(MOBILE_PATH . 'schoolCenterBind'));
+        }
+
     }
 
 
