@@ -370,8 +370,9 @@ export default class ServiceList extends Controller {
                 <Alert title={this.state.alert.title} buttons={this.state.alert.buttons} show={this.state.showAlert}>
                     {this.state.alert.message}
                 </Alert>
-
                 <div className="weui_tab">
+
+
                     <div className="weui_navbar">
                         <div className="weui_navbar_item">
                             <select name="recruit_place" className="weui_select"
@@ -428,6 +429,7 @@ export default class ServiceList extends Controller {
                             {this.state.items}
                         </Cells>
                     </div>
+
                 </div>
             </div>
         );

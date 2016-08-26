@@ -20197,9 +20197,18 @@ webpackJsonp([0],[
 	        //$("[name='rate']").raty({starType: 'i', number: 5, score: this.state.info.apprise_level, readOnly: true});
 
 	        /**
-	         * 显示当前位置
+	         * 到报名界面
 	         */
 
+	    }, {
+	        key: 'toRegisterPage',
+	        value: function toRegisterPage() {
+	            location.href = "#/user/register/" + this.state.info.token;
+	        }
+
+	        /**
+	         * 显示当前位置
+	         */
 	    }, {
 	        key: 'showPosition',
 	        value: function showPosition() {
@@ -20244,198 +20253,197 @@ webpackJsonp([0],[
 	                ),
 	                React.createElement(
 	                    'div',
-	                    { className: 'images_wrapper' },
-	                    React.createElement('img', { src: this.state.info.photo,
-	                        style: { display: "block", border: 0, width: "100%", height: "auto", maxidth: "100%" }
-	                    }),
+	                    { className: 'weui_tab' },
 	                    React.createElement(
 	                        'div',
-	                        { className: 'images_content' },
-	                        '  ',
-	                        this.state.info.name
-	                    )
-	                ),
-	                React.createElement(
-	                    Cells,
-	                    { access: true, style: { marginTop: 0 } },
-	                    React.createElement(
-	                        Cell,
-	                        null,
+	                        { className: 'weui_tab_bd' },
 	                        React.createElement(
-	                            CellBody,
-	                            null,
+	                            'div',
+	                            { className: 'images_wrapper' },
+	                            React.createElement('img', { src: this.state.info.photo,
+	                                style: { display: "block", border: 0, width: "100%", height: "auto", maxidth: "100%" }
+	                            }),
 	                            React.createElement(
 	                                'div',
-	                                { onClick: this.showPosition.bind(this),
-	                                    style: { float: "left", display: "block", width: "50%", textAlign: "left" } },
-	                                React.createElement(_reactFontawesome2['default'], { style: { color: "#4397f1" }, name: 'location-arrow',
-	                                    size: 'lg' }),
-	                                ' ',
+	                                { className: 'images_content' },
+	                                '  ',
+	                                this.state.info.name
+	                            )
+	                        ),
+	                        React.createElement(
+	                            Cells,
+	                            { access: true, style: { marginTop: 0 } },
+	                            React.createElement(
+	                                Cell,
+	                                null,
 	                                React.createElement(
-	                                    'span',
-	                                    { style: { color: "#4397f1" } },
-	                                    '去报名点'
+	                                    CellBody,
+	                                    null,
+	                                    React.createElement(
+	                                        'div',
+	                                        { onClick: this.showPosition.bind(this),
+	                                            style: { float: "left", display: "block", width: "50%", textAlign: "left" } },
+	                                        React.createElement(_reactFontawesome2['default'], { style: { color: "#4397f1" }, name: 'location-arrow',
+	                                            size: 'lg' }),
+	                                        ' ',
+	                                        React.createElement(
+	                                            'span',
+	                                            { style: { color: "#4397f1" } },
+	                                            '去报名点'
+	                                        )
+	                                    ),
+	                                    React.createElement(
+	                                        'a',
+	                                        { href: this.state.info.phone ? 'tel:' + this.state.info.phone : "javascript:",
+
+	                                            style: { float: "right", display: "block", width: "50%", textAlign: "left" } },
+	                                        React.createElement(_reactFontawesome2['default'], { style: { color: "orange" }, name: 'phone',
+	                                            size: 'lg' }),
+	                                        ' ',
+	                                        React.createElement(
+	                                            'span',
+	                                            { style: { color: "#4397f1" } },
+	                                            '联系电话'
+	                                        )
+	                                    )
 	                                )
 	                            ),
 	                            React.createElement(
-	                                'a',
-	                                { href: this.state.info.phone ? 'tel:' + this.state.info.phone : "javascript:",
-
-	                                    style: { float: "right", display: "block", width: "50%", textAlign: "left" } },
-	                                React.createElement(_reactFontawesome2['default'], { style: { color: "orange" }, name: 'phone',
-	                                    size: 'lg' }),
-	                                ' ',
+	                                Cell,
+	                                null,
 	                                React.createElement(
-	                                    'span',
-	                                    { style: { color: "#4397f1" } },
-	                                    '联系电话'
+	                                    CellHeader,
+	                                    null,
+	                                    ' ',
+	                                    React.createElement(_reactFontawesome2['default'], { style: { color: "orange" }, name: 'map-marker',
+	                                        size: 'lg' })
+	                                ),
+	                                React.createElement(
+	                                    CellBody,
+	                                    null,
+	                                    ' ',
+	                                    this.state.info.address
+	                                )
+	                            ),
+	                            React.createElement(
+	                                Cell,
+	                                null,
+	                                React.createElement(
+	                                    CellHeader,
+	                                    { className: 'half_header' },
+	                                    '招生地点'
+	                                ),
+	                                React.createElement(
+	                                    CellBody,
+	                                    null,
+	                                    React.createElement(
+	                                        'span',
+	                                        null,
+	                                        this.state.info.recruit_place
+	                                    )
+	                                )
+	                            ),
+	                            React.createElement(
+	                                Cell,
+	                                null,
+	                                React.createElement(
+	                                    CellHeader,
+	                                    { className: 'half_header' },
+	                                    '基本条件'
+	                                ),
+	                                React.createElement(
+	                                    CellBody,
+	                                    null,
+	                                    React.createElement(
+	                                        'span',
+	                                        null,
+	                                        this.state.info.condition
+	                                    )
 	                                )
 	                            )
-	                        )
-	                    ),
-	                    React.createElement(
-	                        Cell,
-	                        null,
-	                        React.createElement(
-	                            CellHeader,
-	                            null,
-	                            ' ',
-	                            React.createElement(_reactFontawesome2['default'], { style: { color: "orange" }, name: 'map-marker',
-	                                size: 'lg' })
 	                        ),
 	                        React.createElement(
-	                            CellBody,
+	                            CellsTitle,
 	                            null,
-	                            ' ',
-	                            this.state.info.address
-	                        )
-	                    ),
-	                    React.createElement(
-	                        Cell,
-	                        null,
-	                        React.createElement(
-	                            CellHeader,
-	                            { className: 'half_header' },
-	                            '招生地点'
+	                            '课程'
 	                        ),
 	                        React.createElement(
-	                            CellBody,
+	                            Cells,
 	                            null,
+	                            this.state.course
+	                        ),
+	                        React.createElement(
+	                            CellsTitle,
+	                            null,
+	                            '提供服务'
+	                        ),
+	                        React.createElement(
+	                            Cells,
+	                            { access: true },
 	                            React.createElement(
-	                                'span',
-	                                null,
-	                                this.state.info.recruit_place
+	                                Cell,
+	                                { href: "#/service/info/" + this.props.routeParams.token + "/map" },
+	                                React.createElement(
+	                                    CellHeader,
+	                                    { className: 'icon_nav' },
+	                                    React.createElement(_reactFontawesome2['default'], { style: { color: "black" }, name: 'map-pin',
+	                                        size: 'lg' })
+	                                ),
+	                                React.createElement(
+	                                    CellBody,
+	                                    null,
+	                                    '学车场地'
+	                                ),
+	                                React.createElement(CellFooter, null)
+	                            ),
+	                            React.createElement(
+	                                Cell,
+	                                {
+	                                    href: "index.php?s=/addon/School/School/schoolQuestion/token/" + this.state.info.token + ".html" },
+	                                React.createElement(
+	                                    CellHeader,
+	                                    { className: 'icon_nav' },
+	                                    React.createElement(_reactFontawesome2['default'], { style: { color: "black" }, name: 'question',
+	                                        size: 'lg' })
+	                                ),
+	                                React.createElement(
+	                                    CellBody,
+	                                    null,
+	                                    React.createElement(
+	                                        'span',
+	                                        null,
+	                                        '在线问答'
+	                                    )
+	                                ),
+	                                React.createElement(CellFooter, null)
+	                            ),
+	                            React.createElement(
+	                                Cell,
+	                                { style: { display: this.state.info.scene_url ? "" : "none" },
+	                                    href: this.state.info.scene_url },
+	                                React.createElement(
+	                                    CellHeader,
+	                                    { className: 'icon_nav' },
+	                                    React.createElement(_reactFontawesome2['default'], { style: { color: "black" }, name: 'film',
+	                                        size: 'lg' })
+	                                ),
+	                                React.createElement(
+	                                    CellBody,
+	                                    null,
+	                                    '3D影像'
+	                                ),
+	                                React.createElement(CellFooter, null)
 	                            )
 	                        )
 	                    ),
 	                    React.createElement(
-	                        Cell,
-	                        null,
+	                        'div',
+	                        { className: 'weui_tabbar', style: { position: "fixed" } },
 	                        React.createElement(
-	                            CellHeader,
-	                            { className: 'half_header' },
-	                            '基本条件'
-	                        ),
-	                        React.createElement(
-	                            CellBody,
-	                            null,
-	                            React.createElement(
-	                                'span',
-	                                null,
-	                                this.state.info.condition
-	                            )
+	                            Button,
+	                            { onClick: this.toRegisterPage.bind(this, event) },
+	                            '报名'
 	                        )
-	                    )
-	                ),
-	                React.createElement(
-	                    CellsTitle,
-	                    null,
-	                    '课程'
-	                ),
-	                React.createElement(
-	                    Cells,
-	                    null,
-	                    this.state.course
-	                ),
-	                React.createElement(
-	                    CellsTitle,
-	                    null,
-	                    '提供服务'
-	                ),
-	                React.createElement(
-	                    Cells,
-	                    { access: true },
-	                    React.createElement(
-	                        Cell,
-	                        { href: "#/service/info/" + this.props.routeParams.token + "/map" },
-	                        React.createElement(
-	                            CellHeader,
-	                            { className: 'icon_nav' },
-	                            React.createElement(_reactFontawesome2['default'], { style: { color: "black" }, name: 'map-pin',
-	                                size: 'lg' })
-	                        ),
-	                        React.createElement(
-	                            CellBody,
-	                            null,
-	                            '学车场地'
-	                        ),
-	                        React.createElement(CellFooter, null)
-	                    ),
-	                    React.createElement(
-	                        Cell,
-	                        { href: "index.php?s=/addon/School/School/schoolQuestion/token/" + this.state.info.token + ".html" },
-	                        React.createElement(
-	                            CellHeader,
-	                            { className: 'icon_nav' },
-	                            React.createElement(_reactFontawesome2['default'], { style: { color: "black" }, name: 'question',
-	                                size: 'lg' })
-	                        ),
-	                        React.createElement(
-	                            CellBody,
-	                            null,
-	                            React.createElement(
-	                                'span',
-	                                null,
-	                                '在线问答'
-	                            )
-	                        ),
-	                        React.createElement(CellFooter, null)
-	                    ),
-	                    React.createElement(
-	                        Cell,
-	                        { style: { display: this.state.info.scene_url ? "" : "none" }, href: this.state.info.scene_url },
-	                        React.createElement(
-	                            CellHeader,
-	                            { className: 'icon_nav' },
-	                            React.createElement(_reactFontawesome2['default'], { style: { color: "black" }, name: 'film',
-	                                size: 'lg' })
-	                        ),
-	                        React.createElement(
-	                            CellBody,
-	                            null,
-	                            '3D影像'
-	                        ),
-	                        React.createElement(CellFooter, null)
-	                    ),
-	                    React.createElement(
-	                        Cell,
-	                        { href: "#/user/register/" + this.state.info.token },
-	                        React.createElement(
-	                            CellHeader,
-	                            { className: 'icon_nav' },
-	                            React.createElement(_reactFontawesome2['default'], { style: { color: "black" }, name: 'briefcase',
-	                                size: 'lg' })
-	                        ),
-	                        React.createElement(
-	                            CellBody,
-	                            null,
-	                            React.createElement(
-	                                'span',
-	                                null,
-	                                '在线报名'
-	                            )
-	                        ),
-	                        React.createElement(CellFooter, null)
 	                    )
 	                )
 	            );

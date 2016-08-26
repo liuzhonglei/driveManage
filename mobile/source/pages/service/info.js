@@ -102,6 +102,13 @@ export default class ServiceInfo extends Controller {
         //$("[name='rate']").raty({starType: 'i', number: 5, score: this.state.info.apprise_level, readOnly: true});
     }
 
+    /**
+     * 到报名界面
+     */
+    toRegisterPage() {
+        location.href = "#/user/register/" + this.state.info.token;
+    }
+
 
     /**
      * 显示当前位置
@@ -137,105 +144,103 @@ export default class ServiceInfo extends Controller {
                 <Alert title={this.state.alert.title} buttons={this.state.alert.buttons} show={this.state.showAlert}>
                     {this.state.alert.message}
                 </Alert>
+                <div className="weui_tab">
+                    <div className="weui_tab_bd">
+                        <div className="images_wrapper">
+                            <img src={this.state.info.photo}
+                                 style={{display:"block",border:0, width: "100%",height: "auto",maxidth: "100%"}}
+                            />
 
-                <div className="images_wrapper">
-                    <img src={this.state.info.photo}
-                         style={{display:"block",border:0, width: "100%",height: "auto",maxidth: "100%"}}
-                    />
+                            <div className="images_content">&nbsp;&nbsp;{this.state.info.name}</div>
+                        </div>
+                        <Cells access style={{marginTop:0}}>
+                            <Cell>
+                                <CellBody>
+                                    <div onClick={this.showPosition.bind(this)}
+                                         style={{float:"left", display: "block",width:"50%",textAlign:"left"}}>
+                                        <FontAwesome style={{color:"#4397f1"}} name='location-arrow'
+                                                     size="lg"/>
+                                        &nbsp;
+                                        <span style={{color:"#4397f1"}}>去报名点</span>
+                                    </div>
+                                    <a href={this.state.info.phone? 'tel:'+this.state.info.phone:"javascript:"}
 
-                    <div className="images_content">&nbsp;&nbsp;{this.state.info.name}</div>
+                                       style={{float:"right",display: "block",width:"50%",textAlign:"left"}}>
+                                        <FontAwesome style={{color:"orange"}} name='phone'
+                                                     size="lg"/>
+                                        &nbsp;
+                                        <span style={{color:"#4397f1"}}>联系电话</span>
+                                    </a>
+                                </CellBody>
+                            </Cell>
+                            <Cell>
+                                <CellHeader > <FontAwesome style={{color:"orange"}} name='map-marker'
+                                                           size="lg"/></CellHeader>
+                                <CellBody >
+                                    &nbsp;
+                                    {this.state.info.address}
+                                </CellBody>
+                            </Cell>
+                            <Cell>
+                                <CellHeader className="half_header">招生地点</CellHeader>
+                                <CellBody>
+                                    <span>{this.state.info.recruit_place}</span>
+                                </CellBody>
+                            </Cell>
+                            <Cell>
+                                <CellHeader className="half_header">基本条件</CellHeader>
+                                <CellBody>
+                                    <span>{this.state.info.condition}</span>
+                                </CellBody>
+                            </Cell>
+                        </Cells>
+                        <CellsTitle>课程</CellsTitle>
+                        <Cells>
+                            {this.state.course}
+                        </Cells>
+                        <CellsTitle>提供服务</CellsTitle>
+                        <Cells access>
+                            <Cell href={"#/service/info/"+this.props.routeParams.token+"/map"}>
+                                <CellHeader className="icon_nav">
+                                    <FontAwesome style={{color:"black"}} name='map-pin'
+                                                 size="lg"/></CellHeader>
+                                <CellBody>
+                                    学车场地
+                                </CellBody>
+                                <CellFooter>
+                                </CellFooter>
+                            </Cell>
+                            <Cell
+                                href={"index.php?s=/addon/School/School/schoolQuestion/token/"+this.state.info.token+".html"}>
+                                <CellHeader className="icon_nav">
+                                    <FontAwesome style={{color:"black"}} name='question'
+                                                 size="lg"/></CellHeader>
+
+                                <CellBody>
+                                    <span>在线问答</span>
+                                </CellBody>
+                                <CellFooter>
+                                </CellFooter>
+                            </Cell>
+                            <Cell style={{display: this.state.info.scene_url? "":"none"}}
+                                  href={this.state.info.scene_url}>
+                                <CellHeader className="icon_nav">
+                                    <FontAwesome style={{color:"black"}} name='film'
+                                                 size="lg"/></CellHeader>
+                                <CellBody>
+                                    3D影像
+                                </CellBody>
+                                <CellFooter>
+                                </CellFooter>
+                            </Cell>
+                        </Cells>
+                    </div>
+                    <div className="weui_tabbar" style={{position:"fixed"}}>
+                        <Button onClick={this.toRegisterPage.bind(this,event)}>报名</Button>
+                    </div>
                 </div>
-                <Cells access style={{marginTop:0}}>
-                    <Cell>
-                        <CellBody>
-                            <div onClick={this.showPosition.bind(this)}
-                                 style={{float:"left", display: "block",width:"50%",textAlign:"left"}}>
-                                <FontAwesome style={{color:"#4397f1"}} name='location-arrow'
-                                             size="lg"/>
-                                &nbsp;
-                                <span style={{color:"#4397f1"}}>去报名点</span>
-                            </div>
-                            <a href={this.state.info.phone? 'tel:'+this.state.info.phone:"javascript:"}
-
-                               style={{float:"right",display: "block",width:"50%",textAlign:"left"}}>
-                                <FontAwesome style={{color:"orange"}} name='phone'
-                                             size="lg"/>
-                                &nbsp;
-                                <span style={{color:"#4397f1"}}>联系电话</span>
-                            </a>
-                        </CellBody>
-                    </Cell>
-                    <Cell>
-                        <CellHeader > <FontAwesome style={{color:"orange"}} name='map-marker'
-                                                   size="lg"/></CellHeader>
-                        <CellBody >
-                            &nbsp;
-                            {this.state.info.address}
-                        </CellBody>
-                    </Cell>
-                    <Cell>
-                        <CellHeader className="half_header">招生地点</CellHeader>
-                        <CellBody>
-                            <span>{this.state.info.recruit_place}</span>
-                        </CellBody>
-                    </Cell>
-                    <Cell>
-                        <CellHeader className="half_header">基本条件</CellHeader>
-                        <CellBody>
-                            <span>{this.state.info.condition}</span>
-                        </CellBody>
-                    </Cell>
-                </Cells>
-                <CellsTitle>课程</CellsTitle>
-                <Cells>
-                    {this.state.course}
-                </Cells>
-                <CellsTitle>提供服务</CellsTitle>
-                <Cells access>
-                    <Cell href={"#/service/info/"+this.props.routeParams.token+"/map"}>
-                        <CellHeader className="icon_nav">
-                            <FontAwesome style={{color:"black"}} name='map-pin'
-                                         size="lg"/></CellHeader>
-                        <CellBody>
-                            学车场地
-                        </CellBody>
-                        <CellFooter>
-                        </CellFooter>
-                    </Cell>
-                    <Cell href={"index.php?s=/addon/School/School/schoolQuestion/token/"+this.state.info.token+".html"}>
-                        <CellHeader className="icon_nav">
-                            <FontAwesome style={{color:"black"}} name='question'
-                                         size="lg"/></CellHeader>
-
-                        <CellBody>
-                            <span>在线问答</span>
-                        </CellBody>
-                        <CellFooter>
-                        </CellFooter>
-                    </Cell>
-                    <Cell style={{display: this.state.info.scene_url? "":"none"}} href={this.state.info.scene_url}>
-                        <CellHeader className="icon_nav">
-                            <FontAwesome style={{color:"black"}} name='film'
-                                         size="lg"/></CellHeader>
-                        <CellBody>
-                            3D影像
-                        </CellBody>
-                        <CellFooter>
-                        </CellFooter>
-                    </Cell>
-                    <Cell href={"#/user/register/"+this.state.info.token}>
-                        <CellHeader className="icon_nav">
-                            <FontAwesome style={{color:"black"}} name='briefcase'
-                                         size="lg"/></CellHeader>
-
-                        <CellBody>
-                            <span>在线报名</span>
-                        </CellBody>
-                        <CellFooter>
-                        </CellFooter>
-                    </Cell>
-                </Cells>
             </div>
-        );
+        )
+            ;
     }
 };
