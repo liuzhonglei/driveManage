@@ -47,7 +47,8 @@
                         document.getElementById("c_warn_label").innerHTML = data.message;
                     } else {
                         document.getElementById("c_warn").style.display = "display:none";
-                        location.reload();
+                        location.reload(location.href);
+                        location.replace(document.referrer);
                     }
                 },
                 failed: function () {
