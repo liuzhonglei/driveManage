@@ -64,7 +64,7 @@
                     <div class="pic01"><img src="{$vo.headimgurl}"></div>
                     <div class="info01">
                         <div class="name2">{$vo.name}<span class="bindMed">{$vo.bindname}</span></div>
-                        <!--<div class="signal">{$vo.intro}</div>-->
+                        <a href="tel:{$vo.phone}"> <div class="signal">电话:{$vo.phone}</div></a>
                     </div>
                     <div class="btn01">
                         <a href="{:U('commentTeacher',null,false)}/teacher_id/{$vo.id}/student_id/{$student.id}" data-role="none" data-ajax="false" class="c_btn">评价</a>
