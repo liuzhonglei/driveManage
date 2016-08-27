@@ -163,9 +163,10 @@ class BaseController extends AdminController
         $student = M('student')->where(array("token" => get_token(), "openid" => get_openid()))->find();
         if (!empty($student)) {
             $_POST['id'] = $student['id'];
-            if ($_POST['phone'] == $student['phone'] and $_POST['course_id'] == $student['course_id'] and $_POST['remark'] == $student['remark']) {
-                $this->adminReturn(1, "报名成功!");
-            }
+        }
+
+        if ($_POST['phone'] == $student['phone'] and $_POST['course_id'] == $student['course_id'] and $_POST['remark'] == $student['remark']) {
+            return $this->adminReturn(1, "报名成功!");
         }
 
         $_POST['openid'] = get_openid();
