@@ -160,12 +160,12 @@ class BaseController extends AdminController
     public
     function register()
     {
-        $student = M('student')->where(array("token" => get_token(), "openid" => get_openid()))->find();
+        $student = M('student')->where(array("token" => get_token(), "openid" => get_openid(), "name" => $_POST['name']))->find();
         if (!empty($student)) {
             $_POST['id'] = $student['id'];
         }
 
-        if (!empty($student) and $_POST['phone'] == $student['phone'] and $_POST['course_id'] == $student['course_id'] and $_POST['remark'] == $student['remark']) {
+        if (!empty($student) and $_POST['phone'] == $student['phone'] and (empty($_POST['course_id']) or $_POST['course_id'] == $student['course_id']) and $_POST['remark'] == $student['remark']) {
             $this->adminReturn(1, "报名成功!");
         } else {
             $_POST['openid'] = get_openid();
