@@ -161,8 +161,11 @@ class BaseController extends AdminController
     function register()
     {
         $student = M('student')->where(array("token" => get_token(), "openid" => get_openid()))->find();
-        if (!empty($student) and $_POST['phone'] == $student['phone']  and $_POST['course_id'] == $student['course_id'] and $_POST['remark'] == $student['remark']) {
-            $this->adminReturn(1, "报名成功!");
+        if (!empty($student)) {
+            $_POST['id'] = $student['id'];
+            if ($_POST['phone'] == $student['phone'] and $_POST['course_id'] == $student['course_id'] and $_POST['remark'] == $student['remark']) {
+                $this->adminReturn(1, "报名成功!");
+            }
         }
 
         $_POST['openid'] = get_openid();
@@ -171,9 +174,7 @@ class BaseController extends AdminController
         // judge have teacher
         if (!empty($_POST['id_in_teacher'])) {
             $_POST['intro_source'] = '1';
-        }
-
-        // default is wechat
+        } // default is wechat
         else {
             $_POST['intro_source'] = '0';
         }
