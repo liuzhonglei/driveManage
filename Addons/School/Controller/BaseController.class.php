@@ -165,23 +165,23 @@ class BaseController extends AdminController
             $_POST['id'] = $student['id'];
         }
 
-        if ($_POST['phone'] == $student['phone'] and $_POST['course_id'] == $student['course_id'] and $_POST['remark'] == $student['remark']) {
-            return $this->adminReturn(1, "报名成功!");
+        if (!empty($student) and $_POST['phone'] == $student['phone'] and $_POST['course_id'] == $student['course_id'] and $_POST['remark'] == $student['remark']) {
+            $this->adminReturn(1, "报名成功!");
+        } else {
+            $_POST['openid'] = get_openid();
+            $_POST['status'] = '-1';
+
+            // judge have teacher
+            if (!empty($_POST['id_in_teacher'])) {
+                $_POST['intro_source'] = '1';
+            } // default is wechat
+            else {
+                $_POST['intro_source'] = '0';
+            }
+
+            $_POST['time_sign'] = date("Y-m-d");
+            $this->ajaxReturn($this->saveModel("student"));
         }
-
-        $_POST['openid'] = get_openid();
-        $_POST['status'] = '-1';
-
-        // judge have teacher
-        if (!empty($_POST['id_in_teacher'])) {
-            $_POST['intro_source'] = '1';
-        } // default is wechat
-        else {
-            $_POST['intro_source'] = '0';
-        }
-
-        $_POST['time_sign'] = date("Y-m-d");
-        $this->ajaxReturn($this->saveModel("student"));
     }
 
 
