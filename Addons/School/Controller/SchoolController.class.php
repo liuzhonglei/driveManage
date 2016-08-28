@@ -152,7 +152,7 @@ class SchoolController extends SchoolBaseController
     function schoolRegister()
     {
         if (IS_POST) {
-            super . $this->register();
+            $this->register();
 //            $_POST['token'] = get_token();
 //            $_POST['openid'] = get_openid();
 //            $_POST['status'] = '-1';
