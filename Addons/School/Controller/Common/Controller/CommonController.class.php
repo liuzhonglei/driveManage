@@ -176,8 +176,7 @@ class CommonController extends ExtendAddonsController
      */
     public function wxSignPackage()
     {
-        $appinfo = get_token_appinfo();
-
+        $appinfo = get_token_appinfo("gh_94ecad95d624");
         $jssdk = new \JsSdk($appinfo["appid"], $appinfo["secret"]);
         $signPackage = $jssdk->GetSignPackage($_SERVER['HTTP_REFERER']);
         $this->ajaxReturn($signPackage);
