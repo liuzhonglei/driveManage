@@ -685,10 +685,6 @@ str;
         $token = $this->getTeacherToken($teacher_id);
 
         if (IS_POST) {
-            $student = $this->getMyInfo();
-            if (!empty($student)) {
-                $this->ajaxReturn(array("status" => "0", "info" => "当前微信号已注册，请等待通知！"));
-            }
 
             $_POST['token'] = $token;
             $_POST['status'] = '-1';
