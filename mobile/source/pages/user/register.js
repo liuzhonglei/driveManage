@@ -138,7 +138,6 @@ export default class UserRegister extends Controller {
         });
     }
 
-
     /**
      * 渲染
      * @returns {XML}
