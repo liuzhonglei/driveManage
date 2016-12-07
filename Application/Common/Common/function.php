@@ -138,7 +138,7 @@ function msubstr_local($str, $start = 0, $length, $charset = "utf-8") {
 		$re ['gbk'] = "/[\x01-\x7f]|[\x81-\xfe][\x40-\xfe]/";
 		$re ['big5'] = "/[\x01-\x7f]|[\x81-\xfe]([\x40-\x7e]|\xa1-\xfe])/";
 		preg_match_all ( $re [$charset], $str, $match );
-		
+
 		$slice = join ( "", array_slice ( $match [0], $start, $length ) );
 	}
 	return (strlen ( $str ) > strlen ( $slice )) ? $slice . '...' : $slice;
@@ -162,27 +162,27 @@ function think_encrypt($data, $key = '', $expire = 0) {
 	$len = strlen ( $data );
 	$l = strlen ( $key );
 	$char = '';
-	
+
 	for($i = 0; $i < $len; $i ++) {
 		if ($x == $l)
 			$x = 0;
 		$char .= substr ( $key, $x, 1 );
 		$x ++;
 	}
-	
+
 	$str = sprintf ( '%010d', $expire ? $expire + time () : 0 );
-	
+
 	for($i = 0; $i < $len; $i ++) {
 		$str .= chr ( ord ( substr ( $data, $i, 1 ) ) + (ord ( substr ( $char, $i, 1 ) )) % 256 );
 	}
 	return str_replace ( array (
 			'+',
 			'/',
-			'=' 
+			'='
 	), array (
 			'-',
 			'_',
-			'' 
+			''
 	), base64_encode ( $str ) );
 }
 
@@ -200,10 +200,10 @@ function think_decrypt($data, $key = '') {
 	$key = md5 ( empty ( $key ) ? C ( 'DATA_AUTH_KEY' ) : $key );
 	$data = str_replace ( array (
 			'-',
-			'_' 
+			'_'
 	), array (
 			'+',
-			'/' 
+			'/'
 	), $data );
 	$mod4 = strlen ( $data ) % 4;
 	if ($mod4) {
@@ -212,7 +212,7 @@ function think_decrypt($data, $key = '') {
 	$data = base64_decode ( $data );
 	$expire = substr ( $data, 0, 10 );
 	$data = substr ( $data, 10 );
-	
+
 	if ($expire > 0 && $expire < time ()) {
 		return '';
 	}
@@ -220,14 +220,14 @@ function think_decrypt($data, $key = '') {
 	$len = strlen ( $data );
 	$l = strlen ( $key );
 	$char = $str = '';
-	
+
 	for($i = 0; $i < $len; $i ++) {
 		if ($x == $l)
 			$x = 0;
 		$char .= substr ( $key, $x, 1 );
 		$x ++;
 	}
-	
+
 	for($i = 0; $i < $len; $i ++) {
 		if (ord ( substr ( $data, $i, 1 ) ) < ord ( substr ( $char, $i, 1 ) )) {
 			$str .= chr ( (ord ( substr ( $data, $i, 1 ) ) + 256) - ord ( substr ( $char, $i, 1 ) ) );
@@ -378,7 +378,7 @@ function format_bytes($size, $delimiter = '') {
 			'MB',
 			'GB',
 			'TB',
-			'PB' 
+			'PB'
 	);
 	for($i = 0; $size >= 1024 && $i < 5; $i ++)
 		$size /= 1024;
@@ -468,21 +468,21 @@ function addons_url($url, $param = array()) {
 	$addons = $case ? parse_name ( $url ['scheme'] ) : $url ['scheme'];
 	$controller = $case ? parse_name ( $url ['host'] ) : $url ['host'];
 	$action = trim ( $case ? strtolower ( $url ['path'] ) : $url ['path'], '/' );
-	
+
 	/* 解析URL带的参数 */
 	if (isset ( $url ['query'] )) {
 		parse_str ( $url ['query'], $query );
 		$param = array_merge ( $query, $param );
 	}
-	
+
 	/* 基础参数 */
 	$params = array (
 			'_addons' => ucfirst ( $addons ),
 			'_controller' => ucfirst ( $controller ),
-			'_action' => $action 
+			'_action' => $action
 	);
 	$params = array_merge ( $params, $param ); // 添加额外参数
-	
+
 	return U ( 'Home/Addons/execute', $params );
 	// $qurl = $addons == $controller ? "/ad/$addons/$action" : "/ad/$addons/$controller/$action";
 	// return U ($qurl , $param );
@@ -491,14 +491,14 @@ function addons_url($url, $param = array()) {
 /**
  * 时间戳格式化
  *
- * @param int $time        	
+ * @param int $time
  * @return string 完整的时间显示
  * @author huajie <banhuajie@163.com>
  */
 function time_format($time = NULL, $format = 'Y-m-d H:i') {
 	if (empty ( $time ))
 		return '';
-	
+
 	$time = $time === NULL ? NOW_TIME : intval ( $time );
 	return date ( $format, $time );
 }
@@ -520,12 +520,12 @@ function get_username($uid = 0) {
 	if (! ($uid && is_numeric ( $uid ))) { // 获取当前登录用户名
 		return session ( 'user_auth.username' );
 	}
-	
+
 	/* 获取缓存数据 */
 	if (empty ( $list )) {
 		$list = S ( 'sys_active_user_list' );
 	}
-	
+
 	/* 查找用户信息 */
 	$key = "u{$uid}";
 	if (isset ( $list [$key] )) { // 已缓存，直接使用
@@ -579,19 +579,19 @@ function get_mult_userinfo($uid) {
 }
 function get_mult_username($uids) {
 	is_array ( $uids ) || $uids = explode ( ',', $uids );
-	
+
 	$uids = array_filter ( $uids );
 	if (empty ( $uids )) {
 		return;
 	}
-	
+
 	foreach ( $uids as $uid ) {
 		$name = get_truename ( $uid );
 		if ($name) {
 			$nameArr [] = $name;
 		}
 	}
-	
+
 	return implode ( ', ', $nameArr );
 }
 /**
@@ -605,17 +605,17 @@ function get_mult_username($uids) {
  */
 function get_category($id, $field = null) {
 	static $list;
-	
+
 	/* 非法分类ID */
 	if (empty ( $id ) || ! is_numeric ( $id )) {
 		return '';
 	}
-	
+
 	/* 读取缓存数据 */
 	if (empty ( $list )) {
 		$list = S ( 'sys_category_list' );
 	}
-	
+
 	/* 获取分类名称 */
 	if (! isset ( $list [$id] )) {
 		$cate = M ( 'Category' )->find ( $id );
@@ -644,12 +644,12 @@ function get_category_title($id) {
 function get_top_model($model_id = null) {
 	$map = array (
 			'status' => 1,
-			'extend' => 0 
+			'extend' => 0
 	);
 	if (! is_null ( $model_id )) {
 		$map ['id'] = array (
 				'neq',
-				$model_id 
+				$model_id
 		);
 	}
 	$model = M ( 'Model' )->where ( $map )->field ( true )->select ();
@@ -670,22 +670,22 @@ function get_top_model($model_id = null) {
  */
 function get_document_model($id = null, $field = null) {
 	static $list;
-	
+
 	/* 非法分类ID */
 	if (! (is_numeric ( $id ) || is_null ( $id ))) {
 		return '';
 	}
-	
+
 	/* 读取缓存数据 */
 	if (empty ( $list )) {
 		$list = S ( 'DOCUMENT_MODEL_LIST' );
 	}
-	
+
 	/* 获取模型名称 */
 	if (empty ( $list )) {
 		$map = array (
 				'status' => 1,
-				'extend' => 1 
+				'extend' => 1
 		);
 		$model = M ( 'Model' )->where ( $map )->field ( true )->select ();
 		foreach ( $model as $value ) {
@@ -693,7 +693,7 @@ function get_document_model($id = null, $field = null) {
 		}
 		S ( 'DOCUMENT_MODEL_LIST', $list ); // 更新缓存
 	}
-	
+
 	/* 根据条件返回数据 */
 	if (is_null ( $id )) {
 		return $list;
@@ -732,7 +732,7 @@ function ubb($data) {
  * @author huajie <banhuajie@163.com>
  */
 function action_log($action = null, $model = null, $record_id = null, $user_id = null) {
-	
+
 	// 参数检查
 	if (empty ( $action ) || empty ( $model ) || empty ( $record_id )) {
 		return '参数不能为空';
@@ -740,13 +740,13 @@ function action_log($action = null, $model = null, $record_id = null, $user_id =
 	if (empty ( $user_id )) {
 		$user_id = is_login ();
 	}
-	
+
 	// 查询行为,判断是否执行
 	$action_info = M ( 'Action' )->getByName ( $action );
 	if ($action_info ['status'] != 1) {
 		return '该行为被禁用或删除';
 	}
-	
+
 	// 插入行为日志
 	$data ['action_id'] = $action_info ['id'];
 	$data ['user_id'] = $user_id;
@@ -754,7 +754,7 @@ function action_log($action = null, $model = null, $record_id = null, $user_id =
 	$data ['model'] = $model;
 	$data ['record_id'] = $record_id;
 	$data ['create_time'] = NOW_TIME;
-	
+
 	// 解析日志规则,生成日志备注
 	if (! empty ( $action_info ['log'] )) {
 		if (preg_match_all ( '/\[(\S+?)\]/', $action_info ['log'], $match )) {
@@ -766,7 +766,7 @@ function action_log($action = null, $model = null, $record_id = null, $user_id =
 					'user' => $user_id,
 					'model' => $model,
 					'record' => $record_id,
-					'time' => NOW_TIME 
+					'time' => NOW_TIME
 			);
 			foreach ( $match [1] as $value ) {
 				$param = explode ( '|', $value );
@@ -784,13 +784,13 @@ function action_log($action = null, $model = null, $record_id = null, $user_id =
 		// 未定义日志规则，记录操作url
 		$data ['remark'] = '操作url：' . $_SERVER ['REQUEST_URI'];
 	}
-	
+
 	M ( 'ActionLog' )->add ( $data );
-	
+
 	if (! empty ( $action_info ['rule'] )) {
 		// 解析行为
 		$rules = parse_action ( $action, $user_id );
-		
+
 		// 执行行为
 		$res = execute_action ( $rules, $action_info ['id'], $user_id );
 	}
@@ -818,24 +818,24 @@ function parse_action($action = null, $self) {
 	if (empty ( $action )) {
 		return false;
 	}
-	
+
 	// 参数支持id或者name
 	if (is_numeric ( $action )) {
 		$map = array (
-				'id' => $action 
+				'id' => $action
 		);
 	} else {
 		$map = array (
-				'name' => $action 
+				'name' => $action
 		);
 	}
-	
+
 	// 查询行为信息
 	$info = M ( 'Action' )->where ( $map )->find ();
 	if (! $info || $info ['status'] != 1) {
 		return false;
 	}
-	
+
 	// 解析规则:table:$table|field:$field|condition:$condition|rule:$rule[|cycle:$cycle|max:$max][;......]
 	$rules = $info ['rule'];
 	$rules = str_replace ( '{$self}', $self, $rules );
@@ -854,7 +854,7 @@ function parse_action($action = null, $self) {
 			unset ( $return [$key] ['cycle'], $return [$key] ['max'] );
 		}
 	}
-	
+
 	return $return;
 }
 
@@ -874,32 +874,32 @@ function execute_action($rules = false, $action_id = null, $user_id = null) {
 	if (! $rules || empty ( $action_id ) || empty ( $user_id )) {
 		return false;
 	}
-	
+
 	$return = true;
 	foreach ( $rules as $rule ) {
-		
+
 		// 检查执行周期
 		$map = array (
 				'action_id' => $action_id,
-				'user_id' => $user_id 
+				'user_id' => $user_id
 		);
 		$map ['create_time'] = array (
 				'gt',
-				NOW_TIME - intval ( $rule ['cycle'] ) * 3600 
+				NOW_TIME - intval ( $rule ['cycle'] ) * 3600
 		);
 		$exec_count = M ( 'ActionLog' )->where ( $map )->count ();
 		if ($exec_count > $rule ['max']) {
 			continue;
 		}
-		
+
 		// 执行数据库操作
 		$Model = M ( ucfirst ( $rule ['table'] ) );
 		$field = $rule ['field'];
 		$res = $Model->where ( $rule ['condition'] )->setField ( $field, array (
 				'exp',
-				$rule ['rule'] 
+				$rule ['rule']
 		) );
-		
+
 		if (! $res) {
 			$return = false;
 		}
@@ -947,7 +947,7 @@ if (! function_exists ( 'array_column' )) {
 /**
  * 获取表名（不含表前缀）
  *
- * @param string $model_id        	
+ * @param string $model_id
  * @return string 表名
  * @author huajie <banhuajie@163.com>
  */
@@ -976,49 +976,49 @@ function get_table_name($model_id = null) {
  */
 function get_model_attribute($model_id, $group = true) {
 	static $list;
-	
+
 	/* 非法ID */
 	if (empty ( $model_id ) || ! is_numeric ( $model_id )) {
 		return '';
 	}
-	
+
 	/* 获取属性 */
 	if (! isset ( $list [$model_id] )) {
 		$map = array (
-				'model_id' => $model_id 
+				'model_id' => $model_id
 		);
 		$extend = M ( 'Model' )->getFieldById ( $model_id, 'extend' );
-		
+
 		if ($extend) {
 			$map = array (
 					'model_id' => array (
 							"in",
 							array (
 									$model_id,
-									$extend 
-							) 
-					) 
+									$extend
+							)
+					)
 			);
 		}
 		$info = M ( 'Attribute' )->where ( $map )->select ();
 		$list [$model_id] = $info;
 	}
-	
+
 	$attr = array ();
 	foreach ( $list [$model_id] as $value ) {
 		$attr [$value ['name']] = $value;
 	}
-	
+
 	if ($group) {
 		$sort = M ( 'Model' )->getFieldById ( $model_id, 'field_sort' );
-		
+
 		if (empty ( $sort )) { // 未排序
 			$group = array (
-					1 => array_merge ( $attr ) 
+					1 => array_merge ( $attr )
 			);
 		} else {
 			$group = json_decode ( $sort, true );
-			
+
 			$keys = array_keys ( $group );
 			foreach ( $group as $k => $value ) {
 				foreach ( $value as $key => $val ) {
@@ -1028,14 +1028,14 @@ function get_model_attribute($model_id, $group = true) {
 				}
 				$group [$k] = $value;
 			}
-			
+
 			if (! empty ( $attr )) {
 				$group [$keys [0]] = array_merge ( $group [$keys [0]], $attr );
 			}
 		}
 		$attr = $group;
 	}
-	
+
 	return $attr;
 }
 
@@ -1078,7 +1078,7 @@ function get_table_field($value = null, $condition = 'id', $field = null, $table
 	if (empty ( $value ) || empty ( $table )) {
 		return false;
 	}
-	
+
 	// 拼接参数
 	$map [$condition] = $value;
 	$info = M ( ucfirst ( $table ) )->where ( $map );
@@ -1093,8 +1093,8 @@ function get_table_field($value = null, $condition = 'id', $field = null, $table
 /**
  * 获取链接信息
  *
- * @param int $link_id        	
- * @param string $field        	
+ * @param int $link_id
+ * @param string $field
  * @return 完整的链接信息或者某一字段
  * @author huajie <banhuajie@163.com>
  */
@@ -1114,28 +1114,28 @@ function get_link($link_id = null, $field = 'url') {
 /**
  * 获取文档封面图片
  *
- * @param int $cover_id        	
- * @param string $field        	
+ * @param int $cover_id
+ * @param string $field
  * @return 完整的数据 或者 指定的$field字段值
  * @author huajie <banhuajie@163.com>
  */
 function get_cover($cover_id, $field = null) {
 	if (empty ( $cover_id ))
 		return false;
-	
+
 	$map ['status'] = 1;
 	$picture = M ( 'Picture' )->where ( $map )->getById ( $cover_id );
-	
+
 	if (empty ( $picture ))
 		return '';
-	
+
 	return empty ( $field ) ? $picture : $picture [$field];
 }
 function get_cover_url($cover_id) {
 	$url = get_cover ( $cover_id, 'path' );
 	if (empty ( $url ))
 		return '';
-	
+
 	return SITE_URL . $url;
 }
 // 兼容旧方法
@@ -1144,10 +1144,10 @@ function get_picture_url($cover_id) {
 }
 function get_img_html($cover_id) {
 	$url = get_cover_url ( $cover_id );
-	
+
 	if (empty ( $url ))
 		return '';
-	
+
 	return '<img class="list_img" src="' . $url . '" >';
 }
 /**
@@ -1164,7 +1164,7 @@ function check_document_position($pos = 0, $contain = 0) {
 	if (empty ( $pos ) || empty ( $contain )) {
 		return false;
 	}
-	
+
 	// 将两个参数进行按位与运算，不为0则表示$contain属于$pos
 	$res = $pos & $contain;
 	if ($res !== 0) {
@@ -1181,30 +1181,30 @@ function check_document_position($pos = 0, $contain = 0) {
  */
 function get_stemma($pids, Model &$model, $field = 'id') {
 	$collection = array ();
-	
+
 	// 非空判断
 	if (empty ( $pids )) {
 		return $collection;
 	}
-	
+
 	if (is_array ( $pids )) {
 		$pids = trim ( implode ( ',', $pids ), ',' );
 	}
 	$result = $model->field ( $field )->where ( array (
 			'pid' => array (
 					'IN',
-					( string ) $pids 
-			) 
+					( string ) $pids
+			)
 	) )->select ();
 	$child_ids = array_column ( ( array ) $result, 'id' );
-	
+
 	while ( ! empty ( $child_ids ) ) {
 		$collection = array_merge ( $collection, $result );
 		$result = $model->field ( $field )->where ( array (
 				'pid' => array (
 						'IN',
-						$child_ids 
-				) 
+						$child_ids
+				)
 		) )->select ();
 		$child_ids = array_column ( ( array ) $result, 'id' );
 	}
@@ -1219,7 +1219,7 @@ function get_stemma($pids, Model &$model, $field = 'id') {
 function keyword_unique($keyword) {
 	if (empty ( $keyword ))
 		return false;
-	
+
 	$map ['keyword'] = $keyword;
 	$info = M ( 'keyword' )->where ( $map )->find ();
 	return empty ( $info );
@@ -1299,7 +1299,7 @@ function get_list_field($data, $grid, $model) {
 	} else {
 		$value = implode ( ' ', $data2 );
 	}
-	
+
 	// 链接支持
 	if (! empty ( $grid ['href'] )) {
 		$links = explode ( ',', $grid ['href'] );
@@ -1316,23 +1316,23 @@ function get_list_field($data, $grid, $model) {
 					$target = $matches [1];
 					$href = str_replace ( '&' . $matches [0], '', $href );
 				}
-				
+
 				// 替换系统特殊字符串
 				$href = str_replace ( array (
 						'[DELETE]',
 						'[EDIT]',
-						'[MODEL]' 
+						'[MODEL]'
 				), array (
 						'del?id=[id]&model=[MODEL]',
 						'edit?id=[id]&model=[MODEL]',
-						$model ['id'] 
+						$model ['id']
 				), $href );
-				
+
 				// 替换数据变量
 				$href = preg_replace_callback ( '/\[([a-z_]+)\]/', function ($match) use($data) {
 					return $data [$match [1]];
 				}, $href );
-				
+
 				// 兼容多种写法
 				if (strpos ( $href, '?' ) === false && strpos ( $href, '&' ) !== false) {
 					$href = preg_replace ( "/&/i", "?", $href, 1 );
@@ -1361,14 +1361,14 @@ function get_name_by_status($val, $name, $model_id) {
 		$_name [$model_id] = array ();
 		$map ['extra'] = array (
 				'EXP',
-				'!=""' 
+				'!=""'
 		);
 		$map ['model_id'] = $model_id;
 		$list = M ( 'attribute' )->where ( $map )->select ();
 		foreach ( $list as $attr ) {
 			if (empty ( $attr ['extra'] ))
 				continue;
-			
+
 			$extra = parse_config_attr ( $attr ['extra'] );
 			if (is_array ( $extra ) && ! empty ( $extra )) {
 				$_name [$model_id] [$attr ['name']] ['value'] = $extra;
@@ -1376,13 +1376,13 @@ function get_name_by_status($val, $name, $model_id) {
 			}
 		}
 	}
-	
+
 	if ($_name [$model_id] [$name] ['type'] == 'checkbox') {
 		$valArr = explode ( ',', $val );
 		foreach ( $valArr as $v ) {
 			$res [] = empty ( $_name [$model_id] [$name] ['value'] [$v] ) ? $v : $_name [$model_id] [$name] ['value'] [$v];
 		}
-		
+
 		return implode ( ', ', $res );
 	} else {
 		return empty ( $_name [$model_id] [$name] ['value'] [$val] ) ? $val : $_name [$model_id] [$name] ['value'] [$val];
@@ -1398,8 +1398,8 @@ function addWeixinLog($data, $data_post = '') {
 /**
  * 取一个二维数组中的每个数组的固定的键知道的值来形成一个新的一维数组
  *
- * @param $pArray 一个二维数组        	
- * @param $pKey 数组的键的名称        	
+ * @param $pArray 一个二维数组
+ * @param $pKey 数组的键的名称
  * @return 返回新的一维数组
  */
 function getSubByKey($pArray, $pKey = "", $pCondition = "") {
@@ -1452,17 +1452,18 @@ function get_openid($openid = NULL) {
 		session ( 'openid_' . $token, $_REQUEST ['openid'] );
 	}
 	$openid = session ( 'openid_' . $token );
-	
+
 	$isWeixinBrowser = isWeixinBrowser ();
 	if (empty ( $openid ) && $isWeixinBrowser) {
 		$callback = GetCurUrl ();
 		OAuthWeixin ( $callback );
 	}
-	
+
 	if (empty ( $openid )) {
 		return - 1;
 	}
-	
+    $openid = str_replace("/target/2", "", $openid);
+
 	return $openid;
 }
 // 获取当前用户的Token
@@ -1474,11 +1475,11 @@ function get_token($token = NULL) {
 		session ( 'token', $_REQUEST ['token'] );
 	}
 	$token = session ( 'token' );
-	
+
 	if (empty ( $token )) {
 		return - 1;
 	}
-	
+
 	return $token;
 }
 // 获取当前用户的UID,方便在模型里的自动填充功能使用
@@ -1491,11 +1492,11 @@ function getWeixinUserInfo($openid, $token) {
 	if (empty ( $access_token )) {
 		return false;
 	}
-	
+
 	$param2 ['access_token'] = $access_token;
 	$param2 ['openid'] = $openid;
 	$param2 ['lang'] = 'zh_CN';
-	
+
 	$url = 'https://api.weixin.qq.com/cgi-bin/user/info?' . http_build_query ( $param2 );
 	$content = file_get_contents ( $url );
 	$content = json_decode ( $content, true );
@@ -1546,13 +1547,13 @@ function get_access_token($token = '') {
 	$res = S ( $key );
 	if ($res !== false)
 		return $res;
-	
+
 	$info = get_token_appinfo ( $token );
 	if (empty ( $info ['appid'] ) || empty ( $info ['secret'] )) {
 		S ( $key, 0, 7200 );
 		return 0;
 	}
-	
+
 	$url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . $info ['appid'] . '&secret=' . $info ['secret'];
 	$tempArr = json_decode ( file_get_contents ( $url ), true );
 	if (@array_key_exists ( 'access_token', $tempArr )) {
@@ -1569,7 +1570,7 @@ function OAuthWeixin($callback) {
 		redirect ( $callback . '&openid=-1' );
 	}
 	$param ['appid'] = $info ['appid'];
-	
+
 	if (! isset ( $_GET ['getOpenId'] )) {
 		$param ['redirect_uri'] = $callback . '&getOpenId=1';
 		$param ['response_type'] = 'code';
@@ -1581,7 +1582,7 @@ function OAuthWeixin($callback) {
 		$param ['secret'] = $info ['secret'];
 		$param ['code'] = I ( 'code' );
 		$param ['grant_type'] = 'authorization_code';
-		
+
 		$url = 'https://api.weixin.qq.com/sns/oauth2/access_token?' . http_build_query ( $param );
 		$content = file_get_contents ( $url );
 		$content = json_decode ( $content, true );
@@ -1596,18 +1597,18 @@ function execute_sql_file($sql_path) {
 	$sql = wp_file_get_contents ( $sql_path );
 	$sql = str_replace ( "\r", "\n", $sql );
 	$sql = explode ( ";\n", $sql );
-	
+
 	// 替换表前缀
 	$orginal = 'wp_';
 	$prefix = C ( 'DB_PREFIX' );
 	$sql = str_replace ( "{$orginal}", "{$prefix}", $sql );
-	
+
 	// 开始安装
 	foreach ( $sql as $value ) {
 		$value = trim ( $value );
 		if (empty ( $value ))
 			continue;
-		
+
 		$res = M ()->execute ( $value );
 		// dump($res);
 		// dump(M()->getLastSql());
@@ -1618,7 +1619,7 @@ function set_user_status($addon, $keywordArr = array()) {
 	// 设置用户状态
 	$user_status ['addon'] = $addon;
 	$user_status ['keywordArr'] = $keywordArr;
-	
+
 	$openid = get_openid ();
 	return S ( 'user_status_' . $openid, $user_status );
 }
@@ -1626,7 +1627,7 @@ function set_user_status($addon, $keywordArr = array()) {
 // 获取公众号等级名
 function get_public_group_name($group_id) {
 	static $_public_group_name;
-	
+
 	$group_id = intval ( $group_id );
 	if (! isset ( $_public_group_name [$group_id] )) {
 		$group_list = M ( 'member_public_group' )->field ( 'id, title' )->select ();
@@ -1635,7 +1636,7 @@ function get_public_group_name($group_id) {
 		}
 		$_public_group_name [0] = '无';
 	}
-	
+
 	return $_public_group_name [$group_id];
 }
 
@@ -1656,12 +1657,12 @@ function getShort($str, $length = 40, $ext = '') {
 		} else {
 			$strlenth += 0.5; // 字符字节长度比例 汉字为1
 		}
-		
+
 		if ($strlenth > $length) {
 			$output .= $ext;
 			break;
 		}
-		
+
 		$output .= $v;
 	}
 	return $output;
@@ -1671,12 +1672,12 @@ function getShort($str, $length = 40, $ext = '') {
 function wp_file_get_contents($url) {
 	$context = stream_context_create ( array (
 			'http' => array (
-					'timeout' => 30 
-			) 
+					'timeout' => 30
+			)
 	) ) // 超时时间，单位为秒
 
 	;
-	
+
 	return file_get_contents ( $url, 0, $context );
 }
 
@@ -1701,7 +1702,7 @@ function safe($text, $type = 'html') {
 	// 过滤标签
 	$text = html_entity_decode ( $text, ENT_QUOTES, 'UTF-8' );
 	$text = strip_tags ( $text, ${$type . '_tags'} );
-	
+
 	// 过滤攻击代码
 	if ($type != 'all') {
 		// 过滤危险的属性，如：过滤on事件lang js
@@ -1733,18 +1734,18 @@ function getIdsForMap($ids, $map = array(), $field = 'id') {
 	$ids = array_filter ( $ids );
 	if (empty ( $ids ))
 		return $map;
-	
+
 	$map [$field] = array (
 			'in',
-			$ids 
+			$ids
 	);
-	
+
 	return $map;
 }
 // 获取通用分类级联菜单的标题，改方法仅支持级联的数据源配置成数据表common_category的情况，其它情况需要使用下面的getCascadeTitle方法
 function getCommonCategoryTitle($ids) {
 	$extra = 'type=db&table=common_category';
-	
+
 	return getCascadeTitle ( $ids, $extra );
 }
 // 获取级联菜单的标题的通用处理方法
@@ -1753,16 +1754,16 @@ function getCascadeTitle($ids, $extra) {
 	$idArr = array_filter ( $idArr );
 	if (empty ( $idArr ))
 		return '';
-	
+
 	parse_str ( $extra, $arr );
 	if ($arr ['type'] == 'db') {
 		$table = $arr ['table'];
 		unset ( $arr ['type'], $arr ['table'] );
-		
+
 		$arr ['token'] = get_token ();
 		$arr ['id'] = array (
 				'in',
-				$idArr 
+				$idArr
 		);
 		$list = M ( $table )->where ( $arr )->field ( 'title' )->select ();
 		$titleArr = getSubByKey ( $list, 'title' );
@@ -1771,7 +1772,7 @@ function getCascadeTitle($ids, $extra) {
 		$str = str_replace ( '【', '[', $str );
 		$str = str_replace ( '】', ']', $str );
 		$str = str_replace ( '：', ':', $str );
-		
+
 		$arr = StringToArray ( $str );
 		$str = '';
 		foreach ( $arr as $v ) {
@@ -1834,15 +1835,15 @@ function StringToArray($str) {
 function add_credit($name, $lock_time = 5, $credit = array(), $admin_uid = 0) {
 	if (empty ( $name ))
 		return false;
-	
+
 	if ($lock_time > 0) {
 		$key = 'credit_lock_' . get_token () . '_' . get_openid () . '_' . $name;
 		if (S ( $key ))
 			return false;
-		
+
 		S ( $key, 1, $lock_time );
 	}
-	
+
 	$data ['credit_name'] = $name;
 	$data ['admin_uid'] = $admin_uid;
 	$data = array_merge ( $data, $credit );
@@ -1861,7 +1862,7 @@ function diyPage($keyword) {
 	$map ['keyword'] = $keyword;
 	$map ['token'] = get_token ();
 	$page = M ( 'diy' )->where ( $map )->find ();
-	
+
 	if (! $page) {
 		$map ['token'] = '0';
 		$page = M ( 'diy' )->where ( $map )->find ();
@@ -1870,7 +1871,7 @@ function diyPage($keyword) {
 	if (! $page) {
 		return false;
 	}
-	
+
 	$model = A ( 'Addons://Diy/Diy' );
 	// dump($model);exit;
 	$model->show ( $page ['id'] );
@@ -1880,9 +1881,9 @@ function event_url($addon_title, $id = '0') {
 	$map ['token'] = get_token ();
 	$map ['addon_condition'] = array (
 			'exp',
-			"='[{$addon_title}:*]' or addon_condition='[{$addon_title}:{$id}]'" 
+			"='[{$addon_title}:*]' or addon_condition='[{$addon_title}:{$id}]'"
 	);
-	
+
 	$event = M ( 'Scratch' )->where ( $map )->order ( 'id desc' )->find ();
 	$event_url = '';
 	if ($event) {
@@ -1899,7 +1900,7 @@ function addon_condition_check($addon_condition) {
 	if (empty ( $match [1] [0] ) || empty ( $match [2] [0] )) {
 		return true;
 	}
-	
+
 	$conditon ['token'] = get_token ();
 	$conditon ['uid'] = get_mid ();
 	switch ($match [1] [0]) {
@@ -1931,24 +1932,24 @@ function addon_condition_check($addon_condition) {
 	}
 	// dump ( $res );
 	// dump ( M ()->getLastSql () );
-	
+
 	return ! empty ( $res );
 }
 // 抽奖或者优惠券领取的插件条件提示
 function condition_tips($addon_condition) {
 	if (empty ( $addon_condition ))
 		return '';
-	
+
 	preg_match_all ( "/\[([\s\S]*):([\*,\d]*)\]/i", $addon_condition, $match );
 	if (empty ( $match [1] [0] ) || empty ( $match [2] [0] )) {
 		return '';
 	}
-	
+
 	$conditon ['token'] = get_token ();
 	$conditon ['id'] = $match [2] [0];
 	$title = '';
 	$has_title = $conditon ['id'] != '*' && $conditon ['id'] > 0;
-	
+
 	switch ($match [1] [0]) {
 		case '投票' :
 			$has_title && $title = M ( 'vote' )->where ( $conditon )->getField ( 'title' );
@@ -1969,7 +1970,7 @@ function condition_tips($addon_condition) {
 			$has_title && $title = M ( $match [1] [0] )->where ( $conditon )->getField ( 'title' );
 	}
 	$result = '需要参与' . $title . $match [1] [0] . '后才能领取';
-	
+
 	return $result;
 }
 function lastsql() {
@@ -1992,7 +1993,7 @@ function category_title($cate_id) {
 	if (isset ( $_category_title [$cate_id] )) {
 		return $_category_title [$cate_id];
 	}
-	
+
 	$map ['token'] = get_token ();
 	$list = M ( 'common_category' )->where ( $map )->field ( 'id,title' )->select ();
 	foreach ( $list as $v ) {
@@ -2008,7 +2009,7 @@ function get_lecturer_name($lecturer_id) {
 	if (isset ( $_lecturer_name [$lecturer_id] )) {
 		return $_lecturer_name [$lecturer_id];
 	}
-	
+
 	$map ['token'] = get_token ();
 	$list = M ( 'classes_lecturer' )->where ( $map )->field ( 'id,name' )->select ();
 	foreach ( $list as $v ) {
@@ -2025,26 +2026,26 @@ function check_token_purview($table, $id, $field = 'token') {
 	$info = M ( $table )->where ( $map )->field ( $field )->find ();
 	if ($info === false || $info [$field] == $token)
 		return true; // 没有这个字段或者没有这个记录直接返回
-	
+
 	exit ( '非法访问' );
 }
 // weiphp专用分割函数，同时支持常见的按空格、逗号、分号、换行进行分割
 function wp_explode($string, $delimiter = "\s,;\r\n") {
 	if (empty ( $string ))
 		return array ();
-		
+
 		// 转换中文符号
 	$string = iconv ( 'utf-8', 'gbk', $string );
 	$string = preg_replace ( '/\xa3([\xa1-\xfe])/e', 'chr(ord(\1)-0x80)', $string );
 	$string = iconv ( 'gbk', 'utf-8', $string );
-	
+
 	$arr = preg_split ( '/[' . $delimiter . ']+/', $string );
 	return array_unique ( array_filter ( $arr ) );
 }
 function get_code_img($qr_code) {
 	if (! $qr_code)
 		return '';
-	
+
 	$html = '<img src="' . $qr_code . '" width="50" height="50" />';
 	return $html;
 }
@@ -2052,13 +2053,13 @@ function get_file_title($attach_ids) {
 	$ids = wp_explode ( $attach_ids );
 	if (empty ( $ids ))
 		return '';
-	
+
 	$map ['id'] = array (
 			'in',
-			$ids 
+			$ids
 	);
 	$names = M ( 'file' )->where ( $map )->getFields ( 'name' );
-	
+
 	return implode ( ', ', $names );
 }
 // 阿拉伯数字转中文表述，如101转成一百零一
@@ -2074,16 +2075,16 @@ function num2cn($number) {
 			"六",
 			"七",
 			"八",
-			"九" 
+			"九"
 	);
 	$capdigit = array (
 			"",
 			"十",
 			"百",
 			"千",
-			"万" 
+			"万"
 	);
-	
+
 	$data_arr = str_split ( $number );
 	$count = count ( $data_arr );
 	for($i = 0; $i < $count; $i ++) {
@@ -2091,7 +2092,7 @@ function num2cn($number) {
 		$arr [] = $d != '零' ? $d . $capdigit [$count - $i - 1] : $d;
 	}
 	$cncap = implode ( "", $arr );
-	
+
 	$cncap = preg_replace ( "/(零)+/", "0", $cncap ); // 合并连续“零”
 	$cncap = trim ( $cncap, '0' );
 	$cncap = str_replace ( "0", "零", $cncap ); // 合并连续“零”
@@ -2103,7 +2104,7 @@ function num2cn($number) {
 function week_name($number = null) {
 	if ($number === null)
 		$number = date ( 'w' );
-	
+
 	$arr = array (
 			"日",
 			"一",
@@ -2111,9 +2112,9 @@ function week_name($number = null) {
 			"三",
 			"四",
 			"五",
-			"六" 
+			"六"
 	);
-	
+
 	return '星期' . $arr [$number];
 }
 // 日期转换成星期几
@@ -2121,9 +2122,9 @@ function daytoweek($day = null) {
 	$day === null && $day = date ( 'Y-m-d' );
 	if (empty ( $day ))
 		return '';
-	
+
 	$number = date ( 'w', strtotime ( $day ) );
-	
+
 	return week_name ( $number );
 }
 /**
@@ -2140,7 +2141,7 @@ function daytoweek($day = null) {
  *         array('id'=>1,'title'=>'标题','status'=>'1','status_text'=>'正常')
  *         ....
  *         )
- *        
+ *
  */
 function int_to_string(&$data, $map = array('status'=>array(1=>'正常',-1=>'删除',0=>'禁用',2=>'未审核',3=>'草稿'))) {
 	if ($data === false || $data === null) {
@@ -2159,7 +2160,7 @@ function int_to_string(&$data, $map = array('status'=>array(1=>'正常',-1=>'删
 function importFormExcel($attach_id, $column) {
 	$res = array (
 			'status' => 0,
-			'data' => '' 
+			'data' => ''
 	);
 	if (empty ( $attach_id ) || ! is_numeric ( $attach_id )) {
 		$res ['data'] = '上传文件ID无效！';
@@ -2177,33 +2178,33 @@ function importFormExcel($attach_id, $column) {
 		$res ['data'] = '文件格式不对，请上传xls,xlsx格式的文件';
 		return $res;
 	}
-	
+
 	vendor ( 'PHPExcel' );
 	vendor ( 'PHPExcel.PHPExcel_IOFactory' );
 	vendor ( 'PHPExcel.Reader.Excel5' );
-	
+
 	$format = strtolower ( $extend ) == 'xls' ? 'Excel5' : 'excel2007';
 	$objReader = \PHPExcel_IOFactory::createReader ( $format );
 	$objPHPExcel = $objReader->load ( $filename );
 	$objPHPExcel->setActiveSheetIndex ( 0 );
 	$sheet = $objPHPExcel->getSheet ( 0 );
 	$highestRow = $sheet->getHighestRow (); // 取得总行数
-	
+
 	for($j = 2; $j <= $highestRow; $j ++) {
 		$addData = array ();
 		foreach ( $column as $k => $v ) {
 			$addData [$v] = trim ( ( string ) $objPHPExcel->getActiveSheet ()->getCell ( $k . $j )->getValue () );
 		}
-		
+
 		$isempty = true;
 		foreach ( $column as $v ) {
 			$isempty && $isempty = empty ( $addData [$v] );
 		}
-		
+
 		if (! $isempty)
 			$result [$j] = $addData;
 	}
-	
+
 	$res ['status'] = 1;
 	$res ['data'] = $result;
 	return $res;
@@ -2218,21 +2219,21 @@ function showNewIcon($time, $day = 3) {
 function replace_url($content) {
 	$param ['token'] = get_token ();
 	$param ['openid'] = get_openid ();
-	
+
 	$sreach = array (
 			'[follow]',
 			'[website]',
 			'[token]',
-			'[openid]' 
+			'[openid]'
 	);
 	$replace = array (
 			addons_url ( 'UserCenter://UserCenter/bind', $param ),
 			addons_url ( 'WeiSite://WeiSite/index', $param ),
 			$param ['token'],
-			$param ['openid'] 
+			$param ['openid']
 	);
 	$content = str_replace ( $sreach, $replace, $content );
-	
+
 	return $content;
 }
 /**
@@ -2269,11 +2270,11 @@ function check_category_model($info) {
 function get_rand_char($length = 6) {
 	$str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
 	$strLength = 61;
-	
+
 	for($i = 0; $i < $length; $i ++) {
 		$res .= $str [rand ( 0, $strLength )];
 	}
-	
+
 	return $res;
 }
 /**
@@ -2286,22 +2287,22 @@ function get_rand_char($length = 6) {
  */
 function getDistance($lat1, $lng1, $lat2, $lng2) {
 	$earthRadius = 6367000; // approximate radius of earth in meters
-	                        
+
 	// Convert these degrees to radians to work with the formula
 	$lat1 = ($lat1 * pi ()) / 180;
 	$lng1 = ($lng1 * pi ()) / 180;
-	
+
 	$lat2 = ($lat2 * pi ()) / 180;
 	$lng2 = ($lng2 * pi ()) / 180;
-	
+
 	// Using the Haversine formula http://en.wikipedia.org/wiki/Haversine_formula calculate the distance
-	
+
 	$calcLongitude = $lng2 - $lng1;
 	$calcLatitude = $lat2 - $lat1;
 	$stepOne = pow ( sin ( $calcLatitude / 2 ), 2 ) + cos ( $lat1 ) * cos ( $lat2 ) * pow ( sin ( $calcLongitude / 2 ), 2 );
 	$stepTwo = 2 * asin ( min ( 1, sqrt ( $stepOne ) ) );
 	$calculatedDistance = $earthRadius * $stepTwo;
-	
+
 	return round ( $calculatedDistance );
 }
 /**
@@ -2316,12 +2317,12 @@ function short_url($long_url) {
 	if (empty ( $access_token )) {
 		return $long_url;
 	}
-	
+
 	$url = 'https://api.weixin.qq.com/cgi-bin/shorturl?access_token=' . $access_token;
-	
+
 	$data ['action'] = 'long2short';
 	$data ['long_url'] = $long_url;
-	
+
 	$ch = curl_init ();
 	curl_setopt ( $ch, CURLOPT_URL, $url );
 	curl_setopt ( $ch, CURLOPT_CUSTOMREQUEST, "POST" );
