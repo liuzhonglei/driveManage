@@ -32,6 +32,15 @@ class EO2OPaymentController extends EO2OBaseController
 
         // 查找划款数据
         $list = M('eo2o_payment')->where(array('id' => array('IN', $_REQUEST['id'])))->select();
+
+        // 查询划款人
+
+        // 查询账户
+        $user = session('user_auth');
+
+        $_POST["user_id"] = $user["uid"];
+
+        // 创建打印信息
         $totalFee = 0;
         foreach ($list as $item) {
             $payItem = M('school_payitem')->where(array('id' => $item['payitem_id']))->find();
@@ -41,7 +50,9 @@ class EO2OPaymentController extends EO2OBaseController
 
         // 合并项目
         $text .= " -------------------------------<br/>" .
-            " 消费" . count($list) . "项,合计:" . $totalFee . "元<br/>" .
+            "收银员:".date('Y-m-d H:i:s',time())."<br/>".
+            "打印时间:".date('Y-m-d H:i:s',time())."<br/>".
+            "消费" . count($list) . "项,合计:" . $totalFee . "元<br/>" .
             " ===============================<br/>";
 
         // 返回
