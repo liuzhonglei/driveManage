@@ -13,6 +13,8 @@
     <script src="{:MOBILE_PUBLIC_PATH}/js/jquery-1.11.1.min.js"></script>
     <script src="{:MOBILE_PUBLIC_PATH}/js/jquery.mobile-1.4.4.min.js"></script>
     <script src="{:MOBILE_PUBLIC_PATH}/js/car.js"></script>
+    <script src="{:MOBILE_PUBLIC_PATH}/js/weixin.js"></script>
+
     <script>
         $(function () {
             /*报名表单*/
@@ -47,7 +49,7 @@
                         document.getElementById("c_warn_label").innerHTML = data.message;
                     } else {
                         document.getElementById("c_warn").style.display = "display:none";
-                        location.reload(true);
+                        window.location.href = updateUrl(window.location.href);
                     }
                 },
                 failed: function () {
