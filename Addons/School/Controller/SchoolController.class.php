@@ -245,7 +245,7 @@ class SchoolController extends SchoolBaseController
 
             $name = $_REQUEST['name'];
             $card_id = $_REQUEST['card_id'];
-            $map = array('name' => $name, 'card_id' => $card_id);
+            $map = array('token' => get_token(), 'name' => $name, 'card_id' => $card_id);
             $myinfo = M('student')->where($map)->find();
             if (!empty($myinfo)) {
                 $myinfo['openid'] = get_openid();
