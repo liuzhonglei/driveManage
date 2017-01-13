@@ -61,7 +61,7 @@ class StudentController extends StudentBaseController
      * show the liests
      * @param null $id_teacher
      */
-    public function  lists($id_teacher = null)
+    public function lists($id_teacher = null)
     {
         // tips
         $normal_tips = '一般情况下请不要删除数据，会影响对应的与评价等相关数据。';
@@ -260,7 +260,7 @@ class StudentController extends StudentBaseController
     /**
      * 数组转换成 字符串条件
      */
-    private function  convertMap($map)
+    private function convertMap($map)
     {
         $mapSql = "";
         if (is_array($map)) {
@@ -1051,7 +1051,7 @@ str;
     /**
      * 取得驾校的所有学员
      */
-    public function  getStudents()
+    public function getStudents()
     {
         $list = M('student')->query('select id, name text from wp_student t where t.token="' . get_token() . '"');
         $this->ajaxReturn($list);
@@ -1060,7 +1060,7 @@ str;
     /**
      * 增加学员的划款流水
      */
-    function  moneyLogAdd()
+    function moneyLogAdd()
     {
         $where = 'id  = ' . $_REQUEST['student_id'] . '';
         $student = M("student")->where($where)->find();
@@ -1402,11 +1402,11 @@ str;
             return false;
         }
 
-        $payModel = M('eo2o_payment');
+//        $payModel = M('eo2o_payment');
         if ($operation == "支付推荐费") {
-            $map = "token ='" . get_token() . "' and result_code = \"SUCCESS\" and (LENGTH(trim(transaction_id)) > 0 or pay_channel IN (\"human\", \"alipay\")) and (student_id = " . $data['id'] . " or (openid != '' and openid = '" . $data['openid'] . "')) ";
-            $feeLog = $payModel->where($map)->find();
-            if (empty($feeLog) || $data["is_in_payed"] == "1" || (empty($data["in_student_openid"]) && empty($data["id_in_teacher"]))) {
+//            $map = "token ='" . get_token() . "' and result_code = \"SUCCESS\" and (LENGTH(trim(transaction_id)) > 0 or pay_channel IN (\"human\", \"alipay\")) and (student_id = " . $data['id'] . " or (openid != '' and openid = '" . $data['openid'] . "')) ";
+//            $feeLog = $payModel->where($map)->find();
+            if ($data["is_in_payed"] == "1" || (empty($data["in_student_openid"]) && empty($data["id_in_teacher"]))) {
                 return false;
             }
         }
@@ -1665,16 +1665,14 @@ str;
 
             //通知
             $result = $this->notification();
-        }
-        // 挂靠学院
+        } // 挂靠学院
         else if ($customActionName == "link") {
             foreach ($_POST['id'] as $id) {
                 $student = $StudentModel->where(array("id" => $id))->find();
                 $student["belong"] = "OUT";
                 $StudentModel->save($student);
             }
-        }
-        // 推送到对应的驾校
+        } // 推送到对应的驾校
         else if ($customActionName == "push") {
             foreach ($_POST['id'] as $id) {
                 $student = $StudentModel->where(array("id" => $id))->find();
